@@ -11,7 +11,7 @@ doe=init_doe(3);
 %
 doe.Xmin=[-1 -2 -3];
 doe.Xmax=[3 2 1];
-doe.type='IHS_R';
+doe.type='IHS_R'; %ou LHS_R
 doe.nb_samples=5;
 dor.tri.on=false; %tri desactive (!!)
 doe.aff=true;
