@@ -339,38 +339,6 @@ switch doe.type
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case 'IHS_R_enrich'
-            t_init=ihs_R(Xmin_def,Xmax_def,doe.nb_samples); % on initialise le tirage
-            [tirages,~]=ihs_R(Xmin_def,Xmax_def,doe.nb_samples,t_init,doe.nbs_max);
-            save(fich,'tirages');
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case 'LHS_R_enrich'
-            t_init=lhsu_R(Xmin_def,Xmax_def,doe.nb_samples); % on initialise le tirage
-            [tirages,~]=lhsu_R(Xmin_def,Xmax_def,doe.nb_samples,t_init,doe.nbs_max);
-            save(fich,'tirages');
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case 'IHS_R_manu_enrich'
-        %recuperation tirage si dispo
-        [tirages,fich]=test_tir('ihsre',nbv,nbs);
-        if isempty(tirages)
-            t_init=ihs_R(Xmin_def,Xmax_def,doe.nb_samples); % on initialise le tirage
-            [tirages,~]=ihs_R(Xmin_def,Xmax_def,doe.nb_samples,t_init,doe.nbs_max);
-            save(fich,'tirages');
-        end
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    case 'LHS_R_manu_enrich'
-        %recuperation tirage si dispo
-        [tirages,fich]=test_tir('lhsre',nbv,nbs);
-        if isempty(tirages)
-            t_init=lhsu_R(Xmin_def,Xmax_def,doe.nb_samples); % on initialise le tirage
-            [tirages,~]=lhsu_R(Xmin_def,Xmax_def,doe.nb_samples,t_init,doe.nbs_max);
-            save(fich,'tirages');
-        end
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % tirages aleatoires
     case 'rand'
         tirages=rand(prod(nbs(:)),nbv);

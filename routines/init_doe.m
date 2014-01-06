@@ -174,7 +174,7 @@ else
     end
 end
 fprintf('++ Espace etude: ');
-if ~isempty(doe.Xmin)
+if isempty(doe.Xmin)
     fprintf('NON SPECIFIE\n')
 else
     fprintf('   Min  |');
