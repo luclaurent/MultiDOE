@@ -20,7 +20,9 @@
 %   + Nombreuses méthodes de tri accessibles par doe.tri (voir 'exec_tri.m'
 %   et 'init_doe.m')
 
-function tirages=gene_doe(doe)
+%argument de sortie 'info_tirages' optionnel
+
+function [tirages,info_tirages]=gene_doe(doe)
 
 
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
@@ -358,6 +360,15 @@ if tir_ok
     if ~tir_perso
         % on corrige le tirage pour obtenir le bon espace
         tirages=tirages.*repmat(Xmax(:)'-Xmin(:)',prod(nbs(:)),1)+repmat(Xmin(:)',prod(nbs(:)),1);
+    end
+    
+    %si 2 arguments de sortie, on stocke des informations supplementaires
+    if nargout==2
+        if doe.tri.on
+            info_tirages.tirages_non_trie=tirages;
+        end
+        %calcul des scores du tirage
+        [info_tirages.uniform,info_tirages.discrepance]=score_doe(tirages);
     end
     %on trie le tirage
     tirages=exec_tri(tirages,doe);

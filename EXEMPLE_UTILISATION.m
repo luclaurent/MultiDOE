@@ -15,4 +15,4 @@ doe.nb_samples=30;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %generation du tirage
-tirage=gene_doe(doe);
+[tirage,infos]=gene_doe(doe);
