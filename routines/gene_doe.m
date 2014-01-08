@@ -84,7 +84,8 @@ if ~isfield(doe.tri,'lnorm');doe.tri.lnorm=2;end
 
 %% affichage infos
 fprintf(' >> type de tirages: %s\n',doe.type);
-fprintf(' >> Nombre de points: %i\n',nbs);
+fprintf(' >> Nombre de points: ')
+fprintf('%i ',nbs);fprintf('\n');
 fprintf(' >> Nombre de variables: %i\n',nbv);
 
 tir_ok=true;
@@ -95,10 +96,10 @@ switch doe.type
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % plan factoriel complet
     case 'ffact'
-        tirages=factorial_design(nbs,Xmin_def,Xmax_def);
         if numel(nbs)==1
             nbs=nbs^nbv;
         end
+        tirages=factorial_design(nbs,Xmin_def,Xmax_def);
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Latin Hypercube Sampling avec R (et preenrichissement)
