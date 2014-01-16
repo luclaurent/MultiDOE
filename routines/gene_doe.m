@@ -20,9 +20,9 @@
 %   + Nombreuses méthodes de tri accessibles par doe.tri (voir 'exec_tri.m'
 %   et 'init_doe.m')
 
-%argument de sortie 'info_tirages' optionnel
+%argument de sortie 'info_tirages' optionnel, 'out' contient le tirage et (le cas echeant) le tirage avant le tri 
 
-function [tirages,info_tirages]=gene_doe(doe)
+function [out,info_tirages]=gene_doe(doe)
 
 
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
@@ -372,13 +372,17 @@ if tir_ok
         [info_tirages.uniform,info_tirages.discrepance]=score_doe(tirages);
     end
     %on trie le tirage
-    tirages=exec_tri(tirages,doe);
+    tirages_tri=exec_tri(tirages,doe);
     
     %affichage tirages
-    aff_doe(tirages,doe)
+    aff_doe(tirages_tri,doe)
 else
-    tirages=[];
+    tirages_tri=[];
 end
+
+%sortie
+out.tri=tirages_tri;
+out.non_tri=tirages;
 
 mesu_time(tMesu,tInit);
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
