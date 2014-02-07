@@ -1,10 +1,12 @@
 %% Script d'ajout des chemins de la Toolbox LMTir
 %% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr
 
-function init_rep_LMTir(chemin)
+function doss=init_rep_LMTir(chemin)
 
 %dossier de la Toolbox LMTir
-doss={'routines','tirages','tirages/IHS','tirages/LHS'};
+doss={'routines','routines/divers',...
+    'routines/libs','routines/libs/m2html',...
+    'tirages','tirages/IHS','tirages/LHS'};
 
 %si pas de chemin spécifié
 if nargin==0
