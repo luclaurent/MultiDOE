@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ihs_write</title>
+  <meta name="keywords" content="ihs_write">
+  <meta name="description" content="*****************************************************************************80">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html IHS -->
+<h1>ihs_write
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>*****************************************************************************80</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function ihs_write ( m, n, d, seed_init, seed, r, file_out_name ) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">*****************************************************************************80
+
+% IHS_WRITE writes an IHS dataset to a file.
+
+  Discussion:
+
+    The initial lines of the file are comments, which begin with a
+    '#' character.
+
+    Thereafter, each line of the file contains the M-dimensional
+    components of the next entry in the dataset.
+
+    Note that the actual values of the data are integers between 1
+    and N.  For our convenience, these are rescaled by the
+    mapping
+
+      I -&gt; ( 2 * I - 1 )/ ( 2 * N ).
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    05 May 2005
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, integer M, the spatial dimension.
+
+    Input, integer N, the number of elements in the subsequence.
+
+    Input, integer D, the duplication factor.
+
+    Input, integer SEED_INIT, the initial seed for the random number generator.
+
+    Input, integer SEED, the current seed for the random number generator.
+
+    Input, real R(M,N), the points.
+
+    Input, string FILE_OUT_NAME, the name of the output file.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="r8_epsilon.html" class="code" title="function value = r8_epsilon ( dummy )">r8_epsilon</a>	*****************************************************************************80</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ihs_write ( m, n, d, seed_init, seed, r, file_out_name )</a>
+0002 
+0003 <span class="comment">%*****************************************************************************80</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%% IHS_WRITE writes an IHS dataset to a file.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  Discussion:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    The initial lines of the file are comments, which begin with a</span>
+0010 <span class="comment">%    '#' character.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%    Thereafter, each line of the file contains the M-dimensional</span>
+0013 <span class="comment">%    components of the next entry in the dataset.</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%    Note that the actual values of the data are integers between 1</span>
+0016 <span class="comment">%    and N.  For our convenience, these are rescaled by the</span>
+0017 <span class="comment">%    mapping</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%      I -&gt; ( 2 * I - 1 )/ ( 2 * N ).</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%  Licensing:</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%    This code is distributed under the GNU LGPL license.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%  Modified:</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%    05 May 2005</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">%  Author:</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%    John Burkardt</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">%  Parameters:</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%    Input, integer M, the spatial dimension.</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">%    Input, integer N, the number of elements in the subsequence.</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">%    Input, integer D, the duplication factor.</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%    Input, integer SEED_INIT, the initial seed for the random number generator.</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">%    Input, integer SEED, the current seed for the random number generator.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">%    Input, real R(M,N), the points.</span>
+0046 <span class="comment">%</span>
+0047 <span class="comment">%    Input, string FILE_OUT_NAME, the name of the output file.</span>
+0048 <span class="comment">%</span>
+0049   file_out_unit = fopen ( file_out_name, <span class="string">'w'</span> );
+0050 
+0051   <span class="keyword">if</span> ( file_out_unit &lt; 0 )
+0052     fprintf ( 1, <span class="string">'\n'</span> );
+0053     fprintf ( 1, <span class="string">'IHS_WRITE - Fatal error!\n'</span> );
+0054     fprintf ( 1, <span class="string">'  Could not open the output file:\n'</span> );
+0055     fprintf ( 1, <span class="string">'  &quot;%s&quot;.\n'</span>, file_out_name );
+0056     error ( <span class="string">'IHS_WRITE - Fatal error!'</span> );
+0057   <span class="keyword">end</span>
+0058 
+0059   fprintf ( file_out_unit, <span class="string">'#  %s\n'</span>, file_out_name );
+0060   fprintf ( file_out_unit, <span class="string">'#  created by IHS_WRITE.M\n'</span> );
+0061   fprintf ( file_out_unit, <span class="string">'#\n'</span> );
+0062   fprintf ( file_out_unit, <span class="string">'#  Spatial dimension M =     %d\n'</span>, m );
+0063   fprintf ( file_out_unit, <span class="string">'#  Number of points N =      %d\n'</span>, n );
+0064   fprintf ( file_out_unit, <span class="string">'#  EPSILON (unit roundoff ) = %e\n'</span>, <span class="keyword">...</span>
+0065     <a href="r8_epsilon.html" class="code" title="function value = r8_epsilon ( dummy )">r8_epsilon</a> ( <span class="string">'DUMMY'</span> ) );
+0066   fprintf ( file_out_unit, <span class="string">'#  Duplication factor D =    %d\n'</span>, d );
+0067   fprintf ( file_out_unit, <span class="string">'#  Initial SEED_INIT =       %d\n'</span>, seed_init );
+0068   fprintf ( file_out_unit, <span class="string">'#  Current SEED      =       %d\n'</span>, seed );
+0069   fprintf ( file_out_unit, <span class="string">'#\n'</span> );
+0070 
+0071   <span class="keyword">for</span> j = 1 : n
+0072     <span class="keyword">for</span> i = 1 : m
+0073       fprintf ( file_out_unit, <span class="string">'  %10f'</span>, ( 2 * r(i,j) - 1 ) / ( 2 * n ) );
+0074     <span class="keyword">end</span>
+0075     fprintf ( file_out_unit, <span class="string">'\n'</span> );
+0076   <span class="keyword">end</span>
+0077 
+0078   fclose ( file_out_unit );
+0079 
+0080   <span class="keyword">return</span>
+0081 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

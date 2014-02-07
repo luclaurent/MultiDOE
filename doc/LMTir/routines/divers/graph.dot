@@ -1,0 +1,12 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  gene_doc -> list_files_LMTir;
+
+  aff_LHS_R [URL="aff_LHS_R.html"];
+  gene_doc [URL="gene_doc.html"];
+  list_files_LMTir [URL="list_files_LMTir.html"];
+  test_doe [URL="test_doe.html"];
+  test_lhsu_R [URL="test_lhsu_R.html"];
+  test_multi_doe [URL="test_multi_doe.html"];
+  test_score [URL="test_score.html"];
+}

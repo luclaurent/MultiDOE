@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ranking</title>
+  <meta name="keywords" content="ranking">
+  <meta name="description" content="[r,i]=ranking(x)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html LHS -->
+<h1>ranking
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>[r,i]=ranking(x)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [r,i]=ranking(x) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> [r,i]=ranking(x)   
+ Ranking of a vector  
+ input:
+   x   : vector (nrow,1)  
+ output:
+ r : rank of the vector  (nrow,1)                                                
+ i : index vector from the sort routine  (nrow,1)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="lhs_iman.html" class="code" title="function z=lhs_iman(xmean,xsd,corr,nsample,ntry)">lhs_iman</a>	z=lhs_iman(xmean,xsd,corr,nsample,nloop)</li><li><a href="lhs_iman_n.html" class="code" title="function z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)">lhs_iman_n</a>	z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)</li><li><a href="rank_corr.html" class="code" title="function rc=rank_corr(corr,nsample)">rank_corr</a>	rc=rank_corr(corr,nsample)</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [r,i]=ranking(x)   </a>
+0002 <span class="comment">% [r,i]=ranking(x)</span>
+0003 <span class="comment">% Ranking of a vector</span>
+0004 <span class="comment">% input:</span>
+0005 <span class="comment">%   x   : vector (nrow,1)</span>
+0006 <span class="comment">% output:</span>
+0007 <span class="comment">% r : rank of the vector  (nrow,1)</span>
+0008 <span class="comment">% i : index vector from the sort routine  (nrow,1)</span>
+0009 <span class="comment">%</span>
+0010 n=length(x);                                                                         
+0011 [s,i]=sort(x);                                                             
+0012 r(i,1)=[1:n]';</pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

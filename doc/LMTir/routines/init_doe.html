@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of init_doe</title>
+  <meta name="keywords" content="init_doe">
+  <meta name="description" content="% Initialisation bornes de l'espace d'etude">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html LMTir --><!-- menu.html routines -->
+<h1>init_doe
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>% Initialisation bornes de l'espace d'etude</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [doe]=init_doe(dim,def,fct) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Initialisation bornes de l'espace d'etude
+% L. LAURENT -- 05/01/2011 -- laurent@lmt.ens-cachan.fr</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="init_doe_fct.html" class="code" title="function [esp,dim]=init_doe_fct(dim,fct)">init_doe_fct</a>	% Initialisation bornes de l'espace d'etude pour des fonctions analytiques définies</li><li><a href="mesu_time.html" class="code" title="function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)">mesu_time</a>	% Fonction assurant l'initialisation et l'affichage des infos temporelles dans les fonctions</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../LMTir/EXEMPLE_ENRICHISSEMENT.html" class="code" title="">EXEMPLE_ENRICHISSEMENT</a>	Exemple d'enrichissement tirage LHS_R</li><li><a href="../../LMTir/EXEMPLE_UTILISATION.html" class="code" title="">EXEMPLE_UTILISATION</a>	Exemple d'utilisation de la Toolbox LMTir</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Initialisation bornes de l'espace d'etude</span>
+0002 <span class="comment">%% L. LAURENT -- 05/01/2011 -- laurent@lmt.ens-cachan.fr</span>
+0003 
+0004 <span class="comment">%syntaxes possibles</span>
+0005 <span class="comment">%init_doe</span>
+0006 <span class="comment">%init_doe(dim)</span>
+0007 <span class="comment">%init_doe(dim,esp)</span>
+0008 <span class="comment">%init_doe(dim,esp,fct)</span>
+0009 <span class="comment">% -dim : nombre de variables du probleme</span>
+0010 <span class="comment">% -esp : matrice de définition des bornes des variables</span>
+0011 <span class="comment">%       -nb de lignes=dim</span>
+0012 <span class="comment">%       -nb de colonnes=2 (bornes sup et inf)</span>
+0013 <span class="comment">% -fct : nom d'une fonction test (voir le contenu de la routine init_doe)</span>
+0014 <span class="comment">% si fonction test disponible dans le PATH</span>
+0015 <span class="comment">% la routine assure la creation de la structure &quot;doe&quot; contenant les</span>
+0016 <span class="comment">% differentes options de tirages</span>
+0017 
+0018 <span class="comment">% Sorties (modifiables)</span>
+0019 <span class="comment">% doe.dim_pb: nb variables</span>
+0020 <span class="comment">% doe.fct: nom fonction si specifiée (Peaks, Rosenbrock...)</span>
+0021 <span class="comment">% doe.infos: infos disponibles sur la fonctions (minima...)</span>
+0022 <span class="comment">% doe.tri.on: tri actif</span>
+0023 <span class="comment">% doe.tri.type:</span>
+0024 <span class="comment">%       - 'v' ou 'variable': tri par rapport à la variable dont le numero</span>
+0025 <span class="comment">%       est specifiee par la variable doe.tri.para</span>
+0026 <span class="comment">%       - 'nptp' ou 'normal_pt_to_pt'</span>
+0027 <span class="comment">%       - 'p' ou 'point':</span>
+0028 <span class="comment">%       - 'c' ou 'center'</span>
+0029 <span class="comment">%       - 'sac' ou 'sampling_center' (par défaut)</span>
+0030 <span class="comment">%       - 'sc' ou 'start_center'</span>
+0031 <span class="comment">%       - 'sasc' ou 'sampling_start_center'</span>
+0032 <span class="comment">% doe.tri.para: parametre methode de tri</span>
+0033 <span class="comment">% doe.tri.ptref: point de reference pour le tri</span>
+0034 <span class="comment">% voir le contenu du fichier exec_tri.m pour la signification de ces</span>
+0035 <span class="comment">% options</span>
+0036 <span class="comment">% doe.aff: affichage du tirage ou non (oui par défaut) apres son obtention</span>
+0037 <span class="comment">% doe.Xmin: liste des bornes inferieures des variables</span>
+0038 <span class="comment">% doe.Xmax: liste des bornes superieures des variables</span>
+0039 <span class="comment">% doe.type: type de tirage</span>
+0040 
+0041 <a name="_sub0" href="#_subfunctions" class="code">function [doe]=init_doe(dim,def,fct)</a>
+0042 
+0043 
+0044 fprintf(<span class="string">'=========================================\n'</span>)
+0045 fprintf(<span class="string">'      &gt;&gt;&gt; INITIALISATION DOE &lt;&lt;&lt;\n'</span>);
+0046 [tMesu,tInit]=<a href="mesu_time.html" class="code" title="function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)">mesu_time</a>;
+0047 
+0048 <span class="comment">%en fonction des differents types de paramètres</span>
+0049 <span class="keyword">if</span> nargin==0
+0050     fct=[];
+0051     dim=[];
+0052     def=[];
+0053 <span class="keyword">elseif</span> nargin==1
+0054     def=[];
+0055     fct=[];
+0056 <span class="keyword">elseif</span> nargin==2
+0057     fct=[];
+0058 <span class="keyword">end</span>
+0059 
+0060 
+0061 esp=[];
+0062 <span class="comment">%definition automatique</span>
+0063 <span class="keyword">if</span> ~isempty(fct)
+0064     [esp,dim]=<a href="init_doe_fct.html" class="code" title="function [esp,dim]=init_doe_fct(dim,fct)">init_doe_fct</a>(dim,fct);
+0065 <span class="keyword">end</span>
+0066 
+0067 <span class="comment">%nombre de variables du probleme</span>
+0068 doe.dim_pb=dim;
+0069 <span class="comment">%nombre de tirages</span>
+0070 doe.nb_samples=[];
+0071 
+0072 doe.fct=[];
+0073 doe.infos=[];
+0074 <span class="keyword">if</span> ~isempty(fct)
+0075     <span class="comment">%sauvegarde nom fonction</span>
+0076     doe.fct=[<span class="string">'fct_'</span> fct];
+0077     
+0078     <span class="comment">%si la fonction existe (dans un fichier .m)</span>
+0079     <span class="keyword">if</span> exist(doe.fct,<span class="string">'file'</span>)==2
+0080         <span class="comment">%recuperation informations fonction (minima locaux et globaux)</span>
+0081         [~,~,doe.infos]=feval(doe.fct,[],dim);
+0082     <span class="keyword">end</span>
+0083 <span class="keyword">end</span>
+0084 
+0085 <span class="comment">%tri du tirage</span>
+0086 <span class="comment">%critere v/nptp/p/c/sac/sc/sasc (cf. gene_doe)</span>
+0087 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
+0088 doe.tri.on=true;
+0089 doe.tri.type=<span class="string">'sac'</span>;
+0090 doe.tri.para=1;
+0091 doe.tri.ptref=[];
+0092 
+0093 <span class="comment">%affichage tirages</span>
+0094 doe.aff=true;
+0095 
+0096 
+0097 <span class="comment">%definition manuelle</span>
+0098 <span class="keyword">if</span> ~isempty(def)
+0099     doe.Xmin=def(:,1);
+0100     doe.Xmax=def(:,2);
+0101 <span class="keyword">end</span>
+0102 <span class="keyword">if</span> ~isempty(esp)
+0103     doe.Xmin=esp(:,1);
+0104     doe.Xmax=esp(:,2);
+0105 <span class="keyword">end</span>
+0106 <span class="comment">%sinon vide</span>
+0107 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
+0108     doe.Xmin=[];
+0109     doe.Xmax=[];
+0110 <span class="keyword">end</span>
+0111 
+0112 <span class="comment">%type de tirage</span>
+0113 doe.type=<span class="string">'LHS'</span>;
+0114 
+0115 
+0116 <span class="comment">%affichage informations</span>
+0117 <span class="keyword">if</span> ~isempty(fct)
+0118     fprintf(<span class="string">'++ Fonction prise en compte: %s (%iD)\n'</span>,fct,dim);
+0119 <span class="keyword">else</span>
+0120     <span class="keyword">if</span> ~isempty(dim)
+0121         fprintf(<span class="string">'++ Nombre de variables: %i\n'</span>,dim)
+0122     <span class="keyword">end</span>
+0123 <span class="keyword">end</span>
+0124 fprintf(<span class="string">'++ Espace etude: '</span>);
+0125 <span class="keyword">if</span> isempty(doe.Xmin)
+0126     fprintf(<span class="string">'NON SPECIFIE\n'</span>)
+0127 <span class="keyword">else</span>
+0128     fprintf(<span class="string">'   Min  |'</span>);
+0129     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
+0130     fprintf(<span class="string">'   Max  |'</span>);
+0131     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
+0132 <span class="keyword">end</span>
+0133 fprintf(<span class="string">'++ Tri du tirages: '</span>);
+0134 <span class="keyword">if</span> ~doe.tri.on
+0135     fprintf(<span class="string">'Non\n'</span>);
+0136 <span class="keyword">else</span>
+0137     fprintf(<span class="string">'Oui\n'</span>);
+0138     fprintf(<span class="string">'Methode de tri/parametre associe: %s (%g)\n'</span>,doe.tri.type,doe.tri.para);
+0139 <span class="keyword">end</span>
+0140 fprintf(<span class="string">'++ Affichage tirages: '</span>);
+0141 <span class="keyword">if</span> doe.aff; fprintf(<span class="string">'Oui\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'Non\n'</span>);<span class="keyword">end</span>
+0142 
+0143 <a href="mesu_time.html" class="code" title="function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)">mesu_time</a>(tMesu,tInit);
+0144 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

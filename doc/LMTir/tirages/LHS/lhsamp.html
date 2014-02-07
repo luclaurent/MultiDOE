@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lhsamp</title>
+  <meta name="keywords" content="lhsamp">
+  <meta name="description" content="LHSAMP  Latin hypercube distributed random numbers">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html LHS -->
+<h1>lhsamp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>LHSAMP  Latin hypercube distributed random numbers</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function S = lhsamp(m, n) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">LHSAMP  Latin hypercube distributed random numbers
+
+ Call:    S = lhsamp
+          S = lhsamp(m)
+          S = lhsamp(m, n)
+
+ m : number of sample points to generate, if unspecified m = 1
+ n : number of dimensions, if unspecified n = m
+
+ S : the generated n dimensional m sample points chosen from
+     uniform distributions on m subdivions of the interval (0.0, 1.0)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function S = lhsamp(m, n)</a>
+0002 <span class="comment">%LHSAMP  Latin hypercube distributed random numbers</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% Call:    S = lhsamp</span>
+0005 <span class="comment">%          S = lhsamp(m)</span>
+0006 <span class="comment">%          S = lhsamp(m, n)</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">% m : number of sample points to generate, if unspecified m = 1</span>
+0009 <span class="comment">% n : number of dimensions, if unspecified n = m</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">% S : the generated n dimensional m sample points chosen from</span>
+0012 <span class="comment">%     uniform distributions on m subdivions of the interval (0.0, 1.0)</span>
+0013 
+0014 <span class="comment">% hbn@imm.dtu.dk</span>
+0015 <span class="comment">% Last update April 12, 2002</span>
+0016 
+0017 <span class="keyword">if</span> nargin &lt; 1, m = 1; <span class="keyword">end</span>
+0018 <span class="keyword">if</span> nargin &lt; 2, n = m; <span class="keyword">end</span>
+0019 
+0020 S = zeros(m,n);
+0021 <span class="keyword">for</span> i = 1 : n
+0022   S(:, i) = (rand(1, m) + (randperm(m) - 1))' / m;
+0023 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

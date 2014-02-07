@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of covariance</title>
+  <meta name="keywords" content="covariance">
+  <meta name="description" content="*****************************************************************************80">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html IHS -->
+<h1>covariance
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>*****************************************************************************80</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [ average, sd, covc ] = covariance ( dim_num, point_num, x ) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">*****************************************************************************80
+
+% COVARIANCE does a covariance calculation for IHS solutions.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    02 April 2003
+
+  Author:
+
+    John Burkardt
+
+  Parameters:
+
+    Input, integer DIM_NUM, the spatial dimension.
+
+    Input, integer POINT_NUM, the number of points to be generated.
+
+    Input, integer X(DIM_NUM,POINT_NUM), the points.
+
+    Output, real AVERAGE, the average minimum distance.
+
+    Output, real SD, the standard deviation of the minimum distances.
+
+    Output, real COVC, the covariance of the minimum distances.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ihs_test01.html" class="code" title="function ihs_test01 ( )">ihs_test01</a>	*****************************************************************************80</li><li><a href="ihs_test02.html" class="code" title="function ihs_test02 ( )">ihs_test02</a>	*****************************************************************************80</li><li><a href="ihs_test03.html" class="code" title="function ihs_test03 ( )">ihs_test03</a>	*****************************************************************************80</li><li><a href="ihs_test04.html" class="code" title="function ihs_test04 ( )">ihs_test04</a>	*****************************************************************************80</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ average, sd, covc ] = covariance ( dim_num, point_num, x )</a>
+0002 
+0003 <span class="comment">%*****************************************************************************80</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%% COVARIANCE does a covariance calculation for IHS solutions.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  Licensing:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    This code is distributed under the GNU LGPL license.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%  Modified:</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%    02 April 2003</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  Author:</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%    John Burkardt</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%  Parameters:</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%    Input, integer DIM_NUM, the spatial dimension.</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%    Input, integer POINT_NUM, the number of points to be generated.</span>
+0024 <span class="comment">%</span>
+0025 <span class="comment">%    Input, integer X(DIM_NUM,POINT_NUM), the points.</span>
+0026 <span class="comment">%</span>
+0027 <span class="comment">%    Output, real AVERAGE, the average minimum distance.</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">%    Output, real SD, the standard deviation of the minimum distances.</span>
+0030 <span class="comment">%</span>
+0031 <span class="comment">%    Output, real COVC, the covariance of the minimum distances.</span>
+0032 <span class="comment">%</span>
+0033 
+0034 <span class="comment">%</span>
+0035 <span class="comment">%  Set up the distance matrix.</span>
+0036 <span class="comment">%</span>
+0037   <span class="keyword">for</span> i = 1 : point_num
+0038     mindist(i) = realmax;
+0039     <span class="keyword">for</span> j = 1 : point_num
+0040       <span class="keyword">if</span> ( i ~= j )
+0041         vec(1:dim_num) = x(1:dim_num,i) - x(1:dim_num,j);
+0042         dist = sqrt ( vec(1:dim_num) * vec(1:dim_num)' );
+0043         <span class="keyword">if</span> ( dist &lt; mindist(i) )
+0044           mindist(i) = dist;
+0045         <span class="keyword">end</span>
+0046       <span class="keyword">end</span>
+0047     <span class="keyword">end</span>
+0048   <span class="keyword">end</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">%  Find the average minimum distance.</span>
+0051 <span class="comment">%</span>
+0052   average = sum ( mindist(1:point_num) ) / point_num;
+0053 <span class="comment">%</span>
+0054 <span class="comment">%  Compute the standard deviation of the distances.</span>
+0055 <span class="comment">%</span>
+0056   sd = std ( mindist(1:point_num) );
+0057 <span class="comment">%</span>
+0058 <span class="comment">%  Compute the covariance.</span>
+0059 <span class="comment">%</span>
+0060   covc = sd / average;
+0061 
+0062   <span class="keyword">return</span>
+0063 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

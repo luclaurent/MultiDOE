@@ -1,0 +1,461 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of gene_doe</title>
+  <meta name="keywords" content="gene_doe">
+  <meta name="description" content="% Realisation des tirages">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html LMTir --><!-- menu.html routines -->
+<h1>gene_doe
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>% Realisation des tirages</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [out,info_tirages]=gene_doe(doe) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Realisation des tirages
+% L. LAURENT -- 17/12/2010 -- laurent@lmt.ens-cachan.fr</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="aff_doe.html" class="code" title="function aff_doe(tirages,doe,manq)">aff_doe</a>	% Procedure assurant l'affichage des tirages en nD</li><li><a href="exec_tri.html" class="code" title="function tiragesTRI = exec_tri(tirages,doe)">exec_tri</a>	% Tri de tirages</li><li><a href="mesu_time.html" class="code" title="function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)">mesu_time</a>	% Fonction assurant l'initialisation et l'affichage des infos temporelles dans les fonctions</li><li><a href="score_doe.html" class="code" title="function [uniform,discrepance]=score_doe(tirages,q)">score_doe</a>	procedure de calcul de score de tirages</li><li><a href="../../LMTir/tirages/IHS/ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>	*****************************************************************************80</li><li><a href="../../LMTir/tirages/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="../../LMTir/tirages/factorial_design.html" class="code" title="function tir=factorial_design(nb_tir,Xmin,Xmax)">factorial_design</a>	% Fonction assurant la generation d'un plan factoriel en dimension n</li><li><a href="../../LMTir/tirages/glhs_R.html" class="code" title="function [tir,new_tir]=glhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">glhs_R</a>	% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</li><li><a href="../../LMTir/tirages/ihs_R.html" class="code" title="function [tir,new_tir]=ihs_R(Xmin,Xmax,nb_samples,old_tir)">ihs_R</a>	% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</li><li><a href="../../LMTir/tirages/lhsu_R.html" class="code" title="function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)">lhsu_R</a>	% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</li><li><a href="../../LMTir/tirages/mmlhs_R.html" class="code" title="function [tir,new_tir]=mmlhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">mmlhs_R</a>	% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</li><li><a href="../../LMTir/tirages/olhs_R.html" class="code" title="function [tir,new_tir]=olhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">olhs_R</a>	% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../LMTir/EXEMPLE_ENRICHISSEMENT.html" class="code" title="">EXEMPLE_ENRICHISSEMENT</a>	Exemple d'enrichissement tirage LHS_R</li><li><a href="../../LMTir/EXEMPLE_UTILISATION.html" class="code" title="">EXEMPLE_UTILISATION</a>	Exemple d'utilisation de la Toolbox LMTir</li><li><a href="../../LMTir/routines/divers/test_multi_doe.html" class="code" title="">test_multi_doe</a>	</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [tirages,fich]=test_tir(nom_fich,nbv,nbs)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Realisation des tirages</span>
+0002 <span class="comment">%% L. LAURENT -- 17/12/2010 -- laurent@lmt.ens-cachan.fr</span>
+0003 
+0004 <span class="comment">%certains criteres necessitent la toolbox &quot;Random Numbers Generators&quot; ou</span>
+0005 <span class="comment">%l'installation de R sur votre machine</span>
+0006 <span class="comment">%tous les tirages generent des points entre 0 et 1. La correction est faite</span>
+0007 <span class="comment">%a la fin</span>
+0008 
+0009 <span class="comment">% syntaxe: gene_doe(doe)</span>
+0010 <span class="comment">% argument:</span>
+0011 <span class="comment">% -doe: structure obtenue avec init_doe et completee manuellement</span>
+0012 
+0013 <span class="comment">%   + Type de tirage (doe.type): voir le switch dans la suite de ce fichier</span>
+0014 <span class="comment">%   + Les tirages comportant le mot cle '_R' necessite d'avoir R installe et</span>
+0015 <span class="comment">% accessible par ligne de commande (avec package lhs installe,</span>
+0016 <span class="comment">% 'install.packages(&quot;lhs&quot;)'  )</span>
+0017 <span class="comment">%   + Les tirages comportant le mot cle '_MANU' sont des tirages sauvegardés,</span>
+0018 <span class="comment">% ils ne sont generes qu'une seule fois (ensuite ils sont rechargés a</span>
+0019 <span class="comment">% partir de fichier .mat)</span>
+0020 <span class="comment">%   + Nombreuses méthodes de tri accessibles par doe.tri (voir 'exec_tri.m'</span>
+0021 <span class="comment">%   et 'init_doe.m')</span>
+0022 
+0023 <span class="comment">%argument de sortie 'info_tirages' optionnel, 'out' contient le tirage et (le cas echeant) le tirage avant le tri</span>
+0024 
+0025 <a name="_sub0" href="#_subfunctions" class="code">function [out,info_tirages]=gene_doe(doe)</a>
+0026 
+0027 
+0028 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0029 fprintf(<span class="string">'    &gt;&gt;&gt; GENERATION TIRAGES &lt;&lt;&lt;\n'</span>);
+0030 [tMesu,tInit]=<a href="mesu_time.html" class="code" title="function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)">mesu_time</a>;
+0031 
+0032 <span class="comment">% obtenir un &quot;vrai&quot; tirages pseudo aleatoire</span>
+0033 s = RandStream(<span class="string">'mt19937ar'</span>,<span class="string">'Seed'</span>,<span class="string">'shuffle'</span>);
+0034 RandStream.setGlobalStream(s);
+0035 
+0036 <span class="comment">%recuperation nombre d'echantillons souhaites</span>
+0037 nbs_undef=true;
+0038 <span class="keyword">if</span> isfield(doe,<span class="string">'nb_samples'</span>)
+0039     <span class="keyword">if</span> ~isempty(doe.nb_samples)
+0040         nbs=doe.nb_samples;
+0041         nbs_undef=false;
+0042     <span class="keyword">end</span>
+0043 <span class="keyword">end</span>
+0044 <span class="keyword">if</span> nbs_undef;
+0045     error(<span class="string">'Mauvaise definition du nombre de tirages ''doe.nb_samples'''</span>);
+0046 <span class="keyword">end</span>
+0047 
+0048 <span class="comment">%recuperation nombre iteration si specifie</span>
+0049 <span class="keyword">if</span> isfield(doe,<span class="string">'iter'</span>);nb_iter=doe.iter;<span class="keyword">else</span> nb_iter=5;<span class="keyword">end</span>
+0050 
+0051 <span class="comment">%nombre de generation pour LHS score</span>
+0052 nb_gene=20;
+0053 
+0054 <span class="comment">%recuperation bornes espace de conception</span>
+0055 bornes_undef=true;
+0056 <span class="keyword">if</span> isfield(doe,<span class="string">'Xmin'</span>)&amp;&amp;isfield(doe,<span class="string">'Xmax'</span>)
+0057     <span class="keyword">if</span> ~isempty(doe.Xmin)&amp;&amp;~isempty(doe.Xmax)
+0058         Xmin=doe.Xmin;
+0059         Xmax=doe.Xmax;
+0060         bornes_undef=false;
+0061     <span class="keyword">end</span>
+0062 <span class="keyword">elseif</span> isfield(doe,<span class="string">'bornes'</span>)
+0063     <span class="keyword">if</span> ~isempty(doe.bornes)
+0064         Xmin=doe.bornes(:,1);
+0065         Xmax=doe.bornes(:,2);
+0066         doe.Xmin=Xmin;doe.Xmax=Xmax;
+0067         bornes_undef=false;
+0068     <span class="keyword">end</span>
+0069 <span class="keyword">end</span>
+0070 <span class="keyword">if</span> bornes_undef
+0071     error(<span class="string">'Mauvaise definition des bornes des parametres ''doe.Xmin'' et ''doe.Xmax'''</span>);
+0072 <span class="keyword">end</span>
+0073 
+0074 <span class="comment">%valeurs par defaut</span>
+0075 Xmin_def=0.*Xmin;Xmax_def=0.*Xmax+1;
+0076 
+0077 <span class="comment">%nombre de variables</span>
+0078 nbv=numel(Xmin);
+0079 
+0080 <span class="comment">%option de tri par defaut</span>
+0081 <span class="keyword">if</span> ~isfield(doe,<span class="string">'tri'</span>);doe.tri=[];<span class="keyword">end</span>
+0082 <span class="keyword">if</span> ~isfield(doe.tri,<span class="string">'on'</span>);doe.tri.on=false;<span class="keyword">end</span>
+0083 <span class="keyword">if</span> ~isfield(doe.tri,<span class="string">'lnorm'</span>);doe.tri.lnorm=2;<span class="keyword">end</span>
+0084 
+0085 <span class="comment">%% affichage infos</span>
+0086 fprintf(<span class="string">' &gt;&gt; type de tirages: %s\n'</span>,doe.type);
+0087 fprintf(<span class="string">' &gt;&gt; Nombre de points: '</span>)
+0088 fprintf(<span class="string">'%i '</span>,nbs);fprintf(<span class="string">'\n'</span>);
+0089 fprintf(<span class="string">' &gt;&gt; Nombre de variables: %i\n'</span>,nbv);
+0090 
+0091 tir_ok=true;
+0092 tir_perso=false;
+0093 <span class="comment">%generation des differents types de tirages</span>
+0094 <span class="keyword">switch</span> doe.type
+0095     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0096     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0097     <span class="comment">% plan factoriel complet</span>
+0098     <span class="keyword">case</span> <span class="string">'ffact'</span>
+0099         <span class="keyword">if</span> numel(nbs)==1
+0100             nbs=nbs^nbv;
+0101         <span class="keyword">end</span>
+0102         tirages=<a href="../../LMTir/tirages/factorial_design.html" class="code" title="function tir=factorial_design(nb_tir,Xmin,Xmax)">factorial_design</a>(nbs,Xmin_def,Xmax_def);
+0103         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0104         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0105         <span class="comment">% Latin Hypercube Sampling avec R (et preenrichissement)</span>
+0106     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
+0107         tirages=<a href="../../LMTir/tirages/lhsu_R.html" class="code" title="function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)">lhsu_R</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0108         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0109         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0110     <span class="keyword">case</span> <span class="string">'LHS_R_manu'</span>
+0111         <span class="comment">%recuperation tirage si dispo</span>
+0112         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhsuR'</span>,nbv,nbs);
+0113         <span class="keyword">if</span> isempty(tirages)
+0114             tirages=<a href="../../LMTir/tirages/lhsu_R.html" class="code" title="function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)">lhsu_R</a>(Xmin_def,Xmax_def,prod(nbs(:))); <span class="comment">% on gï¿½nï¿½re un tirage dans l'espace [0 1]</span>
+0115             save(fich,<span class="string">'tirages'</span>);
+0116         <span class="keyword">end</span>
+0117         
+0118         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0119         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0120         <span class="comment">% Optimum Latin Hypercube Sampling avec R (et preenrichissement)</span>
+0121     <span class="keyword">case</span> <span class="string">'OLHS_R'</span>
+0122         tirages=<a href="../../LMTir/tirages/olhs_R.html" class="code" title="function [tir,new_tir]=olhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">olhs_R</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0123         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0124         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0125     <span class="keyword">case</span> <span class="string">'OLHS_R_manu'</span>
+0126         <span class="comment">%recuperation tirage si dispo</span>
+0127         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'olhsR'</span>,nbv,nbs);
+0128         <span class="keyword">if</span> isempty(tirages)
+0129             tirages=<a href="../../LMTir/tirages/olhs_R.html" class="code" title="function [tir,new_tir]=olhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">olhs_R</a>(Xmin_def,Xmax_def,prod(nbs(:))); <span class="comment">% on gï¿½nï¿½re un tirage dans l'espace [0 1]</span>
+0130             save(fich,<span class="string">'tirages'</span>);
+0131         <span class="keyword">end</span>
+0132         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0133         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0134         <span class="comment">% Maximin Latin Hypercube Sampling avec R (et preenrichissement)</span>
+0135     <span class="keyword">case</span> <span class="string">'MMLHS_R'</span>
+0136         tirages=<a href="../../LMTir/tirages/mmlhs_R.html" class="code" title="function [tir,new_tir]=mmlhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">mmlhs_R</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0137         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0138         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0139     <span class="keyword">case</span> <span class="string">'MMLHS_R_manu'</span>
+0140         <span class="comment">%recuperation tirage si dispo</span>
+0141         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'mmlhsR'</span>,nbv,nbs);
+0142         <span class="keyword">if</span> isempty(tirages)
+0143             tirages=<a href="../../LMTir/tirages/mmlhs_R.html" class="code" title="function [tir,new_tir]=mmlhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">mmlhs_R</a>(Xmin_def,Xmax_def,prod(nbs(:))); <span class="comment">% on gï¿½nï¿½re un tirage dans l'espace [0 1]</span>
+0144             save(fich,<span class="string">'tirages'</span>);
+0145         <span class="keyword">end</span>
+0146         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0147         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0148         <span class="comment">% Genetic Latin Hypercube Sampling avec R (et preenrichissement)</span>
+0149     <span class="keyword">case</span> <span class="string">'GLHS_R'</span>
+0150         tirages=<a href="../../LMTir/tirages/glhs_R.html" class="code" title="function [tir,new_tir]=glhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)">glhs_R</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0151         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0152         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0153     <span class="keyword">case</span> <span class="string">'GLHS_R_manu'</span>
+0154         <span class="comment">%recuperation tirage si dispo</span>
+0155         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'glhsR'</span>,nbv,nbs);
+0156         <span class="keyword">if</span> isempty(tirages)
+0157             tirages=<a href="../../LMTir/tirages/lhsu_R.html" class="code" title="function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)">lhsu_R</a>(Xmin_def,Xmax_def,prod(nbs(:))); <span class="comment">% on gï¿½nï¿½re un tirage dans l'espace [0 1]</span>
+0158             save(fich,<span class="string">'tirages'</span>);
+0159         <span class="keyword">end</span>
+0160         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0161         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0162         <span class="comment">% Improved Hypercube Sampling avec R (et preenrichissement)</span>
+0163     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
+0164         tirages=<a href="../../LMTir/tirages/ihs_R.html" class="code" title="function [tir,new_tir]=ihs_R(Xmin,Xmax,nb_samples,old_tir)">ihs_R</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0165         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0166         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0167     <span class="keyword">case</span> <span class="string">'IHS_R_manu'</span>
+0168         <span class="comment">%recuperation tirage si dispo</span>
+0169         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'ihsR'</span>,nbv,nbs);
+0170         <span class="keyword">if</span> isempty(tirages)
+0171             tirages=<a href="../../LMTir/tirages/lhsu_R.html" class="code" title="function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)">lhsu_R</a>(Xmin_def,Xmax_def,prod(nbs(:))); <span class="comment">% on gï¿½nï¿½re un tirage dans l'espace [0 1]</span>
+0172             save(fich,<span class="string">'tirages'</span>);
+0173         <span class="keyword">end</span>
+0174         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0175         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0176         <span class="comment">% Tirage sequence de Halton (fct Matlab)</span>
+0177     <span class="keyword">case</span> <span class="string">'HALTON'</span>
+0178         p = haltonset(nbv,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0179         p = scramble(p,<span class="string">'RR2'</span>);
+0180         tirages=net(p,prod(nbs(:)));
+0181         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0182         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0183         <span class="comment">% Halton avec stockage des donnees</span>
+0184     <span class="keyword">case</span> <span class="string">'HALTON_manu'</span>
+0185         <span class="comment">%recuperation tirage si dispo</span>
+0186         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'halton'</span>,nbv,nbs);
+0187         <span class="keyword">if</span> isempty(tirages)
+0188             p = haltonset(nbv,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0189             p = scramble(p,<span class="string">'RR2'</span>);
+0190             tirages=net(p,prod(nbs(:)));
+0191             save(fich,<span class="string">'tirages'</span>);
+0192         <span class="keyword">end</span>
+0193         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0194         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0195         <span class="comment">% Tirage sequence de Sobol (fct Matlab)</span>
+0196     <span class="keyword">case</span> <span class="string">'SOBOL'</span>
+0197         p = sobolset(nbv,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0198         p = scramble(p,<span class="string">'MatousekAffineOwen'</span>);
+0199         tirages=net(p,prod(nbs(:)));
+0200         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0201         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0202         <span class="comment">% Sobol avec stockage des donnees</span>
+0203     <span class="keyword">case</span> <span class="string">'SOBOL_manu'</span>
+0204         <span class="comment">%recuperation tirage si dispo</span>
+0205         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'sobol'</span>,nbv,nbs);
+0206         <span class="keyword">if</span> isempty(tirages)
+0207             p = sobolset(nbv,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0208             p = scramble(p,<span class="string">'MatousekAffineOwen'</span>);
+0209             tirages=net(p,prod(nbs(:)));
+0210             save(fich,<span class="string">'tirages'</span>);
+0211         <span class="keyword">end</span>
+0212         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0213         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0214         <span class="comment">% Latin Hypercube Sampling (fonction Matlab)</span>
+0215     <span class="keyword">case</span> <span class="string">'LHSD'</span>
+0216         tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'iterations'</span>,nb_iter);
+0217         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0218         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0219         <span class="comment">% LHS avec stockage des donnees</span>
+0220     <span class="keyword">case</span> <span class="string">'LHSD_manu'</span>
+0221         <span class="comment">%recuperation tirage si dispo</span>
+0222         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhsd'</span>,nbv,nbs);
+0223         <span class="keyword">if</span> isempty(tirages)
+0224             tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'iterations'</span>,nb_iter);
+0225             save(fich,<span class="string">'tirages'</span>);
+0226         <span class="keyword">end</span>
+0227         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0228         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0229         <span class="comment">% Latin Hypercube Sampling (fonction Matlab) minimisation correlation (cf help)</span>
+0230     <span class="keyword">case</span> <span class="string">'LHSD_CORRMIN'</span>
+0231         tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'criterion'</span>,<span class="string">'correlation'</span>,<span class="string">'iterations'</span>,nb_iter);
+0232         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0233         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0234         <span class="comment">% LHS avec stockage des donnees</span>
+0235     <span class="keyword">case</span> <span class="string">'LHSD_CORRMIN_manu'</span>
+0236         <span class="comment">%recuperation tirage si dispo</span>
+0237         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhsdcorrmin'</span>,nbv,nbs);
+0238         <span class="keyword">if</span> isempty(tirages)
+0239             tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'criterion'</span>,<span class="string">'correlation'</span>,<span class="string">'iterations'</span>,nb_iter);
+0240             save(fich,<span class="string">'tirages'</span>);
+0241         <span class="keyword">end</span>
+0242         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0243         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0244         <span class="comment">% Latin Hypercube Sampling (fonction Matlab) maximin (cf help)</span>
+0245     <span class="keyword">case</span> <span class="string">'LHSD_MAXMIN'</span>
+0246         tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'criterion'</span>,<span class="string">'maximin'</span>,<span class="string">'iterations'</span>,nb_iter);
+0247         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0248         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0249         <span class="comment">% LHS avec stockage des donnees</span>
+0250     <span class="keyword">case</span> <span class="string">'LHSD_MAXMIN_manu'</span>
+0251         <span class="comment">%recuperation tirage si dispo</span>
+0252         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhsdmaxmin'</span>,nbv,nbs);
+0253         <span class="keyword">if</span> isempty(tirages)
+0254             tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'criterion'</span>,<span class="string">'maximin'</span>,<span class="string">'iterations'</span>,nb_iter);
+0255             save(fich,<span class="string">'tirages'</span>);
+0256         <span class="keyword">end</span>
+0257         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0258         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0259         <span class="comment">% Latin Hypercube Sampling (fonction Matlab) Non-smooth (cf help)</span>
+0260     <span class="keyword">case</span> <span class="string">'LHSD_NS'</span>
+0261         tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'smooth'</span>,<span class="string">'off'</span>,<span class="string">'iterations'</span>,nb_iter);
+0262         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0263         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0264         <span class="comment">% LHS avec stockage des donnees</span>
+0265     <span class="keyword">case</span> <span class="string">'LHSD_NS_manu'</span>
+0266         <span class="comment">%recuperation tirage si dispo</span>
+0267         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhsdns'</span>,nbv,nbs);
+0268         <span class="keyword">if</span> isempty(tirages)
+0269             tirages=lhsdesign(prod(nbs(:)),nbv,<span class="string">'smooth'</span>,<span class="string">'off'</span>,<span class="string">'iterations'</span>,nb_iter);
+0270             save(fich,<span class="string">'tirages'</span>);
+0271         <span class="keyword">end</span>
+0272         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0273         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0274         <span class="comment">% Latin Hypercube Sampling (a loi uniforme)</span>
+0275     <span class="keyword">case</span> <span class="string">'LHS'</span>
+0276         tirages=<a href="../../LMTir/tirages/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0277         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0278         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0279         <span class="comment">% LHS avec stockage des donnees</span>
+0280     <span class="keyword">case</span> <span class="string">'LHS_manu'</span>
+0281         <span class="comment">%recuperation tirage si dispo</span>
+0282         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhsu'</span>,nbv,nbs);
+0283         <span class="keyword">if</span> isempty(tirages)
+0284             tirages=<a href="../../LMTir/tirages/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0285             save(fich,<span class="string">'tirages'</span>);
+0286         <span class="keyword">end</span>
+0287         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0288         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0289         <span class="comment">% Improved Hypercube Sampling</span>
+0290     <span class="keyword">case</span> <span class="string">'IHS'</span>
+0291         tirages=<a href="../../LMTir/tirages/IHS/ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>(nbv,nbs,5,17);
+0292         tirages=tirages./nbs;
+0293         tirages=tirages';
+0294         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0295         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0296     <span class="keyword">case</span> <span class="string">'IHS_manu'</span>
+0297         <span class="comment">%recuperation tirage si dispo</span>
+0298         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'ihs'</span>,nbv,nbs);
+0299         <span class="keyword">if</span> isempty(tirages)
+0300             tirages=<a href="../../LMTir/tirages/IHS/ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>(nbv,nbs,5,17);
+0301             tirages=tirages./nbs;
+0302             tirages=tirages';
+0303             save(fich,<span class="string">'tirages'</span>);
+0304         <span class="keyword">end</span>
+0305         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0306         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0307         <span class="comment">% Latin Hypercube Sampling (a loi uniforme) par minimisation somme</span>
+0308         <span class="comment">% distance interpoints</span>
+0309     <span class="keyword">case</span> <span class="string">'LHS_O1'</span>
+0310         tir_tmp=cell(1,nb_gene);
+0311         sc=zeros(1,nb_gene);
+0312         <span class="comment">%on genere nb_gene tirages</span>
+0313         <span class="keyword">for</span> ii=1:nb_gene
+0314             tir_tmp{ii}=<a href="../../LMTir/tirages/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0315             <span class="comment">%calcul score</span>
+0316             uni=<a href="score_doe.html" class="code" title="function [uniform,discrepance]=score_doe(tirages,q)">score_doe</a>(tir_tmp{ii});
+0317             sc(ii)=uni.sum_dist;
+0318         <span class="keyword">end</span>
+0319         [~,IX]=min(sc);
+0320         tirages=tir_tmp{IX};
+0321         clear tir_tmp;
+0322         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0323         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0324         <span class="comment">% LHS_O1 avec stockage des donnees</span>
+0325     <span class="keyword">case</span> <span class="string">'LHS_O1_manu'</span>
+0326         <span class="comment">%recuperation tirage si dispo</span>
+0327         [tirages,fich]=<a href="#_sub1" class="code" title="subfunction [tirages,fich]=test_tir(nom_fich,nbv,nbs)">test_tir</a>(<span class="string">'lhs_o1'</span>,nbv,nbs);
+0328         <span class="keyword">if</span> isempty(tirages)
+0329             tir_tmp=cell(1,nb_gene);
+0330             sc=zeros(1,nb_gene);
+0331             <span class="comment">%on genere nb_gene tirages</span>
+0332             <span class="keyword">for</span> ii=1:nb_gene
+0333                 tir_tmp{ii}=<a href="../../LMTir/tirages/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(Xmin_def,Xmax_def,prod(nbs(:)));
+0334                 <span class="comment">%calcul score</span>
+0335                 uni=<a href="score_doe.html" class="code" title="function [uniform,discrepance]=score_doe(tirages,q)">score_doe</a>(tir_tmp{ii});
+0336                 sc(ii)=uni.sum_dist;
+0337             <span class="keyword">end</span>
+0338             [~,IX]=min(sc);
+0339             tirages=tir_tmp{IX};
+0340             clear tir_tmp
+0341             save(fich,<span class="string">'tirages'</span>);
+0342         <span class="keyword">end</span>
+0343         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0344         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0345         <span class="comment">% tirages aleatoires</span>
+0346     <span class="keyword">case</span> <span class="string">'rand'</span>
+0347         tirages=rand(prod(nbs(:)),nbv);
+0348         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0349         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0350         <span class="comment">%tirages definis manuellement</span>
+0351     <span class="keyword">case</span> <span class="string">'perso'</span>
+0352         tirages=doe.manu;
+0353         tir_perso=true;
+0354         disp(<span class="string">'/!\ Echantillonnage manuel (cf. conf_doe.m)'</span>);
+0355     <span class="keyword">otherwise</span>
+0356         error(<span class="string">'le type de tirage nest pas defini\n'</span>);
+0357         tir_ok=false;
+0358 <span class="keyword">end</span>
+0359 
+0360 <span class="keyword">if</span> tir_ok
+0361     <span class="keyword">if</span> ~tir_perso
+0362         <span class="comment">% on corrige le tirage pour obtenir le bon espace</span>
+0363         tirages=tirages.*repmat(Xmax(:)'-Xmin(:)',prod(nbs(:)),1)+repmat(Xmin(:)',prod(nbs(:)),1);
+0364     <span class="keyword">end</span>
+0365     
+0366     <span class="comment">%si 2 arguments de sortie, on stocke des informations supplementaires</span>
+0367     <span class="keyword">if</span> nargout==2
+0368         <span class="keyword">if</span> doe.tri.on
+0369             info_tirages.tirages_non_trie=tirages;
+0370         <span class="keyword">end</span>
+0371         <span class="comment">%calcul des scores du tirage</span>
+0372         [info_tirages.uniform,info_tirages.discrepance]=<a href="score_doe.html" class="code" title="function [uniform,discrepance]=score_doe(tirages,q)">score_doe</a>(tirages);
+0373     <span class="keyword">end</span>
+0374     <span class="comment">%on trie le tirage</span>
+0375     tirages_tri=<a href="exec_tri.html" class="code" title="function tiragesTRI = exec_tri(tirages,doe)">exec_tri</a>(tirages,doe);
+0376     
+0377     <span class="comment">%affichage tirages</span>
+0378     <a href="aff_doe.html" class="code" title="function aff_doe(tirages,doe,manq)">aff_doe</a>(tirages_tri,doe)
+0379 <span class="keyword">else</span>
+0380     tirages_tri=[];
+0381 <span class="keyword">end</span>
+0382 
+0383 <span class="comment">%sortie</span>
+0384 out.tri=tirages_tri;
+0385 out.non_tri=tirages;
+0386 
+0387 <a href="mesu_time.html" class="code" title="function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)">mesu_time</a>(tMesu,tInit);
+0388 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0389 <span class="keyword">end</span>
+0390 
+0391 
+0392 <span class="comment">%fonction de test d'existence d'un tirages et recuperation</span>
+0393 <a name="_sub1" href="#_subfunctions" class="code">function [tirages,fich]=test_tir(nom_fich,nbv,nbs)</a>
+0394 
+0395 <span class="comment">%on verifie si le dossier de stockage existe (si non on le cree)</span>
+0396 <span class="keyword">if</span> exist(<span class="string">'TIR_MANU'</span>,<span class="string">'dir'</span>)~=7
+0397     unix(<span class="string">'mkdir TIR_MANU'</span>);
+0398 <span class="keyword">end</span>
+0399 
+0400 <span class="comment">%on verifie si le tirages existe deja (si oui on le charge/si non on le</span>
+0401 <span class="comment">%genere et le sauvegarde)</span>
+0402 fi=[<span class="string">'TIR_MANU/'</span> nom_fich <span class="string">'_man_'</span> num2str(nbv) <span class="string">'_'</span>  num2str(nbs)];
+0403 fich=[fi <span class="string">'.mat'</span>];
+0404 <span class="keyword">if</span> exist(fich,<span class="string">'file'</span>)==2
+0405     st=load(fich);
+0406     tirages=st.tirages;
+0407 <span class="keyword">else</span>
+0408     fprintf(<span class="string">'Tirage inexistant \n'</span>);
+0409     tirages=[];
+0410 <span class="keyword">end</span>
+0411 <span class="keyword">end</span>
+0412</pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

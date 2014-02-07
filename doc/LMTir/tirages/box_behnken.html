@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of box_behnken</title>
+  <meta name="keywords" content="box_behnken">
+  <meta name="description" content="*****************************************************************************80">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html LMTir --><!-- menu.html tirages -->
+<h1>box_behnken
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>*****************************************************************************80</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function x = box_behnken ( dim_num, x_num, range ) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">*****************************************************************************80
+
+% BOX_BEHNKEN returns a Box-Behnken design for the given number of factors.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    26 October 2008
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    George Box, Donald Behnken,
+    Some new three level designs for the study of quantitative variables,
+    Technometrics,
+    Volume 2, pages 455-475, 1960.
+
+  Parameters:
+
+    Input, integer DIM_NUM, the spatial dimension.
+
+    Input, integer X_NUM, the number of elements of the design.
+    X_NUM should be equal to DIM_NUM * 2**(DIM_NUM-1) + 1.
+
+    Input, real RANGE(DIM_NUM,2), the minimum and maximum
+    value for each component.
+
+    Output, real X(DIM_NUM,X_NUM), the elements of the design.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../LMTir/routines/divers/test_doe.html" class="code" title="">test_doe</a>	%%Fichier d'étude des plans d'expérience à deux variables de conception</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function x = box_behnken ( dim_num, x_num, range )</a>
+0002 
+0003 <span class="comment">%*****************************************************************************80</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%% BOX_BEHNKEN returns a Box-Behnken design for the given number of factors.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  Licensing:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    This code is distributed under the GNU LGPL license.</span>
+0010 <span class="comment">%</span>
+0011 <span class="comment">%  Modified:</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%    26 October 2008</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%  Author:</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%    John Burkardt</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%  Reference:</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%    George Box, Donald Behnken,</span>
+0022 <span class="comment">%    Some new three level designs for the study of quantitative variables,</span>
+0023 <span class="comment">%    Technometrics,</span>
+0024 <span class="comment">%    Volume 2, pages 455-475, 1960.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%  Parameters:</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%    Input, integer DIM_NUM, the spatial dimension.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%    Input, integer X_NUM, the number of elements of the design.</span>
+0031 <span class="comment">%    X_NUM should be equal to DIM_NUM * 2**(DIM_NUM-1) + 1.</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">%    Input, real RANGE(DIM_NUM,2), the minimum and maximum</span>
+0034 <span class="comment">%    value for each component.</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%    Output, real X(DIM_NUM,X_NUM), the elements of the design.</span>
+0037 <span class="comment">%</span>
+0038 
+0039 <span class="comment">%</span>
+0040 <span class="comment">%  Ensure that the range is legal.</span>
+0041 <span class="comment">%</span>
+0042   <span class="keyword">if</span> ( any ( range(1:dim_num,2) &lt;= range(1:dim_num,1) ) )
+0043     fprintf ( 1, <span class="string">'\n'</span> );
+0044     fprintf ( 1, <span class="string">'BOX_BEHNKEN - Fatal error!\n'</span> );
+0045     fprintf ( 1, <span class="string">'  For some index I,\n'</span> );
+0046     fprintf ( 1, <span class="string">'  RANGE(I,2) &lt;= RANGE(I,1).\n'</span> );
+0047     error ( <span class="string">'BOX_BEHNKEN - Fatal error!'</span> );
+0048   <span class="keyword">end</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">%  The first point is the center.</span>
+0051 <span class="comment">%</span>
+0052   j = 1;
+0053 
+0054   x(1:dim_num,j) = ( range(1:dim_num,1) + range(1:dim_num,2) ) / 2.0;
+0055 <span class="comment">%</span>
+0056 <span class="comment">%  For subsequent elements, one entry is fixed at the middle of the range.</span>
+0057 <span class="comment">%  The others are set to either extreme.</span>
+0058 <span class="comment">%</span>
+0059   <span class="keyword">for</span> i = 1 : dim_num
+0060 
+0061     j = j + 1;
+0062 
+0063     x(1:dim_num,j) = range(1:dim_num,1);
+0064     x(i,j) = ( range(i,1) + range(i,2) ) / 2.0;
+0065 <span class="comment">%</span>
+0066 <span class="comment">%  The next element is made by finding the last low value, making it</span>
+0067 <span class="comment">%  high, and all subsequent high values low.</span>
+0068 <span class="comment">%</span>
+0069     <span class="keyword">while</span> ( 1 )
+0070 
+0071       last_low = -1;
+0072 
+0073       <span class="keyword">for</span> i2 = 1 : dim_num
+0074         <span class="keyword">if</span> ( x(i2,j) == range(i2,1) )
+0075           last_low = i2;
+0076         <span class="keyword">end</span>
+0077       <span class="keyword">end</span>
+0078 
+0079       <span class="keyword">if</span> ( last_low == -1 )
+0080         <span class="keyword">break</span>
+0081       <span class="keyword">end</span>
+0082 
+0083       j = j + 1;
+0084       x(1:dim_num,j) = x(1:dim_num,j-1);
+0085       x(last_low,j) = range(last_low,2);
+0086 
+0087       <span class="keyword">for</span> i2 = last_low + 1 : dim_num
+0088         <span class="keyword">if</span> ( x(i2,j) == range(i2,2) )
+0089           x(i2,j) = range(i2,1);
+0090         <span class="keyword">end</span>
+0091       <span class="keyword">end</span>
+0092 
+0093     <span class="keyword">end</span>
+0094 
+0095   <span class="keyword">end</span>
+0096 
+0097   <span class="keyword">return</span>
+0098 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
