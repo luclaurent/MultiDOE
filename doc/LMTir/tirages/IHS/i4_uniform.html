@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of i4_uniform</title>
+  <meta name="keywords" content="i4_uniform">
+  <meta name="description" content="*****************************************************************************80">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html IHS -->
+<h1>i4_uniform
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>*****************************************************************************80</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [ c, seed ] = i4_uniform ( a, b, seed ) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">*****************************************************************************80
+
+% I4_UNIFORM returns a scaled pseudorandom I4.
+
+  Discussion:
+
+    The pseudorandom number will be scaled to be uniformly distributed
+    between A and B.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license. 
+
+  Modified:
+
+    12 November 2006
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Paul Bratley, Bennett Fox, Linus Schrage,
+    A Guide to Simulation,
+    Second Edition,
+    Springer, 1987,
+    ISBN: 0387964673,
+    LC: QA76.9.C65.B73.
+
+    Bennett Fox,
+    Algorithm 647:
+    Implementation and Relative Efficiency of Quasirandom
+    Sequence Generators,
+    ACM Transactions on Mathematical Software,
+    Volume 12, Number 4, December 1986, pages 362-376.
+
+    Pierre L'Ecuyer,
+    Random Number Generation,
+    in Handbook of Simulation,
+    edited by Jerry Banks,
+    Wiley, 1998,
+    ISBN: 0471134031,
+    LC: T57.62.H37.
+
+    Peter Lewis, Allen Goodman, James Miller,
+    A Pseudo-Random Number Generator for the System/360,
+    IBM Systems Journal,
+    Volume 8, Number 2, 1969, pages 136-143.
+
+  Parameters:
+
+    Input, integer A, B, the minimum and maximum acceptable values.
+
+    Input, integer SEED, a seed for the random number generator.
+
+    Output, integer C, the randomly chosen integer.
+
+    Output, integer SEED, the updated seed.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>	*****************************************************************************80</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ c, seed ] = i4_uniform ( a, b, seed )</a>
+0002 
+0003 <span class="comment">%*****************************************************************************80</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%% I4_UNIFORM returns a scaled pseudorandom I4.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  Discussion:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    The pseudorandom number will be scaled to be uniformly distributed</span>
+0010 <span class="comment">%    between A and B.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%  Licensing:</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%    This code is distributed under the GNU LGPL license.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%  Modified:</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%    12 November 2006</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%  Author:</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%    John Burkardt</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%  Reference:</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%    Paul Bratley, Bennett Fox, Linus Schrage,</span>
+0027 <span class="comment">%    A Guide to Simulation,</span>
+0028 <span class="comment">%    Second Edition,</span>
+0029 <span class="comment">%    Springer, 1987,</span>
+0030 <span class="comment">%    ISBN: 0387964673,</span>
+0031 <span class="comment">%    LC: QA76.9.C65.B73.</span>
+0032 <span class="comment">%</span>
+0033 <span class="comment">%    Bennett Fox,</span>
+0034 <span class="comment">%    Algorithm 647:</span>
+0035 <span class="comment">%    Implementation and Relative Efficiency of Quasirandom</span>
+0036 <span class="comment">%    Sequence Generators,</span>
+0037 <span class="comment">%    ACM Transactions on Mathematical Software,</span>
+0038 <span class="comment">%    Volume 12, Number 4, December 1986, pages 362-376.</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%    Pierre L'Ecuyer,</span>
+0041 <span class="comment">%    Random Number Generation,</span>
+0042 <span class="comment">%    in Handbook of Simulation,</span>
+0043 <span class="comment">%    edited by Jerry Banks,</span>
+0044 <span class="comment">%    Wiley, 1998,</span>
+0045 <span class="comment">%    ISBN: 0471134031,</span>
+0046 <span class="comment">%    LC: T57.62.H37.</span>
+0047 <span class="comment">%</span>
+0048 <span class="comment">%    Peter Lewis, Allen Goodman, James Miller,</span>
+0049 <span class="comment">%    A Pseudo-Random Number Generator for the System/360,</span>
+0050 <span class="comment">%    IBM Systems Journal,</span>
+0051 <span class="comment">%    Volume 8, Number 2, 1969, pages 136-143.</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">%  Parameters:</span>
+0054 <span class="comment">%</span>
+0055 <span class="comment">%    Input, integer A, B, the minimum and maximum acceptable values.</span>
+0056 <span class="comment">%</span>
+0057 <span class="comment">%    Input, integer SEED, a seed for the random number generator.</span>
+0058 <span class="comment">%</span>
+0059 <span class="comment">%    Output, integer C, the randomly chosen integer.</span>
+0060 <span class="comment">%</span>
+0061 <span class="comment">%    Output, integer SEED, the updated seed.</span>
+0062 <span class="comment">%</span>
+0063   i4_huge = 2147483647;
+0064 
+0065   <span class="keyword">if</span> ( seed == 0 )
+0066     fprintf ( 1, <span class="string">'\n'</span> );
+0067     fprintf ( 1, <span class="string">'I4_UNIFORM - Fatal error!\n'</span> );
+0068     fprintf ( 1, <span class="string">'  Input SEED = 0!\n'</span> );
+0069     error ( <span class="string">'I4_UNIFORM - Fatal error!'</span> );
+0070   <span class="keyword">end</span>
+0071 
+0072   seed = floor ( seed );
+0073   a = round ( a );
+0074   b = round ( b );
+0075 
+0076   seed = mod ( seed, i4_huge );
+0077 
+0078   <span class="keyword">if</span> ( seed &lt; 0 ) 
+0079     seed = seed + i4_huge;
+0080   <span class="keyword">end</span> 
+0081 
+0082   k = floor ( seed / 127773 );
+0083 
+0084   seed = 16807 * ( seed - k * 127773 ) - k * 2836;
+0085 
+0086   <span class="keyword">if</span> ( seed &lt; 0 )
+0087     seed = seed + i4_huge;
+0088   <span class="keyword">end</span>
+0089 
+0090   r = seed * 4.656612875E-10;
+0091 <span class="comment">%</span>
+0092 <span class="comment">%  Scale R to lie between A-0.5 and B+0.5.</span>
+0093 <span class="comment">%</span>
+0094   r = ( 1.0 - r ) * ( min ( a, b ) - 0.5 ) <span class="keyword">...</span>
+0095     +         r   * ( max ( a, b ) + 0.5 );
+0096 <span class="comment">%</span>
+0097 <span class="comment">%  Use rounding to convert R to an integer between A and B.</span>
+0098 <span class="comment">%</span>
+0099   value = round ( r );
+0100 
+0101   value = max ( value, min ( a, b ) );
+0102   value = min ( value, max ( a, b ) );
+0103 
+0104   c = value;
+0105 
+0106   <span class="keyword">return</span>
+0107 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:36:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

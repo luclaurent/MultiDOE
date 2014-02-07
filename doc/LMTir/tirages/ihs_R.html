@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ihs_R</title>
+  <meta name="keywords" content="ihs_R">
+  <meta name="description" content="% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../menu.html LMTir --><!-- menu.html tirages -->
+<h1>ihs_R
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="box"><strong>function [tir,new_tir]=ihs_R(Xmin,Xmax,nb_samples,old_tir) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)
+ IHS: Improved Hypercube Sampling
+ Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
+ L. LAURENT -- 14/01/2012 -- laurent@lmt.ens-cachan.fr</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="../../LMTir/routines/ajout_tir_doe.html" class="code" title="function new_tir=ajout_tir_doe(old_tirages,doe)">ajout_tir_doe</a>	% Fonction assurant l'enrichissement de la base de points echantillonnes</li><li><a href="../../LMTir/routines/divers/test_lhsu_R.html" class="code" title="">test_lhsu_R</a>	% Fichier etude enrichissement LHS</li><li><a href="../../LMTir/routines/gene_doe.html" class="code" title="function [out,info_tirages]=gene_doe(doe)">gene_doe</a>	% Realisation des tirages</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<ul style="list-style-image:url(../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function ntir=norm_tir(tirage,Xmin,Xmax)</a></li><li><a href="#_sub2" class="code">function dntir=denorm_tir(tirage,Xmin,Xmax)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)</span>
+0002 <span class="comment">% IHS: Improved Hypercube Sampling</span>
+0003 <span class="comment">% Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.</span>
+0004 <span class="comment">% L. LAURENT -- 14/01/2012 -- laurent@lmt.ens-cachan.fr</span>
+0005 
+0006 
+0007 <a name="_sub0" href="#_subfunctions" class="code">function [tir,new_tir]=ihs_R(Xmin,Xmax,nb_samples,old_tir)</a>
+0008 
+0009 <span class="comment">%% INPUT:</span>
+0010 <span class="comment">%    - Xmin,Xmax: bornes min et max de l'espace de concpetion</span>
+0011 <span class="comment">%    - nb_samples: nombre d'echantillons requis</span>
+0012 <span class="comment">%    - nb_enrich: nombre d'echantillons requis pour enrichir</span>
+0013 <span class="comment">%% OUTPUT</span>
+0014 <span class="comment">%   - tir: echantillons</span>
+0015 <span class="comment">%   - new_tir: nouveaux echantillons en phase d'enrichissement</span>
+0016 <span class="comment">%%</span>
+0017 
+0018 <span class="comment">%chemin librairies pour bonne execution R</span>
+0019 setenv(<span class="string">'DYLD_LIBRARY_PATH'</span>,<span class="string">'/usr/local/bin/'</span>);
+0020 
+0021 <span class="comment">%%declaration des options</span>
+0022 <span class="comment">% repertoire de stockage</span>
+0023 rep=<span class="string">'IHS_R'</span>;
+0024 <span class="comment">%nombre de plans pretires</span>
+0025 nb_pretir=0;
+0026 <span class="comment">%nom du fichier script r</span>
+0027 nom_script=<span class="string">'ihs_R_'</span>;
+0028 ext_script=<span class="string">'.r'</span>;
+0029 <span class="comment">%nom du fichier de donnees R</span>
+0030 nom_dataR=<span class="string">'dataR_'</span>;
+0031 nom_dataM=nom_dataR;
+0032 ext_dataR=<span class="string">'.dat'</span>;
+0033 ext_dataM=<span class="string">'.mat'</span>;
+0034 <span class="comment">%temps de pause apres execution R</span>
+0035 tps_pause=0;
+0036 
+0037 nb_old=0;
+0038 <span class="keyword">if</span> nargin==4
+0039     nb_old=size(old_tir,1);
+0040 <span class="keyword">else</span>
+0041     nb_old=1;
+0042 <span class="keyword">end</span>
+0043 
+0044 <span class="comment">% recuperation dimensions (nombre de variables et nombre d'echantillon)</span>
+0045 nbs=nb_samples;
+0046 nbv=numel(Xmin);
+0047 <span class="comment">%nom fichier complet</span>
+0048 nom_script=[nom_script num2str(nbv) <span class="string">'_'</span> num2str(nbs+nb_old) ext_script];
+0049 <span class="comment">%nom fichier donnees complet</span>
+0050 nom_dataR=[nom_dataR num2str(nbv) <span class="string">'_'</span> num2str(nbs+nb_old) ext_dataR];
+0051 <span class="comment">%nom fichier tirage .mat</span>
+0052 nom_dataM=[nom_dataM num2str(nbv) <span class="string">'_'</span> num2str(nbs+nb_old) ext_dataM];
+0053 <span class="comment">%chargement librairie LHS</span>
+0054 load_LHS=<span class="string">'library(lhs)\n'</span>;
+0055 <span class="comment">%chargement librairie R.matlab</span>
+0056 load_Rmat=<span class="string">'library(R.matlab)\n'</span>;
+0057 <span class="comment">%procedure stockage tirage</span>
+0058 stock_tir=[<span class="string">'write.table(a,file=&quot;'</span> nom_dataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)\n'</span>];
+0059 
+0060 <span class="comment">%phase de creation des plans</span>
+0061 <span class="keyword">if</span> nargin==3
+0062     <span class="comment">%%ecriture d'un script R</span>
+0063     <span class="comment">%Creation du repertoire de stockage (s'il n'existe pas)</span>
+0064     <span class="keyword">if</span> exist(rep,<span class="string">'dir'</span>)~=7
+0065         cmd=[<span class="string">'mkdir '</span> rep];
+0066         unix(cmd);
+0067     <span class="keyword">end</span>
+0068     
+0069     <span class="comment">%ecriture du script r</span>
+0070     <span class="comment">%procedure de creation du tirage initial</span>
+0071     text_init=[<span class="string">'a&lt;-improvedLHS('</span> num2str(nbs) <span class="string">','</span> num2str(nbv) <span class="string">')\n'</span>];
+0072     <span class="comment">%creation et ouverture du fichier de script</span>
+0073     fid=fopen([rep <span class="string">'/'</span> nom_script],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0074     <span class="comment">%ecriture chargement librairie</span>
+0075     fprintf(fid,load_LHS);
+0076     <span class="comment">%ecriture tirage initial</span>
+0077     fprintf(fid,text_init);
+0078     
+0079     <span class="comment">%ecriture de la procedure de sauvegarde</span>
+0080     fprintf(fid,stock_tir);
+0081     <span class="comment">%fermeture du fichier</span>
+0082     fclose(fid);
+0083     
+0084     <span class="comment">%phase d'enrichissement</span>
+0085 <span class="keyword">elseif</span> nargin==4
+0086     <span class="comment">%normalisation ancien tirage</span>
+0087     nold_tir=<a href="#_sub1" class="code" title="subfunction ntir=norm_tir(tirage,Xmin,Xmax)">norm_tir</a>(old_tir,Xmin,Xmax);
+0088     <span class="comment">%ecriture fichier .mat ancien tirage</span>
+0089     save([rep <span class="string">'/'</span> nom_dataM],<span class="string">'nold_tir'</span>);
+0090     <span class="comment">%recharge ancien tirage</span>
+0091     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$nold.tir\n'</span>,nom_dataM);
+0092     <span class="comment">%procedure d'enrichissement</span>
+0093     text_enrich=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,nb_samples);
+0094     <span class="comment">%creation et ouverture du fichier de script</span>
+0095     fid=fopen([rep <span class="string">'/'</span> nom_script],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0096     <span class="comment">%ecriture chargement librairies</span>
+0097     fprintf(fid,load_LHS);
+0098     fprintf(fid,load_Rmat);
+0099     <span class="comment">%ecriture chargement ancien tirage</span>
+0100     fprintf(fid,text_charg);
+0101     <span class="comment">%ecriture enrichissement</span>
+0102     fprintf(fid,text_enrich);
+0103     
+0104     <span class="comment">%ecriture de la procedure de sauvegarde</span>
+0105     fprintf(fid,stock_tir);
+0106 <span class="keyword">end</span>
+0107 
+0108 <span class="comment">%%execution du script R (necessite d'avoir r installe)</span>
+0109 <span class="comment">%test de l'existence de</span>
+0110 [e,~]=unix(<span class="string">'which R'</span>);
+0111 <span class="keyword">if</span> e~=0
+0112     error(<span class="string">'R non installe (absent du PATH)'</span>);
+0113 <span class="keyword">else</span>
+0114     [~,~]=unix([<span class="string">'cd '</span> rep <span class="string">' &amp;&amp; R -f '</span> nom_script]);
+0115     pause(tps_pause)
+0116 <span class="keyword">end</span>
+0117 <span class="comment">%lecture du fichier de donnees R</span>
+0118 A=load([rep <span class="string">'/'</span> nom_dataR]);
+0119 <span class="comment">%tirage obtenu</span>
+0120 tir=<a href="#_sub2" class="code" title="subfunction dntir=denorm_tir(tirage,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
+0121 <span class="comment">%tirages ajoutes</span>
+0122 new_tir=tir(nb_old:<span class="keyword">end</span>,:);
+0123 <span class="keyword">end</span>
+0124 
+0125 <span class="comment">%fonctions de normalisation/denormalisation des tirages</span>
+0126 <a name="_sub1" href="#_subfunctions" class="code">function ntir=norm_tir(tirage,Xmin,Xmax)</a>
+0127 nbs=size(tirage,1);
+0128 ntir=(tirage-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
+0129 <span class="keyword">end</span>
+0130 
+0131 <a name="_sub2" href="#_subfunctions" class="code">function dntir=denorm_tir(tirage,Xmin,Xmax)</a>
+0132 nbs=size(tirage,1);
+0133 dntir=tirage.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+0134 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:36:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

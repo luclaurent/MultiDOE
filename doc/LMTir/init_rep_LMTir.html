@@ -1,0 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of init_rep_LMTir</title>
+  <meta name="keywords" content="init_rep_LMTir">
+  <meta name="description" content="% Script d'ajout des chemins de la Toolbox LMTir">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html LMTir -->
+<h1>init_rep_LMTir
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>% Script d'ajout des chemins de la Toolbox LMTir</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function doss=init_rep_LMTir(chemin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Script d'ajout des chemins de la Toolbox LMTir
+% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="EXEMPLE_ENRICHISSEMENT.html" class="code" title="">EXEMPLE_ENRICHISSEMENT</a>	Exemple d'enrichissement tirage LHS_R</li><li><a href="EXEMPLE_UTILISATION.html" class="code" title="">EXEMPLE_UTILISATION</a>	Exemple d'utilisation de la Toolbox LMTir</li><li><a href="../LMTir/routines/divers/gene_doc.html" class="code" title="">gene_doc</a>	% Generation de la documentation (grace a m2html)</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Script d'ajout des chemins de la Toolbox LMTir</span>
+0002 <span class="comment">%% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr</span>
+0003 
+0004 <a name="_sub0" href="#_subfunctions" class="code">function doss=init_rep_LMTir(chemin)</a>
+0005 
+0006 <span class="comment">%dossier de la Toolbox LMTir</span>
+0007 doss={<span class="string">'routines'</span>,<span class="string">'routines/divers'</span>,<span class="keyword">...</span>
+0008     <span class="string">'routines/libs'</span>,<span class="string">'routines/libs/m2html'</span>,<span class="keyword">...</span>
+0009     <span class="string">'tirages'</span>,<span class="string">'tirages/IHS'</span>,<span class="string">'tirages/LHS'</span>};
+0010 
+0011 <span class="comment">%si pas de chemin spécifié</span>
+0012 <span class="keyword">if</span> nargin==0
+0013     chemin=pwd;
+0014 <span class="keyword">end</span>
+0015 
+0016 <span class="comment">%chemins absolus</span>
+0017 chemin_full=cellfun(@(c)[chemin <span class="string">'/'</span> c],doss,<span class="string">'uni'</span>,false);
+0018 
+0019 <span class="comment">%ajout au PATH</span>
+0020 cellfun(@addpath,chemin_full);</pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:36:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

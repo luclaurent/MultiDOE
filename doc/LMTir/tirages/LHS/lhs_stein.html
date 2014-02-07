@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lhs_stein</title>
+  <meta name="keywords" content="lhs_stein">
+  <meta name="description" content="z=lhs_stein(xmean,xsd,corr,nsample)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html LHS -->
+<h1>lhs_stein
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>z=lhs_stein(xmean,xsd,corr,nsample)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function z=lhs_stein(xmean,xsd,corr,nsample,ntry) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> z=lhs_stein(xmean,xsd,corr,nsample)
+ LHS with correlation, normal distribution
+ method of Stein (1987)
+ Stein, M. 1987. Large Sample Properties of Simulations Using Latin Hypercube Sampling. 
+                 Technometrics 29:143-151
+ Input:
+   xmean   : mean of data (1,nvar)
+   xsd     : std.dev of data (1,nvar)
+   corr    : correlation matrix of the variables (nvar,nvar)
+   nsample : no. of samples
+   ntry    : optional, no of trial to get a close correlation matrix
+ Output:
+   z       : random sample (nsample,nvar)
+   Budiman (2004)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ltqnorm.html" class="code" title="function z = ltqnorm(p)">ltqnorm</a>	LTQNORM Lower tail quantile for standard normal distribution.</li><li><a href="rank_corr.html" class="code" title="function rc=rank_corr(corr,nsample)">rank_corr</a>	rc=rank_corr(corr,nsample)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="test_sampling.html" class="code" title="">test_sampling</a>	example of sampling</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function z=lhs_stein(xmean,xsd,corr,nsample,ntry)</a>
+0002 <span class="comment">% z=lhs_stein(xmean,xsd,corr,nsample)</span>
+0003 <span class="comment">% LHS with correlation, normal distribution</span>
+0004 <span class="comment">% method of Stein (1987)</span>
+0005 <span class="comment">% Stein, M. 1987. Large Sample Properties of Simulations Using Latin Hypercube Sampling.</span>
+0006 <span class="comment">%                 Technometrics 29:143-151</span>
+0007 <span class="comment">% Input:</span>
+0008 <span class="comment">%   xmean   : mean of data (1,nvar)</span>
+0009 <span class="comment">%   xsd     : std.dev of data (1,nvar)</span>
+0010 <span class="comment">%   corr    : correlation matrix of the variables (nvar,nvar)</span>
+0011 <span class="comment">%   nsample : no. of samples</span>
+0012 <span class="comment">%   ntry    : optional, no of trial to get a close correlation matrix</span>
+0013 <span class="comment">% Output:</span>
+0014 <span class="comment">%   z       : random sample (nsample,nvar)</span>
+0015 <span class="comment">%   Budiman (2004)</span>
+0016 
+0017 nvar=length(xmean);
+0018 <span class="keyword">if</span>(nargin==4), ntry=1; <span class="keyword">end</span>;
+0019 
+0020 rc=<a href="rank_corr.html" class="code" title="function rc=rank_corr(corr,nsample)">rank_corr</a>(corr,nsample); <span class="comment">% calculate rank correlation</span>
+0021 
+0022 amin=realmax;
+0023 <span class="keyword">for</span> il=1:ntry
+0024     <span class="keyword">for</span> j=1:nvar
+0025         <span class="comment">% rank correlation</span>
+0026         r=rc(:,j);
+0027         <span class="comment">% draw random no.</span>
+0028         u=rand(nsample,1);
+0029         <span class="comment">% calc. probability</span>
+0030         p=(r-u)./nsample;
+0031         <span class="comment">% inverse from normal distribution</span>
+0032         z(:,j)=(<a href="ltqnorm.html" class="code" title="function z = ltqnorm(p)">ltqnorm</a>(p).*xsd(j))+xmean(j);    
+0033     <span class="keyword">end</span>
+0034     ae=sum(sum(abs(corrcoef(z)-corr)));
+0035     <span class="keyword">if</span>(ae&lt;amin),
+0036         zb=z;
+0037         amin=ae;
+0038     <span class="keyword">end</span>;
+0039 <span class="keyword">end</span>
+0040 
+0041 z=zb;</pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:36:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

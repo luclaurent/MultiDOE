@@ -1,0 +1,10 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  EXEMPLE_ENRICHISSEMENT -> init_rep_LMTir;
+  EXEMPLE_UTILISATION -> init_rep_LMTir;
+
+  EXEMPLE_ENRICHISSEMENT [URL="EXEMPLE_ENRICHISSEMENT.html"];
+  EXEMPLE_UTILISATION [URL="EXEMPLE_UTILISATION.html"];
+  README [URL="README.html"];
+  init_rep_LMTir [URL="init_rep_LMTir.html"];
+}

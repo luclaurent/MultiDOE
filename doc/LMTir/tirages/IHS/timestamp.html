@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of timestamp</title>
+  <meta name="keywords" content="timestamp">
+  <meta name="description" content="">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html LMTir --><!-- ../menu.html tirages --><!-- menu.html IHS -->
+<h1>timestamp
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong></strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function ts = timestamp() </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> 
+ TIMESTAMP returns the current system time.
+ The output is type string and without EOL.
+ (LB 9'02)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="ihs_test.html" class="code" title="function ihs_test ( )">ihs_test</a>	*****************************************************************************80</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ts = timestamp()</a>
+0002 <span class="comment">%</span>
+0003 <span class="comment">% TIMESTAMP returns the current system time.</span>
+0004 <span class="comment">% The output is type string and without EOL.</span>
+0005 <span class="comment">% (LB 9'02)</span>
+0006 
+0007 TempTime=clock;
+0008 ts = [<span class="string">'('</span> num2str(TempTime(4),<span class="string">'%02.0f'</span>) <span class="string">':'</span> num2str(TempTime(5),<span class="string">'%02.0f'</span>) <span class="string">':'</span> num2str(TempTime(6),<span class="string">'%02.0f'</span>) <span class="string">')'</span>];</pre></div>
+<hr><address>Generated on Fri 07-Feb-2014 19:36:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
