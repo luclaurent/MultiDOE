@@ -1,7 +1,7 @@
 %%fonction de calcul intersite d'un tirages
 %% L. LAURENT -- 03/04/2013 -- laurent@lmt.ens-cachan.fr
 
-function [distmat,dist,uniq_dist,nb_paires] = distir(tirages,q)
+function [distmat,dist,uniq_dist,nb_paires,ecart] = distir(tirages,q)
 
 %si q non specifie calcul d'une distance Euclidienne
 if nargin==1
@@ -26,12 +26,15 @@ comb2=comb2(ind);
 %calcul des distances interpoints
 pti=tirages(comb1,:);
 ptj=tirages(comb2,:);
-dist=sum(abs(ptj-pti).^q,2).^(1/q);
+ecart.val=pti-ptj;
+dist=sum(abs(ecart.val).^q,2).^(1/q);
 %convertion en matrice
 distmat=zeros(nb_val);
 IX=sub2ind([nb_val nb_val],comb1,comb2);
 distmat(IX)=dist;
 distmat=distmat+distmat';
+ecart.ind=IX;
+ecart.sub=[comb1 comb2];
 
 if nargout>1
     %concatenation des distances

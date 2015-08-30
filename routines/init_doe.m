@@ -125,6 +125,7 @@ fprintf('++ Espace etude: ');
 if isempty(doe.Xmin)
     fprintf('NON SPECIFIE\n')
 else
+    fprintf('\n');
     fprintf('   Min  |');
     fprintf('%+4.2f|',doe.Xmin);fprintf('\n');
     fprintf('   Max  |');

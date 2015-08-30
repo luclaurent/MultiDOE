@@ -32,7 +32,7 @@ doe.Xmax=[3 2 1];
 % - rand
 % - perso
 
-doe.type='LHS';
+doe.type='IHS_R';
 doe.nb_samples=30;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

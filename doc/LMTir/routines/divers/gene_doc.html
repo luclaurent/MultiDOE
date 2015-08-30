@@ -15,7 +15,7 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- ../../menu.html LMTir --><!-- ../menu.html routines --><!-- menu.html divers -->
+<!-- ../../menu.html LMTir --><!-- # routines --><!-- menu.html divers -->
 <h1>gene_doc
 </h1>
 
@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../LMTir/init_rep_LMTir.html" class="code" title="function doss=init_rep_LMTir(chemin)">init_rep_LMTir</a>	% Script d'ajout des chemins de la Toolbox LMTir</li><li><a href="list_files_LMTir.html" class="code" title="function list=list_files_LMTir(dossier)">list_files_LMTir</a>	% Listage des fichiers de la Toolbox LMTir</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 </ul>
@@ -46,7 +46,7 @@ This function is called by:
 0002 <span class="comment">%% L. LAURENT -- 07/02/2014 -- laurent@lmt.ens-cachan.fr</span>
 0003 
 0004 <span class="comment">%chargement des chemins</span>
-0005 doss=<a href="../../../LMTir/init_rep_LMTir.html" class="code" title="function doss=init_rep_LMTir(chemin)">init_rep_LMTir</a>;
+0005 doss=init_rep_LMTir;
 0006 
 0007 <span class="comment">%% generation de la documentation</span>
 0008 
@@ -60,7 +60,7 @@ This function is called by:
 0016 <span class="comment">%doss_ignore={'};</span>
 0017 
 0018 <span class="comment">%liste des fichiers</span>
-0019 list_files=<a href="list_files_LMTir.html" class="code" title="function list=list_files_LMTir(dossier)">list_files_LMTir</a>(doss);
+0019 list_files=list_files_LMTir(doss);
 0020 <span class="comment">%ajout chemin</span>
 0021 list_files=cellfun(@(x) sprintf(<span class="string">'%s/%s'</span>,dossier,x),list_files,<span class="string">'UniformOutput'</span>,false);
 0022 
@@ -86,6 +86,6 @@ This function is called by:
 0042 <span class="comment">%hh=dir('*.m');</span>
 0043 <span class="comment">%dossiers/fichiers</span>
 0044 <span class="comment">%list_files={'routines/','tirages',hh.name};</span></pre></div>
-<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sun 30-Aug-2015 18:41:16 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

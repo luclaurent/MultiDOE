@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="init_rep_LMTir.html" class="code" title="function doss=init_rep_LMTir(chemin)">init_rep_LMTir</a>	% Script d'ajout des chemins de la Toolbox LMTir</li><li><a href="../LMTir/routines/gene_doe.html" class="code" title="function [out,info_tirages]=gene_doe(doe)">gene_doe</a>	% Realisation des tirages</li><li><a href="../LMTir/routines/init_doe.html" class="code" title="function [doe]=init_doe(dim,def,fct)">init_doe</a>	% Initialisation bornes de l'espace d'etude</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -46,11 +46,11 @@ This function is called by:
 0002 <span class="comment">% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr</span>
 0003 
 0004 <span class="comment">%initialisation des dossiers</span>
-0005 <a href="init_rep_LMTir.html" class="code" title="function doss=init_rep_LMTir(chemin)">init_rep_LMTir</a>;
+0005 init_rep_LMTir;
 0006 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0008 <span class="comment">%chargement de la configuration</span>
-0009 doe=<a href="../LMTir/routines/init_doe.html" class="code" title="function [doe]=init_doe(dim,def,fct)">init_doe</a>(3);
+0009 doe=init_doe(3);
 0010 <span class="comment">%</span>
 0011 doe.Xmin=[-1 -2 -3];
 0012 doe.Xmax=[3 2 1];
@@ -76,14 +76,14 @@ This function is called by:
 0032 <span class="comment">% - rand</span>
 0033 <span class="comment">% - perso</span>
 0034 
-0035 doe.type=<span class="string">'LHS'</span>;
+0035 doe.type=<span class="string">'IHS_R'</span>;
 0036 doe.nb_samples=30;
 0037 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0038 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0039 <span class="comment">%generation du tirage</span>
-0040 [tirage,infos]=<a href="../LMTir/routines/gene_doe.html" class="code" title="function [out,info_tirages]=gene_doe(doe)">gene_doe</a>(doe);
+0040 [tirage,infos]=gene_doe(doe);
 0041 tirage.tri
 0042 tirage.non_tri</pre></div>
-<hr><address>Generated on Fri 07-Feb-2014 19:57:27 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sun 30-Aug-2015 18:41:16 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
