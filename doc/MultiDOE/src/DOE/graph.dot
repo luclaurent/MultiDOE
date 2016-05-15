@@ -1,0 +1,14 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  augmentLHS_Example -> augmentLHS_Example;
+
+  augmentLHS_Example [URL="augmentLHS_Example.html"];
+  box_behnken [URL="box_behnken.html"];
+  fullFactDOE [URL="fullFactDOE.html"];
+  glhsR [URL="glhsR.html"];
+  ihsR [URL="ihsR.html"];
+  lhs [URL="lhs.html"];
+  lhsuR [URL="lhsuR.html"];
+  mmlhsR [URL="mmlhsR.html"];
+  olhsR [URL="olhsR.html"];
+}

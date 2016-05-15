@@ -1,0 +1,15 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  buildDOE -> mesuTime;
+  buildDOE -> sortDOE;
+  buildDoc -> listFilesToolbox;
+
+  buildDOE [URL="buildDOE.html"];
+  buildDoc [URL="buildDoc.html"];
+  checkLhsuR [URL="checkLhsuR.html"];
+  checkMultiDOE [URL="checkMultiDOE.html"];
+  checkScore [URL="checkScore.html"];
+  listFilesToolbox [URL="listFilesToolbox.html"];
+  mesuTime [URL="mesuTime.html"];
+  sortDOE [URL="sortDOE.html"];
+}

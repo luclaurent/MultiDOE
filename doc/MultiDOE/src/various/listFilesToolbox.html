@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of listFilesToolbox</title>
+  <meta name="keywords" content="listFilesToolbox">
+  <meta name="description" content="% List all files of the GRENAT Toolbox">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html various -->
+<h1>listFilesToolbox
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>% List all files of the GRENAT Toolbox</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function listF=listFilesToolbox(dirT) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% List all files of the GRENAT Toolbox
+ L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="buildDoc.html" class="code" title="">buildDoc</a>	% Build documentation (using m2html library)</li></ul>
+<!-- crossreference -->
+
+<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="#_sub1" class="code">function [filDir]=listFileDir(dirM)</a></li></ul>
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% List all files of the GRENAT Toolbox</span>
+0002 <span class="comment">% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</span>
+0003 
+0004 
+0005 <span class="comment">% To be executed at the root position of the toolbox</span>
+0006 
+0007 
+0008 <a name="_sub0" href="#_subfunctions" class="code">function listF=listFilesToolbox(dirT)</a>
+0009 listF={};
+0010 <span class="comment">%process all directories in the directory 'dirT'</span>
+0011 <span class="keyword">for</span> ii=1:numel(dirT)
+0012     <span class="comment">%find files in directories</span>
+0013     fileDir=<a href="#_sub1" class="code" title="subfunction [filDir]=listFileDir(dirM)">listFileDir</a>(dirT{ii});
+0014     <span class="comment">%add name of the directory</span>
+0015     fun=@(x) sprintf(<span class="string">'%s/%s'</span>,dirT{ii},x);
+0016     fileDirOk=cellfun(fun,fileDir,<span class="string">'UniformOutput'</span>,false);
+0017     <span class="comment">%add to the whole list</span>
+0018     listF={listF{:},fileDirOk{:}};
+0019 <span class="keyword">end</span>
+0020 <span class="comment">%add the root directory of the Toolbox</span>
+0021 fileDirOk=<a href="#_sub1" class="code" title="subfunction [filDir]=listFileDir(dirM)">listFileDir</a>(<span class="string">'.'</span>);
+0022 <span class="comment">%add to the whole list</span>
+0023 listF={listF{:},fileDirOk{:}};
+0024 
+0025 
+0026 <span class="comment">%Files to avoid</span>
+0027 blacklist={<span class="string">'.git'</span>,char(126),<span class="string">'m2html'</span>,<span class="string">'.DS_Store'</span>,<span class="keyword">...</span>
+0028     <span class="string">'lightspeed'</span>,<span class="string">'mmx'</span>,<span class="string">'mtimesx'</span>,<span class="string">'Multiprod'</span>,<span class="keyword">...</span>
+0029     <span class="string">'sqplab-0.4.5-distrib'</span>,<span class="string">'toolbox'</span>,<span class="string">'PSOt'</span>,<span class="keyword">...</span>
+0030     <span class="string">'base_monomes'</span>};
+0031 
+0032 <span class="keyword">for</span> jj=1:numel(blacklist)
+0033     <span class="comment">%pattern to check</span>
+0034     checkF=blacklist{jj};
+0035     <span class="comment">%seek the pattern</span>
+0036     kk=strfind(listF,checkF);
+0037     <span class="keyword">if</span> ~isempty(kk)
+0038         <span class="comment">%missing pattern</span>
+0039         hh=cellfun(@isempty,kk);
+0040         <span class="comment">%remove from the list</span>
+0041         IX=find(hh);
+0042         listF={listF{IX}};
+0043     <span class="keyword">end</span>
+0044 <span class="keyword">end</span>
+0045 <span class="comment">%manually addition</span>
+0046 listF{end+1}=<span class="string">'src/libs/PSOt/pso_Trelea_mod.m'</span>;
+0047 <span class="keyword">end</span>
+0048 
+0049 
+0050 <span class="comment">% list files in a directory</span>
+0051 <a name="_sub1" href="#_subfunctions" class="code">function [filDir]=listFileDir(dirM)</a>
+0052 <span class="comment">%rawlist</span>
+0053 rawList=dir(dirM);
+0054 <span class="comment">%flag file</span>
+0055 flag_file=~[rawList.isdir];
+0056 <span class="comment">%list of files in the directory</span>
+0057 filDir={rawList(flag_file).name};
+0058 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

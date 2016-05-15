@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of buildDoc</title>
+  <meta name="keywords" content="buildDoc">
+  <meta name="description" content="% Build documentation (using m2html library)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html various -->
+<h1>buildDoc
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>% Build documentation (using m2html library)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Build documentation (using m2html library)
+ L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../MultiDOE/initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	% Initialization of the directories (MATLAB's path)</li><li><a href="listFilesToolbox.html" class="code" title="function listF=listFilesToolbox(dirT)">listFilesToolbox</a>	% List all files of the GRENAT Toolbox</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Build documentation (using m2html library)</span>
+0002 <span class="comment">% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</span>
+0003 
+0004 <span class="comment">%load paths</span>
+0005 dirPath=<a href="../../../MultiDOE/initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
+0006 
+0007 <span class="comment">%% Build documentation</span>
+0008 
+0009 <span class="comment">%add configurtation to bash (for finding 'dot' script of graphviz)</span>
+0010 setenv(<span class="string">'BASH_ENV'</span>,<span class="string">'~/.bash_profile'</span>);
+0011 
+0012 <span class="comment">%directory to be analysed</span>
+0013 analyseDir=<span class="string">'MultiDOE'</span>;
+0014 <span class="comment">%ignoring directory</span>
+0015 <span class="comment">%ignDir={'};</span>
+0016 
+0017 <span class="comment">%list of files</span>
+0018 listFiles=<a href="listFilesToolbox.html" class="code" title="function listF=listFilesToolbox(dirT)">listFilesToolbox</a>(dirPath);
+0019 <span class="comment">%add path to all files</span>
+0020 listFiles=cellfun(@(x) sprintf(<span class="string">'%s/%s'</span>,analyseDir,x),listFiles,<span class="string">'UniformOutput'</span>,false);
+0021 
+0022 cd ..
+0023 <span class="comment">%execute generation of the doc (Graphviz is optional)</span>
+0024 m2html(<span class="string">'mfiles'</span>,listFiles,<span class="keyword">...</span>
+0025     <span class="string">'htmldir'</span>,[analyseDir <span class="string">'/doc'</span>],<span class="keyword">...</span>
+0026     <span class="string">'recursive'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+0027     <span class="string">'global'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+0028     <span class="string">'globalHypertextLinks'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+0029     <span class="string">'index'</span>,<span class="string">'menu'</span>,<span class="keyword">...</span>
+0030     <span class="string">'template'</span>,<span class="string">'frame'</span>,<span class="keyword">...</span>
+0031     <span class="string">'index'</span>,<span class="string">'menu'</span>,<span class="keyword">...</span>
+0032     <span class="string">'download'</span>,<span class="string">'off'</span>,<span class="keyword">...</span>
+0033     <span class="string">'graph'</span>,<span class="string">'on'</span>)
+0034 cd(analyseDir)
+0035 <span class="comment">%%%%%%</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

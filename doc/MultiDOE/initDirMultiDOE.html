@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of initDirMultiDOE</title>
+  <meta name="keywords" content="initDirMultiDOE">
+  <meta name="description" content="% Initialization of the directories (MATLAB's path)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html MultiDOE -->
+<h1>initDirMultiDOE
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>% Initialization of the directories (MATLAB's path)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function foldersLoad=initDirMultiDOE(pathcustom,other) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Initialization of the directories (MATLAB's path)
+% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li><li><a href="ExampleUse.html" class="code" title="">ExampleUse</a>	% Example of use of the MultiDOE toolbox</li><li><a href="../MultiDOE/src/various/buildDoc.html" class="code" title="">buildDoc</a>	% Build documentation (using m2html library)</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Initialization of the directories (MATLAB's path)</span>
+0002 <span class="comment">%% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</span>
+0003 
+0004 <a name="_sub0" href="#_subfunctions" class="code">function foldersLoad=initDirMultiDOE(pathcustom,other)</a>
+0005 
+0006 <span class="comment">% variable 'other' (optional) of type cell must constain the list of other</span>
+0007 <span class="comment">% toolboxes to load (they must be in '../.')</span>
+0008 
+0009 <span class="comment">% variable 'pathcustom' (optional) contains the specific folder from where</span>
+0010 <span class="comment">% the directories must be loaded</span>
+0011 
+0012 <span class="comment">%folders of the MultiDOE toolbox</span>
+0013 foldersLoad={<span class="string">'src'</span>,<span class="keyword">...</span>
+0014     <span class="string">'src/crit'</span>,<span class="keyword">...</span>
+0015     <span class="string">'src/disp'</span>,<span class="keyword">...</span>
+0016     <span class="string">'src/DOE'</span>,<span class="keyword">...</span>
+0017     <span class="string">'src/init'</span>,<span class="keyword">...</span>
+0018     <span class="string">'src/libs'</span>,<span class="keyword">...</span>
+0019     <span class="string">'src/various'</span>,<span class="keyword">...</span>
+0020     <span class="string">'src/libs'</span>,<span class="keyword">...</span>
+0021     <span class="string">'src/libs/m2html'</span>};
+0022 
+0023 <span class="comment">%depending on the parameters</span>
+0024 specifDir=true;
+0025 <span class="keyword">if</span> nargin==0
+0026     specifDir=false;
+0027 <span class="keyword">elseif</span> nargin&gt;1
+0028     <span class="keyword">if</span> isempty(pathcustom)
+0029         specifDir=false;
+0030     <span class="keyword">end</span>
+0031 <span class="keyword">end</span>
+0032 <span class="comment">%if no specified directory</span>
+0033 <span class="keyword">if</span> ~specifDir
+0034     pathcustom=pwd;
+0035 <span class="keyword">end</span>
+0036 
+0037 <span class="comment">%absolute paths</span>
+0038 pathAbsolute=cellfun(@(c)[pathcustom <span class="string">'/'</span> c],foldersLoad,<span class="string">'uni'</span>,false);
+0039 
+0040 <span class="comment">%add to the PATH</span>
+0041 cellfun(@addpath,pathAbsolute);
+0042 
+0043 <span class="keyword">if</span> nargin==2
+0044      <span class="comment">%Load other toolbox</span>
+0045     <span class="keyword">if</span> ~iscell(other);other={other};<span class="keyword">end</span>
+0046      <span class="comment">%absolute paths</span>
+0047     pathAbsolute=cellfun(@(c)[pathcustom <span class="string">'/../'</span> c],other,<span class="string">'uni'</span>,false);
+0048     <span class="comment">%add to the PATH</span>
+0049     cellfun(@addpath,pathAbsolute);
+0050     <span class="comment">%add other toolbox to the PATH</span>
+0051     namFun=cellfun(@(c)[<span class="string">'initDir'</span> c],other,<span class="string">'uni'</span>,false);
+0052     cellfun(@feval,namFun,pathAbsolute)
+0053 <span class="keyword">end</span>
+0054 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

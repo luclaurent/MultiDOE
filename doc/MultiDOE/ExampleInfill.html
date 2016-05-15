@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ExampleInfill</title>
+  <meta name="keywords" content="ExampleInfill">
+  <meta name="description" content="% Example of use of the enrichment of IHS">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- menu.html MultiDOE -->
+<h1>ExampleInfill
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>% Example of use of the enrichment of IHS</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Example of use of the enrichment of IHS 
+ L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	% Initialization of the directories (MATLAB's path)</li><li><a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	% Function for adding new points in an existing sampling</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Example of use of the enrichment of IHS</span>
+0002 <span class="comment">% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</span>
+0003 
+0004 <span class="comment">%initialize folders of the toolbox</span>
+0005 <a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
+0006 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0007 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0008 <span class="comment">%load configuration</span>
+0009 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>(3);
+0010 <span class="comment">%</span>
+0011 doe.Xmin=[-1 -2 -3];
+0012 doe.Xmax=[3 2 1];
+0013 doe.type=<span class="string">'IHS_R'</span>; <span class="comment">%or LHS_R</span>
+0014 doe.ns=5;
+0015 doe.sort.on=false; <span class="comment">%w/o sorting</span>
+0016 doe.disp=true;
+0017 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0018 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0019 <span class="comment">%build DOE</span>
+0020 sampling=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>(doe);
+0021 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0022 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0023 <span class="comment">%enrichment</span>
+0024 doe.ns=2;
+0025 newSample=<a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>(sampling,doe);
+0026 dispDOE(newSample,doe)</pre></div>
+<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
