@@ -40,7 +40,7 @@ if dispOn
             iter=iter+1;
         end
     else
-        h=figure
+        h=figure;
         it=0;
         para=0.1;
         depX=Xmax-Xmin;iter=1;

@@ -815,208 +815,208 @@ for dim_p=4
             %calcul moyennes et écarts types
             for ii=1:numel(type_tir)
                 for jj=1:numel(nb_iter)
-                        moy_dminmin(ii,jj)=mean(dminmin{ii,jj}(:));
-                        moy_sumd(ii,jj)=mean(sumd{ii,jj}(:));
-                        moy_recouv(ii,jj)=mean(recouv{ii,jj}(:));
-                        moy_rapd(ii,jj)=mean(rapd{ii,jj}(:));
-                        moy_avgd(ii,jj)=mean(avgd{ii,jj}(:));
-                        moy_l2(ii,jj)=mean(l2{ii,jj}(:));
-                        moy_cl2(ii,jj)=mean(cl2{ii,jj}(:));
-                        moy_ml2(ii,jj)=mean(ml2{ii,jj}(:));
-                        moy_sl2(ii,jj)=mean(sl2{ii,jj}(:));
-                        moy_wl2(ii,jj)=mean(wl2{ii,jj}(:));
-                        std_dminmin(ii,jj)=std(dminmin{ii,jj}(:));
-                        std_sumd(ii,jj)=std(sumd{ii,jj}(:));
-                        std_recouv(ii,jj)=std(recouv{ii,jj}(:));
-                        std_rapd(ii,jj)=std(rapd{ii,jj}(:));
-                        std_avgd(ii,jj)=std(avgd{ii,jj}(:));
-                        std_l2(ii,jj)=std(l2{ii,jj}(:));
-                        std_cl2(ii,jj)=std(cl2{ii,jj}(:));
-                        std_ml2(ii,jj)=std(ml2{ii,jj}(:));
-                        std_sl2(ii,jj)=std(sl2{ii,jj}(:));
-                        std_wl2(ii,jj)=std(wl2{ii,jj}(:));
-                    end
+                    moy_dminmin(ii,jj)=mean(dminmin{ii,jj}(:));
+                    moy_sumd(ii,jj)=mean(sumd{ii,jj}(:));
+                    moy_recouv(ii,jj)=mean(recouv{ii,jj}(:));
+                    moy_rapd(ii,jj)=mean(rapd{ii,jj}(:));
+                    moy_avgd(ii,jj)=mean(avgd{ii,jj}(:));
+                    moy_l2(ii,jj)=mean(l2{ii,jj}(:));
+                    moy_cl2(ii,jj)=mean(cl2{ii,jj}(:));
+                    moy_ml2(ii,jj)=mean(ml2{ii,jj}(:));
+                    moy_sl2(ii,jj)=mean(sl2{ii,jj}(:));
+                    moy_wl2(ii,jj)=mean(wl2{ii,jj}(:));
+                    std_dminmin(ii,jj)=std(dminmin{ii,jj}(:));
+                    std_sumd(ii,jj)=std(sumd{ii,jj}(:));
+                    std_recouv(ii,jj)=std(recouv{ii,jj}(:));
+                    std_rapd(ii,jj)=std(rapd{ii,jj}(:));
+                    std_avgd(ii,jj)=std(avgd{ii,jj}(:));
+                    std_l2(ii,jj)=std(l2{ii,jj}(:));
+                    std_cl2(ii,jj)=std(cl2{ii,jj}(:));
+                    std_ml2(ii,jj)=std(ml2{ii,jj}(:));
+                    std_sl2(ii,jj)=std(sl2{ii,jj}(:));
+                    std_wl2(ii,jj)=std(wl2{ii,jj}(:));
+                end
                 
             end
             
             
             save(['multi_doe_score_p5_' num2str(dim_tir) '.mat'])
-            figure('Name',['Dim ' num2str(dim_p) ' - Nb points ' num2str(nb_pt)]) 
+            figure('Name',['Dim ' num2str(dim_p) ' - Nb points ' num2str(nb_pt)])
             subplot(3,4,1)
-            for ii=1:numel(type_tir)                
+            for ii=1:numel(type_tir)
                 textleg=[];
-                    plot(nb_iter,moy_dminmin(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY dist min')
-                subplot(3,4,2)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_sumd(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY Sum Inverse Dist')
-                subplot(3,4,3)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_recouv(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY recouvrement')
-                subplot(3,4,4)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_rapd(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                title('MOY Rapport dist')
-                subplot(3,4,5)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_avgd(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY Average min dist')
-                subplot(3,4,6)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_l2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY L2 discrepancy')
-                subplot(3,4,7)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_sl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY Symetric L2 discrepancy')
-                subplot(3,4,8)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_cl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY Centered L2 discrepancy')
-                subplot(3,4,9)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_ml2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                title('MOY Modified L2 discrepancy')
-                subplot(3,4,10)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_wl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('MOY wrap around L2 discrepancy')
-                subplot(3,4,11)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,moy_wl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                legend(text_leg)
-                
-                    
-                figure('Name',['Dim ' num2str(dim_p) ' - Nb points ' num2str(nb_pt)]) 
-                subplot(3,4,1)
-                textleg=[];
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_dminmin(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD dist min')
-                subplot(3,4,2)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_sumd(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD Sum Inverse Dist')
-                subplot(3,4,3)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_recouv(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD recouvrement')
-                subplot(3,4,4)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_rapd(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                title('STD Rapport dist')
-                subplot(3,4,5)
-                
-                for jj=1:numel(nb_iter)
-                    plot(nb_iter,std_avgd(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD Average min dist')
-                subplot(3,4,6)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_l2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD L2 discrepancy')
-                subplot(3,4,7)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_sl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD Symetric L2 discrepancy')
-                subplot(3,4,8)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_cl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD Centered L2 discrepancy')
-                subplot(3,4,9)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_ml2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                title('STD Modified L2 discrepancy')
-                subplot(3,4,10)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_wl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                
-                title('STD wrap around L2 discrepancy')
-                subplot(3,4,11)
-                
-                for ii=1:numel(type_tir)
-                    plot(nb_iter,std_wl2(ii,:),type_dess{ii},'LineWidth',2);
-                    hold on
-                end
-                legend(text_leg)
-                
-                        
+                plot(nb_iter,moy_dminmin(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY dist min')
+            subplot(3,4,2)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_sumd(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY Sum Inverse Dist')
+            subplot(3,4,3)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_recouv(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY recouvrement')
+            subplot(3,4,4)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_rapd(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            title('MOY Rapport dist')
+            subplot(3,4,5)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_avgd(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY Average min dist')
+            subplot(3,4,6)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_l2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY L2 discrepancy')
+            subplot(3,4,7)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_sl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY Symetric L2 discrepancy')
+            subplot(3,4,8)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_cl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY Centered L2 discrepancy')
+            subplot(3,4,9)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_ml2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            title('MOY Modified L2 discrepancy')
+            subplot(3,4,10)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_wl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('MOY wrap around L2 discrepancy')
+            subplot(3,4,11)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,moy_wl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            legend(text_leg)
+            
+            
+            figure('Name',['Dim ' num2str(dim_p) ' - Nb points ' num2str(nb_pt)])
+            subplot(3,4,1)
+            textleg=[];
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_dminmin(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD dist min')
+            subplot(3,4,2)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_sumd(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD Sum Inverse Dist')
+            subplot(3,4,3)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_recouv(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD recouvrement')
+            subplot(3,4,4)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_rapd(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            title('STD Rapport dist')
+            subplot(3,4,5)
+            
+            for jj=1:numel(nb_iter)
+                plot(nb_iter,std_avgd(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD Average min dist')
+            subplot(3,4,6)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_l2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD L2 discrepancy')
+            subplot(3,4,7)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_sl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD Symetric L2 discrepancy')
+            subplot(3,4,8)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_cl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD Centered L2 discrepancy')
+            subplot(3,4,9)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_ml2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            title('STD Modified L2 discrepancy')
+            subplot(3,4,10)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_wl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            
+            title('STD wrap around L2 discrepancy')
+            subplot(3,4,11)
+            
+            for ii=1:numel(type_tir)
+                plot(nb_iter,std_wl2(ii,:),type_dess{ii},'LineWidth',2);
+                hold on
+            end
+            legend(text_leg)
+            
+            
             
         end
     end

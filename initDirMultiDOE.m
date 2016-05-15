@@ -1,7 +1,7 @@
 %% Initialization of the directories (MATLAB's path)
 %% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
-function foldersLoad=initDirMultDOE(pathcustom,other)
+function foldersLoad=initDirMultiDOE(pathcustom,other)
 
 % variable 'other' (optional) of type cell must constain the list of other
 % toolboxes to load (they must be in '../.')
