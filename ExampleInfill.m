@@ -1,5 +1,5 @@
 %Exemple d'enrichissement tirage LHS_R
-% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
 clear all
 %initialisation des dossiers

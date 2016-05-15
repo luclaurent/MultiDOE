@@ -1,5 +1,5 @@
 %procedure de calcul de score de tirages
-% L. LAURENT -- 19/12/2012 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net
 
 function [uniform,discrepance]=score_doe(tirages,q)
 

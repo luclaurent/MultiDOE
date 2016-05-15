@@ -1,5 +1,5 @@
 %%fonction de calcul intersite d'un tirages
-%% L. LAURENT -- 03/04/2013 -- laurent@lmt.ens-cachan.fr
+%% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net
 
 function [distmat,dist,uniq_dist,nb_paires] = distir(tirages,q)
 

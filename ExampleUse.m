@@ -1,8 +1,8 @@
-%Exemple d'utilisation de la Toolbox LMTir
-% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr
+%% Example of use of the MultiDOE toolbox
+% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
 %initialisation des dossiers
-init_rep_LMTir;
+initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %chargement de la configuration

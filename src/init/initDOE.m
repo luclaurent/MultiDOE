@@ -1,5 +1,5 @@
 %% Initialisation bornes de l'espace d'etude
-%% L. LAURENT -- 05/01/2011 -- laurent@lmt.ens-cachan.fr
+%% L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net
 
 %syntaxes possibles
 %init_doe

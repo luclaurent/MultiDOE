@@ -1,5 +1,5 @@
 %% Initialisation bornes de l'espace d'etude pour des fonctions analytiques définies
-%% L. LAURENT -- 16/01/2014 -- laurent@lmt.ens-cachan.fr
+%% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net
 
 function [esp,dim]=init_doe_fct(dim,fct)
 

@@ -2,7 +2,7 @@
 %% LHS S-optimal (genere en utilisant un algo genetique)
 %Refs:  - Stocki, R. (2005) A method to improve design reliability using optimal Latin hypercube sampling Computer Assisted Mechanics and Engineering Sciences 12, 87?105.
 %       -Stein, M. (1987) Large Sample Properties of Simulations Using Latin Hypercube Sampling. Technometrics. 29, 143?151.
-% L. LAURENT -- 02/01/2013 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net
 
 
 

@@ -1,5 +1,5 @@
 %% Tri de tirages
-%% L. LAURENT -- 03/09/2013 -- laurent@lmt.ens-cachan.fr
+%% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net
 
 function tiragesTRI = exec_tri(tirages,doe)
 %pour normer

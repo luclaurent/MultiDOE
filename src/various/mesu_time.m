@@ -1,5 +1,5 @@
 %% Fonction assurant l'initialisation et l'affichage des infos temporelles dans les fonctions
-%% L.LAURENT -- 15/05/20012 -- laurent@lmt.ens-cachan.fr
+%% L.LAURENT -- 15/05/20012 -- luc.laurent@lecnam.net
 
 function [tictoc_compt,tInit]=mesu_time(compteur,tps_init)
 

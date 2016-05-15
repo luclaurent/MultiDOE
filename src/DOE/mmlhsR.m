@@ -1,7 +1,7 @@
 %% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)
 %% LHS maximin
 %Refs: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
-% L. LAURENT -- 02/01/2013 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net
 
 
 

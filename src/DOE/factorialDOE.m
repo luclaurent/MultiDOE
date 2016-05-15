@@ -1,5 +1,5 @@
 %% Fonction assurant la generation d'un plan factoriel en dimension n
-% L. LAURENT -- 07/10/2011 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 07/10/2011 -- luc.laurent@lecnam.net
 
 function tir=factorial_design(nb_tir,Xmin,Xmax)
 

@@ -1,41 +1,52 @@
-%% Script d'ajout des chemins de la Toolbox LMTir
-%% L. LAURENT -- 06/01/2014 -- laurent@lmt.ens-cachan.fr
+%% Initialization of the directories (MATLAB's path)
+%% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
-function init_rep_LMTir(chemin)
+function foldersLoad=initDirMultDOE(pathcustom,other)
 
-%dossier de la Toolbox LMTir
-doss={'routines','tirages','tirages/IHS','tirages/LHS'};
+% variable 'other' (optional) of type cell must constain the list of other
+% toolboxes to load (they must be in '../.')
 
-%en fonction des parametres
-specif_chemin=true;
+% variable 'pathcustom' (optional) contains the specific folder from where
+% the directories must be loaded
+
+%folders of the MultiDOE toolbox
+foldersLoad={'src',...
+    'src/crit',...
+    'src/disp',...
+    'src/DOE',...
+    'src/init',...
+    'src/libs',...
+    'src/various'};
+
+%depending on the parameters
+specifDir=true;
 if nargin==0
-    specif_chemin=false;
+    specifDir=false;
 elseif nargin>1
-    if isempty(chemin)
-        specif_chemin=false;
+    if isempty(pathcustom)
+        specifDir=false;
     end
 end
-%si pas de chemin specifie
-if ~specif_chemin
-    chemin=pwd;
+%if no specified directory
+if ~specifDir
+    pathcustom=pwd;
 end
 
-%chemins absolus
-chemin_full=cellfun(@(c)[chemin '/' c],doss,'uni',false);
+%absolute paths
+pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
 
-%ajout au PATH
-cellfun(@addpath,chemin_full);
+%add to the PATH
+cellfun(@addpath,pathAbsolute);
 
 if nargin==2
-    %%chargement des autres toolbox
+     %Load other toolbox
     if ~iscell(other);other={other};end
-    %chemins absolus
-    chemin_full=cellfun(@(c)[chemin '/../' c],other,'uni',false);
-    %ajout au PATH
-    cellfun(@addpath,chemin_full);
-    
-    %ajout des toolbox dans le PATH
-    nom_fct=cellfun(@(c)['init_rep_' c],other,'uni',false);
-    cellfun(@feval,nom_fct,chemin_full)
+     %absolute paths
+    pathAbsolute=cellfun(@(c)[pathcustom '/../' c],other,'uni',false);
+    %add to the PATH
+    cellfun(@addpath,pathAbsolute);
+    %add other toolbox to the PATH
+    namFun=cellfun(@(c)['initDir' c],other,'uni',false);
+    cellfun(@feval,namFun,pathAbsolute)
 end
 end

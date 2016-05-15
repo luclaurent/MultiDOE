@@ -1,5 +1,5 @@
 %% Fonction assurant l'enrichissement de la base de points echantillonnes 
-%% L. LAURENT -- 04/12/2011 -- laurent@lmt.ens-cachan.fr
+%% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net
 
 % l'enrichissement necessite la presence du package 'R.matlab' dans R
 

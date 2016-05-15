@@ -1,5 +1,5 @@
 %% Affichage LHS/IHS issus de R avec enrichissement
-% L. LAURENT -- 14/01/2012 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
 close all
 %dimension [1 2 3 4 5 6 7 8 9 10] nombre de variables
 dim=2;

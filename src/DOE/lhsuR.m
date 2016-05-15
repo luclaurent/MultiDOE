@@ -1,5 +1,5 @@
 %% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)
-% L. LAURENT -- 14/01/2012 -- laurent@lmt.ens-cachan.fr
+% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
 
 
 function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)

@@ -1,5 +1,5 @@
 %% Procedure assurant l'affichage des tirages en nD
-%% L. LUARENT -- 10/02/2012 -- laurent@lmt.ens-cachan.fr
+%% L. LUARENT -- 10/02/2012 -- luc.laurent@lecnam.net
 
 
 function aff_doe(tirages,doe,manq)
