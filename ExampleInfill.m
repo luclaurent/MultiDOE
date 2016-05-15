@@ -1,27 +1,26 @@
-%Exemple d'enrichissement tirage LHS_R
+%% Example of use of the enrichment of IHS 
 % L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
-clear all
-%initialisation des dossiers
-init_rep_LMTir;
+%initialize folders of the toolbox
+initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%chargement de la configuration
-doe=init_doe(3);
+%load configuration
+doe=initDOE(3);
 %
 doe.Xmin=[-1 -2 -3];
 doe.Xmax=[3 2 1];
-doe.type='IHS_R'; %ou LHS_R
-doe.nb_samples=5;
-dor.tri.on=false; %tri desactive (!!)
-doe.aff=true;
+doe.type='IHS_R'; %or LHS_R
+doe.ns=5;
+doe.sort.on=false; %w/o sorting
+doe.disp=true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%generation du tirage
-tirage=gene_doe(doe);
+%build DOE
+sampling=buildDOE(doe);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%enrichissement
-doe.nb_samples=2;
-new_tirage=ajout_tir_doe(tirage,doe);
-aff_doe(new_tirage,doe)
+%enrichment
+doe.ns=2;
+newSample=addSampleDOE(sampling,doe);
+dispDOE(newSample,doe)

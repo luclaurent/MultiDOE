@@ -1,18 +1,18 @@
 %% Example of use of the MultiDOE toolbox
 % L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
-%initialisation des dossiers
+%initialize folders of the toolbox
 initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%chargement de la configuration
-doe=init_doe(3);
+%load configuration
+doe=initDOE(3);
 %
 doe.Xmin=[-1 -2 -3];
 doe.Xmax=[3 2 1];
 
-% Tirages possibles :
-% - ffact "plan factoriel"
+% available sampling techniques :
+% - ffact "full factorial"
 % - LHS_R
 % - OLHS_R
 % - MMLHS_R
@@ -27,16 +27,16 @@ doe.Xmax=[3 2 1];
 % - LHS 
 % - IHS
 % - LHS_O1
-% - IHS_R_manu_enrich
-% - LHS_R_manu_enrich
+% - IHS_R_manu_infill
+% - LHS_R_manu_infill
 % - rand
 % - perso
 
 doe.type='IHS';
-doe.nb_samples=30;
+doe.ns=30;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%generation du tirage
-[tirage,infos]=gene_doe(doe);
-tirage.tri
-tirage.non_tri
+%build DOE
+[sampling,infos]=buildDOE(doe);
+sampling.sorted
+sampling.unsorted
