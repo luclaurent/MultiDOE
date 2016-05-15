@@ -1,49 +1,49 @@
-%%fonction de calcul intersite d'un tirages
+%% function for computing inter-sample distances
 %% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net
 
-function [distmat,dist,uniq_dist,nb_paires] = distir(tirages,q)
+function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)
 
-%si q non specifie calcul d'une distance Euclidienne
+%if q is not specified, the euclidian distance will be used
 if nargin==1
     q=2;
 end
 
-%nombre de points et nombre de variables
-nb_val=size(tirages,1);
+%number of variables
+ns=size(sampling,1);
 
-%generation des combinaison
-comb=fullfact([nb_val nb_val]);
+%geenrate combinations
+comb=fullfact([ns ns]);
 comb1=comb(:,1);comb2=comb(:,2);
-diff=comb1-comb2;
-ind=diff~=0;
-indd=diff<0;
+diffC=comb1-comb2;
+iX=diffC~=0;
+iXX=diffC<0;
 
-ind=ind&indd;
+iX=iX&iXX;
 
-comb1=comb1(ind);
-comb2=comb2(ind);
+comb1=comb1(iX);
+comb2=comb2(iX);
 %[comb1 comb2]
-%calcul des distances interpoints
-pti=tirages(comb1,:);
-ptj=tirages(comb2,:);
-dist=sum(abs(ptj-pti).^q,2).^(1/q);
-%convertion en matrice
-distmat=zeros(nb_val);
-IX=sub2ind([nb_val nb_val],comb1,comb2);
-distmat(IX)=dist;
-distmat=distmat+distmat';
+%compute inter-sample points distances
+pti=sampling(comb1,:);
+ptj=sampling(comb2,:);
+distVect=sum(abs(ptj-pti).^q,2).^(1/q);
+%store in a matrix
+distMat=zeros(ns);
+IX=sub2ind([ns ns],comb1,comb2);
+distMat(IX)=distVect;
+distMat=distMat+distMat';
 
 if nargout>1
-    %concatenation des distances
-    dist_cat=dist(:);    
+    %concatenate distance
+    dist_cat=distVect(:);    
     if nargout>2
-        %suppression des doublons
-        uniq_dist=unique(dist_cat);
+        %remove duplicates
+        uniqDist=unique(dist_cat);
         if nargout>3
-            %construction de la table de multiplicité des longueurs
-            nb_paires=zeros(size(uniq_dist));
-            for ii=1:length(uniq_dist)
-                nb_paires(ii)=sum(ismember(dist_cat,uniq_dist(ii)));
+            %build table of the multiplicity of the distances
+            multiDOE=zeros(size(uniqDist));
+            for ii=1:length(uniqDist)
+                multiDOE(ii)=sum(ismember(dist_cat,uniqDist(ii)));
             end
         end
     end

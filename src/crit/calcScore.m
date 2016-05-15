@@ -1,90 +1,90 @@
-%procedure de calcul de score de tirages
+%% Computation of the score associated to a sampling
 % L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net
 
-function [uniform,discrepance]=score_doe(tirages,q)
+function [uniform,discrepancy]=calcScore(sampling,q)
 
-% norme distance employee
+% norme use for computing the distance
 if nargin==1
     q=2;
 end
 
-%nombre de points
-nb_val=size(tirages,1);
-nb_var=size(tirages,2);
+%number of points and variables
+ns=size(sampling,1);
+np=size(sampling,2);
 
-%le tirages est ramene sur un espace [0,1]^d
-mintir=min(tirages);
-maxtir=max(tirages);
-p=1./(maxtir-mintir);
-c=-mintir.*p;
-tiragesn=tirages.*repmat(p,nb_val,1)+repmat(c,nb_val,1);
+%the sampling is reduced to the unit hypercube (space [0,1]^d)
+minSampling=min(sampling);
+maxSampling=max(sampling);
+p=1./(maxSampling-minSampling);
+c=-minSampling.*p;
+samplingN=sampling.*repmat(p,ns,1)+repmat(c,ns,1);
 
-% Calcul distance inter-points + multiplicite (cf. Forrester,Sobester&Keane
+% Compute inter-sample points distance + multiplicity(see Forrester,Sobester&Keane
 % 2008)
-[distmat,dist,distu,paire]=distir(tirages,q);
+[distM,distV,distU,pairS]=calcDist(sampling,q);
 %meme calculs sur les valeurs normees
-[distnmat,distn,distun,pairen]=distir(tiragesn,q);
+[distNM,distNV,distNU,paireNS]=calcDist(samplingN,q);
 
-%on exclut les diagonlaes
-distmat(logical(eye(nb_val)))=NaN;
-distnmat(logical(eye(nb_val)))=NaN;
-% avec les donnees brutes
-%distance mini en chaque point
-min_dist_pt=min(distmat);
-%distance mini moyenne en chaque point
-min_dist_moy=mean(min_dist_pt);
-%distance mini (maximin)
-uniform.dist_min=distu(1);
-%somme inverse distance Leary et al. 2004
-uniform.sum_dist=sum(1./distu(:).^2);
-%%critères issus de La thèse de Jessica FRANCO 2008
-%distance min moyenne
-uniform.avg_min_dist=min_dist_moy;
+%remove diagonals
+distM(logical(eye(ns)))=NaN;
+distNM(logical(eye(ns)))=NaN;
+%% with raw data
+%minimal distance of each sample points
+minDistPt=min(distM);
+%average minimal distance 
+minDistAvg=mean(minDistPt);
+%minimal distance
+uniform.minDist=distU(1);
+%sum of the inverse of the distances (see Leary et al. 2004)
+uniform.sum_dist=sum(1./distU(:).^2);
+%%criteria for the PhD thesis of Jessica FRANCO 2008
+%average minimal distance 
+uniform.avgMinDist=minDistAvg;
 %%
-% avec les donnees normees
-%distance mini en chaque point
-min_dist_ptn=min(distnmat);
-%distance mini moyenne en chaque point
-min_dist_moyn=mean(min_dist_ptn);
-%distance mini (maximin)
-uniform.dist_minn=distun(1);
-%somme inverse distance Leary et al. 2004
-uniform.sum_distn=sum(1./distun(:).^2);
-%%critères issus de La thèse de Jessica FRANCO 2008
-%mesure de recouvrement/uniformité
-uniform.recouv=1/min_dist_moyn*...
-    (1/nb_val*sum(min_dist_ptn-min_dist_moyn)^2)^.5;
-%rapport des distance
-uniform.rap_dist=distun(end)/distun(1);
-%distance min moyenne
-uniform.avg_min_distn=min_dist_moyn;
+%£ with normalized data
+%minimal distance of each sample points
+minDistPtN=min(distNM);
+%average minimal distance
+minDistAvg=mean(minDistPtN);
+%minimal distance (maximin)
+uniform.minDistN=distNU(1);
+%sum of the inverse of the distances (see Leary et al. 2004)
+uniform.sum_distn=sum(1./distNU(:).^2);
+%%criteria for the PhD thesis of Jessica FRANCO 2008
+%measure of the covering/uniformity
+uniform.cover=1/minDistAvg*...
+    (1/ns*sum(minDistPtN-minDistAvg)^2)^.5;
+%ratio of the distances
+uniform.distRatio=distNU(end)/distNU(1);
+%average minimal distance 
+uniform.avgMinDistN=minDistAvg;
 
-%critere Morris & Mitechll 1995
-uniform.morris=sum(paire.*distu.^(-q))^(1/q);
-uniform.morrisn=sum(pairen.*distun.^(-q))^(1/q);
+%criteria from Morris & Mitechll 1995
+uniform.morris=sum(pairS.*distU.^(-q))^(1/q);
+uniform.morrisN=sum(paireNS.*distNU.^(-q))^(1/q);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Discrepances
-%(formules issues de Fang et al., Uniform Design: Theory and Application
-%2000 & du manuscrit de these de Jessica Franco)
+%% Discrepancy
+%(formulas from Fang et al., Uniform Design: Theory and Application
+%2000 & and from Jessica Franco)
 
 if nargout>=2
-    %calcul base sur des valeurs ds [0,1]^d
-    tirages=tiragesn;
-    %preparation
-    tirm=reshape(tirages,nb_val,1,nb_var);
-    tirm=repmat(tirm,[1 nb_val 1]);
+    %value in [0,1]^d
+    sampling=samplingN;
+    %initialize
+    samplingM=reshape(sampling,ns,1,np);
+    samplingM=repmat(samplingM,[1 ns 1]);
     ind=[2 1 3];
-    tirmb=permute(tirm,ind);
-    tirm5=tirm-0.5;
-    tirmb5=tirmb-0.5;
+    samplingMB=permute(samplingM,ind);
+    samplingMC=samplingM-0.5;
+    samplingMBC=samplingMB-0.5;
     
     % L2-discrepancy
-    part1=prod(1-tirages.^2,2);
-    maxtir=max(tirm,tirmb);
-    prodm=prod(1-maxtir,3);
+    part1=prod(1-sampling.^2,2);
+    maxSampling=max(samplingM,samplingMB);
+    prodm=prod(1-maxSampling,3);
     part2=sum(prodm(:));
     %     part2=0;
     %     for ii=1:nb_val
@@ -97,13 +97,13 @@ if nargout>=2
     %         end
     %     end
     
-    discrepance.L2=3^(-nb_var)-...
-        2^(1-nb_var)/nb_val*sum(part1)...
-        +1/nb_val*part2;
+    discrepancy.L2=3^(-np)-...
+        2^(1-np)/ns*sum(part1)...
+        +1/ns*part2;
     
     % Centered L2-discrepancy
-    part1=prod(1+0.5*abs(tirages-0.5)-0.5*(tirages-0.5).^2,2);
-    opt=1+0.5*abs(tirm5)+0.5*abs(tirmb5);
+    part1=prod(1+0.5*abs(sampling-0.5)-0.5*(sampling-0.5).^2,2);
+    opt=1+0.5*abs(samplingMC)+0.5*abs(samplingMBC);
     prodm=prod(opt,3);
     part2=sum(prodm(:));
     %     part2=0;
@@ -119,13 +119,13 @@ if nargout>=2
     %     end
     
     
-    discrepance.CL2=(13/12)^nb_var-2/nb_val*sum(part1)+...
-        1/nb_val^2*part2;
+    discrepancy.CL2=(13/12)^np-2/ns*sum(part1)+...
+        1/ns^2*part2;
     
     % Symetric L2-discrepancy
-    part1=prod(1+2*tirages-2*tirages.^2,2);
-    opt=1+0.5*abs(tirm5)+0.5*abs(tirmb5)-...
-        0.5*abs(tirm5-tirmb5);
+    part1=prod(1+2*sampling-2*sampling.^2,2);
+    opt=1+0.5*abs(samplingMC)+0.5*abs(samplingMBC)-...
+        0.5*abs(samplingMC-samplingMBC);
     prodm=prod(opt,3);
     part2=sum(prodm(:));
     %     part2=0;
@@ -141,13 +141,13 @@ if nargout>=2
     %         end
     %     end
     
-    discrepance.SL2=(4/3)^nb_var-...
-        2/nb_val*sum(part1)+...
-        2^nb_var/nb_val^2*part2;
+    discrepancy.SL2=(4/3)^np-...
+        2/ns*sum(part1)+...
+        2^np/ns^2*part2;
     
     % Modified L2-discrepancy
-    part1=prod(3-tirages.^2,2);
-    opt=1-abs(tirm-tirmb);
+    part1=prod(3-sampling.^2,2);
+    opt=1-abs(samplingM-samplingMB);
     prodm=prod(opt,3);
     part2=sum(prodm(:));
     %     part2=0;
@@ -160,17 +160,17 @@ if nargout>=2
     %             part2=part2+tmp;
     %         end
     %     end
-    discrepance.ML2=(4/3)^nb_var-...
-        2^(1-nb_var)/nb_val*sum(part1)+...
-        1/nb_val^2*part2;
+    discrepancy.ML2=(4/3)^np-...
+        2^(1-np)/ns*sum(part1)+...
+        1/ns^2*part2;
     
     % wrap around L2-discrepancy
-    part1=abs(tirm-tirmb);
+    part1=abs(samplingM-samplingMB);
     opt=3/2-part1.*(1-part1);
     prodm=prod(opt,3);
     part2=sum(prodm(:));
-    discrepance.WL2=nb_val*(-(4/3)^nb_var+...
-        1/nb_val^2*part2);
+    discrepancy.WL2=ns*(-(4/3)^np+...
+        1/ns^2*part2);
     
     
 end
