@@ -1,5 +1,5 @@
-%% Build DOE using R (LHS with initial sampling and enrichment)
-%% LHS S-optimal (genere en utilisant un algo genetique)
+%% Build DOE using R (optimized LHS with initial sampling and enrichment)
+%% LHS S-optimal (using Genetic algorithm)
 %Refs:  - Stocki, R. (2005) A method to improve design reliability using optimal Latin hypercube sampling Computer Assisted Mechanics and Engineering Sciences 12, 87?105.
 %       -Stein, M. (1987) Large Sample Properties of Simulations Using Latin Hypercube Sampling. Technometrics. 29, 143?151.
 % L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net
@@ -30,7 +30,7 @@ nbInitSampling=0;
 nameScript='glhs_R_';
 extScript='.r';
 %name of the R data file
-namedataR='dataR';
+nameDataR='dataR';
 extDataR='.dat';
 %pause time after executing R
 timePause=0;
@@ -48,10 +48,10 @@ if nargin==3
     
     % load dimensions (number of variables and sample points)
     np=numel(Xmin);
-    %full name of the R sciprt file
+    %full name of the R script file
     nameScript=[nameScript num2str(np) '_' num2str(ns) extScript];
     %fulle name of the R data file
-    namedataR=[namedataR num2str(np) '_' num2str(ns) extDataR];
+    nameDataR=[nameDataR num2str(np) '_' num2str(ns) extDataR];
     
     %create storing folder if not existing
     if exist(folderStore,'dir')~=7
@@ -64,10 +64,10 @@ if nargin==3
         num2str(initPop) ',' num2str(nbMut) ',' num2str(probMut) ')\n'];
     %infill process
     textInfill=['a<-optAugmentLHS(a,1,4)\n'];
-    %load LHs library
+    %load LHS library
     loadLHS='library(lhs)\n';
     %store sampling
-    stock_tir=['write.table(a,file="' namedataR '",row.names=FALSE,col.names=FALSE)'];
+    storeSampling=['write.table(a,file="' nameDataR '",row.names=FALSE,col.names=FALSE)'];
     
     %create and open script file
     fid=fopen([folderStore '/' nameScript],'w','n','UTF-8');
@@ -80,32 +80,32 @@ if nargin==3
         fprintf(fid,textInfill);
     end
     %write storage procedure
-    fprintf(fid,stock_tir);
+    fprintf(fid,storeSampling);
     %close file
     fclose(fid);
     %%execute R (R must be installed)
-    %check if avilable
-    [e,t]=unix('which R');
+    %check if available
+    [e,~]=unix('which R');
     if e~=0
         error('R is not installed (not in the PATH)');
     else
-        [~,t]=unix(['cd ' folderStore ' && R -f ' nameScript]);
+        [~,~]=unix(['cd ' folderStore ' && R -f ' nameScript]);
         pause(timePause)
     end
     %read data file
-    A=load([folderStore '/' namedataR]);
+    A=load([folderStore '/' nameDataR]);
     %obtained sampling
     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
     newSampling=[];
     
-    %enricmehtn procedure
+    %enrichment procedure
 elseif nargin==5
     
     %number of sample points in the initial sampling
     nsOld=size(oldSampling,1);
     
     %read data file
-    A=load([folderStore '/' namedataR]);
+    A=load([folderStore '/' nameDataR]);
     
     %new sampling
     ind=nsOld+1:nsOld+nbInfill;
