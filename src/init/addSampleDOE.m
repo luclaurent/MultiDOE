@@ -1,22 +1,22 @@
-%% Fonction assurant l'enrichissement de la base de points echantillonnes 
+%% Function for adding new points in an existing sampling
 %% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net
 
-% l'enrichissement necessite la presence du package 'R.matlab' dans R
+% the enrichment requires the library 'R.matlab' in R software
 
-function new_tir=ajout_tir_doe(old_tirages,doe)
+function newSampling=addSampleDOE(oldSampling,doe)
 
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
 
-nb_samples=doe.nb_samples;
+ns=doe.ns;
 
-% en fonction du type de tirages initial
+% depending on the initial sampling
 switch doe.type
     case 'LHS_R'
-        [new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tirages);
+        [newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling);
     case 'IHS_R'
-        [new_tir]=ihs_R(Xmin,Xmax,nb_samples,old_tirages);
+        [newSampling]=ihsR(Xmin,Xmax,ns,oldSampling);
     otherwise
-        fprintf('>>>> Seul les tirages de type LHS_R et IHS_R \n permettent l''enrichissement\n')
-        pts=[];
+        fprintf('>>>> Only LHS_R et IHS_R sampling \n allow enrichment\n')
+        newSampling=[];
 end
