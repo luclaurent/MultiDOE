@@ -1,115 +1,110 @@
-%% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)
+%% Build DOE using R (optimized LHS with initial sampling and enrichment)
 %% LHS maximin
 %Refs: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
 % L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net
 
 
 
-function [tir,new_tir]=mmlhs_R(Xmin,Xmax,nb_samples,old_tir,nb_enrich)
+function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)
 
 %% INPUT:
-%    - Xmin,Xmax: bornes min et max de l'espace de concpetion
-%    - nb_samples: nombre d'echantillons requis
-%    - nb_enrich: nombre d'echantillons requis pour enrichir
+%    - Xmin,Xmax: min and max bounds of the design space
+%    - ns: number of required sampled points
+%    - oldSampling: old sampling (for enrichment)
+%    - nbInfill: number of new required sample point (enrichment)
 %% OUTPUT
-%   - tir: echantillons
-%   - new_tir: nouveaux echantillons en phase d'enrichissement
+%   - sampling: sample points
+%   - newSampling: new sample points provided byy enrichment
 %%
 
-%chemin librairies pour bonne execution R
+%path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
-%%declaration des options
-% repertoire de stockage
-rep='LHS_R';
-%nombre de plans pretires
-nb_pretir=0;
-%nom du fichier script r
-nom_script='mmlhs_R_';
-ext_script='.r';
-%nom du fichier de donnees R
-nom_dataR='dataR_';
-ext_dataR='.dat';
-%temps de pause apres execution R
-tps_pause=0;
-%options 
-%nombre de permutation "Columnwise Pairwise"
-nbperm=numel(Xmin);
-%critere arret
-crit_stop=1e-2;
+%%initialize options
+% storing directory
+folderStore='LHS_R';
+%number of initial sampling
+nbInitSampling=0;
+%name of the R script file
+nameScript='mmlhs_R_';
+extScript='.r';
+%name of the R data file
+nameDataR='dataR_';
+extDataR='.dat';
+%pause time after executing R
+timePause=0;
 
-%phase de creation des plans
+%number of permutations "Columnwise Pairwise"
+nbPerm=numel(Xmin);
+%stoping criterion
+critStop=1e-2;
+
+%building DOE
 if nargin==3
     
-    % recuperation dimensions (nombre de variables et nombre d'echantillon)
-    nbs=nb_samples;
-    nbv=numel(Xmin);
-    %nom fichier complet
-    nom_script=[nom_script num2str(nbv) '_' num2str(nbs) ext_script];
-    %nom fichier donnees complet
-    nom_dataR=[nom_dataR num2str(nbv) '_' num2str(nbs) ext_dataR];
+    % load dimensions (number of variables and sample points)
+    np=numel(Xmin);
+    %full name of the R script file
+    nameScript=[nameScript num2str(np) '_' num2str(ns) extScript];
+    %full name of the R data file
+    nameDataR=[nameDataR num2str(np) '_' num2str(ns) extDataR];
     
-    %%ecriture d'un script R
-    %Creation du repertoire de stockage (s'il n'existe pas)
-    if exist(rep,'dir')~=7
-        cmd=['mkdir ' rep];
+    %create storing folder if not existing
+    if exist(folderStore,'dir')~=7
+        cmd=['mkdir ' folderStore];
         unix(cmd);
     end
     
-    %ecriture du script r
-    %procedure de creation du tirage initial
-    text_init=['a<-maximinLHS(' num2str(nbs) ',' num2str(nbv) ','...
-        num2str(nbperm) ',' num2str(crit_stop) ')\n'];
+    %%write R script
+    textInit=['a<-maximinLHS(' num2str(ns) ',' num2str(np) ','...
+        num2str(nbPerm) ',' num2str(critStop) ')\n'];
     %procedure d'enrichissement
-    text_enrich=['a<-optAugmentLHS(a,1,4)\n'];
-    %chargement librairie LHS
-    load_LHS='library(lhs)\n';
-    %procedure stockage tirage
-    stock_tir=['write.table(a,file="' nom_dataR '",row.names=FALSE,col.names=FALSE)'];
+    textInfill=['a<-optAugmentLHS(a,1,4)\n'];
+    %load LHS library
+    loadLHS='library(lhs)\n';
+    %store sampling
+    storeSampling=['write.table(a,file="' nameDataR '",row.names=FALSE,col.names=FALSE)'];
     
-    %creation et ouverture du fichier de script
-    fid=fopen([rep '/' nom_script],'w','n','UTF-8');
-    %ecriture chargement librairie
-    fprintf(fid,load_LHS);
-    %ecriture tirage initial
-    fprintf(fid,text_init);
-    %ecriture de l'enrichissement
-    for ii=1:nb_pretir
-        fprintf(fid,text_enrich);
+    %create and open script file
+    fid=fopen([folderStore '/' nameScript],'w','n','UTF-8');
+    %write loading of the library
+    fprintf(fid,loadLHS);
+    %write initial sampling execution
+    fprintf(fid,textInit);
+    %write enrichment
+    for ii=1:nbInitSampling
+        fprintf(fid,textInfill);
     end
-    %ecriture de la procedure de sauvegarde
-    fprintf(fid,stock_tir);
-    %fermeture du fichier
+    %write storage procedure
+    fprintf(fid,storeSampling);
+    %close file
     fclose(fid);
-    %%execution du script R (necessite d'avoir r installe)
-    %test de l'existence de
-    [e,t]=unix('which R');
+    %%execute R (R must be installed)
+    %check if available
+    [e,~]=unix('which R');
     if e~=0
         error('R non installe (absent du PATH)');
     else
-        [~,t]=unix(['cd ' rep ' && R -f ' nom_script]);
-        pause(tps_pause)
+        [~,~]=unix(['cd ' folderStore ' && R -f ' nameScript]);
+        pause(timePause)
     end
-    %lecture du fichier de donnees R
-    A=load([rep '/' nom_dataR]);
-    %tirage obtenu
-    tir=A(1:nbs,:).*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
-    new_tir=[];
+    %read data file
+    A=load([folderStore '/' nameDataR]);
+    %obtained sampling
+    sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
+    newSampling=[];
     
-    %phase d'enrichissement
+    %enrichment procedure
 elseif nargin==5
     
-    %nombre d'echantillons dans le tirage precedent
-    old_nbs=size(old_tir,1);
-    
-    %chargement du fichier de donnees R
-    A=load([rep '/' nom_dataR]);
-    
-    %nouveaux tirages
-    ind=old_nbs+1:old_nbs+nb_enrich;
-    new_tir=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nb_enrich,1)+repmat(Xmin(:)',nb_enrich,1);
-    %liste de tous les tirages
-    tir=[old_tir;new_tir];
-    
-    
+    %number of sample points in the initial sampling
+    nsOld=size(oldsampling,1);
+    %read data file
+    A=load([folderStore '/' nameDataR]);
+    %new sampling
+    ind=nsOld+1:nsOld+nbInfill;
+    newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
+    %all sample points
+    sampling=[oldsampling;newSampling];
+end
 end

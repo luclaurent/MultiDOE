@@ -1,132 +1,125 @@
-%% Generation de plan d'experience LHS a partir de R (avec pretirage de LHS enrichi)
+%% Build DOE using R (LHS with initial sampling and enrichment)
 % L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
 
 
-function [tir,new_tir]=lhsu_R(Xmin,Xmax,nb_samples,old_tir)
+function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)
 
 %% INPUT:
-%    - Xmin,Xmax: bornes min et max de l'espace de concpetion
-%    - nb_samples: nombre d'echantillons requis
-%    - nb_enrich: nombre d'echantillons requis pour enrichir
+%    - Xmin,Xmax: min and max bounds of the design space
+%    - ns: number of required sampled points
+%    - oldSampling: old sampling (for enrichment)
+%    - nbInfill: number of new required sample point (enrichment)
 %% OUTPUT
-%   - tir: echantillons
-%   - new_tir: nouveaux echantillons en phase d'enrichissement
+%   - sampling: sample points
+%   - newSampling: new sample points provided byy enrichment
 %%
 
-%chemin librairies pour bonne execution R
+%path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
-%%declaration des options
-% repertoire de stockage
-rep='LHS_R';
-%nombre de plans pretires
-nb_pretir=0;
-%nom du fichier script r
-nom_script='lhsu_R_';
-ext_script='.r';
-%nom du fichier de donnees R
-nom_dataR='dataR_';
-nom_dataM=nom_dataR;
-ext_dataR='.dat';
-ext_dataM='.mat';
-%temps de pause apres execution R
-tps_pause=0;
+%%initialize options
+% storing directory
+folderStore='LHS_R';
+%name of the R script file
+nameScript='lhsu_R_';
+extScript='.r';
+%name of the R data file
+nameDataR='dataR_';
+nameDataM=nameDataR;
+extDataR='.dat';
+extDataM='.mat';
+%pause time after executing R
+timePause=0;
 
-nb_old=0;
 if nargin==4
-    nb_old=size(old_tir,1);
+    nb_old=size(oldSampling,1);
 else
     nb_old=1;
 end
 
-% recuperation dimensions (nombre de variables et nombre d'echantillon)
-nbs=nb_samples;
-nbv=numel(Xmin);
-%nom fichier complet
-nom_script=[nom_script num2str(nbv) '_' num2str(nbs+nb_old) ext_script];
-%nom fichier donnees complet
-nom_dataR=[nom_dataR num2str(nbv) '_' num2str(nbs+nb_old) ext_dataR];
-%nom fichier tirage .mat
-nom_dataM=[nom_dataM num2str(nbv) '_' num2str(nbs+nb_old) ext_dataM];
-%chargement librairie LHS
-load_LHS='library(lhs)\n';
-%chargement librairie R.matlab
-load_Rmat='library(R.matlab)\n';
-%procedure stockage tirage
-stock_tir=['write.table(a,file="' nom_dataR '",row.names=FALSE,col.names=FALSE)\n'];
+% load dimensions (number of variables and sample points)
+np=numel(Xmin);
+%full name of the R script file
+nameScript=[nameScript num2str(np) '_' num2str(ns+nb_old) extScript];
+%full name of the R data file
+nameDataR=[nameDataR num2str(np) '_' num2str(ns+nb_old) extDataR];
+%full name of the R mat file
+nameDataM=[nameDataM num2str(np) '_' num2str(ns+nb_old) extDataM];
+%load LHS library
+loadLHS='library(lhs)\n';
+%load R.matlab library
+loadRmat='library(R.matlab)\n';
+%store sampling
+storeSampling=['write.table(a,file="' nameDataR '",row.names=FALSE,col.names=FALSE)\n'];
 
-%phase de creation des plans
+%building DOE
 if nargin==3
-    %%ecriture d'un script R
-    %Creation du repertoire de stockage (s'il n'existe pas)
-    if exist(rep,'dir')~=7
-        cmd=['mkdir ' rep];
+    %create storing folder if not existing
+    if exist(folderStore,'dir')~=7
+        cmd=['mkdir ' folderStore];
         unix(cmd);
     end
     
-    %ecriture du script r
-    %procedure de creation du tirage initial
-    text_init=['a<-randomLHS(' num2str(nbs) ',' num2str(nbv) ')\n'];
-    %creation et ouverture du fichier de script
-    fid=fopen([rep '/' nom_script],'w','n','UTF-8');
-    %ecriture chargement librairie
-    fprintf(fid,load_LHS);
-    %ecriture tirage initial
-    fprintf(fid,text_init);
-    
-    %ecriture de la procedure de sauvegarde
+    %%write R script
+    textInit=['a<-randomLHS(' num2str(ns) ',' num2str(np) ')\n'];
+    %create and open script file
+    fid=fopen([folderStore '/' nameScript],'w','n','UTF-8');
+    %write loading of the library
+    fprintf(fid,loadLHS);
+    %write initial sampling execution
+    fprintf(fid,textInit);
+    %write storage procedure
     fprintf(fid,stock_tir);
-    %fermeture du fichier
+    %cole file
     fclose(fid);
     
-    %phase d'enrichissement
+    %enrichment procedure
 elseif nargin==4
-    %normalisation ancien tirage
-    nold_tir=norm_tir(old_tir,Xmin,Xmax);
-    %ecriture fichier .mat ancien tirage
-    save([rep '/' nom_dataM],'nold_tir');
-    %recharge ancien tirage
-    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$nold.tir\n',nom_dataM);
-    %procedure d'enrichissement
-    text_enrich=sprintf('a<-augmentLHS(a,%i)\n',nb_samples);
-    %creation et ouverture du fichier de script
-    fid=fopen([rep '/' nom_script],'w','n','UTF-8');
-    %ecriture chargement librairies
-    fprintf(fid,load_LHS);
-    fprintf(fid,load_Rmat);
-    %ecriture chargement ancien tirage
+    %normalisation of the old sampling
+    OldSamplingN=normSampling(oldSampling,Xmin,Xmax);
+    %write .mat file of the old sampling
+    save([folderStore '/' nameDataM],'OldSamplingN');
+    %reload old sampling
+    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$nold.tir\n',nameDataM);
+    %write enrichment procedure
+    text_enrich=sprintf('a<-augmentLHS(a,%i)\n',ns);
+    %create and open script file
+    fid=fopen([folderStore '/' nameScript],'w','n','UTF-8');
+    %write loading of libraries
+    fprintf(fid,loadLHS);
+    fprintf(fid,loadRmat);
+    %write procedure for loading old sampling
     fprintf(fid,text_charg);
-    %ecriture enrichissement
+    %write enrichment
     fprintf(fid,text_enrich);
-    
-    %ecriture de la procedure de sauvegarde
+    %write storage procedure
     fprintf(fid,stock_tir);
 end
 
-%%execution du script R (necessite d'avoir r installe)
-%test de l'existence de
+%%execute R script (R must be installed)
+%check if available
 [e,~]=unix('which R');
 if e~=0
     error('R non installe (absent du PATH)');
 else
-    [~,~]=unix(['cd ' rep ' && R -f ' nom_script]);
-    pause(tps_pause)
+    [~,~]=unix(['cd ' folderStore ' && R -f ' nameScript]);
+    pause(timePause)
 end
-%lecture du fichier de donnees R
-A=load([rep '/' nom_dataR]);
+%read data file
+A=load([folderStore '/' nameDataR]);
 %tirage obtenu
-tir=denorm_tir(A,Xmin,Xmax);
-%tirages ajoutes
-new_tir=tir(nb_old:end,:);
+sampling=denorm_tir(A,Xmin,Xmax);
+%new sampling
+newSampling=sampling(nb_old:end,:);
 end
 
-%fonctions de normalisation/denormalisation des tirages
-function ntir=norm_tir(tirage,Xmin,Xmax)
-nbs=size(tirage,1);
-ntir=(tirage-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
+%function for normalization and renormalization of the sampling
+function samplingN=normSampling(sampling,Xmin,Xmax)
+nbs=size(sampling,1);
+samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
 end
 
-function dntir=denorm_tir(tirage,Xmin,Xmax)
-nbs=size(tirage,1);
-dntir=tirage.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+function samplingRN=denorm_tir(sampling,Xmin,Xmax)
+nbs=size(sampling,1);
+samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
 end

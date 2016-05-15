@@ -19,7 +19,7 @@ function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
 %%initialize options
-% storign directory
+% storing directory
 folderStore='IHS_R';
 %name of the R script file
 nameScript='ihs_R_';
@@ -39,24 +39,24 @@ else
 end
 
 % load dimensions (number of variables and sample points)
-    np=numel(Xmin);
+np=numel(Xmin);
 %full name of the R script file
 nameScript=[nameScript num2str(np) '_' num2str(ns+nsOld) extScript];
 %full name of the R data file
 nameDataR=[nameDataR num2str(np) '_' num2str(ns+nsOld) extDataR];
 %full name of the R mat file
 nomDataM=[nomDataM num2str(np) '_' num2str(ns+nsOld) extDataM];
- %load LHS library
+%load LHS library
 loadLHS='library(lhs)\n';
- %load R.matlab library
+%load R.matlab library
 loadRmat='library(R.matlab)\n';
 %store sampling
 storeSampling=['write.table(a,file="' nameDataR '",row.names=FALSE,col.names=FALSE)\n'];
 
 %building DOE
 if nargin==3
-    %%ecriture d'un script R
-    %Creation du repertoire de stockage (s'il n'existe pas)
+    
+     %create storing folder if not existing
     if exist(folderStore,'dir')~=7
         cmd=['mkdir ' folderStore];
         unix(cmd);
@@ -69,10 +69,10 @@ if nargin==3
     %write loading of the library
     fprintf(fid,loadLHS);
     %write initial sampling execution
-    fprintf(fid,textInit);    
+    fprintf(fid,textInit);
     %write storage procedure
     fprintf(fid,storeSampling);
-    %cole file
+    %close file
     fclose(fid);
     
     %enrichment procedure
@@ -83,7 +83,7 @@ elseif nargin==4
     save([folderStore '/' nomDataM],'OldSamplingN');
     %reload old sampling
     textReLoad=sprintf('a<-readMat(''%s'')\n a<-a$nold.tir\n',nomDataM);
-    %procedure d'enrichissement
+    %write enrichment procedure
     textInfill=sprintf('a<-augmentLHS(a,%i)\n',ns);
     %create and open script file
     fid=fopen([folderStore '/' nameScript],'w','n','UTF-8');
@@ -93,7 +93,7 @@ elseif nargin==4
     %write procedure for loading old sampling
     fprintf(fid,textReLoad);
     %write enrichment
-    fprintf(fid,textInfill);    
+    fprintf(fid,textInfill);
     %write storage procedure
     fprintf(fid,storeSampling);
 end
@@ -115,7 +115,7 @@ sampling=renormSampling(A,Xmin,Xmax);
 newSampling=sampling(nsOld:end,:);
 end
 
-%fonctions de normalisation/denormalisation des tirages
+%function for normalization and renormalization of the sampling
 function samplingN=normSampling(sampling,Xmin,Xmax)
 nbs=size(sampling,1);
 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);

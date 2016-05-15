@@ -22,7 +22,7 @@ function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
 %%initialize options
-% storign directory
+% storing directory
 folderStore='LHS_R';
 %number of initial sampling
 nbInitSampling=0;
@@ -50,7 +50,7 @@ if nargin==3
     np=numel(Xmin);
     %full name of the R script file
     nameScript=[nameScript num2str(np) '_' num2str(ns) extScript];
-    %fulle name of the R data file
+    %full name of the R data file
     nameDataR=[nameDataR num2str(np) '_' num2str(ns) extDataR];
     
     %create storing folder if not existing
@@ -62,7 +62,7 @@ if nargin==3
     %%write R script
     textInit=['a<-geneticLHS(' num2str(ns) ',' num2str(np) ','...
         num2str(initPop) ',' num2str(nbMut) ',' num2str(probMut) ')\n'];
-    %infill process
+    %infill procedure
     textInfill=['a<-optAugmentLHS(a,1,4)\n'];
     %load LHS library
     loadLHS='library(lhs)\n';
