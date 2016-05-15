@@ -1,233 +1,225 @@
-%% Tri de tirages
+%% Sorting of sample points
 %% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net
 
-function tiragesTRI = exec_tri(tirages,doe)
-%pour normer
+function samplingSorted = sortDOE(sampling,doe)
+%for normalization
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
 
-info_tri=doe.tri;
-%norme employee
-lnorm=info_tri.lnorm;
-%nombre de points et variables
-[nb_val,nb_var]=size(tirages);
-%on norme
-tirages=(tirages-repmat(Xmin(:)',nb_val,1))./repmat(Xmax(:)'-Xmin(:)',nb_val,1);
+infoSort=doe.sort;
+%used norm
+lnorm=infoSort.lnorm;
+%number of sample points and design variables
+[ns,np]=size(sampling);
+%normalization
+sampling=(sampling-repmat(Xmin(:)',ns,1))./repmat(Xmax(:)'-Xmin(:)',ns,1);
 
-if info_tri.on
-    tiragesTRI=zeros(nb_val,nb_var);
-    tri_ok=true;
-    %tri en fonction du parametre considere
-    switch info_tri.type
+if infoSort.on
+    samplingSorted=zeros(ns,np);
+    sortOk=true;
+    %various methods for sorting the sample points
+    switch infoSort.type
         case {'v','variable'}
-            %on trie par rapport a une variable
-            if isfield(info_tri,'para')&&info_tri.para>0
-                if info_tri.para<=size(tirages,1)
-                    [~,ind]=sort(tirages(:,info_tri.para));
-                    tiragesTRI=tirages(ind,:);
+            %sorting wrt a variable
+            if isfield(infoSort,'para')&&infoSort.para>0
+                if infoSort.para<=size(sampling,1)
+                    [~,ind]=sort(sampling(:,infoSort.para));
+                    samplingSorted=sampling(ind,:);
                 end
             end
         case {'nptp','normal_pt_to_pt'}
-            %on trie en debutant au nieme point (parametre) et en cherchant de point
-            %en point (en utilisant la norme consideree
+            % sorting with starting at a specific point (ptref or para) and by
+            % looking from a point to another using a specific norm
             
-            %pt initial
+            %initial point
             ptref=[];
-            if isfield(info_tri,'ptref');if ~isempty(info_tri.ptref);ptref=info_tri.ptref;end, end
-            if isfield(info_tri,'para');num_pt_ref=info_tri.para;else num_pt_ref=1;end
-            if num_pt_ref<1||num_pt_ref>nb_var;num_pt_ref=1;end
+            if isfield(infoSort,'ptref');if ~isempty(infoSort.ptref);ptref=infoSort.ptref;end, end
+            if isfield(infoSort,'para');numPtRef=infoSort.para;else numPtRef=1;end
+            if numPtRef<1||numPtRef>np;numPtRef=1;end
             
-            %triage
+            %sorting
             if isempty(ptref)
-                tiragesTRI=nptp(tirages,lnorm,num_pt_ref,'exist',doe);
+                samplingSorted=nptp(sampling,lnorm,numPtRef,'exist',doe);
             else
                 ptref=(ptref-Xmin(:)')./Xmax(:)';
-                tiragesTRI=nptp(tirages,lnorm,ptref,'don',doe);
+                samplingSorted=nptp(sampling,lnorm,ptref,'don',doe);
             end
             
         case {'p','point'}
-            %on trie en s'assurant que l'on cherche de point en point en
-            %'tournant' autour du point initial en utilisant la norme retenue
+            %sorting by looking to the closest point to the barycenter of
+            %the previous points
             
-            %pt initial
+            %initial point
             ptref=[];
-            if isfield(info_tri,'ptref');if ~isempty(info_tri.ptref);ptref=info_tri.ptref;end, end
-            if isfield(info_tri,'para');num_pt_ref=info_tri.para;else num_pt_ref=1;end
-            if num_pt_ref<1||num_pt_ref>nb_var;num_pt_ref=1;end
+            if isfield(infoSort,'ptref');if ~isempty(infoSort.ptref);ptref=infoSort.ptref;end, end
+            if isfield(infoSort,'para');numPtRef=infoSort.para;else numPtRef=1;end
+            if numPtRef<1||numPtRef>np;numPtRef=1;end
             
-            %triage
+            %sorting
             if isempty(ptref)
-                tiragesTRI=barypt(tirages,lnorm,num_pt_ref,'exist',doe);
+                samplingSorted=barypt(sampling,lnorm,numPtRef,'exist',doe);
             else
                 ptref=(ptref-Xmin(:)')./Xmax(:)';
-                tiragesTRI=barypt(tirages,lnorm,ptref,'don',doe);
+                samplingSorted=barypt(sampling,lnorm,ptref,'don',doe);
             end
             
         case {'c','center'}
-            %on trie en s'assurant que l'on cherche de point en point en
-            %'tournant' autour du centre (de l'espace) en utilisant la norme retenue
-            %determination des coordonnees du centre de l'espace
-            pt_centre=(Xmax(:)'+Xmin(:)')./2;
-            %triage
-            tiragesTRI=barypt(tirages,lnorm,pt_centre,'don',doe);
+            %same technique as 'p' but starting at the center of the
+            %design space
+            centerPt=(Xmax(:)'+Xmin(:)')./2;
+            %sorting
+            samplingSorted=barypt(sampling,lnorm,centerPt,'don',doe);
         case {'sac','sampling_center'}
-            %on trie en s'assurant que l'on cherche de point en point en
-            %'tournant' autour du centre (du tirage donne) en utilisant la norme retenue
-            %determination des coordonnees du centre du tirage
-            min_tirages=min(tirages);
-            max_tirages=max(tirages);
-            pt_centre=(max_tirages+min_tirages)./2;
-            %triage
-            tiragesTRI=barypt(tirages,lnorm,pt_centre,'don',doe);
+            % same technique as 'p' but the initial point is chosen as the
+            % center of a provided sampling
+            minSampling=min(sampling);
+            maxSampling=max(sampling);
+            centerPt=(maxSampling+minSampling)./2;
+            %sorring
+            samplingSorted=barypt(sampling,lnorm,centerPt,'don',doe);
         case {'sc','start_center'}
-            %on trie en debutant par le point le plus proche du centre (de l'espace) et
-            %en cherchant de point en point en utilisant la norme retenue
-            %determination des coordonnees du centre de l'espace
-            pt_centre=(Xmax(:)'+Xmin(:)')./2;
-            %triage
-            tiragesTRI=nptp(tirages,lnorm,pt_centre,'don',doe);
+            %same as nptp but starting at the center of the design space
+            centerPt=(Xmax(:)'+Xmin(:)')./2;
+            %sorting
+            samplingSorted=nptp(sampling,lnorm,centerPt,'don',doe);
             
         case {'sasc','sampling_start_center'}
-            %on trie en debutant par le point le plus proche du centre (du tirage donne) et
-            %en cherchant de point en point en utilisant la norme retenue
-            
-            %determination des coordonnees du centre du tirage
-            min_tirages=min(tirages);
-            max_tirages=max(tirages);
-            pt_centre=(max_tirages+min_tirages)./2;
-            %triage
-            tiragesTRI=nptp(tirages,lnorm,pt_centre,'don',doe);
+            %same as nptp but starting at the the initial point is chosen as the
+            % center of a provided sampling
+            minSampling=min(sampling);
+            maxSampling=max(sampling);
+            centerPt=(maxSampling+minSampling)./2;
+            %sorting
+            samplingSorted=nptp(sampling,lnorm,centerPt,'don',doe);
         otherwise
-            tri_ok=false;
+            sortOk=false;
             
     end
     
-    if ~tri_ok
+    if ~sortOk
         fprintf('###############################################################\n');
-        fprintf('## ##mauvais parametre de tri des tirages (tri desactive) ## ##\n');
+        fprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
         fprintf('###############################################################\n');
     end
 else
-    tiragesTRI=tirages;
+    samplingSorted=sampling;
 end
-%on denorme
-tiragesTRI=tiragesTRI.*repmat(Xmax(:)'-Xmin(:)',nb_val,1)+repmat(Xmin(:)',nb_val,1);
+%renormalization
+samplingSorted=samplingSorted.*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
 end
 
-%norme vecteur (meilleure fonctionnement que norm de matlab)
+%% norm of a vector (better behavior in comparison with the norm function of MATLAB)
 function N=normp(X,type)
-%on test si on demande une norme infinie
+%check if an infinity norm is required
 norminf=isinf(type);
 ninf=false;
-%valeurs absolue des composantes
+%absolute value of the components
 Xabs=abs(X);
 
 if norminf
     if -abs(type)==type;ninf=true;end
     
     if ninf
-        %norme -Inf
+        %-Inf norm
         N=min(Xabs,[],2);
     else
-        %norme Inf
+        %Inf norm 
         N=max(Xabs,[],2);
     end
 else
-    %norme p
+    %p-norm
     N=sum(Xabs.^type,2).^(1/type);
 end
 end
 
-%fonction assurant le tri de pts en pts avec pt initial choisi parmi les
-%points existant (exist) ou a partir dun point donne (don)
-function tirages_trie=nptp(tirages,lnorm,info_pt,type,doe)
-%nombre de points et variables
-[nb_val,nb_var]=size(tirages);
-tirages_trie=zeros(nb_val,nb_var);
-%liste des numeros de points
-liste_num=1:nb_val;
-%en fonction du type de pt initial
+%%function for sorting points using an initial point chosen or provided by
+%%the 'type' input variable
+function samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)
+%number of sample point and variables
+[ns,np]=size(sampling);
+samplingSorted=zeros(ns,np);
+%list of the number of points
+listNnum=1:ns;
+%depending on the kind of initial point
 switch type
     case 'exist'
-        %a partir dun point existant
-        num_pt_ref=info_pt;
-        pt_ref=tirages(num_pt_ref,:);
-        tirages_trie(1,:)=pt_ref;
-        liste_num(num_pt_ref)=[];
-        debutfor=1;
+        %using an existing initial point
+        numPtRef=infoPt;
+        ptRef=sampling(numPtRef,:);
+        samplingSorted(1,:)=ptRef;
+        listNnum(numPtRef)=[];
+        startFor=1;
     case 'don'
-        %a partir d'un point donne
-        pt_ref=info_pt;
-        debutfor=0;
+        %using a provided point
+        ptRef=infoPt;
+        startFor=0;
 end
-%pour normer les coordonnees
-xnorm=doe.Xmax(:)'-doe.Xmin(:)';
-%on trie
-for ii=debutfor:nb_val-1
-    %on calcule la distance du point considere aux points
-    %restants
-    xdiff=pt_ref(ones(1,nb_val-ii),:)-tirages(liste_num,:);
-    xdiff=xdiff./xnorm(ones(1,nb_val-ii),:);
-    dist=normp(xdiff,lnorm);
-    %on cherche le minimum
-    [~,IXD_min]=min(dist);
-    num_pt_ref=liste_num(IXD_min(1));
-    liste_num(IXD_min(1))=[];
+%for norming the points
+xNorm=doe.Xmax(:)'-doe.Xmin(:)';
+%sorting
+for ii=startFor:ns-1
+    %compute the distance between the reference point and the others
+    xDiff=ptRef(ones(1,ns-ii),:)-sampling(listNnum,:);
+    xDiff=xDiff./xNorm(ones(1,ns-ii),:);
+    distS=normp(xDiff,lnorm);
+    %look for the minimal distance
+    [~,IXDmin]=min(distS);
+    numPtRef=listNnum(IXDmin(1));
+    listNnum(IXDmin(1))=[];
     
-    %nouveau point de reference
-    pt_ref=tirages(num_pt_ref,:);
-    tirages_trie(ii+1,:)=pt_ref;
+    %new refernce point
+    ptRef=sampling(numPtRef,:);
+    samplingSorted(ii+1,:)=ptRef;
 end
 end
 
-%fonction assurant le tri de pts en pts avec pt initial choisi parmi les
-%points existant (exist) ou a partir dun point donne (don) en 'tournant'
-%autour du point initial (par pris en compte du barycentre des sites)
-function tirages_trie=barypt(tirages,lnorm,info_pt,type,doe)
-%parametre distance barycentre
-dbary=0.5;
-%nombre de points et variables
-[nb_val,nb_var]=size(tirages);
-tirages_trie=zeros(nb_val,nb_var);
-%liste des numeros de points
-liste_num=1:nb_val;
-%en fonction du type de pt initial
+%function for sorting sample points by considering the reference point as
+%the barycenter of the previous points (the starting point can be chosen as
+%an existing one or a provided point using the variable 'type')
+function samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)
+%parameter for the distance of the barycenter
+dBary=0.5;
+%number of sample point and variables
+[ns,np]=size(sampling);
+samplingSorted=zeros(ns,np);
+%list of the number of points
+listNum=1:ns;
+%depending on the kind of initial point
 switch type
     case 'exist'
-        %a partir dun point existant
-        num_pt_ref=info_pt;
-        pt_ref=tirages(num_pt_ref,:);
-        pt_init=pt_ref;
-        tirages_trie(1,:)=pt_ref;
-        liste_num(num_pt_ref)=[];
-        debutfor=1;
+        %using an existing initial point
+        numPtRef=infoPt;
+        ptRef=sampling(numPtRef,:);
+        ptInit=ptRef;
+        samplingSorted(1,:)=ptRef;
+        listNum(numPtRef)=[];
+        startFor=1;
     case 'don'
-        %a partir d'un point donne
-        pt_ref=info_pt;
-        pt_init=pt_ref;
-        debutfor=0;
+        %using a provided point
+        ptRef=infoPt;
+        ptInit=ptRef;
+        startFor=0;
 end
-%pour normer les coordonnees
+%for norming the points
 xnorm=doe.Xmax(:)'-doe.Xmin(:)';
-%on trie
-for ii=debutfor:nb_val-1
-    %on calcule la distance du point considere aux points
-    %restants
-    xdiff=pt_ref(ones(1,nb_val-ii),:)-tirages(liste_num,:);
-    xdiff=xdiff./xnorm(ones(1,nb_val-ii),:);
-    dist=normp(xdiff,lnorm);
-    %on cherche le minimum
-    [~,IXD_min]=min(dist);
-    num_pt_add=liste_num(IXD_min(1));
-    liste_num(IXD_min(1))=[];
+%sorting
+for ii=startFor:ns-1
+     %compute the distance between the reference point and the others
+    xDiff=ptRef(ones(1,ns-ii),:)-sampling(listNum,:);
+    xDiff=xDiff./xnorm(ones(1,ns-ii),:);
+    distS=normp(xDiff,lnorm);
+    %look for the minimal distance
+    [~,IXDmin]=min(distS);
+    numPtAdd=listNum(IXDmin(1));
+    listNum(IXDmin(1))=[];
     
-    %ajout du pt au tirage
-    tirages_trie(ii+1,:)=tirages(num_pt_add,:);
+    %add the point to the sampling
+    samplingSorted(ii+1,:)=sampling(numPtAdd,:);
     
-    %calcul du nouveau point de reference par calcul du barycentre des
-    %points deja balaye
+    %compute the new reference point using as the barycenter of the
+    %sampling
     nb_pts=ii+1;
-    bary=1/nb_pts*sum(tirages_trie(1:nb_pts,:),1);
-    pt_ref=pt_init+dbary*(bary-pt_init);
+    baryPt=1/nb_pts*sum(samplingSorted(1:nb_pts,:),1);
+    ptRef=ptInit+dBary*(baryPt-ptInit);
 end
 end
