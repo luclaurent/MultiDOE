@@ -1,147 +1,144 @@
-%% Procedure assurant l'affichage des tirages en nD
+%% Function for displaying sampling with nD variables
 %% L. LUARENT -- 10/02/2012 -- luc.laurent@lecnam.net
 
 
-function aff_doe(tirages,doe,manq)
+function displayDOE(sampling,doe,missData)
 
-%affichage ordre tirages
-aff_txt=true;
+%show order of the sampling
+dispTXT=true;
 
-%recuperation bornes espace de conception
+%load bounds of the design space
 if isfield(doe,'Xmin')&&isfield(doe,'Xmax')
     Xmin=doe.Xmin;
     Xmax=doe.Xmax;
-elseif isfield(doe,'bornes')
+elseif isfield(doe,'bounds')
     Xmin=doe.bornes(:,1);
     Xmax=doe.bornes(:,2);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%recherche et tri des manques d'information
-liste_pts_ok=1:size(tirages,1);
-liste_eval_manq=[];
-liste_grad_manq=[];
-liste_both_manq=[];
+%seek and reordering data in the case of missing data
+listSampleOK=1:size(sampling,1);
+listRespMiss=[];
+listGradMiss=[];
+listBothMiss=[];
 if nargin==3
-    if manq.eval.on
-        liste_eval_manq=unique(manq.eval.ix_manq(:));
-        for ii=1:numel(liste_eval_manq)
-            ix=find(liste_pts_ok==liste_eval_manq(ii));
-            liste_pts_ok(ix)=[];
+    if missData.resp.on
+        listRespMiss=unique(missData.resp.ixMiss(:));
+        for ii=1:numel(listRespMiss)
+            ix=find(listSampleOK==listRespMiss(ii));
+            listSampleOK(ix)=[];
         end
     end
-    if manq.grad.on
-        liste_grad_manq=unique(manq.grad.ix_manq(:,1));
-        for ii=1:numel(liste_grad_manq)
-            ix=find(liste_pts_ok==liste_grad_manq(ii));
-            liste_pts_ok(ix)=[];
+    if missData.grad.on
+        listGradMiss=unique(missData.grad.ixMiss(:,1));
+        for ii=1:numel(listGradMiss)
+            ix=find(listSampleOK==listGradMiss(ii));
+            listSampleOK(ix)=[];
             
         end
     end
-    if manq.eval.on|| manq.grad.on
-        liste_both_manq=intersect(liste_eval_manq,liste_grad_manq);
-        for ii=1:numel(liste_both_manq)
-            ix=find(liste_eval_manq==liste_both_manq(ii));
-            liste_eval_manq(ix)=[];
-            ix=find(liste_grad_manq==liste_both_manq(ii));
-            liste_grad_manq(ix)=[];
+    if missData.resp.on|| missData.grad.on
+        listBothMiss=intersect(listRespMiss,listGradMiss);
+        for ii=1:numel(listBothMiss)
+            ix=find(listRespMiss==listBothMiss(ii));
+            listRespMiss(ix)=[];
+            ix=find(listGradMiss==listBothMiss(ii));
+            listGradMiss(ix)=[];
         end
     end
 end
-%texte a afficher ou non%
+%text to display or not
 f1 = @(x) sprintf('%i',x);
 f2 = @(x) cellfun(f1, num2cell(x), 'UniformOutput', false);
-liste_pts_ok_txt=f2(liste_pts_ok);
-liste_eval_manq_txt=f2(liste_eval_manq);
-liste_grad_manq_txt=f2(liste_grad_manq);
-liste_both_manq_txt=f2(liste_both_manq);
+listSampleOKtxt=f2(listSampleOK);
+listRespMissTxt=f2(listRespMiss);
+listGradMissTxt=f2(listGradMiss);
+listBothMissTxt=f2(listBothMiss);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%nombre de variables
-nbv=numel(Xmin);
+%number of variables
+np=numel(Xmin);
 
-if doe.aff
+if doe.disp
     para=0.1;
-    if nbv==1
+    if np==1
         figure
         hold on
-        yy=0.*tirages;
-        %affichage points ou toutes les infos sont connues
-        plottext(tirages(liste_pts_ok),yy(liste_pts_ok),...
-            liste_pts_ok_txt,'o','k',7,aff_txt);
-        %affichage points il manque une/des reponse(s)
-         plottext(tirages(liste_eval_manq),yy(liste_eval_manq),...
-            liste_eval_manq_txt,'rs','r',7,aff_txt);
-        %affichage points il manque un/des gradient(s)
-        plottext(tirages(liste_grad_manq),yy(liste_grad_manq),...
-            liste_grad_manq_txt,'v','g',7,aff_txt);
-        %affichage points il manque un/des gradient(s) et un/des
-        %reponse(s) au m�me point
-        plottext(tirages(liste_both_manq),yy(liste_both_manq),...
-            liste_both_manq_txt,'d','d',7,aff_txt);
+        yy=0.*sampling;
+        %show sample points on which all data are available
+        plottext(sampling(listSampleOK),yy(listSampleOK),...
+            listSampleOKtxt,'o','k',7,dispTXT);
+        %show sample point(s) on which response(s) is(are) missing
+         plottext(sampling(listRespMiss),yy(listRespMiss),...
+            listRespMissTxt,'rs','r',7,dispTXT);
+        %show sample point(s) on which gradients(s) is(are) missing
+        plottext(sampling(listGradMiss),yy(listGradMiss),...
+            listGradMissTxt,'v','g',7,dispTXT);
+        %show sample point(s) on which response(s) and gradient(s) are missing
+        plottext(sampling(listBothMiss),yy(listBothMiss),...
+            listBothMissTxt,'d','d',7,dispTXT);
         hold off
-        xmin=Xmin(:)';
-        xmax=Xmax(:)';
-        dep=xmax-xmin;
-        axis([(xmin-para*dep) (xmax+para*dep) -1 1])
-    elseif nbv==2
+        xMin=Xmin(:)';
+        xMax=Xmax(:)';
+        depX=xMax-xMin;
+        axis([(xMin-para*depX) (xMax+para*depX) -1 1])
+    elseif np==2
         
-        xmin=Xmin(1);
-        xmax=Xmax(1);
-        ymin=Xmin(2);
-        ymax=Xmax(2);
-        depx=xmax-xmin;
-        depy=ymax-ymin;
+        xMin=Xmin(1);
+        xMax=Xmax(1);
+        yMin=Xmin(2);
+        yMax=Xmax(2);
+        depX=xMax-xMin;
+        depY=yMax-yMin;
         figure
         hold on
-        %affichage points ou toutes les infos sont connues
-        plottext(tirages(liste_pts_ok,1),tirages(liste_pts_ok,2),...
-            liste_pts_ok_txt,'o','k',7,aff_txt);
-        %affichage points il manque une/des reponse(s)
-        plottext(tirages(liste_eval_manq,1),tirages(liste_eval_manq,2),...
-            liste_eval_manq_txt,'rs','r',7,aff_txt);
-        %affichage points il manque un/des gradient(s)
-        plottext(tirages(liste_grad_manq,1),tirages(liste_grad_manq,2),...
-            liste_grad_manq_txt,'v','g',7,aff_txt);
-        %affichage points il manque un/des gradient(s) et un/des
-        %reponse(s) au m�me point
-        plottext(tirages(liste_both_manq,1),tirages(liste_both_manq,2),...
-            liste_both_manq_txt,'d','r',7,aff_txt);
+        %show sample points on which all data are available
+        plottext(sampling(listSampleOK,1),sampling(listSampleOK,2),...
+            listSampleOKtxt,'o','k',7,dispTXT);
+        %show sample point(s) on which response(s) is(are) missing
+        plottext(sampling(listRespMiss,1),sampling(listRespMiss,2),...
+            listRespMissTxt,'rs','r',7,dispTXT);
+        %show sample point(s) on which gradients(s) is(are) missing
+        plottext(sampling(listGradMiss,1),sampling(listGradMiss,2),...
+            listGradMissTxt,'v','g',7,dispTXT);
+        %show sample point(s) on which response(s) and gradient(s) are missing
+        plottext(sampling(listBothMiss,1),sampling(listBothMiss,2),...
+            listBothMissTxt,'d','r',7,dispTXT);
         hold off
-        axis([(xmin-para*depx) (xmax+para*depx) (ymin-para*depy) (ymax+para*depy)])
-        line([xmin;xmin;xmax;xmax;xmax;xmax;xmax;xmin],[ymin;ymax;ymax;ymax;ymax;ymin;ymin;ymin])
+        axis([(xMin-para*depX) (xMax+para*depX) (yMin-para*depY) (yMax+para*depY)])
+        line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
     else
         figure
         it=0;
-        Depx=Xmax(:)'-Xmin(:)';
-        for ii=1:nbv
-            for jj=1:nbv
+        depX=Xmax(:)'-Xmin(:)';
+        for ii=1:np
+            for jj=1:np
                 it=it+1;
                 if ii~=jj
-                    subplot(nbv,nbv,it)
+                    subplot(np,np,it)
                     hold on
-                    %affichage points ou toutes les infos sont connues
-                    plottext(tirages(liste_pts_ok,ii),tirages(liste_pts_ok,jj),...
-                        liste_pts_ok_txt,'o','k',7,aff_txt);
-                    %affichage points il manque une/des reponse(s)
-                    plottext(tirages(liste_eval_manq,ii),tirages(liste_eval_manq,jj),...
-                        liste_eval_manq_txt,'rs','r',7,aff_txt);
-                    %affichage points il manque un/des gradient(s)
-                    plottext(tirages(liste_grad_manq,ii),tirages(liste_grad_manq,jj),...
-                        liste_grad_manq_txt,'v','g',7,aff_txt);
-                    %affichage points il manque un/des gradient(s) et un/des
-                    %reponse(s) au m�me point
-                    plottext(tirages(liste_both_manq,ii),tirages(liste_both_manq,jj),...
-                        liste_both_manq_txt,'d','r',7,aff_txt);
+                     %show sample points on which all data are available
+                    plottext(sampling(listSampleOK,ii),sampling(listSampleOK,jj),...
+                        listSampleOKtxt,'o','k',7,dispTXT);
+                    %show sample point(s) on which response(s) is(are) missing
+                    plottext(sampling(listRespMiss,ii),sampling(listRespMiss,jj),...
+                        listRespMissTxt,'rs','r',7,dispTXT);
+                    %show sample point(s) on which gradients(s) is(are) missing
+                    plottext(sampling(listGradMiss,ii),sampling(listGradMiss,jj),...
+                        listGradMissTxt,'v','g',7,dispTXT);
+                    %show sample point(s) on which response(s) and gradient(s) are missing
+                    plottext(sampling(listBothMiss,ii),sampling(listBothMiss,jj),...
+                        listBothMissTxt,'d','r',7,dispTXT);
                     hold off
-                    xmin=Xmin(ii);xmax=Xmax(ii);ymin=Xmin(jj);ymax=Xmax(jj);depx=Depx(ii);depy=Depx(jj);
-                    axis([(xmin-para*depx) (xmax+para*depx) (ymin-para*depy) (ymax+para*depy)])
-                    line([xmin;xmin;xmax;xmax;xmax;xmax;xmax;xmin],[ymin;ymax;ymax;ymax;ymax;ymin;ymin;ymin])
+                    xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depX=depX(ii);depY=depX(jj);
+                    axis([(xMin-para*depX) (xMax+para*depX) (yMin-para*depY) (yMax+para*depY)])
+                    line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
                 else
-                    subplot(nbv,nbv,it)
-                    hist(tirages(:,ii))
-                    xmin=Xmin(ii);xmax=Xmax(ii);depx=Depx(ii);depy=Depx(jj);
-                    xlim([(xmin-para*depx) (xmax+para*depx)])
+                    subplot(np,np,it)
+                    hist(sampling(:,ii))
+                    xMin=Xmin(ii);xMax=Xmax(ii);depX=depX(ii);depY=depX(jj);
+                    xlim([(xMin-para*depX) (xMax+para*depX)])
                 end
             end
         end
@@ -149,12 +146,13 @@ if doe.aff
 end
 end
 
-function plottext(X,Y,TXT,markM,colorM,sizeM,txt_on)
+%%fonction for showing points and text above it
+function plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)
 plot(X,Y,...
     markM,'MarkerEdgeColor',colorM,...
     'MarkerFaceColor',colorM,...
     'MarkerSize',sizeM);
-if txt_on
+if txtOn
     text(X,Y,...
         TXT,'VerticalAlignment','bottom');
 end
