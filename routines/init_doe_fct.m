@@ -5,7 +5,7 @@ function [esp,dim]=init_doe_fct(dim,fct)
 
 switch fct
     case 'manu'
-        esp=[-1 15];
+        esp=[-1 5];
         dim=1;
     case 'ackley'
         val=1.5;
