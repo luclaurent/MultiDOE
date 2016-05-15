@@ -392,7 +392,7 @@ fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
 end
 
 
-%function for checking if a sampling already exists
+%%function for checking if a sampling already exists
 function [sampling,fich]=checkDOE(nameFile,np,ns)
 
 %check if the storage folder exists
