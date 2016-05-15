@@ -136,7 +136,7 @@ else
     fprintf('Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
 end
 fprintf('++ Display sampling: ');
-if doe.aff; fprintf('Yes\n');else fprintf('NO\n');end
+if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
 
 mesuTime(tMesu,tInit);
 fprintf('=========================================\n')

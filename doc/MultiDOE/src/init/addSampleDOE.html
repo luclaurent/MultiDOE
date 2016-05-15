@@ -54,16 +54,21 @@ This function is called by:
 0010 
 0011 ns=doe.ns;
 0012 
-0013 <span class="comment">% depending on the initial sampling</span>
-0014 <span class="keyword">switch</span> doe.type
-0015     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
-0016         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
-0017     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
-0018         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
-0019     <span class="keyword">otherwise</span>
-0020         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
-0021         newSampling=[];
-0022 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0013 <span class="comment">%extract the right information</span>
+0014 <span class="keyword">if</span> isstruct(oldSampling);
+0015     oldSampling=oldSampling.unsorted;
+0016 <span class="keyword">end</span>
+0017 
+0018 <span class="comment">% depending on the initial sampling</span>
+0019 <span class="keyword">switch</span> doe.type
+0020     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
+0021         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
+0022     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
+0023         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
+0024     <span class="keyword">otherwise</span>
+0025         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
+0026         newSampling=[];
+0027 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

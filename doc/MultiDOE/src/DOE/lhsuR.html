@@ -41,7 +41,7 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a></li><li><a href="#_sub2" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a></li></ul>
+<li><a href="#_sub1" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a></li><li><a href="#_sub2" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a></li><li><a href="#_sub3" class="code">function out = varname(var)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <span class="comment">%% Build DOE using R (LHS with initial sampling and enrichment)</span>
@@ -65,7 +65,7 @@ This function is called by:
 0019 
 0020 <span class="comment">%%initialize options</span>
 0021 <span class="comment">% storing directory</span>
-0022 folderStore=<span class="string">'LHS_R'</span>;
+0022 folderStore=<span class="string">'tmpDOE/LHS_R'</span>;
 0023 <span class="comment">%name of the R script file</span>
 0024 nameScript=<span class="string">'lhsu_R_'</span>;
 0025 extScript=<span class="string">'.r'</span>;
@@ -102,73 +102,77 @@ This function is called by:
 0056 <span class="keyword">if</span> nargin==3
 0057     <span class="comment">%create storing folder if not existing</span>
 0058     <span class="keyword">if</span> exist(folderStore,<span class="string">'dir'</span>)~=7
-0059         cmd=[<span class="string">'mkdir '</span> folderStore];
-0060         unix(cmd);
-0061     <span class="keyword">end</span>
-0062     
-0063     <span class="comment">%%write R script</span>
-0064     textInit=[<span class="string">'a&lt;-randomLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">')\n'</span>];
-0065     <span class="comment">%create and open script file</span>
-0066     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
-0067     <span class="comment">%write loading of the library</span>
-0068     fprintf(fid,loadLHS);
-0069     <span class="comment">%write initial sampling execution</span>
-0070     fprintf(fid,textInit);
-0071     <span class="comment">%write storage procedure</span>
-0072     fprintf(fid,stock_tir);
-0073     <span class="comment">%cole file</span>
-0074     fclose(fid);
-0075     
-0076     <span class="comment">%enrichment procedure</span>
-0077 <span class="keyword">elseif</span> nargin==4
-0078     <span class="comment">%normalisation of the old sampling</span>
-0079     OldSamplingN=<a href="#_sub1" class="code" title="subfunction samplingN=normSampling(sampling,Xmin,Xmax)">normSampling</a>(oldSampling,Xmin,Xmax);
-0080     <span class="comment">%write .mat file of the old sampling</span>
-0081     save([folderStore <span class="string">'/'</span> nameDataM],<span class="string">'OldSamplingN'</span>);
-0082     <span class="comment">%reload old sampling</span>
-0083     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$nold.tir\n'</span>,nameDataM);
-0084     <span class="comment">%write enrichment procedure</span>
-0085     text_enrich=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
-0086     <span class="comment">%create and open script file</span>
-0087     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
-0088     <span class="comment">%write loading of libraries</span>
-0089     fprintf(fid,loadLHS);
-0090     fprintf(fid,loadRmat);
-0091     <span class="comment">%write procedure for loading old sampling</span>
-0092     fprintf(fid,text_charg);
-0093     <span class="comment">%write enrichment</span>
-0094     fprintf(fid,text_enrich);
-0095     <span class="comment">%write storage procedure</span>
-0096     fprintf(fid,stock_tir);
-0097 <span class="keyword">end</span>
-0098 
-0099 <span class="comment">%%execute R script (R must be installed)</span>
-0100 <span class="comment">%check if available</span>
-0101 [e,~]=unix(<span class="string">'which R'</span>);
-0102 <span class="keyword">if</span> e~=0
-0103     error(<span class="string">'R non installe (absent du PATH)'</span>);
-0104 <span class="keyword">else</span>
-0105     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0106     pause(timePause)
-0107 <span class="keyword">end</span>
-0108 <span class="comment">%read data file</span>
-0109 A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0110 <span class="comment">%tirage obtenu</span>
-0111 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=denorm_tir(sampling,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
-0112 <span class="comment">%new sampling</span>
-0113 newSampling=sampling(nb_old:<span class="keyword">end</span>,:);
-0114 <span class="keyword">end</span>
-0115 
-0116 <span class="comment">%function for normalization and renormalization of the sampling</span>
-0117 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
-0118 nbs=size(sampling,1);
-0119 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
-0120 <span class="keyword">end</span>
-0121 
-0122 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a>
-0123 nbs=size(sampling,1);
-0124 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
-0125 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0059         mkdir(folderStore);
+0060     <span class="keyword">end</span>
+0061     
+0062     <span class="comment">%%write R script</span>
+0063     textInit=[<span class="string">'a&lt;-randomLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">')\n'</span>];
+0064     <span class="comment">%create and open script file</span>
+0065     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0066     <span class="comment">%write loading of the library</span>
+0067     fprintf(fid,loadLHS);
+0068     <span class="comment">%write initial sampling execution</span>
+0069     fprintf(fid,textInit);
+0070     <span class="comment">%write storage procedure</span>
+0071     fprintf(fid,storeSampling);
+0072     <span class="comment">%cole file</span>
+0073     fclose(fid);
+0074     
+0075     <span class="comment">%enrichment procedure</span>
+0076 <span class="keyword">elseif</span> nargin==4
+0077     <span class="comment">%normalisation of the old sampling</span>
+0078     OldSamplingN=<a href="#_sub1" class="code" title="subfunction samplingN=normSampling(sampling,Xmin,Xmax)">normSampling</a>(oldSampling,Xmin,Xmax);
+0079     <span class="comment">%write .mat file of the old sampling</span>
+0080     save([folderStore <span class="string">'/'</span> nameDataM],<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
+0081     <span class="comment">%reload old sampling</span>
+0082     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
+0083     <span class="comment">%write enrichment procedure</span>
+0084     text_enrich=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
+0085     <span class="comment">%create and open script file</span>
+0086     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0087     <span class="comment">%write loading of libraries</span>
+0088     fprintf(fid,loadLHS);
+0089     fprintf(fid,loadRmat);
+0090     <span class="comment">%write procedure for loading old sampling</span>
+0091     fprintf(fid,text_charg);
+0092     <span class="comment">%write enrichment</span>
+0093     fprintf(fid,text_enrich);
+0094     <span class="comment">%write storage procedure</span>
+0095     fprintf(fid,storeSampling);
+0096 <span class="keyword">end</span>
+0097 
+0098 <span class="comment">%%execute R script (R must be installed)</span>
+0099 <span class="comment">%check if available</span>
+0100 [e,~]=unix(<span class="string">'which R'</span>);
+0101 <span class="keyword">if</span> e~=0
+0102     error(<span class="string">'R non installe (absent du PATH)'</span>);
+0103 <span class="keyword">else</span>
+0104     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0105     pause(timePause)
+0106 <span class="keyword">end</span>
+0107 <span class="comment">%read data file</span>
+0108 A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0109 <span class="comment">%tirage obtenu</span>
+0110 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=denorm_tir(sampling,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
+0111 <span class="comment">%new sampling</span>
+0112 newSampling=sampling(nb_old:<span class="keyword">end</span>,:);
+0113 <span class="keyword">end</span>
+0114 
+0115 <span class="comment">%function for normalization and renormalization of the sampling</span>
+0116 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
+0117 nbs=size(sampling,1);
+0118 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
+0119 <span class="keyword">end</span>
+0120 
+0121 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a>
+0122 nbs=size(sampling,1);
+0123 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+0124 <span class="keyword">end</span>
+0125 
+0126 <span class="comment">%name of the variable to a string</span>
+0127 <a name="_sub3" href="#_subfunctions" class="code">function out = varname(var)</a>
+0128 out = inputname(1);
+0129 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

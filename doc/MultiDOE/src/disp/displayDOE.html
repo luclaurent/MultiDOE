@@ -36,7 +36,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -127,16 +127,16 @@ This function is called by:
 0081         hold off
 0082         xMin=Xmin(:)';
 0083         xMax=Xmax(:)';
-0084         depX=xMax-xMin;
-0085         axis([(xMin-para*depX) (xMax+para*depX) -1 1])
+0084         depXX=xMax-xMin;
+0085         axis([(xMin-para*depXX) (xMax+para*depXX) -1 1])
 0086     <span class="keyword">elseif</span> np==2
 0087         
 0088         xMin=Xmin(1);
 0089         xMax=Xmax(1);
 0090         yMin=Xmin(2);
 0091         yMax=Xmax(2);
-0092         depX=xMax-xMin;
-0093         depY=yMax-yMin;
+0092         depXX=xMax-xMin;
+0093         depYY=yMax-yMin;
 0094         figure
 0095         hold on
 0096         <span class="comment">%show sample points on which all data are available</span>
@@ -152,7 +152,7 @@ This function is called by:
 0106         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss,1),sampling(listBothMiss,2),<span class="keyword">...</span>
 0107             listBothMissTxt,<span class="string">'d'</span>,<span class="string">'r'</span>,7,dispTXT);
 0108         hold off
-0109         axis([(xMin-para*depX) (xMax+para*depX) (yMin-para*depY) (yMax+para*depY)])
+0109         axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
 0110         line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
 0111     <span class="keyword">else</span>
 0112         figure
@@ -177,14 +177,14 @@ This function is called by:
 0131                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss,ii),sampling(listBothMiss,jj),<span class="keyword">...</span>
 0132                         listBothMissTxt,<span class="string">'d'</span>,<span class="string">'r'</span>,7,dispTXT);
 0133                     hold off
-0134                     xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depX=depX(ii);depY=depX(jj);
-0135                     axis([(xMin-para*depX) (xMax+para*depX) (yMin-para*depY) (yMax+para*depY)])
+0134                     xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depXX=depX(ii);depYY=depX(jj);
+0135                     axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
 0136                     line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
 0137                 <span class="keyword">else</span>
 0138                     subplot(np,np,it)
 0139                     hist(sampling(:,ii))
-0140                     xMin=Xmin(ii);xMax=Xmax(ii);depX=depX(ii);depY=depX(jj);
-0141                     xlim([(xMin-para*depX) (xMax+para*depX)])
+0140                     xMin=Xmin(ii);xMax=Xmax(ii);depXX=depX(ii);depYY=depX(jj);
+0141                     xlim([(xMin-para*depXX) (xMax+para*depYY)])
 0142                 <span class="keyword">end</span>
 0143             <span class="keyword">end</span>
 0144         <span class="keyword">end</span>
@@ -203,6 +203,6 @@ This function is called by:
 0157         TXT,<span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>);
 0158 <span class="keyword">end</span>
 0159 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

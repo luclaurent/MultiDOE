@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	% Initialization of the directories (MATLAB's path)</li><li><a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	% Function for adding new points in an existing sampling</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	% Initialization of the directories (MATLAB's path)</li><li><a href="../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>	% Function for displaying sampling with nD variables</li><li><a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	% Function for adding new points in an existing sampling</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -54,7 +54,7 @@ This function is called by:
 0010 <span class="comment">%</span>
 0011 doe.Xmin=[-1 -2 -3];
 0012 doe.Xmax=[3 2 1];
-0013 doe.type=<span class="string">'IHS_R'</span>; <span class="comment">%or LHS_R</span>
+0013 doe.type=<span class="string">'LHS_R'</span>; <span class="comment">%or LHS_R</span>
 0014 doe.ns=5;
 0015 doe.sort.on=false; <span class="comment">%w/o sorting</span>
 0016 doe.disp=true;
@@ -67,7 +67,7 @@ This function is called by:
 0023 <span class="comment">%enrichment</span>
 0024 doe.ns=2;
 0025 newSample=<a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>(sampling,doe);
-0026 dispDOE(newSample,doe)</pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0026 <a href="../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(newSample,doe)</pre></div>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

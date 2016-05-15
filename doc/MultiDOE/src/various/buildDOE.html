@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>	% Function for displaying sampling with nD variables</li><li><a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	% Script dedicated to the initiailisation, the measure and the display of the spent time</li><li><a href="sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>	% Sorting of sample points</li></ul>
+<li><a href="../../../MultiDOE/src/DOE/IHS/ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/DOE/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>	% Function for displaying sampling with nD variables</li><li><a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	% Script dedicated to the initiailisation, the measure and the display of the spent time</li><li><a href="sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>	% Sorting of sample points</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	% Example of use of the MultiDOE toolbox</li></ul>
@@ -143,11 +143,11 @@ This function is called by:
 0097     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0098     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0099     <span class="comment">% full factorial</span>
-0100     <span class="keyword">case</span> <span class="string">'ffact'</span>
-0101         <span class="keyword">if</span> numel(ns)==1
-0102             ns=ns^np;
-0103         <span class="keyword">end</span>
-0104         sampling=<a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>(ns,XminDef,XmaxDef);
+0100     <span class="keyword">case</span> <span class="string">'ffact'</span>        
+0101         sampling=<a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>(ns,XminDef,XmaxDef);
+0102         <span class="keyword">if</span> numel(ns)==1
+0103             ns=ns^np;
+0104         <span class="keyword">end</span>
 0105         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0106         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0107         <span class="comment">% Latin Hypercube Sampling with R (and initial enrichment)</span>
@@ -321,7 +321,7 @@ This function is called by:
 0275         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0276         <span class="comment">% Latin Hypercube Sampling (with uniform law)</span>
 0277     <span class="keyword">case</span> <span class="string">'LHS'</span>
-0278         sampling=lhsu(XminDef,XmaxDef,prod(ns(:)));
+0278         sampling=<a href="../../../MultiDOE/src/DOE/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
 0279         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0280         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0281         <span class="comment">% LHS with storage of the data</span>
@@ -329,14 +329,14 @@ This function is called by:
 0283          <span class="comment">%recover sampling if available</span>
 0284         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsu'</span>,np,ns);
 0285         <span class="keyword">if</span> isempty(sampling)
-0286             sampling=lhsu(XminDef,XmaxDef,prod(ns(:)));
+0286             sampling=<a href="../../../MultiDOE/src/DOE/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
 0287             save(fich,<span class="string">'sampling'</span>);
 0288         <span class="keyword">end</span>
 0289         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0290         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0291         <span class="comment">% Improved Hypercube Sampling</span>
 0292     <span class="keyword">case</span> <span class="string">'IHS'</span>
-0293         sampling=ihs(np,ns,5,17);
+0293         sampling=<a href="../../../MultiDOE/src/DOE/IHS/ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>(np,ns,5,17);
 0294         sampling=sampling./ns;
 0295         sampling=sampling';
 0296         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -345,7 +345,7 @@ This function is called by:
 0299          <span class="comment">%recover sampling if available</span>
 0300         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'ihs'</span>,np,ns);
 0301         <span class="keyword">if</span> isempty(sampling)
-0302             sampling=ihs(np,ns,5,17);
+0302             sampling=<a href="../../../MultiDOE/src/DOE/IHS/ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>(np,ns,5,17);
 0303             sampling=sampling./ns;
 0304             sampling=sampling';
 0305             save(fich,<span class="string">'sampling'</span>);
@@ -359,9 +359,9 @@ This function is called by:
 0313         sc=zeros(1,nbGene);
 0314         <span class="comment">%nbGene sampling are generated</span>
 0315         <span class="keyword">for</span> ii=1:nbGene
-0316             samplingTMP{ii}=lhsu(XminDef,XmaxDef,prod(ns(:)));
+0316             samplingTMP{ii}=<a href="../../../MultiDOE/src/DOE/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
 0317             <span class="comment">%compute score</span>
-0318             uni=score_doe(samplingTMP{ii});
+0318             uni=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(samplingTMP{ii});
 0319             sc(ii)=uni.sumDist;
 0320         <span class="keyword">end</span>
 0321         [~,IX]=min(sc);
@@ -378,9 +378,9 @@ This function is called by:
 0332             sc=zeros(1,nbGene);
 0333             <span class="comment">%nbGene sampling are generated</span>
 0334             <span class="keyword">for</span> ii=1:nbGene
-0335                 samplingTMP{ii}=lhsu(XminDef,XmaxDef,prod(ns(:)));
+0335                 samplingTMP{ii}=<a href="../../../MultiDOE/src/DOE/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
 0336                 <span class="comment">%compute score</span>
-0337                 uni=score_doe(samplingTMP{ii});
+0337                 uni=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(samplingTMP{ii});
 0338                 sc(ii)=uni.sumDist;
 0339             <span class="keyword">end</span>
 0340             [~,IX]=min(sc);
@@ -447,7 +447,7 @@ This function is called by:
 0401 <span class="keyword">end</span>
 0402 
 0403 <span class="comment">%if the sampling exists, it will be loaded</span>
-0404 fi=[<span class="string">'TIR_MANU/'</span> nameFile <span class="string">'_man_'</span> num2str(np) <span class="string">'_'</span>  num2str(ns)];
+0404 fi=[<span class="string">'tmpDOE/TIR_MANU/'</span> nameFile <span class="string">'_man_'</span> num2str(np) <span class="string">'_'</span>  num2str(ns)];
 0405 fich=[fi <span class="string">'.mat'</span>];
 0406 <span class="keyword">if</span> exist(fich,<span class="string">'file'</span>)==2
 0407     st=load(fich);
@@ -458,6 +458,6 @@ This function is called by:
 0412 <span class="keyword">end</span>
 0413 <span class="keyword">end</span>
 0414</pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

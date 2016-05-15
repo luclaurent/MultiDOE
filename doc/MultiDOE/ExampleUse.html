@@ -52,8 +52,8 @@ This function is called by:
 0008 <span class="comment">%load configuration</span>
 0009 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>(3);
 0010 <span class="comment">%</span>
-0011 doe.Xmin=[-1 -2 -3];
-0012 doe.Xmax=[3 2 1];
+0011 doe.Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
+0012 doe.Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
 0013 
 0014 <span class="comment">% available sampling techniques :</span>
 0015 <span class="comment">% - ffact &quot;full factorial&quot;</span>
@@ -76,7 +76,7 @@ This function is called by:
 0032 <span class="comment">% - rand</span>
 0033 <span class="comment">% - perso</span>
 0034 
-0035 doe.type=<span class="string">'IHS'</span>;
+0035 doe.type=<span class="string">'LHS_manu'</span>;
 0036 doe.ns=30;
 0037 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0038 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
@@ -84,6 +84,6 @@ This function is called by:
 0040 [sampling,infos]=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>(doe);
 0041 sampling.sorted
 0042 sampling.unsorted</pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

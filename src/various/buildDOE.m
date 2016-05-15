@@ -97,11 +97,11 @@ switch doe.type
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % full factorial
-    case 'ffact'
+    case 'ffact'        
+        sampling=fullFactDOE(ns,XminDef,XmaxDef);
         if numel(ns)==1
             ns=ns^np;
         end
-        sampling=fullFactDOE(ns,XminDef,XmaxDef);
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Latin Hypercube Sampling with R (and initial enrichment)
@@ -315,7 +315,7 @@ switch doe.type
         for ii=1:nbGene
             samplingTMP{ii}=lhsu(XminDef,XmaxDef,prod(ns(:)));
             %compute score
-            uni=score_doe(samplingTMP{ii});
+            uni=calcScore(samplingTMP{ii});
             sc(ii)=uni.sumDist;
         end
         [~,IX]=min(sc);
@@ -334,7 +334,7 @@ switch doe.type
             for ii=1:nbGene
                 samplingTMP{ii}=lhsu(XminDef,XmaxDef,prod(ns(:)));
                 %compute score
-                uni=score_doe(samplingTMP{ii});
+                uni=calcScore(samplingTMP{ii});
                 sc(ii)=uni.sumDist;
             end
             [~,IX]=min(sc);
@@ -401,7 +401,7 @@ if exist('TIR_MANU','dir')~=7
 end
 
 %if the sampling exists, it will be loaded
-fi=['TIR_MANU/' nameFile '_man_' num2str(np) '_'  num2str(ns)];
+fi=['tmpDOE/TIR_MANU/' nameFile '_man_' num2str(np) '_'  num2str(ns)];
 fich=[fi '.mat'];
 if exist(fich,'file')==2
     st=load(fich);

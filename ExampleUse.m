@@ -8,8 +8,8 @@ initDirMultiDOE;
 %load configuration
 doe=initDOE(3);
 %
-doe.Xmin=[-1 -2 -3];
-doe.Xmax=[3 2 1];
+doe.Xmin=[-1 -2 -3];% -1 -2 -3 -1 -2 -3 -3];
+doe.Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 
 % available sampling techniques :
 % - ffact "full factorial"
@@ -32,7 +32,7 @@ doe.Xmax=[3 2 1];
 % - rand
 % - perso
 
-doe.type='IHS';
+doe.type='LHS_manu';
 doe.ns=30;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

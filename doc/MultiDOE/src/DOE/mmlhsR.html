@@ -68,7 +68,7 @@ This function is called by:
 0022 
 0023 <span class="comment">%%initialize options</span>
 0024 <span class="comment">% storing directory</span>
-0025 folderStore=<span class="string">'LHS_R'</span>;
+0025 folderStore=<span class="string">'tmpDOE/LHS_R'</span>;
 0026 <span class="comment">%number of initial sampling</span>
 0027 nbInitSampling=0;
 0028 <span class="comment">%name of the R script file</span>
@@ -97,63 +97,62 @@ This function is called by:
 0051     
 0052     <span class="comment">%create storing folder if not existing</span>
 0053     <span class="keyword">if</span> exist(folderStore,<span class="string">'dir'</span>)~=7
-0054         cmd=[<span class="string">'mkdir '</span> folderStore];
-0055         unix(cmd);
-0056     <span class="keyword">end</span>
-0057     
-0058     <span class="comment">%%write R script</span>
-0059     textInit=[<span class="string">'a&lt;-maximinLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">','</span><span class="keyword">...</span>
-0060         num2str(nbPerm) <span class="string">','</span> num2str(critStop) <span class="string">')\n'</span>];
-0061     <span class="comment">%procedure d'enrichissement</span>
-0062     textInfill=[<span class="string">'a&lt;-optAugmentLHS(a,1,4)\n'</span>];
-0063     <span class="comment">%load LHS library</span>
-0064     loadLHS=<span class="string">'library(lhs)\n'</span>;
-0065     <span class="comment">%store sampling</span>
-0066     storeSampling=[<span class="string">'write.table(a,file=&quot;'</span> nameDataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)'</span>];
-0067     
-0068     <span class="comment">%create and open script file</span>
-0069     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
-0070     <span class="comment">%write loading of the library</span>
-0071     fprintf(fid,loadLHS);
-0072     <span class="comment">%write initial sampling execution</span>
-0073     fprintf(fid,textInit);
-0074     <span class="comment">%write enrichment</span>
-0075     <span class="keyword">for</span> ii=1:nbInitSampling
-0076         fprintf(fid,textInfill);
-0077     <span class="keyword">end</span>
-0078     <span class="comment">%write storage procedure</span>
-0079     fprintf(fid,storeSampling);
-0080     <span class="comment">%close file</span>
-0081     fclose(fid);
-0082     <span class="comment">%%execute R (R must be installed)</span>
-0083     <span class="comment">%check if available</span>
-0084     [e,~]=unix(<span class="string">'which R'</span>);
-0085     <span class="keyword">if</span> e~=0
-0086         error(<span class="string">'R non installe (absent du PATH)'</span>);
-0087     <span class="keyword">else</span>
-0088         [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0089         pause(timePause)
-0090     <span class="keyword">end</span>
-0091     <span class="comment">%read data file</span>
-0092     A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0093     <span class="comment">%obtained sampling</span>
-0094     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
-0095     newSampling=[];
-0096     
-0097     <span class="comment">%enrichment procedure</span>
-0098 <span class="keyword">elseif</span> nargin==5
-0099     
-0100     <span class="comment">%number of sample points in the initial sampling</span>
-0101     nsOld=size(oldsampling,1);
-0102     <span class="comment">%read data file</span>
-0103     A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0104     <span class="comment">%new sampling</span>
-0105     ind=nsOld+1:nsOld+nbInfill;
-0106     newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
-0107     <span class="comment">%all sample points</span>
-0108     sampling=[oldsampling;newSampling];
-0109 <span class="keyword">end</span>
-0110 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0054         mkdir(folderStore);
+0055     <span class="keyword">end</span>
+0056     
+0057     <span class="comment">%%write R script</span>
+0058     textInit=[<span class="string">'a&lt;-maximinLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">','</span><span class="keyword">...</span>
+0059         num2str(nbPerm) <span class="string">','</span> num2str(critStop) <span class="string">')\n'</span>];
+0060     <span class="comment">%procedure d'enrichissement</span>
+0061     textInfill=[<span class="string">'a&lt;-optAugmentLHS(a,1,4)\n'</span>];
+0062     <span class="comment">%load LHS library</span>
+0063     loadLHS=<span class="string">'library(lhs)\n'</span>;
+0064     <span class="comment">%store sampling</span>
+0065     storeSampling=[<span class="string">'write.table(a,file=&quot;'</span> nameDataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)'</span>];
+0066     
+0067     <span class="comment">%create and open script file</span>
+0068     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0069     <span class="comment">%write loading of the library</span>
+0070     fprintf(fid,loadLHS);
+0071     <span class="comment">%write initial sampling execution</span>
+0072     fprintf(fid,textInit);
+0073     <span class="comment">%write enrichment</span>
+0074     <span class="keyword">for</span> ii=1:nbInitSampling
+0075         fprintf(fid,textInfill);
+0076     <span class="keyword">end</span>
+0077     <span class="comment">%write storage procedure</span>
+0078     fprintf(fid,storeSampling);
+0079     <span class="comment">%close file</span>
+0080     fclose(fid);
+0081     <span class="comment">%%execute R (R must be installed)</span>
+0082     <span class="comment">%check if available</span>
+0083     [e,~]=unix(<span class="string">'which R'</span>);
+0084     <span class="keyword">if</span> e~=0
+0085         error(<span class="string">'R non installe (absent du PATH)'</span>);
+0086     <span class="keyword">else</span>
+0087         [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0088         pause(timePause)
+0089     <span class="keyword">end</span>
+0090     <span class="comment">%read data file</span>
+0091     A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0092     <span class="comment">%obtained sampling</span>
+0093     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
+0094     newSampling=[];
+0095     
+0096     <span class="comment">%enrichment procedure</span>
+0097 <span class="keyword">elseif</span> nargin==5
+0098     
+0099     <span class="comment">%number of sample points in the initial sampling</span>
+0100     nsOld=size(oldsampling,1);
+0101     <span class="comment">%read data file</span>
+0102     A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0103     <span class="comment">%new sampling</span>
+0104     ind=nsOld+1:nsOld+nbInfill;
+0105     newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
+0106     <span class="comment">%all sample points</span>
+0107     sampling=[oldsampling;newSampling];
+0108 <span class="keyword">end</span>
+0109 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of latin_hs</title>
+  <meta name="keywords" content="latin_hs">
+  <meta name="description" content="s=latin_hs(xmean,xsd,nsample,nvar)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../../menu.html MultiDOE --><!-- # src --><!-- ../menu.html DOE --><!-- menu.html LHS -->
+<h1>latin_hs
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>s=latin_hs(xmean,xsd,nsample,nvar)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function s=latin_hs(xmean,xsd,nsample,nvar) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> s=latin_hs(xmean,xsd,nsample,nvar)
+ LHS from normal distribution, no correlation
+ method of Stein
+ Stein, M. 1987. Large Sample Properties of Simulations Using Latin Hypercube Sampling. 
+                 Technometrics 29:143-151
+ Input:
+   xmean   :  mean of data (1,nvar)
+   xsd     : std.dev of data (1,nvar)
+   nsample : no. of samples
+   nvar    : no. of variables
+ Output:
+   s       : random sample (nsample,nvar)
+
+ Uses Peter Acklam inverse normal CDF
+
+   Budiman (2003)
+ References:
+ Iman, R. L., and W. J. Conover. 1980. Small Sample Sensitivity Analysis Techniques for Computer Models, 
+ with an Application to Risk Assessment.Communications in Statistics: Theory and Methods A9: 1749-1874
+ McKay, M. D., W. J. Conover and R. J. Beckman. 1979.A Comparison of Three Methods for Selecting Values
+ of Input Variables in the Analysis of Output from a Computer Code. Technometrics 21: 239-245</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="ltqnorm.html" class="code" title="function z = ltqnorm(p)">ltqnorm</a>	LTQNORM Lower tail quantile for standard normal distribution.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="lhs_iman.html" class="code" title="function z=lhs_iman(xmean,xsd,corr,nsample,ntry)">lhs_iman</a>	z=lhs_iman(xmean,xsd,corr,nsample,nloop)</li><li><a href="lhs_iman_n.html" class="code" title="function z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)">lhs_iman_n</a>	z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)</li><li><a href="rank_corr.html" class="code" title="function rc=rank_corr(corr,nsample)">rank_corr</a>	rc=rank_corr(corr,nsample)</li><li><a href="test_sampling.html" class="code" title="">test_sampling</a>	example of sampling</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function s=latin_hs(xmean,xsd,nsample,nvar)</a>
+0002 <span class="comment">% s=latin_hs(xmean,xsd,nsample,nvar)</span>
+0003 <span class="comment">% LHS from normal distribution, no correlation</span>
+0004 <span class="comment">% method of Stein</span>
+0005 <span class="comment">% Stein, M. 1987. Large Sample Properties of Simulations Using Latin Hypercube Sampling.</span>
+0006 <span class="comment">%                 Technometrics 29:143-151</span>
+0007 <span class="comment">% Input:</span>
+0008 <span class="comment">%   xmean   :  mean of data (1,nvar)</span>
+0009 <span class="comment">%   xsd     : std.dev of data (1,nvar)</span>
+0010 <span class="comment">%   nsample : no. of samples</span>
+0011 <span class="comment">%   nvar    : no. of variables</span>
+0012 <span class="comment">% Output:</span>
+0013 <span class="comment">%   s       : random sample (nsample,nvar)</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">% Uses Peter Acklam inverse normal CDF</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%   Budiman (2003)</span>
+0018 <span class="comment">% References:</span>
+0019 <span class="comment">% Iman, R. L., and W. J. Conover. 1980. Small Sample Sensitivity Analysis Techniques for Computer Models,</span>
+0020 <span class="comment">% with an Application to Risk Assessment.Communications in Statistics: Theory and Methods A9: 1749-1874</span>
+0021 <span class="comment">% McKay, M. D., W. J. Conover and R. J. Beckman. 1979.A Comparison of Three Methods for Selecting Values</span>
+0022 <span class="comment">% of Input Variables in the Analysis of Output from a Computer Code. Technometrics 21: 239-245</span>
+0023 <span class="comment">%</span>
+0024 ran=rand(nsample,nvar);
+0025 s=zeros(nsample,nvar);
+0026 <span class="comment">% method of Stein</span>
+0027 <span class="keyword">for</span> j=1: nvar
+0028    idx=randperm(nsample);
+0029    P=(idx'-ran(:,j))/nsample;       <span class="comment">% probability of the cdf</span>
+0030    s(:,j) = xmean(j) + <a href="ltqnorm.html" class="code" title="function z = ltqnorm(p)">ltqnorm</a>(P).* xsd(j); <span class="comment">% this can be replaced by any inverse distribution function</span>
+0031 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -80,7 +80,7 @@ This function is called by:
 0036 <span class="comment">%minimal distance</span>
 0037 uniform.minDist=distU(1);
 0038 <span class="comment">%sum of the inverse of the distances (see Leary et al. 2004)</span>
-0039 uniform.sum_dist=sum(1./distU(:).^2);
+0039 uniform.sumDist=sum(1./distU(:).^2);
 0040 <span class="comment">%%criteria for the PhD thesis of Jessica FRANCO 2008</span>
 0041 <span class="comment">%average minimal distance</span>
 0042 uniform.avgMinDist=minDistAvg;
@@ -93,7 +93,7 @@ This function is called by:
 0049 <span class="comment">%minimal distance (maximin)</span>
 0050 uniform.minDistN=distNU(1);
 0051 <span class="comment">%sum of the inverse of the distances (see Leary et al. 2004)</span>
-0052 uniform.sum_distn=sum(1./distNU(:).^2);
+0052 uniform.sumDistN=sum(1./distNU(:).^2);
 0053 <span class="comment">%%criteria for the PhD thesis of Jessica FRANCO 2008</span>
 0054 <span class="comment">%measure of the covering/uniformity</span>
 0055 uniform.cover=1/minDistAvg*<span class="keyword">...</span>
@@ -218,6 +218,6 @@ This function is called by:
 0174     
 0175     
 0176 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Sun 15-May-2016 19:38:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -22,7 +22,7 @@ setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
 %%initialize options
 % storing directory
-folderStore='LHS_R';
+folderStore='tmpDOE/LHS_R';
 %number of initial sampling
 nbInitSampling=0;
 %name of the R script file
@@ -48,14 +48,13 @@ if nargin==3
     %fulle name of the R data file
     nameDataR=[nameDataR num2str(np) '_' num2str(ns) extDataR];
     
-    create storing folder if not existing
+    %create storing folder if not existing
     if exist(folderStore,'dir')~=7
-        cmd=['mkdir ' folderStore];
-        unix(cmd);
+        mkdir(folderStore);
     end
     
     %%write R script
-    textInit=['a<-optimumLHS(' num2str(nbs) ',' num2str(np) ','...
+    textInit=['a<-optimumLHS(' num2str(ns) ',' num2str(np) ','...
         num2str(nbPerm) ',' num2str(critStop) ')\n'];
     %infill procedure
     texttextInfill_enrich=['a<-optAugmentLHS(a,1,4)\n'];
@@ -90,7 +89,7 @@ if nargin==3
     %read data file
     A=load([folderStore '/' nameDataR]);
     %obtained sampling
-    sampling=A(1:nbs,:).*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+    sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
     newSampling=[];
     
     %enrichment procedure

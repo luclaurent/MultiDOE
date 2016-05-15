@@ -10,6 +10,11 @@ Xmax=doe.Xmax;
 
 ns=doe.ns;
 
+%extract the right information
+if isstruct(oldSampling);
+    oldSampling=oldSampling.unsorted;
+end
+
 % depending on the initial sampling
 switch doe.type
     case 'LHS_R'

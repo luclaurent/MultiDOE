@@ -36,7 +36,7 @@ minDistAvg=mean(minDistPt);
 %minimal distance
 uniform.minDist=distU(1);
 %sum of the inverse of the distances (see Leary et al. 2004)
-uniform.sum_dist=sum(1./distU(:).^2);
+uniform.sumDist=sum(1./distU(:).^2);
 %%criteria for the PhD thesis of Jessica FRANCO 2008
 %average minimal distance 
 uniform.avgMinDist=minDistAvg;
@@ -49,7 +49,7 @@ minDistAvg=mean(minDistPtN);
 %minimal distance (maximin)
 uniform.minDistN=distNU(1);
 %sum of the inverse of the distances (see Leary et al. 2004)
-uniform.sum_distn=sum(1./distNU(:).^2);
+uniform.sumDistN=sum(1./distNU(:).^2);
 %%criteria for the PhD thesis of Jessica FRANCO 2008
 %measure of the covering/uniformity
 uniform.cover=1/minDistAvg*...

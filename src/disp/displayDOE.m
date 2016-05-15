@@ -81,16 +81,16 @@ if doe.disp
         hold off
         xMin=Xmin(:)';
         xMax=Xmax(:)';
-        depX=xMax-xMin;
-        axis([(xMin-para*depX) (xMax+para*depX) -1 1])
+        depXX=xMax-xMin;
+        axis([(xMin-para*depXX) (xMax+para*depXX) -1 1])
     elseif np==2
         
         xMin=Xmin(1);
         xMax=Xmax(1);
         yMin=Xmin(2);
         yMax=Xmax(2);
-        depX=xMax-xMin;
-        depY=yMax-yMin;
+        depXX=xMax-xMin;
+        depYY=yMax-yMin;
         figure
         hold on
         %show sample points on which all data are available
@@ -106,7 +106,7 @@ if doe.disp
         plottext(sampling(listBothMiss,1),sampling(listBothMiss,2),...
             listBothMissTxt,'d','r',7,dispTXT);
         hold off
-        axis([(xMin-para*depX) (xMax+para*depX) (yMin-para*depY) (yMax+para*depY)])
+        axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
         line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
     else
         figure
@@ -131,14 +131,14 @@ if doe.disp
                     plottext(sampling(listBothMiss,ii),sampling(listBothMiss,jj),...
                         listBothMissTxt,'d','r',7,dispTXT);
                     hold off
-                    xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depX=depX(ii);depY=depX(jj);
-                    axis([(xMin-para*depX) (xMax+para*depX) (yMin-para*depY) (yMax+para*depY)])
+                    xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depXX=depX(ii);depYY=depX(jj);
+                    axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
                     line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
                 else
                     subplot(np,np,it)
                     hist(sampling(:,ii))
-                    xMin=Xmin(ii);xMax=Xmax(ii);depX=depX(ii);depY=depX(jj);
-                    xlim([(xMin-para*depX) (xMax+para*depX)])
+                    xMin=Xmin(ii);xMax=Xmax(ii);depXX=depX(ii);depYY=depX(jj);
+                    xlim([(xMin-para*depXX) (xMax+para*depYY)])
                 end
             end
         end

@@ -22,7 +22,7 @@ setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
 %%initialize options
 % storing directory
-folderStore='LHS_R';
+folderStore='tmpDOE/LHS_R';
 %number of initial sampling
 nbInitSampling=0;
 %name of the R script file
@@ -51,8 +51,7 @@ if nargin==3
     
     %create storing folder if not existing
     if exist(folderStore,'dir')~=7
-        cmd=['mkdir ' folderStore];
-        unix(cmd);
+        mkdir(folderStore);
     end
     
     %%write R script

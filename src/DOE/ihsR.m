@@ -20,7 +20,7 @@ setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
 %%initialize options
 % storing directory
-folderStore='IHS_R';
+folderStore='tmpDOE/IHS_R';
 %name of the R script file
 nameScript='ihs_R_';
 extScript='.r';
@@ -56,10 +56,9 @@ storeSampling=['write.table(a,file="' nameDataR '",row.names=FALSE,col.names=FAL
 %building DOE
 if nargin==3
     
-     %create storing folder if not existing
+    %create storing folder if not existing
     if exist(folderStore,'dir')~=7
-        cmd=['mkdir ' folderStore];
-        unix(cmd);
+        mkdir(folderStore);
     end
     
     %%write R script
@@ -80,9 +79,9 @@ elseif nargin==4
     %normalisation of the old sampling
     OldSamplingN=normSampling(oldSampling,Xmin,Xmax);
     %write .mat file of the old sampling
-    save([folderStore '/' nomDataM],'OldSamplingN');
+    save([folderStore '/' nameDataM],varname(OldSamplingN));
     %reload old sampling
-    textReLoad=sprintf('a<-readMat(''%s'')\n a<-a$nold.tir\n',nomDataM);
+    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$%s\n',nameDataM,varname(OldSamplingN));
     %write enrichment procedure
     textInfill=sprintf('a<-augmentLHS(a,%i)\n',ns);
     %create and open script file

@@ -19,7 +19,7 @@ setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
 
 %%initialize options
 % storing directory
-folderStore='LHS_R';
+folderStore='tmpDOE/LHS_R';
 %name of the R script file
 nameScript='lhsu_R_';
 extScript='.r';
@@ -56,8 +56,7 @@ storeSampling=['write.table(a,file="' nameDataR '",row.names=FALSE,col.names=FAL
 if nargin==3
     %create storing folder if not existing
     if exist(folderStore,'dir')~=7
-        cmd=['mkdir ' folderStore];
-        unix(cmd);
+        mkdir(folderStore);
     end
     
     %%write R script
@@ -69,7 +68,7 @@ if nargin==3
     %write initial sampling execution
     fprintf(fid,textInit);
     %write storage procedure
-    fprintf(fid,stock_tir);
+    fprintf(fid,storeSampling);
     %cole file
     fclose(fid);
     
@@ -78,9 +77,9 @@ elseif nargin==4
     %normalisation of the old sampling
     OldSamplingN=normSampling(oldSampling,Xmin,Xmax);
     %write .mat file of the old sampling
-    save([folderStore '/' nameDataM],'OldSamplingN');
+    save([folderStore '/' nameDataM],varname(OldSamplingN));
     %reload old sampling
-    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$nold.tir\n',nameDataM);
+    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$%s\n',nameDataM,varname(OldSamplingN));
     %write enrichment procedure
     text_enrich=sprintf('a<-augmentLHS(a,%i)\n',ns);
     %create and open script file
@@ -93,7 +92,7 @@ elseif nargin==4
     %write enrichment
     fprintf(fid,text_enrich);
     %write storage procedure
-    fprintf(fid,stock_tir);
+    fprintf(fid,storeSampling);
 end
 
 %%execute R script (R must be installed)
@@ -122,4 +121,9 @@ end
 function samplingRN=denorm_tir(sampling,Xmin,Xmax)
 nbs=size(sampling,1);
 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+end
+
+%name of the variable to a string
+function out = varname(var)
+out = inputname(1);
 end

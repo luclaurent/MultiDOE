@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lhs_empir</title>
+  <meta name="keywords" content="lhs_empir">
+  <meta name="description" content="s=lhs_empir(data,nsample)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../../menu.html MultiDOE --><!-- # src --><!-- ../menu.html DOE --><!-- menu.html LHS -->
+<h1>lhs_empir
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>s=lhs_empir(data,nsample)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function s=lhs_empir(data,nsample) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> s=lhs_empir(data,nsample)
+ perform lhs on multivariate empirical distribution
+   assume no correlation
+ Input:
+   data    : data matrix (ndata,nvar)
+   nsample : no. of samples
+ Output:
+   s       : random sample (nsample,nvar)
+   Budiman (2003)</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function s=lhs_empir(data,nsample)</a>
+0002 <span class="comment">% s=lhs_empir(data,nsample)</span>
+0003 <span class="comment">% perform lhs on multivariate empirical distribution</span>
+0004 <span class="comment">%   assume no correlation</span>
+0005 <span class="comment">% Input:</span>
+0006 <span class="comment">%   data    : data matrix (ndata,nvar)</span>
+0007 <span class="comment">%   nsample : no. of samples</span>
+0008 <span class="comment">% Output:</span>
+0009 <span class="comment">%   s       : random sample (nsample,nvar)</span>
+0010 <span class="comment">%   Budiman (2003)</span>
+0011 
+0012 [m,nvar]=size(data);
+0013 ran=rand(nsample,nvar);
+0014 s=zeros(nsample,nvar);
+0015 <span class="keyword">for</span> j=1: nvar
+0016    idx=randperm(nsample);
+0017    P=((idx'-ran(:,j))/nsample).*100;
+0018    s(:,j)=prctile(data(:,j),P);
+0019 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sun 15-May-2016 20:28:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
