@@ -369,7 +369,7 @@ if samplingOK
     %if two output variables, other information will be stored
     if nargout==2
         if doe.sort.on
-            infoSampling.tirages_non_trie=sampling;
+            infoSampling.unsorted=sampling;
         end
         %compute scores of the sampling
         [infoSampling.uniform,infoSampling.discrepance]=calcScore(sampling);
