@@ -43,9 +43,9 @@ pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
 cellfun(@addpath,pathAbsolute);
 
 if nargin==2
-     %Load other toolbox
+    %Load other toolbox
     if ~iscell(other);other={other};end
-     %absolute paths
+    %absolute paths
     pathAbsolute=cellfun(@(c)[pathcustom '/../' c],other,'uni',false);
     %add to the PATH
     cellfun(@addpath,pathAbsolute);
@@ -53,4 +53,7 @@ if nargin==2
     namFun=cellfun(@(c)['initDir' c],other,'uni',false);
     cellfun(@feval,namFun,pathAbsolute)
 end
+
+%display
+fprintf(' ## Toolbox: MultiDOE loaded\n');
 end
