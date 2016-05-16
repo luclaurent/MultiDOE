@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of ihs</title>
+  <meta name="keywords" content="ihs">
+  <meta name="description" content="*****************************************************************************80">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../../menu.html MultiDOE --><!-- # src --><!-- ../menu.html libs --><!-- menu.html IHS -->
+<h1>ihs
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>*****************************************************************************80</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed ) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">*****************************************************************************80
+
+% IHS implements the improved distributed hypercube sampling algorithm.
+
+  Discussion:
+
+    N Points in an M dimensional Latin hypercube are to be selected.
+    Each of the M coordinate dimensions is discretized to the values
+    1 through N.  The points are to be chosen in such a way that
+    no two points have any coordinate value in common.  This is
+    a standard Latin hypercube requirement, and there are many
+    solutions.
+
+    This algorithm differs in that it tries to pick a solution
+    which has the property that the points are &quot;spread out&quot;
+    as evenly as possible.  It does this by determining an optimal
+    even spacing, and using the DUPLICATION factor to allow it
+    to choose the best of the various options available to it.
+
+  Licensing:
+
+    This code is distributed under the GNU LGPL license.
+
+  Modified:
+
+    16 February 2005
+
+  Author:
+
+    John Burkardt
+
+  Reference:
+
+    Brian Beachkofski, Ramana Grandhi,
+    Improved Distributed Hypercube Sampling,
+    American Institute of Aeronautics and Astronautics Paper 2002-1274.
+
+  Parameters:
+
+    Input, integer DIM_NUM, the spatial dimension.
+
+    Input, integer POINT_NUM, the number of points to be generated.
+
+    Input, integer DUPLICATION, the duplication factor.  This must
+    be at least 1.  A value of 5 is reasonable.
+
+    Input, integer SEED, a seed for the random number generator.
+
+    Output, integer X(DIM_NUM,POINT_NUM), the points.
+
+    Output, integer SEED, the updated seed for the random number generator.</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="i4_uniform.html" class="code" title="function [ c, seed ] = i4_uniform ( a, b, seed )">i4_uniform</a>	*****************************************************************************80</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="ihs_test01.html" class="code" title="function ihs_test01 ( )">ihs_test01</a>	*****************************************************************************80</li><li><a href="ihs_test02.html" class="code" title="function ihs_test02 ( )">ihs_test02</a>	*****************************************************************************80</li><li><a href="ihs_test03.html" class="code" title="function ihs_test03 ( )">ihs_test03</a>	*****************************************************************************80</li><li><a href="ihs_test04.html" class="code" title="function ihs_test04 ( )">ihs_test04</a>	*****************************************************************************80</li><li><a href="../../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )</a>
+0002 
+0003 <span class="comment">%*****************************************************************************80</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%% IHS implements the improved distributed hypercube sampling algorithm.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%  Discussion:</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%    N Points in an M dimensional Latin hypercube are to be selected.</span>
+0010 <span class="comment">%    Each of the M coordinate dimensions is discretized to the values</span>
+0011 <span class="comment">%    1 through N.  The points are to be chosen in such a way that</span>
+0012 <span class="comment">%    no two points have any coordinate value in common.  This is</span>
+0013 <span class="comment">%    a standard Latin hypercube requirement, and there are many</span>
+0014 <span class="comment">%    solutions.</span>
+0015 <span class="comment">%</span>
+0016 <span class="comment">%    This algorithm differs in that it tries to pick a solution</span>
+0017 <span class="comment">%    which has the property that the points are &quot;spread out&quot;</span>
+0018 <span class="comment">%    as evenly as possible.  It does this by determining an optimal</span>
+0019 <span class="comment">%    even spacing, and using the DUPLICATION factor to allow it</span>
+0020 <span class="comment">%    to choose the best of the various options available to it.</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%  Licensing:</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%    This code is distributed under the GNU LGPL license.</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%  Modified:</span>
+0027 <span class="comment">%</span>
+0028 <span class="comment">%    16 February 2005</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%  Author:</span>
+0031 <span class="comment">%</span>
+0032 <span class="comment">%    John Burkardt</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">%  Reference:</span>
+0035 <span class="comment">%</span>
+0036 <span class="comment">%    Brian Beachkofski, Ramana Grandhi,</span>
+0037 <span class="comment">%    Improved Distributed Hypercube Sampling,</span>
+0038 <span class="comment">%    American Institute of Aeronautics and Astronautics Paper 2002-1274.</span>
+0039 <span class="comment">%</span>
+0040 <span class="comment">%  Parameters:</span>
+0041 <span class="comment">%</span>
+0042 <span class="comment">%    Input, integer DIM_NUM, the spatial dimension.</span>
+0043 <span class="comment">%</span>
+0044 <span class="comment">%    Input, integer POINT_NUM, the number of points to be generated.</span>
+0045 <span class="comment">%</span>
+0046 <span class="comment">%    Input, integer DUPLICATION, the duplication factor.  This must</span>
+0047 <span class="comment">%    be at least 1.  A value of 5 is reasonable.</span>
+0048 <span class="comment">%</span>
+0049 <span class="comment">%    Input, integer SEED, a seed for the random number generator.</span>
+0050 <span class="comment">%</span>
+0051 <span class="comment">%    Output, integer X(DIM_NUM,POINT_NUM), the points.</span>
+0052 <span class="comment">%</span>
+0053 <span class="comment">%    Output, integer SEED, the updated seed for the random number generator.</span>
+0054 <span class="comment">%</span>
+0055   opt = point_num / point_num^( 1.0 / dim_num );
+0056 <span class="comment">%</span>
+0057 <span class="comment">%  Pick the first point.</span>
+0058 <span class="comment">%</span>
+0059   x = zeros ( dim_num, point_num );
+0060 
+0061   <span class="keyword">for</span> i = 1 : dim_num
+0062     [ x(i,point_num), seed ] = <a href="i4_uniform.html" class="code" title="function [ c, seed ] = i4_uniform ( a, b, seed )">i4_uniform</a> ( 1, point_num, seed );
+0063   <span class="keyword">end</span>
+0064 <span class="comment">%</span>
+0065 <span class="comment">%  Initialize AVAIL,</span>
+0066 <span class="comment">%  and set an entry in a random row of each column of AVAIL to POINT_NUM.</span>
+0067 <span class="comment">%</span>
+0068   <span class="keyword">for</span> j = 1 : point_num
+0069     avail(1:dim_num,j) = j;
+0070   <span class="keyword">end</span>
+0071 
+0072   <span class="keyword">for</span> i = 1 : dim_num
+0073     avail(i,x(i,point_num)) = point_num;
+0074   <span class="keyword">end</span>
+0075 <span class="comment">%</span>
+0076 <span class="comment">%  Main loop:</span>
+0077 <span class="comment">%  Assign a value to X(1:DIM_NUM,COUNT) for COUNT = POINT_NUM-1 down to 2.</span>
+0078 <span class="comment">%</span>
+0079   <span class="keyword">for</span> count = point_num-1 : -1 : 2
+0080 <span class="comment">%</span>
+0081 <span class="comment">%  Generate valid points.</span>
+0082 <span class="comment">%</span>
+0083     <span class="keyword">for</span> i = 1 : dim_num
+0084 
+0085       <span class="keyword">for</span> k = 1 : duplication
+0086         list(count*(k-1)+1:k*count) = avail(i,1:count);
+0087       <span class="keyword">end</span>
+0088 
+0089       <span class="keyword">for</span> k = count*duplication : -1 : 1
+0090         [ point_index, seed ] = <a href="i4_uniform.html" class="code" title="function [ c, seed ] = i4_uniform ( a, b, seed )">i4_uniform</a> ( 1, k, seed );
+0091         point(i,k) = list(point_index);
+0092         list(point_index) = list(k);
+0093       <span class="keyword">end</span>
+0094 
+0095     <span class="keyword">end</span>
+0096 <span class="comment">%</span>
+0097 <span class="comment">%  For each candidate, determine the distance to all the</span>
+0098 <span class="comment">%  points that have already been selected, and save the minimum value.</span>
+0099 <span class="comment">%</span>
+0100     min_all = realmax;
+0101     best = 0;
+0102 
+0103     <span class="keyword">for</span> k = 1 : duplication*count
+0104 
+0105       min_can = realmax;
+0106 
+0107       <span class="keyword">for</span> j = count+1 : point_num
+0108         vec(1:dim_num) = point(1:dim_num,k) - x(1:dim_num,j);
+0109 <span class="comment">%</span>
+0110 <span class="comment">%  Why not replace these 5 lines by a 1 line dot product?</span>
+0111 <span class="comment">%  Because that's what I had, but because MATLAB's mind works one way,</span>
+0112 <span class="comment">%  and mine another, my inner product was actually an outer product,</span>
+0113 <span class="comment">%  and I wasted two days finding out why.</span>
+0114 <span class="comment">%</span>
+0115 <span class="comment">%  Since MATLAB plays sloppy with the distinctions between scalars,</span>
+0116 <span class="comment">%  vectors, and matrices, let's just be plain and obvious here, rather</span>
+0117 <span class="comment">%  than elegant and wrong!</span>
+0118 <span class="comment">%</span>
+0119         dist = 0.0;
+0120         <span class="keyword">for</span> i = 1 : dim_num
+0121           dist = dist + ( point(i,k) - x(i,j) )^2;
+0122         <span class="keyword">end</span>
+0123         dist = sqrt ( dist );
+0124         min_can = min ( min_can, dist );
+0125       <span class="keyword">end</span>
+0126 
+0127       <span class="keyword">if</span> ( abs ( min_can - opt ) &lt; min_all )
+0128         min_all = abs ( min_can - opt );
+0129         best = k;
+0130       <span class="keyword">end</span>
+0131 
+0132     <span class="keyword">end</span>
+0133 
+0134     x(1:dim_num,count) = point(1:dim_num,best);
+0135 <span class="comment">%</span>
+0136 <span class="comment">%  Having chosen X(*,COUNT), update AVAIL.</span>
+0137 <span class="comment">%</span>
+0138     <span class="keyword">for</span> i = 1 : dim_num
+0139 
+0140       <span class="keyword">for</span> j = 1 : point_num
+0141         <span class="keyword">if</span> ( avail(i,j) == x(i,count) )
+0142           avail(i,j) = avail(i,count);
+0143         <span class="keyword">end</span>
+0144       <span class="keyword">end</span>
+0145 
+0146     <span class="keyword">end</span>
+0147 
+0148   <span class="keyword">end</span>
+0149 <span class="comment">%</span>
+0150 <span class="comment">%  For the last point, there's only one choice.</span>
+0151 <span class="comment">%</span>
+0152   x(1:dim_num,1) = avail(1:dim_num,1);
+0153 
+0154   <span class="keyword">return</span>
+0155 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

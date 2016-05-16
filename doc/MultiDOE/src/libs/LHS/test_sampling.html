@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of test_sampling</title>
+  <meta name="keywords" content="test_sampling">
+  <meta name="description" content="example of sampling">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../../menu.html MultiDOE --><!-- # src --><!-- ../menu.html libs --><!-- menu.html LHS -->
+<h1>test_sampling
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>example of sampling</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>This is a script file. </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> example of sampling</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="latin_hs.html" class="code" title="function s=latin_hs(xmean,xsd,nsample,nvar)">latin_hs</a>	s=latin_hs(xmean,xsd,nsample,nvar)</li><li><a href="lhs_iman.html" class="code" title="function z=lhs_iman(xmean,xsd,corr,nsample,ntry)">lhs_iman</a>	z=lhs_iman(xmean,xsd,corr,nsample,nloop)</li><li><a href="lhs_stein.html" class="code" title="function z=lhs_stein(xmean,xsd,corr,nsample,ntry)">lhs_stein</a>	z=lhs_stein(xmean,xsd,corr,nsample)</li><li><a href="ransamp.html" class="code" title="function s=ransamp(xmean,xsd,corr,nsample)">ransamp</a>	s=ransamp(xmean,xsd,corr,nsample)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">% example of sampling</span>
+0002 clear all
+0003 
+0004 nsample=100;        <span class="comment">% no of random samples to be drawn</span>
+0005 nvar=6;             <span class="comment">% no of variables</span>
+0006 
+0007 xmean=[10  5  4   3    20   10];    <span class="comment">% mean</span>
+0008 xsd=[0.1   1  0.1   1    1   1];    <span class="comment">% std. deviation</span>
+0009 <span class="comment">%   correlation matrix</span>
+0010 corr=[
+0011     1.00  0    0     0       0     0
+0012     0    1.00  0     0       0     0
+0013     0    0     1.00  0       0     0
+0014     0    0     0     1.00   0.75  -0.70
+0015     0    0     0     0.75   1.00  -0.95
+0016     0    0     0    -0.70  -0.95   1.00];
+0017 
+0018 <span class="comment">% first sample assume no correlation with LHS</span>
+0019 s=<a href="latin_hs.html" class="code" title="function s=latin_hs(xmean,xsd,nsample,nvar)">latin_hs</a>(xmean,xsd,nsample,nvar);
+0020 mean(s)
+0021 std(s)
+0022 
+0023 pause
+0024 <span class="comment">% sample assume correlation with random sampling</span>
+0025 r=<a href="ransamp.html" class="code" title="function s=ransamp(xmean,xsd,corr,nsample)">ransamp</a>(xmean,xsd,corr,nsample);
+0026 corrcoef(r)
+0027 mean(r)
+0028 std(r)
+0029 <span class="comment">% error in the corr.</span>
+0030 ae=mean(abs(corrcoef(r)-corr))
+0031 
+0032 pause
+0033 <span class="comment">% sample assume correlation with LHS Stein</span>
+0034 z=<a href="lhs_stein.html" class="code" title="function z=lhs_stein(xmean,xsd,corr,nsample,ntry)">lhs_stein</a>(xmean,xsd,corr,nsample);
+0035 corrcoef(z)
+0036 mean(z)
+0037 std(z)
+0038 <span class="comment">% error in the corr.</span>
+0039 ae=mean(abs(corrcoef(z)-corr))
+0040 
+0041 pause
+0042 <span class="comment">% sample assume correlation with LHS Iman</span>
+0043 z=<a href="lhs_iman.html" class="code" title="function z=lhs_iman(xmean,xsd,corr,nsample,ntry)">lhs_iman</a>(xmean,xsd,corr,nsample);
+0044 mean(z)
+0045 std(z)
+0046 corrcoef(z)
+0047 <span class="comment">% error in the corr.</span>
+0048 ae=mean(abs(corrcoef(z)-corr))
+0049</pre></div>
+<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
