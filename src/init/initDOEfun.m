@@ -10,7 +10,7 @@ switch fct
     case 'Ackley'
         val=1.5;
         espM=val*[-ones(dim,1),ones(dim,1)];
-    case {'rosenbrock','rosenbrockM'}
+    case {'Rosenbrock','RosenbrockM'}
         val=2.048;
         espM=val*[-ones(dim,1),ones(dim,1)];
     case 'Branin'
@@ -22,7 +22,7 @@ switch fct
     case 'Peaks'
         val=3;xmin=-val;xmax=val;ymin=-val;ymax=val;
         espM=[xmin xmax;ymin ymax];
-    case 'Sixhump'
+    case 'SixHump'
         xmin=-2;xmax=2;ymin=-1;ymax=1;
         espM=[xmin xmax;ymin ymax];
     case 'Schwefel'
