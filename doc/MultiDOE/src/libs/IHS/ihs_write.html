@@ -23,7 +23,7 @@
 <div class="box"><strong>*****************************************************************************80</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="box"><strong>function ihs_write ( m, n, d, seed_init, seed, r, file_out_name ) </strong></div>
+<div class="box"><strong>function ihs_write ( m, n, d, r, file_out_name ) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">*****************************************************************************80
@@ -64,10 +64,6 @@
 
     Input, integer D, the duplication factor.
 
-    Input, integer SEED_INIT, the initial seed for the random number generator.
-
-    Input, integer SEED, the current seed for the random number generator.
-
     Input, real R(M,N), the points.
 
     Input, string FILE_OUT_NAME, the name of the output file.</pre></div>
@@ -76,7 +72,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
-<li><a href="r8_epsilon.html" class="code" title="function value = r8_epsilon ( dummy )">r8_epsilon</a>	*****************************************************************************80</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
 </ul>
@@ -85,7 +81,7 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ihs_write ( m, n, d, seed_init, seed, r, file_out_name )</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function ihs_write ( m, n, d, r, file_out_name )</a>
 0002 
 0003 <span class="comment">%*****************************************************************************80</span>
 0004 <span class="comment">%</span>
@@ -125,47 +121,39 @@ This function is called by:
 0038 <span class="comment">%</span>
 0039 <span class="comment">%    Input, integer D, the duplication factor.</span>
 0040 <span class="comment">%</span>
-0041 <span class="comment">%    Input, integer SEED_INIT, the initial seed for the random number generator.</span>
+0041 <span class="comment">%    Input, real R(M,N), the points.</span>
 0042 <span class="comment">%</span>
-0043 <span class="comment">%    Input, integer SEED, the current seed for the random number generator.</span>
+0043 <span class="comment">%    Input, string FILE_OUT_NAME, the name of the output file.</span>
 0044 <span class="comment">%</span>
-0045 <span class="comment">%    Input, real R(M,N), the points.</span>
-0046 <span class="comment">%</span>
-0047 <span class="comment">%    Input, string FILE_OUT_NAME, the name of the output file.</span>
-0048 <span class="comment">%</span>
-0049   file_out_unit = fopen ( file_out_name, <span class="string">'w'</span> );
-0050 
-0051   <span class="keyword">if</span> ( file_out_unit &lt; 0 )
-0052     fprintf ( 1, <span class="string">'\n'</span> );
-0053     fprintf ( 1, <span class="string">'IHS_WRITE - Fatal error!\n'</span> );
-0054     fprintf ( 1, <span class="string">'  Could not open the output file:\n'</span> );
-0055     fprintf ( 1, <span class="string">'  &quot;%s&quot;.\n'</span>, file_out_name );
-0056     error ( <span class="string">'IHS_WRITE - Fatal error!'</span> );
-0057   <span class="keyword">end</span>
-0058 
-0059   fprintf ( file_out_unit, <span class="string">'#  %s\n'</span>, file_out_name );
-0060   fprintf ( file_out_unit, <span class="string">'#  created by IHS_WRITE.M\n'</span> );
+0045   file_out_unit = fopen ( file_out_name, <span class="string">'w'</span> );
+0046 
+0047   <span class="keyword">if</span> ( file_out_unit &lt; 0 )
+0048     fprintf ( 1, <span class="string">'\n'</span> );
+0049     fprintf ( 1, <span class="string">'IHS_WRITE - Fatal error!\n'</span> );
+0050     fprintf ( 1, <span class="string">'  Could not open the output file:\n'</span> );
+0051     fprintf ( 1, <span class="string">'  &quot;%s&quot;.\n'</span>, file_out_name );
+0052     error ( <span class="string">'IHS_WRITE - Fatal error!'</span> );
+0053   <span class="keyword">end</span>
+0054 
+0055   fprintf ( file_out_unit, <span class="string">'#  %s\n'</span>, file_out_name );
+0056   fprintf ( file_out_unit, <span class="string">'#  created by IHS_WRITE.M\n'</span> );
+0057   fprintf ( file_out_unit, <span class="string">'#\n'</span> );
+0058   fprintf ( file_out_unit, <span class="string">'#  Spatial dimension M =     %d\n'</span>, m );
+0059   fprintf ( file_out_unit, <span class="string">'#  Number of points N =      %d\n'</span>, n );
+0060   fprintf ( file_out_unit, <span class="string">'#  Duplication factor D =    %d\n'</span>, d );
 0061   fprintf ( file_out_unit, <span class="string">'#\n'</span> );
-0062   fprintf ( file_out_unit, <span class="string">'#  Spatial dimension M =     %d\n'</span>, m );
-0063   fprintf ( file_out_unit, <span class="string">'#  Number of points N =      %d\n'</span>, n );
-0064   fprintf ( file_out_unit, <span class="string">'#  EPSILON (unit roundoff ) = %e\n'</span>, <span class="keyword">...</span>
-0065     <a href="r8_epsilon.html" class="code" title="function value = r8_epsilon ( dummy )">r8_epsilon</a> ( <span class="string">'DUMMY'</span> ) );
-0066   fprintf ( file_out_unit, <span class="string">'#  Duplication factor D =    %d\n'</span>, d );
-0067   fprintf ( file_out_unit, <span class="string">'#  Initial SEED_INIT =       %d\n'</span>, seed_init );
-0068   fprintf ( file_out_unit, <span class="string">'#  Current SEED      =       %d\n'</span>, seed );
-0069   fprintf ( file_out_unit, <span class="string">'#\n'</span> );
-0070 
-0071   <span class="keyword">for</span> j = 1 : n
-0072     <span class="keyword">for</span> i = 1 : m
-0073       fprintf ( file_out_unit, <span class="string">'  %10f'</span>, ( 2 * r(i,j) - 1 ) / ( 2 * n ) );
-0074     <span class="keyword">end</span>
-0075     fprintf ( file_out_unit, <span class="string">'\n'</span> );
-0076   <span class="keyword">end</span>
-0077 
-0078   fclose ( file_out_unit );
-0079 
-0080   <span class="keyword">return</span>
-0081 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0062 
+0063   <span class="keyword">for</span> j = 1 : n
+0064     <span class="keyword">for</span> i = 1 : m
+0065       fprintf ( file_out_unit, <span class="string">'  %10f'</span>, ( 2 * r(i,j) - 1 ) / ( 2 * n ) );
+0066     <span class="keyword">end</span>
+0067     fprintf ( file_out_unit, <span class="string">'\n'</span> );
+0068   <span class="keyword">end</span>
+0069 
+0070   fclose ( file_out_unit );
+0071 
+0072   <span class="keyword">return</span>
+0073 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

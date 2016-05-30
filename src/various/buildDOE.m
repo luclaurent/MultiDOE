@@ -290,7 +290,7 @@ switch doe.type
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % Improved Hypercube Sampling
     case 'IHS'
-        sampling=ihs(np,ns,5,17);
+        sampling=ihs(np,ns,5);
         sampling=sampling./ns;
         sampling=sampling';
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -299,7 +299,7 @@ switch doe.type
          %recover sampling if available
         [sampling,fich]=checkDOE('ihs',np,ns);
         if isempty(sampling)
-            sampling=ihs(np,ns,5,17);
+            sampling=ihs(np,ns,5);
             sampling=sampling./ns;
             sampling=sampling';
             save(fich,'sampling');

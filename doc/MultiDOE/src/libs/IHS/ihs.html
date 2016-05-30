@@ -23,7 +23,7 @@
 <div class="box"><strong>*****************************************************************************80</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="box"><strong>function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed ) </strong></div>
+<div class="box"><strong>function x = ihs ( dim_num, point_num, duplication ) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">*****************************************************************************80
@@ -51,11 +51,12 @@
 
   Modified:
 
-    16 February 2005
+    27 February 2014
 
   Author:
 
     John Burkardt
+    Improvements by Jeremy Dewar, Tulane University.
 
   Reference:
 
@@ -72,26 +73,22 @@
     Input, integer DUPLICATION, the duplication factor.  This must
     be at least 1.  A value of 5 is reasonable.
 
-    Input, integer SEED, a seed for the random number generator.
-
-    Output, integer X(DIM_NUM,POINT_NUM), the points.
-
-    Output, integer SEED, the updated seed for the random number generator.</pre></div>
+    Output, integer X(DIM_NUM,POINT_NUM), the points.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
-<li><a href="i4_uniform.html" class="code" title="function [ c, seed ] = i4_uniform ( a, b, seed )">i4_uniform</a>	*****************************************************************************80</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
-<li><a href="ihs_test01.html" class="code" title="function ihs_test01 ( )">ihs_test01</a>	*****************************************************************************80</li><li><a href="ihs_test02.html" class="code" title="function ihs_test02 ( )">ihs_test02</a>	*****************************************************************************80</li><li><a href="ihs_test03.html" class="code" title="function ihs_test03 ( )">ihs_test03</a>	*****************************************************************************80</li><li><a href="ihs_test04.html" class="code" title="function ihs_test04 ( )">ihs_test04</a>	*****************************************************************************80</li><li><a href="../../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="../../../../MultiDOE/README.html" class="code" title="">README</a>	</li><li><a href="ihs_test01.html" class="code" title="function ihs_test01 ( )">ihs_test01</a>	*****************************************************************************80</li><li><a href="ihs_test02.html" class="code" title="function ihs_test02 ( )">ihs_test02</a>	*****************************************************************************80</li><li><a href="ihs_test03.html" class="code" title="function ihs_test03 ( )">ihs_test03</a>	*****************************************************************************80</li><li><a href="ihs_test04.html" class="code" title="function ihs_test04 ( )">ihs_test04</a>	*****************************************************************************80</li><li><a href="../../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )</a>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function x = ihs ( dim_num, point_num, duplication )</a>
 0002 
 0003 <span class="comment">%*****************************************************************************80</span>
 0004 <span class="comment">%</span>
@@ -118,134 +115,116 @@ This function is called by:
 0025 <span class="comment">%</span>
 0026 <span class="comment">%  Modified:</span>
 0027 <span class="comment">%</span>
-0028 <span class="comment">%    16 February 2005</span>
+0028 <span class="comment">%    27 February 2014</span>
 0029 <span class="comment">%</span>
 0030 <span class="comment">%  Author:</span>
 0031 <span class="comment">%</span>
 0032 <span class="comment">%    John Burkardt</span>
-0033 <span class="comment">%</span>
-0034 <span class="comment">%  Reference:</span>
-0035 <span class="comment">%</span>
-0036 <span class="comment">%    Brian Beachkofski, Ramana Grandhi,</span>
-0037 <span class="comment">%    Improved Distributed Hypercube Sampling,</span>
-0038 <span class="comment">%    American Institute of Aeronautics and Astronautics Paper 2002-1274.</span>
-0039 <span class="comment">%</span>
-0040 <span class="comment">%  Parameters:</span>
-0041 <span class="comment">%</span>
-0042 <span class="comment">%    Input, integer DIM_NUM, the spatial dimension.</span>
-0043 <span class="comment">%</span>
-0044 <span class="comment">%    Input, integer POINT_NUM, the number of points to be generated.</span>
-0045 <span class="comment">%</span>
-0046 <span class="comment">%    Input, integer DUPLICATION, the duplication factor.  This must</span>
-0047 <span class="comment">%    be at least 1.  A value of 5 is reasonable.</span>
-0048 <span class="comment">%</span>
-0049 <span class="comment">%    Input, integer SEED, a seed for the random number generator.</span>
-0050 <span class="comment">%</span>
-0051 <span class="comment">%    Output, integer X(DIM_NUM,POINT_NUM), the points.</span>
-0052 <span class="comment">%</span>
-0053 <span class="comment">%    Output, integer SEED, the updated seed for the random number generator.</span>
-0054 <span class="comment">%</span>
-0055   opt = point_num / point_num^( 1.0 / dim_num );
-0056 <span class="comment">%</span>
-0057 <span class="comment">%  Pick the first point.</span>
-0058 <span class="comment">%</span>
-0059   x = zeros ( dim_num, point_num );
-0060 
-0061   <span class="keyword">for</span> i = 1 : dim_num
-0062     [ x(i,point_num), seed ] = <a href="i4_uniform.html" class="code" title="function [ c, seed ] = i4_uniform ( a, b, seed )">i4_uniform</a> ( 1, point_num, seed );
-0063   <span class="keyword">end</span>
-0064 <span class="comment">%</span>
-0065 <span class="comment">%  Initialize AVAIL,</span>
-0066 <span class="comment">%  and set an entry in a random row of each column of AVAIL to POINT_NUM.</span>
-0067 <span class="comment">%</span>
-0068   <span class="keyword">for</span> j = 1 : point_num
-0069     avail(1:dim_num,j) = j;
+0033 <span class="comment">%    Improvements by Jeremy Dewar, Tulane University.</span>
+0034 <span class="comment">%</span>
+0035 <span class="comment">%  Reference:</span>
+0036 <span class="comment">%</span>
+0037 <span class="comment">%    Brian Beachkofski, Ramana Grandhi,</span>
+0038 <span class="comment">%    Improved Distributed Hypercube Sampling,</span>
+0039 <span class="comment">%    American Institute of Aeronautics and Astronautics Paper 2002-1274.</span>
+0040 <span class="comment">%</span>
+0041 <span class="comment">%  Parameters:</span>
+0042 <span class="comment">%</span>
+0043 <span class="comment">%    Input, integer DIM_NUM, the spatial dimension.</span>
+0044 <span class="comment">%</span>
+0045 <span class="comment">%    Input, integer POINT_NUM, the number of points to be generated.</span>
+0046 <span class="comment">%</span>
+0047 <span class="comment">%    Input, integer DUPLICATION, the duplication factor.  This must</span>
+0048 <span class="comment">%    be at least 1.  A value of 5 is reasonable.</span>
+0049 <span class="comment">%</span>
+0050 <span class="comment">%    Output, integer X(DIM_NUM,POINT_NUM), the points.</span>
+0051 <span class="comment">%</span>
+0052   opt = point_num / point_num^( 1.0 / dim_num );
+0053 <span class="comment">%</span>
+0054 <span class="comment">%  Pick the first point.</span>
+0055 <span class="comment">%</span>
+0056   x = zeros ( dim_num, point_num );
+0057 
+0058   x(:,point_num) = randi ( point_num, [dim_num,1] );
+0059 <span class="comment">%</span>
+0060 <span class="comment">%  Initialize AVAIL,</span>
+0061 <span class="comment">%  and set an entry in a random row of each column of AVAIL to POINT_NUM.</span>
+0062 <span class="comment">%</span>
+0063   avail = zeros(dim_num, point_num);
+0064   <span class="keyword">for</span> j = 1 : point_num
+0065     avail(1:dim_num,j) = j;
+0066   <span class="keyword">end</span>
+0067 
+0068   <span class="keyword">for</span> i = 1 : dim_num
+0069     avail(i,x(i,point_num)) = point_num;
 0070   <span class="keyword">end</span>
-0071 
-0072   <span class="keyword">for</span> i = 1 : dim_num
-0073     avail(i,x(i,point_num)) = point_num;
-0074   <span class="keyword">end</span>
-0075 <span class="comment">%</span>
-0076 <span class="comment">%  Main loop:</span>
-0077 <span class="comment">%  Assign a value to X(1:DIM_NUM,COUNT) for COUNT = POINT_NUM-1 down to 2.</span>
+0071 <span class="comment">%</span>
+0072 <span class="comment">%  Main loop:</span>
+0073 <span class="comment">%  Assign a value to X(1:DIM_NUM,COUNT) for COUNT = POINT_NUM-1 down to 2.</span>
+0074 <span class="comment">%</span>
+0075   <span class="keyword">for</span> count = point_num-1 : -1 : 2
+0076 <span class="comment">%</span>
+0077 <span class="comment">%  Generate valid points.</span>
 0078 <span class="comment">%</span>
-0079   <span class="keyword">for</span> count = point_num-1 : -1 : 2
-0080 <span class="comment">%</span>
-0081 <span class="comment">%  Generate valid points.</span>
-0082 <span class="comment">%</span>
-0083     <span class="keyword">for</span> i = 1 : dim_num
+0079     <span class="keyword">for</span> i = 1 : dim_num
+0080 
+0081       <span class="keyword">for</span> k = 1 : duplication
+0082         list(count*(k-1)+1:k*count) = avail(i,1:count);
+0083       <span class="keyword">end</span>
 0084 
-0085       <span class="keyword">for</span> k = 1 : duplication
-0086         list(count*(k-1)+1:k*count) = avail(i,1:count);
-0087       <span class="keyword">end</span>
-0088 
-0089       <span class="keyword">for</span> k = count*duplication : -1 : 1
-0090         [ point_index, seed ] = <a href="i4_uniform.html" class="code" title="function [ c, seed ] = i4_uniform ( a, b, seed )">i4_uniform</a> ( 1, k, seed );
-0091         point(i,k) = list(point_index);
-0092         list(point_index) = list(k);
-0093       <span class="keyword">end</span>
-0094 
-0095     <span class="keyword">end</span>
+0085       point_idxs = randi ( k, [1,count*duplication] );
+0086       <span class="keyword">for</span> k = count*duplication : -1 : 1
+0087         pk = point_idxs(k);
+0088         point(i,k) = list(pk);
+0089         list(pk) = list(k);
+0090       <span class="keyword">end</span>
+0091 
+0092     <span class="keyword">end</span>
+0093 <span class="comment">%</span>
+0094 <span class="comment">%  For each candidate, determine the distance to all the</span>
+0095 <span class="comment">%  points that have already been selected, and save the minimum value.</span>
 0096 <span class="comment">%</span>
-0097 <span class="comment">%  For each candidate, determine the distance to all the</span>
-0098 <span class="comment">%  points that have already been selected, and save the minimum value.</span>
-0099 <span class="comment">%</span>
-0100     min_all = realmax;
-0101     best = 0;
-0102 
-0103     <span class="keyword">for</span> k = 1 : duplication*count
-0104 
-0105       min_can = realmax;
-0106 
-0107       <span class="keyword">for</span> j = count+1 : point_num
-0108         vec(1:dim_num) = point(1:dim_num,k) - x(1:dim_num,j);
-0109 <span class="comment">%</span>
-0110 <span class="comment">%  Why not replace these 5 lines by a 1 line dot product?</span>
-0111 <span class="comment">%  Because that's what I had, but because MATLAB's mind works one way,</span>
-0112 <span class="comment">%  and mine another, my inner product was actually an outer product,</span>
-0113 <span class="comment">%  and I wasted two days finding out why.</span>
-0114 <span class="comment">%</span>
-0115 <span class="comment">%  Since MATLAB plays sloppy with the distinctions between scalars,</span>
-0116 <span class="comment">%  vectors, and matrices, let's just be plain and obvious here, rather</span>
-0117 <span class="comment">%  than elegant and wrong!</span>
-0118 <span class="comment">%</span>
-0119         dist = 0.0;
-0120         <span class="keyword">for</span> i = 1 : dim_num
-0121           dist = dist + ( point(i,k) - x(i,j) )^2;
-0122         <span class="keyword">end</span>
-0123         dist = sqrt ( dist );
-0124         min_can = min ( min_can, dist );
-0125       <span class="keyword">end</span>
-0126 
-0127       <span class="keyword">if</span> ( abs ( min_can - opt ) &lt; min_all )
-0128         min_all = abs ( min_can - opt );
-0129         best = k;
-0130       <span class="keyword">end</span>
-0131 
-0132     <span class="keyword">end</span>
-0133 
-0134     x(1:dim_num,count) = point(1:dim_num,best);
-0135 <span class="comment">%</span>
-0136 <span class="comment">%  Having chosen X(*,COUNT), update AVAIL.</span>
-0137 <span class="comment">%</span>
-0138     <span class="keyword">for</span> i = 1 : dim_num
-0139 
-0140       <span class="keyword">for</span> j = 1 : point_num
-0141         <span class="keyword">if</span> ( avail(i,j) == x(i,count) )
-0142           avail(i,j) = avail(i,count);
-0143         <span class="keyword">end</span>
-0144       <span class="keyword">end</span>
-0145 
-0146     <span class="keyword">end</span>
-0147 
-0148   <span class="keyword">end</span>
-0149 <span class="comment">%</span>
-0150 <span class="comment">%  For the last point, there's only one choice.</span>
-0151 <span class="comment">%</span>
-0152   x(1:dim_num,1) = avail(1:dim_num,1);
-0153 
-0154   <span class="keyword">return</span>
-0155 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0097     min_all = realmax;
+0098     best = 0;
+0099 
+0100     <span class="keyword">for</span> k = 1 : duplication*count
+0101 
+0102       min_can = realmax;
+0103 
+0104       <span class="keyword">for</span> j = count+1 : point_num
+0105         dist = norm(point(:,k) - x(:,j));
+0106         min_can = min ( min_can, dist );
+0107       <span class="keyword">end</span>
+0108 
+0109       <span class="keyword">if</span> ( abs ( min_can - opt ) &lt; min_all )
+0110         min_all = abs ( min_can - opt );
+0111         best = k;
+0112       <span class="keyword">end</span>
+0113 
+0114     <span class="keyword">end</span>
+0115 
+0116     x(1:dim_num,count) = point(1:dim_num,best);
+0117 <span class="comment">%</span>
+0118 <span class="comment">%  Having chosen X(*,COUNT), update AVAIL.</span>
+0119 <span class="comment">%</span>
+0120     <span class="keyword">for</span> i = 1 : dim_num
+0121 
+0122       <span class="keyword">for</span> j = 1 : point_num
+0123         <span class="keyword">if</span> ( avail(i,j) == x(i,count) )
+0124           avail(i,j) = avail(i,count);
+0125         <span class="keyword">end</span>
+0126       <span class="keyword">end</span>
+0127 
+0128     <span class="keyword">end</span>
+0129 
+0130   <span class="keyword">end</span>
+0131 <span class="comment">%</span>
+0132 <span class="comment">%  For the last point, there's only one choice.</span>
+0133 <span class="comment">%</span>
+0134   x(1:dim_num,1) = avail(1:dim_num,1);
+0135 
+0136   <span class="keyword">return</span>
+0137 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -36,7 +36,7 @@
 
   Modified:
 
-    28 March 2004
+    27 February 2014
 
   Author:
 
@@ -46,7 +46,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
-<li><a href="covariance.html" class="code" title="function [ average, sd, covc ] = covariance ( dim_num, point_num, x )">covariance</a>	*****************************************************************************80</li><li><a href="ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a>	*****************************************************************************80</li></ul>
+<li><a href="covariance.html" class="code" title="function [ average, sd, covc ] = covariance ( dim_num, point_num, x )">covariance</a>	*****************************************************************************80</li><li><a href="ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../../matlabicon.gif)">
 <li><a href="ihs_test.html" class="code" title="function ihs_test ( )">ihs_test</a>	*****************************************************************************80</li></ul>
@@ -67,7 +67,7 @@ This function is called by:
 0010 <span class="comment">%</span>
 0011 <span class="comment">%  Modified:</span>
 0012 <span class="comment">%</span>
-0013 <span class="comment">%    28 March 2004</span>
+0013 <span class="comment">%    27 February 2014</span>
 0014 <span class="comment">%</span>
 0015 <span class="comment">%  Author:</span>
 0016 <span class="comment">%</span>
@@ -92,47 +92,44 @@ This function is called by:
 0035 
 0036     point_num = 10 * 2^(i-1);
 0037 
-0038     opt = point_num / point_num^( 1.0E+00 / dim_num );
+0038     opt = point_num / point_num^( 1.0 / dim_num );
 0039 
-0040     seed = 17;
-0041 
-0042     fprintf ( 1, <span class="string">'\n'</span> );
-0043     fprintf ( 1, <span class="string">'  Random number seed =       %d\n'</span>, seed );
-0044     fprintf ( 1, <span class="string">'  Number of points =         %d\n'</span>, point_num );
-0045     fprintf ( 1, <span class="string">'  Desired minimum distance = %f\n'</span>, opt );
-0046 <span class="comment">%</span>
-0047 <span class="comment">%  Get the points.</span>
-0048 <span class="comment">%</span>
-0049     [ x, seed ] = <a href="ihs.html" class="code" title="function [ x, seed ] = ihs ( dim_num, point_num, duplication, seed )">ihs</a> ( dim_num, point_num, duplication, seed );
-0050 <span class="comment">%</span>
-0051 <span class="comment">%  Compute the covariance.</span>
-0052 <span class="comment">%</span>
-0053     [ average, sd, covc ] = <a href="covariance.html" class="code" title="function [ average, sd, covc ] = covariance ( dim_num, point_num, x )">covariance</a> ( dim_num, point_num, x );
-0054 
-0055     fprintf ( 1, <span class="string">'\n'</span> );
-0056     fprintf ( 1, <span class="string">'  Average minimum distance %f\n'</span>, average );
-0057     fprintf ( 1, <span class="string">'  Standard deviation:      %f\n'</span>, sd );
-0058     fprintf ( 1, <span class="string">'  Covariance:              %f\n'</span>, covc );
-0059 
-0060     fprintf ( 1, <span class="string">'\n'</span> );
-0061 
-0062     <span class="keyword">for</span> j = 1 : point_num
-0063 
-0064       <span class="keyword">if</span> ( j &lt;= 10 | point_num - 10 &lt;= j )
-0065         fprintf ( 1, <span class="string">'%4d    '</span>, j );
-0066         <span class="keyword">for</span> i = 1 : dim_num
-0067           fprintf ( 1, <span class="string">'%4d  '</span>, x(i,j) );
-0068         <span class="keyword">end</span>
-0069         fprintf ( 1, <span class="string">'\n'</span>);
-0070       <span class="keyword">elseif</span> ( j == 11 )
-0071         fprintf ( 1, <span class="string">'....  ........\n'</span> );
-0072       <span class="keyword">end</span>
-0073     <span class="keyword">end</span>
-0074 
-0075   <span class="keyword">end</span>
-0076 
-0077   <span class="keyword">return</span>
-0078 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0040     fprintf ( 1, <span class="string">'\n'</span> );
+0041     fprintf ( 1, <span class="string">'  Number of points =         %d\n'</span>, point_num );
+0042     fprintf ( 1, <span class="string">'  Desired minimum distance = %f\n'</span>, opt );
+0043 <span class="comment">%</span>
+0044 <span class="comment">%  Get the points.</span>
+0045 <span class="comment">%</span>
+0046     x = <a href="ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a> ( dim_num, point_num, duplication );
+0047 <span class="comment">%</span>
+0048 <span class="comment">%  Compute the covariance.</span>
+0049 <span class="comment">%</span>
+0050     [ average, sd, covc ] = <a href="covariance.html" class="code" title="function [ average, sd, covc ] = covariance ( dim_num, point_num, x )">covariance</a> ( dim_num, point_num, x );
+0051 
+0052     fprintf ( 1, <span class="string">'\n'</span> );
+0053     fprintf ( 1, <span class="string">'  Average minimum distance %f\n'</span>, average );
+0054     fprintf ( 1, <span class="string">'  Standard deviation:      %f\n'</span>, sd );
+0055     fprintf ( 1, <span class="string">'  Covariance:              %f\n'</span>, covc );
+0056 
+0057     fprintf ( 1, <span class="string">'\n'</span> );
+0058 
+0059     <span class="keyword">for</span> j = 1 : point_num
+0060 
+0061       <span class="keyword">if</span> ( j &lt;= 10 | point_num - 10 &lt;= j )
+0062         fprintf ( 1, <span class="string">'%4d    '</span>, j );
+0063         <span class="keyword">for</span> i = 1 : dim_num
+0064           fprintf ( 1, <span class="string">'%4d  '</span>, x(i,j) );
+0065         <span class="keyword">end</span>
+0066         fprintf ( 1, <span class="string">'\n'</span>);
+0067       <span class="keyword">elseif</span> ( j == 11 )
+0068         fprintf ( 1, <span class="string">'....  ........\n'</span> );
+0069       <span class="keyword">end</span>
+0070     <span class="keyword">end</span>
+0071 
+0072   <span class="keyword">end</span>
+0073 
+0074   <span class="keyword">return</span>
+0075 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

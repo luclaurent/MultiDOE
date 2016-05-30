@@ -32,7 +32,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-</ul>
+<li><a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>	PDF-1.5</li><li><a href="../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a>	PDF-1.4</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -41,7 +41,51 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 Toolbox LMTir</pre></div>
-<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<div class="fragment"><pre>0001 Toolbox MultiDOE
+0002 =======
+0003 
+0004 This Matlab toolbox regroups many existing tools <span class="keyword">for</span> generating sample points using many specific DOE techniques:
+0005 
+0006 * Full factorial sampling
+0007 * Latin Hypercube Sampling 
+0008 * Optimal Latin Hypercube sampling
+0009 * Improved Hypercube Sampling
+0010 * Random Sampling
+0011 
+0012 Many techniques propose in this toolbox are based on 
+0013 
+0014 * the [R software](https://cran.r-project.org/). More precisely, the library [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) is used. 
+0015 * the [IHS](https://people.sc.fsu.edu/~jburkardt/m_src/<a href="../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>/ihs.html) matlab's softwares proposed by [John Burkardt](http://people.sc.fsu.edu/~jburkardt/)
+0016 * the [<a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a>](http://www.mathworks.com/matlabcentral/fileexchange/4352-latin-hypercube-sampling/content/lhsu.m) proposed by Budiman Minasny
+0017 
+0018 Features
+0019 ------
+0020 The MultiDOE toolbox are able to 
+0021 
+0022 * generate sampling
+0023 * sort the sample points using many techniques
+0024 * add points to an existing sampling (based on the <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> and IHS procedures of the R software)
+0025 * normalize/renormalize the sample points to be weel defined in the specified design space
+0026 * call automatically the R software (on Unix/Linux/OSX systems only)
+0027 * compute scores (minimal distances, discrepancy<span class="keyword">...</span><span class="comment">), see for instance the [Franco's PhD thesis (2008)](https://tel.archives-ouvertes.fr/tel-00803107/)</span>
+0028 
+0029 
+0030 
+0031 Requirements
+0032 ------
+0033 The toolbox requires:
+0034 
+0035 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software
+0036 * the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line
+0037 * the [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) installed on R (see <span class="keyword">for</span> instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
+0038 * the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) <span class="keyword">for</span> building the documentation (optional).
+0039 
+0040 Documentation
+0041 ------
+0042 The automatic building of the documentation is based on the [m2html](http://www.artefact.tk/software/matlab/m2html/) software.
+0043 
+0044 License
+0045 ----</pre></div>
+<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

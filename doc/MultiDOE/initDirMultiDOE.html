@@ -87,9 +87,9 @@ This function is called by:
 0043 cellfun(@addpath,pathAbsolute);
 0044 
 0045 <span class="keyword">if</span> nargin==2
-0046      <span class="comment">%Load other toolbox</span>
+0046     <span class="comment">%Load other toolbox</span>
 0047     <span class="keyword">if</span> ~iscell(other);other={other};<span class="keyword">end</span>
-0048      <span class="comment">%absolute paths</span>
+0048     <span class="comment">%absolute paths</span>
 0049     pathAbsolute=cellfun(@(c)[pathcustom <span class="string">'/../'</span> c],other,<span class="string">'uni'</span>,false);
 0050     <span class="comment">%add to the PATH</span>
 0051     cellfun(@addpath,pathAbsolute);
@@ -97,7 +97,10 @@ This function is called by:
 0053     namFun=cellfun(@(c)[<span class="string">'initDir'</span> c],other,<span class="string">'uni'</span>,false);
 0054     cellfun(@feval,namFun,pathAbsolute)
 0055 <span class="keyword">end</span>
-0056 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 16-May-2016 16:01:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0056 
+0057 <span class="comment">%display</span>
+0058 fprintf(<span class="string">' ## Toolbox: MultiDOE loaded\n'</span>);
+0059 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
