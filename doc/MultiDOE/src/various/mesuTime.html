@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of mesuTime</title>
+  <meta name="keywords" content="mesuTime">
+  <meta name="description" content="% Script dedicated to the initiailisation, the measure and the display of the spent time">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html various -->
+<h1>mesuTime
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>% Script dedicated to the initiailisation, the measure and the display of the spent time</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [tictoc_compt,tInit]=mesuTime(compteur,tps_init) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Script dedicated to the initiailisation, the measure and the display of the spent time
+% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="../../../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Script dedicated to the initiailisation, the measure and the display of the spent time</span>
+0002 <span class="comment">%% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net</span>
+0003 
+0004 <a name="_sub0" href="#_subfunctions" class="code">function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)</a>
+0005 
+0006 <span class="keyword">if</span> nargin==0
+0007     <span class="comment">%initialization tic-toc count</span>
+0008     tictoc_compt=tic;
+0009     <span class="comment">%Measure initial CPU time</span>
+0010     tInit=cputime;
+0011     
+0012 <span class="keyword">elseif</span> nargin==2
+0013     tElapsed=toc(compteur);
+0014     tCPUElapsed=cputime-tps_init;
+0015     fprintf(<span class="string">' - - - - - - - - - - - - - - - - - - - - \n'</span>)
+0016     fprintf(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,tElapsed,tCPUElapsed);
+0017 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of lhs_iman_n</title>
+  <meta name="keywords" content="lhs_iman_n">
+  <meta name="description" content="z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../../menu.html MultiDOE --><!-- # src --><!-- ../menu.html libs --><!-- menu.html LHS -->
+<h1>lhs_iman_n
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="box"><strong>function z=lhs_iman_n(xmean,xsd,corr,nsample,ntry) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)
+ LHS with correlation, normal distribution 
+ Method of Iman &amp; Conover
+ using mchol for Cholesky decomposition so that corr. matrix is positive definite  
+ 
+ Iman, R. L., and W. J. Conover. 1982. A Distribution-free Approach to Inducing Rank Correlation 
+      Among Input Variables. Communications in Statistics B 11:311-334
+
+ Input:
+   xmean   : mean of data (1,nvar)
+   xsd     : std.dev of data (1,nvar)
+   corr    : correlation matrix of the variables (nvar,nvar)
+   nsample : no. of samples
+   ntry    : optional, no of trial to get a close correlation matrix
+ Output:
+   z       : random sample (nsample,nvar)
+   Budiman (2004)
+ using mchol from Brian Borchers</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="latin_hs.html" class="code" title="function s=latin_hs(xmean,xsd,nsample,nvar)">latin_hs</a>	s=latin_hs(xmean,xsd,nsample,nvar)</li><li><a href="mchol.html" class="code" title="function [L,D,E,pneg]=mchol(G)">mchol</a>	[L,D,E,pneg]=mchol1(G)</li><li><a href="ranking.html" class="code" title="function [r,i]=ranking(x)">ranking</a>	[r,i]=ranking(x)</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../../../../matlabicon.gif)">
+<li><a href="test_sampling2.html" class="code" title="">test_sampling2</a>	example of sampling with corr matrix that is not positive definite</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)</a>
+0002 <span class="comment">% z=lhs_iman_n(xmean,xsd,corr,nsample,ntry)</span>
+0003 <span class="comment">% LHS with correlation, normal distribution</span>
+0004 <span class="comment">% Method of Iman &amp; Conover</span>
+0005 <span class="comment">% using mchol for Cholesky decomposition so that corr. matrix is positive definite</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% Iman, R. L., and W. J. Conover. 1982. A Distribution-free Approach to Inducing Rank Correlation</span>
+0008 <span class="comment">%      Among Input Variables. Communications in Statistics B 11:311-334</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">% Input:</span>
+0011 <span class="comment">%   xmean   : mean of data (1,nvar)</span>
+0012 <span class="comment">%   xsd     : std.dev of data (1,nvar)</span>
+0013 <span class="comment">%   corr    : correlation matrix of the variables (nvar,nvar)</span>
+0014 <span class="comment">%   nsample : no. of samples</span>
+0015 <span class="comment">%   ntry    : optional, no of trial to get a close correlation matrix</span>
+0016 <span class="comment">% Output:</span>
+0017 <span class="comment">%   z       : random sample (nsample,nvar)</span>
+0018 <span class="comment">%   Budiman (2004)</span>
+0019 <span class="comment">% using mchol from Brian Borchers</span>
+0020 nvar=length(xmean);
+0021 
+0022 <span class="keyword">if</span>(nargin==4), ntry=1; <span class="keyword">end</span>;
+0023 
+0024 <span class="comment">% induce data with correlation</span>
+0025 [L,D,E]=<a href="mchol.html" class="code" title="function [L,D,E,pneg]=mchol(G)">mchol</a>(corr);  
+0026 <span class="comment">%P = chol(corr+E)';</span>
+0027 P=L*sqrt(D);
+0028 
+0029 xm=zeros(1,nvar);
+0030 xs=ones(1,nvar);
+0031 R=<a href="latin_hs.html" class="code" title="function s=latin_hs(xmean,xsd,nsample,nvar)">latin_hs</a>(xm,xs,nsample,nvar);
+0032 T = corrcoef(R);
+0033 [L,D,E]=<a href="mchol.html" class="code" title="function [L,D,E,pneg]=mchol(G)">mchol</a>(T);  
+0034 <span class="comment">%Q=chol(T+E)';</span>
+0035 Q=L*sqrt(D);
+0036    
+0037 S = P * inv(Q);
+0038 RB= R*S';
+0039 
+0040 amin=realmax;
+0041 <span class="keyword">for</span> il=1:ntry
+0042     <span class="keyword">for</span> j=1:nvar    
+0043         <span class="comment">% rank RB</span>
+0044         [r,id]=<a href="ranking.html" class="code" title="function [r,i]=ranking(x)">ranking</a>(RB(:,j));
+0045         <span class="comment">% sort R</span>
+0046         [RS,id]=sort(R(:,j));
+0047         <span class="comment">% permute RS so has the same rank as RB</span>
+0048         z(:,j) = RS(r).*xsd(j)+xmean(j); 
+0049     <span class="keyword">end</span>
+0050     ae=sum(sum(abs(corrcoef(z)-corr)));
+0051     <span class="keyword">if</span>(ae&lt;amin),
+0052         zb=z;
+0053         amin=ae;
+0054     <span class="keyword">end</span>;
+0055 <span class="keyword">end</span>
+0056 
+0057 z=zb;</pre></div>
+<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

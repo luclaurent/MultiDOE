@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of initDOEfun</title>
+  <meta name="keywords" content="initDOEfun">
+  <meta name="description" content="% Initialisation of the design space for some analytical functions">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../../../m2html.css">
+  <script type="text/javascript">
+    if (top.frames.length == 0) { top.location = "../../../index.html"; };
+  </script>
+</head>
+<body>
+<a name="_top"></a>
+<!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html init -->
+<h1>initDOEfun
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>% Initialisation of the design space for some analytical functions</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="box"><strong>function [espM,dim]=initDOEfun(dim,fct) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre class="comment">% Initialisation of the design space for some analytical functions
+% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../../../matlabicon.gif)">
+<li><a href="initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
+<div class="fragment"><pre>0001 <span class="comment">%% Initialisation of the design space for some analytical functions</span>
+0002 <span class="comment">%% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net</span>
+0003 
+0004 <a name="_sub0" href="#_subfunctions" class="code">function [espM,dim]=initDOEfun(dim,fct)</a>
+0005 
+0006 <span class="keyword">switch</span> fct
+0007     <span class="keyword">case</span> <span class="string">'Manu'</span>
+0008         espM=[-1 5];
+0009         dim=1;
+0010     <span class="keyword">case</span> <span class="string">'Ackley'</span>
+0011         val=1.5;
+0012         espM=val*[-ones(dim,1),ones(dim,1)];
+0013     <span class="keyword">case</span> {<span class="string">'Rosenbrock'</span>,<span class="string">'RosenbrockM'</span>}
+0014         val=2.048;
+0015         espM=val*[-ones(dim,1),ones(dim,1)];
+0016     <span class="keyword">case</span> <span class="string">'Branin'</span>
+0017         xmin=-5;xmax=10;ymin=0;ymax=15;
+0018         espM=[xmin xmax;ymin ymax];
+0019     <span class="keyword">case</span> <span class="string">'Gold'</span>
+0020         val=2;xmin=-val;xmax=val;ymin=-val;ymax=val;
+0021         espM=[xmin xmax;ymin ymax];
+0022     <span class="keyword">case</span> <span class="string">'Peaks'</span>
+0023         val=3;xmin=-val;xmax=val;ymin=-val;ymax=val;
+0024         espM=[xmin xmax;ymin ymax];
+0025     <span class="keyword">case</span> <span class="string">'SixHump'</span>
+0026         xmin=-2;xmax=2;ymin=-1;ymax=1;
+0027         espM=[xmin xmax;ymin ymax];
+0028     <span class="keyword">case</span> <span class="string">'Schwefel'</span>
+0029         val=500;
+0030         espM=val*[-ones(dim,1),ones(dim,1)];
+0031     <span class="keyword">case</span> <span class="string">'Mystery'</span>
+0032         val=5;xmin=0;xmax=val;ymin=0;ymax=val;
+0033         espM=[xmin xmax;ymin ymax];
+0034     <span class="keyword">case</span> {<span class="string">'Bohachevsky1'</span>,<span class="string">'Bohachevsky2'</span>,<span class="string">'Bohachevsky3'</span>}
+0035         val=100;
+0036         espM=[-val,val;-val,val];
+0037     <span class="keyword">case</span> <span class="string">'Booth'</span>
+0038         val=10;
+0039         espM=[-val,val;-val,val];
+0040     <span class="keyword">case</span> <span class="string">'Colville'</span>
+0041         val=10;
+0042         espM=val*[-1,1;-1,1;-1,1;-1,1];
+0043     <span class="keyword">case</span> {<span class="string">'Dixon'</span>,<span class="string">'Sphere'</span>,<span class="string">'SumSquare'</span>}
+0044         val=10;
+0045         espM=val*[-ones(dim,1),ones(dim,1)];
+0046     <span class="keyword">case</span> <span class="string">'Michalewicz'</span>
+0047         val=pi;
+0048         espM=val*[zeros(dim,1),ones(dim,1)];
+0049     <span class="keyword">case</span> {<span class="string">'Null'</span>,<span class="string">'Cst'</span>,<span class="string">'Slope'</span>}
+0050         val=5;
+0051         espM=val*[-ones(dim,1),ones(dim,1)];
+0052     <span class="keyword">case</span> {<span class="string">'Dejong'</span>,<span class="string">'AHE'</span>,<span class="string">'Rastrigin'</span>}
+0053         val=5.12;
+0054         espM=val*[-ones(dim,1),ones(dim,1)];
+0055     <span class="keyword">case</span> <span class="string">'RHE'</span>
+0056         val=65.536;
+0057         espM=val*[-ones(dim,1),ones(dim,1)];
+0058     <span class="keyword">otherwise</span>
+0059         error([<span class="string">'&gt;&gt; Unavailable test function (see '</span>,mfilename,<span class="string">')'</span>]);
+0060 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

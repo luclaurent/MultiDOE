@@ -1,0 +1,10 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+  ExampleInfill -> initDirMultiDOE;
+  ExampleUse -> initDirMultiDOE;
+
+  ExampleInfill [URL="ExampleInfill.html"];
+  ExampleUse [URL="ExampleUse.html"];
+  README [URL="README.html"];
+  initDirMultiDOE [URL="initDirMultiDOE.html"];
+}

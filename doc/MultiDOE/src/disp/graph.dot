@@ -1,0 +1,6 @@
+/* Created by mdot for Matlab */
+digraph m2html {
+
+  dispLHSR [URL="dispLHSR.html"];
+  displayDOE [URL="displayDOE.html"];
+}
