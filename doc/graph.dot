@@ -8,8 +8,8 @@ digraph m2html {
   ExampleUse -> initDirMultiDOE;
   ExampleUse -> initDOE;
   ExampleUse -> buildDOE;
-  LICENCE -> LICENCE;
   LICENSE -> LICENSE;
+  LICENSE -> contents;
   README -> lhs;
   README -> ihs;
   README -> LHS;
@@ -67,7 +67,6 @@ digraph m2html {
 
   ExampleInfill [URL="MultiDOE/ExampleInfill.html"];
   ExampleUse [URL="MultiDOE/ExampleUse.html"];
-  LICENCE [URL="MultiDOE/LICENCE.html"];
   LICENSE [URL="MultiDOE/LICENSE.html"];
   README [URL="MultiDOE/README.html"];
   initDirMultiDOE [URL="MultiDOE/initDirMultiDOE.html"];

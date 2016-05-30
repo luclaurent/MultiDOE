@@ -4,7 +4,7 @@
 <head>
   <title>Description of sortDOE</title>
   <meta name="keywords" content="sortDOE">
-  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,43 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function samplingSorted = sortDOE(sampling,doe) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
- luc.laurent@lecnam.net
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
  
- This software is a computer program whose purpose is to generate sampling
- using dedicated techniques.
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
  
- This software is governed by the CeCILL license under French law and
- abiding by the rules of distribution of free software.  You can  use, 
- modify and/ or redistribute the software under the terms of the CeCILL
- license as circulated by CEA, CNRS and INRIA at the following URL
- &quot;http://www.cecill.info&quot;. 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
  
- As a counterpart to the access to the source code and  rights to copy,
- modify and redistribute granted by the license, users are provided only
- with a limited warranty  and the software's author,  the holder of the
- economic rights,  and the successive licensors  have only  limited
- liability. 
- 
- In this respect, the user's attention is drawn to the risks associated
- with loading,  using,  modifying and/or developing or reproducing the
- software by the user in light of its specific status of free software,
- that may mean  that it is complicated to manipulate,  and  that  also
- therefore means  that it is reserved for developers  and  experienced
- professionals having in-depth computer knowledge. Users are therefore
- encouraged to load and test the software's suitability as regards their
- requirements in conditions enabling the security of their systems and/or 
- data to be ensured and,  more generally, to use and operate it in the 
- same conditions as regards security. 
- 
- The fact that you are presently reading this means that you have had
- knowledge of the CeCILL license and that you accept its terms.</pre></div>
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -65,7 +49,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
+<li><a href="buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -73,263 +57,248 @@ This function is called by:
 <li><a href="#_sub1" class="code">function N=normp(X,type)</a></li><li><a href="#_sub2" class="code">function samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)</a></li><li><a href="#_sub3" class="code">function samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
-0002 <span class="comment">% luc.laurent@lecnam.net</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
-0005 <span class="comment">% using dedicated techniques.</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
-0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
-0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
-0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
-0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
-0012 <span class="comment">%</span>
-0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
-0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
-0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
-0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
-0017 <span class="comment">% liability.</span>
-0018 <span class="comment">%</span>
-0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
-0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
-0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
-0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
-0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
-0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
-0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
-0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
-0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
-0028 <span class="comment">% same conditions as regards security.</span>
-0029 <span class="comment">%</span>
-0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
-0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
-0032 
-0033 <span class="comment">%% Sorting of sample points</span>
-0034 <span class="comment">%% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net</span>
-0035 
-0036 <a name="_sub0" href="#_subfunctions" class="code">function samplingSorted = sortDOE(sampling,doe)</a>
-0037 <span class="comment">%for normalization</span>
-0038 Xmin=doe.Xmin;
-0039 Xmax=doe.Xmax;
-0040 
-0041 infoSort=doe.sort;
-0042 <span class="comment">%used norm</span>
-0043 lnorm=infoSort.lnorm;
-0044 <span class="comment">%number of sample points and design variables</span>
-0045 [ns,np]=size(sampling);
-0046 <span class="comment">%normalization</span>
-0047 sampling=(sampling-repmat(Xmin(:)',ns,1))./repmat(Xmax(:)'-Xmin(:)',ns,1);
-0048 
-0049 <span class="keyword">if</span> infoSort.on
-0050     samplingSorted=zeros(ns,np);
-0051     sortOk=true;
-0052     <span class="comment">%various methods for sorting the sample points</span>
-0053     <span class="keyword">switch</span> infoSort.type
-0054         <span class="keyword">case</span> {<span class="string">'v'</span>,<span class="string">'variable'</span>}
-0055             <span class="comment">%sorting wrt a variable</span>
-0056             <span class="keyword">if</span> isfield(infoSort,<span class="string">'para'</span>)&amp;&amp;infoSort.para&gt;0
-0057                 <span class="keyword">if</span> infoSort.para&lt;=size(sampling,1)
-0058                     [~,ind]=sort(sampling(:,infoSort.para));
-0059                     samplingSorted=sampling(ind,:);
-0060                 <span class="keyword">end</span>
-0061             <span class="keyword">end</span>
-0062         <span class="keyword">case</span> {<span class="string">'nptp'</span>,<span class="string">'normal_pt_to_pt'</span>}
-0063             <span class="comment">% sorting with starting at a specific point (ptref or para) and by</span>
-0064             <span class="comment">% looking from a point to another using a specific norm</span>
-0065             
-0066             <span class="comment">%initial point</span>
-0067             ptref=[];
-0068             <span class="keyword">if</span> isfield(infoSort,<span class="string">'ptref'</span>);<span class="keyword">if</span> ~isempty(infoSort.ptref);ptref=infoSort.ptref;<span class="keyword">end</span>, <span class="keyword">end</span>
-0069             <span class="keyword">if</span> isfield(infoSort,<span class="string">'para'</span>);numPtRef=infoSort.para;<span class="keyword">else</span> numPtRef=1;<span class="keyword">end</span>
-0070             <span class="keyword">if</span> numPtRef&lt;1||numPtRef&gt;np;numPtRef=1;<span class="keyword">end</span>
-0071             
-0072             <span class="comment">%sorting</span>
-0073             <span class="keyword">if</span> isempty(ptref)
-0074                 samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,numPtRef,<span class="string">'exist'</span>,doe);
-0075             <span class="keyword">else</span>
-0076                 ptref=(ptref-Xmin(:)')./Xmax(:)';
-0077                 samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,ptref,<span class="string">'don'</span>,doe);
-0078             <span class="keyword">end</span>
-0079             
-0080         <span class="keyword">case</span> {<span class="string">'p'</span>,<span class="string">'point'</span>}
-0081             <span class="comment">%sorting by looking to the closest point to the barycenter of</span>
-0082             <span class="comment">%the previous points</span>
-0083             
-0084             <span class="comment">%initial point</span>
-0085             ptref=[];
-0086             <span class="keyword">if</span> isfield(infoSort,<span class="string">'ptref'</span>);<span class="keyword">if</span> ~isempty(infoSort.ptref);ptref=infoSort.ptref;<span class="keyword">end</span>, <span class="keyword">end</span>
-0087             <span class="keyword">if</span> isfield(infoSort,<span class="string">'para'</span>);numPtRef=infoSort.para;<span class="keyword">else</span> numPtRef=1;<span class="keyword">end</span>
-0088             <span class="keyword">if</span> numPtRef&lt;1||numPtRef&gt;np;numPtRef=1;<span class="keyword">end</span>
-0089             
-0090             <span class="comment">%sorting</span>
-0091             <span class="keyword">if</span> isempty(ptref)
-0092                 samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,numPtRef,<span class="string">'exist'</span>,doe);
-0093             <span class="keyword">else</span>
-0094                 ptref=(ptref-Xmin(:)')./Xmax(:)';
-0095                 samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,ptref,<span class="string">'don'</span>,doe);
-0096             <span class="keyword">end</span>
-0097             
-0098         <span class="keyword">case</span> {<span class="string">'c'</span>,<span class="string">'center'</span>}
-0099             <span class="comment">%same technique as 'p' but starting at the center of the</span>
-0100             <span class="comment">%design space</span>
-0101             centerPt=(Xmax(:)'+Xmin(:)')./2;
-0102             <span class="comment">%sorting</span>
-0103             samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
-0104         <span class="keyword">case</span> {<span class="string">'sac'</span>,<span class="string">'sampling_center'</span>}
-0105             <span class="comment">% same technique as 'p' but the initial point is chosen as the</span>
-0106             <span class="comment">% center of a provided sampling</span>
-0107             minSampling=min(sampling);
-0108             maxSampling=max(sampling);
-0109             centerPt=(maxSampling+minSampling)./2;
-0110             <span class="comment">%sorring</span>
-0111             samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
-0112         <span class="keyword">case</span> {<span class="string">'sc'</span>,<span class="string">'start_center'</span>}
-0113             <span class="comment">%same as nptp but starting at the center of the design space</span>
-0114             centerPt=(Xmax(:)'+Xmin(:)')./2;
-0115             <span class="comment">%sorting</span>
-0116             samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
-0117             
-0118         <span class="keyword">case</span> {<span class="string">'sasc'</span>,<span class="string">'sampling_start_center'</span>}
-0119             <span class="comment">%same as nptp but starting at the the initial point is chosen as the</span>
-0120             <span class="comment">% center of a provided sampling</span>
-0121             minSampling=min(sampling);
-0122             maxSampling=max(sampling);
-0123             centerPt=(maxSampling+minSampling)./2;
-0124             <span class="comment">%sorting</span>
-0125             samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
-0126         <span class="keyword">otherwise</span>
-0127             sortOk=false;
-0128             
-0129     <span class="keyword">end</span>
-0130     
-0131     <span class="keyword">if</span> ~sortOk
-0132         fprintf(<span class="string">'###############################################################\n'</span>);
-0133         fprintf(<span class="string">'## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n'</span>);
-0134         fprintf(<span class="string">'###############################################################\n'</span>);
-0135     <span class="keyword">end</span>
-0136 <span class="keyword">else</span>
-0137     samplingSorted=sampling;
-0138 <span class="keyword">end</span>
-0139 <span class="comment">%renormalization</span>
-0140 samplingSorted=samplingSorted.*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
-0141 <span class="keyword">end</span>
-0142 
-0143 <span class="comment">%% norm of a vector (better behavior in comparison with the norm function of MATLAB)</span>
-0144 <a name="_sub1" href="#_subfunctions" class="code">function N=normp(X,type)</a>
-0145 <span class="comment">%check if an infinity norm is required</span>
-0146 norminf=isinf(type);
-0147 ninf=false;
-0148 <span class="comment">%absolute value of the components</span>
-0149 Xabs=abs(X);
-0150 
-0151 <span class="keyword">if</span> norminf
-0152     <span class="keyword">if</span> -abs(type)==type;ninf=true;<span class="keyword">end</span>
-0153     
-0154     <span class="keyword">if</span> ninf
-0155         <span class="comment">%-Inf norm</span>
-0156         N=min(Xabs,[],2);
-0157     <span class="keyword">else</span>
-0158         <span class="comment">%Inf norm</span>
-0159         N=max(Xabs,[],2);
-0160     <span class="keyword">end</span>
-0161 <span class="keyword">else</span>
-0162     <span class="comment">%p-norm</span>
-0163     N=sum(Xabs.^type,2).^(1/type);
-0164 <span class="keyword">end</span>
-0165 <span class="keyword">end</span>
-0166 
-0167 <span class="comment">%%function for sorting points using an initial point chosen or provided by</span>
-0168 <span class="comment">%%the 'type' input variable</span>
-0169 <a name="_sub2" href="#_subfunctions" class="code">function samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)</a>
-0170 <span class="comment">%number of sample point and variables</span>
-0171 [ns,np]=size(sampling);
-0172 samplingSorted=zeros(ns,np);
-0173 <span class="comment">%list of the number of points</span>
-0174 listNnum=1:ns;
-0175 <span class="comment">%depending on the kind of initial point</span>
-0176 <span class="keyword">switch</span> type
-0177     <span class="keyword">case</span> <span class="string">'exist'</span>
-0178         <span class="comment">%using an existing initial point</span>
-0179         numPtRef=infoPt;
-0180         ptRef=sampling(numPtRef,:);
-0181         samplingSorted(1,:)=ptRef;
-0182         listNnum(numPtRef)=[];
-0183         startFor=1;
-0184     <span class="keyword">case</span> <span class="string">'don'</span>
-0185         <span class="comment">%using a provided point</span>
-0186         ptRef=infoPt;
-0187         startFor=0;
-0188 <span class="keyword">end</span>
-0189 <span class="comment">%for norming the points</span>
-0190 xNorm=doe.Xmax(:)'-doe.Xmin(:)';
-0191 <span class="comment">%sorting</span>
-0192 <span class="keyword">for</span> ii=startFor:ns-1
-0193     <span class="comment">%compute the distance between the reference point and the others</span>
-0194     xDiff=ptRef(ones(1,ns-ii),:)-sampling(listNnum,:);
-0195     xDiff=xDiff./xNorm(ones(1,ns-ii),:);
-0196     distS=<a href="#_sub1" class="code" title="subfunction N=normp(X,type)">normp</a>(xDiff,lnorm);
-0197     <span class="comment">%look for the minimal distance</span>
-0198     [~,IXDmin]=min(distS);
-0199     numPtRef=listNnum(IXDmin(1));
-0200     listNnum(IXDmin(1))=[];
-0201     
-0202     <span class="comment">%new refernce point</span>
-0203     ptRef=sampling(numPtRef,:);
-0204     samplingSorted(ii+1,:)=ptRef;
-0205 <span class="keyword">end</span>
-0206 <span class="keyword">end</span>
-0207 
-0208 <span class="comment">%function for sorting sample points by considering the reference point as</span>
-0209 <span class="comment">%the barycenter of the previous points (the starting point can be chosen as</span>
-0210 <span class="comment">%an existing one or a provided point using the variable 'type')</span>
-0211 <a name="_sub3" href="#_subfunctions" class="code">function samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)</a>
-0212 <span class="comment">%parameter for the distance of the barycenter</span>
-0213 dBary=0.5;
-0214 <span class="comment">%number of sample point and variables</span>
-0215 [ns,np]=size(sampling);
-0216 samplingSorted=zeros(ns,np);
-0217 <span class="comment">%list of the number of points</span>
-0218 listNum=1:ns;
-0219 <span class="comment">%depending on the kind of initial point</span>
-0220 <span class="keyword">switch</span> type
-0221     <span class="keyword">case</span> <span class="string">'exist'</span>
-0222         <span class="comment">%using an existing initial point</span>
-0223         numPtRef=infoPt;
-0224         ptRef=sampling(numPtRef,:);
-0225         ptInit=ptRef;
-0226         samplingSorted(1,:)=ptRef;
-0227         listNum(numPtRef)=[];
-0228         startFor=1;
-0229     <span class="keyword">case</span> <span class="string">'don'</span>
-0230         <span class="comment">%using a provided point</span>
-0231         ptRef=infoPt;
-0232         ptInit=ptRef;
-0233         startFor=0;
-0234 <span class="keyword">end</span>
-0235 <span class="comment">%for norming the points</span>
-0236 xnorm=doe.Xmax(:)'-doe.Xmin(:)';
-0237 <span class="comment">%sorting</span>
-0238 <span class="keyword">for</span> ii=startFor:ns-1
-0239      <span class="comment">%compute the distance between the reference point and the others</span>
-0240     xDiff=ptRef(ones(1,ns-ii),:)-sampling(listNum,:);
-0241     xDiff=xDiff./xnorm(ones(1,ns-ii),:);
-0242     distS=<a href="#_sub1" class="code" title="subfunction N=normp(X,type)">normp</a>(xDiff,lnorm);
-0243     <span class="comment">%look for the minimal distance</span>
-0244     [~,IXDmin]=min(distS);
-0245     numPtAdd=listNum(IXDmin(1));
-0246     listNum(IXDmin(1))=[];
-0247     
-0248     <span class="comment">%add the point to the sampling</span>
-0249     samplingSorted(ii+1,:)=sampling(numPtAdd,:);
-0250     
-0251     <span class="comment">%compute the new reference point using as the barycenter of the</span>
-0252     <span class="comment">%sampling</span>
-0253     nb_pts=ii+1;
-0254     baryPt=1/nb_pts*sum(samplingSorted(1:nb_pts,:),1);
-0255     ptRef=ptInit+dBary*(baryPt-ptInit);
-0256 <span class="keyword">end</span>
-0257 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0016 <span class="comment">%</span>
+0017 
+0018 <span class="comment">%% Sorting of sample points</span>
+0019 <span class="comment">%% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net</span>
+0020 
+0021 <a name="_sub0" href="#_subfunctions" class="code">function samplingSorted = sortDOE(sampling,doe)</a>
+0022 <span class="comment">%for normalization</span>
+0023 Xmin=doe.Xmin;
+0024 Xmax=doe.Xmax;
+0025 
+0026 infoSort=doe.sort;
+0027 <span class="comment">%used norm</span>
+0028 lnorm=infoSort.lnorm;
+0029 <span class="comment">%number of sample points and design variables</span>
+0030 [ns,np]=size(sampling);
+0031 <span class="comment">%normalization</span>
+0032 sampling=(sampling-repmat(Xmin(:)',ns,1))./repmat(Xmax(:)'-Xmin(:)',ns,1);
+0033 
+0034 <span class="keyword">if</span> infoSort.on
+0035     samplingSorted=zeros(ns,np);
+0036     sortOk=true;
+0037     <span class="comment">%various methods for sorting the sample points</span>
+0038     <span class="keyword">switch</span> infoSort.type
+0039         <span class="keyword">case</span> {<span class="string">'v'</span>,<span class="string">'variable'</span>}
+0040             <span class="comment">%sorting wrt a variable</span>
+0041             <span class="keyword">if</span> isfield(infoSort,<span class="string">'para'</span>)&amp;&amp;infoSort.para&gt;0
+0042                 <span class="keyword">if</span> infoSort.para&lt;=size(sampling,1)
+0043                     [~,ind]=sort(sampling(:,infoSort.para));
+0044                     samplingSorted=sampling(ind,:);
+0045                 <span class="keyword">end</span>
+0046             <span class="keyword">end</span>
+0047         <span class="keyword">case</span> {<span class="string">'nptp'</span>,<span class="string">'normal_pt_to_pt'</span>}
+0048             <span class="comment">% sorting with starting at a specific point (ptref or para) and by</span>
+0049             <span class="comment">% looking from a point to another using a specific norm</span>
+0050             
+0051             <span class="comment">%initial point</span>
+0052             ptref=[];
+0053             <span class="keyword">if</span> isfield(infoSort,<span class="string">'ptref'</span>);<span class="keyword">if</span> ~isempty(infoSort.ptref);ptref=infoSort.ptref;<span class="keyword">end</span>, <span class="keyword">end</span>
+0054             <span class="keyword">if</span> isfield(infoSort,<span class="string">'para'</span>);numPtRef=infoSort.para;<span class="keyword">else</span> numPtRef=1;<span class="keyword">end</span>
+0055             <span class="keyword">if</span> numPtRef&lt;1||numPtRef&gt;np;numPtRef=1;<span class="keyword">end</span>
+0056             
+0057             <span class="comment">%sorting</span>
+0058             <span class="keyword">if</span> isempty(ptref)
+0059                 samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,numPtRef,<span class="string">'exist'</span>,doe);
+0060             <span class="keyword">else</span>
+0061                 ptref=(ptref-Xmin(:)')./Xmax(:)';
+0062                 samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,ptref,<span class="string">'don'</span>,doe);
+0063             <span class="keyword">end</span>
+0064             
+0065         <span class="keyword">case</span> {<span class="string">'p'</span>,<span class="string">'point'</span>}
+0066             <span class="comment">%sorting by looking to the closest point to the barycenter of</span>
+0067             <span class="comment">%the previous points</span>
+0068             
+0069             <span class="comment">%initial point</span>
+0070             ptref=[];
+0071             <span class="keyword">if</span> isfield(infoSort,<span class="string">'ptref'</span>);<span class="keyword">if</span> ~isempty(infoSort.ptref);ptref=infoSort.ptref;<span class="keyword">end</span>, <span class="keyword">end</span>
+0072             <span class="keyword">if</span> isfield(infoSort,<span class="string">'para'</span>);numPtRef=infoSort.para;<span class="keyword">else</span> numPtRef=1;<span class="keyword">end</span>
+0073             <span class="keyword">if</span> numPtRef&lt;1||numPtRef&gt;np;numPtRef=1;<span class="keyword">end</span>
+0074             
+0075             <span class="comment">%sorting</span>
+0076             <span class="keyword">if</span> isempty(ptref)
+0077                 samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,numPtRef,<span class="string">'exist'</span>,doe);
+0078             <span class="keyword">else</span>
+0079                 ptref=(ptref-Xmin(:)')./Xmax(:)';
+0080                 samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,ptref,<span class="string">'don'</span>,doe);
+0081             <span class="keyword">end</span>
+0082             
+0083         <span class="keyword">case</span> {<span class="string">'c'</span>,<span class="string">'center'</span>}
+0084             <span class="comment">%same technique as 'p' but starting at the center of the</span>
+0085             <span class="comment">%design space</span>
+0086             centerPt=(Xmax(:)'+Xmin(:)')./2;
+0087             <span class="comment">%sorting</span>
+0088             samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
+0089         <span class="keyword">case</span> {<span class="string">'sac'</span>,<span class="string">'sampling_center'</span>}
+0090             <span class="comment">% same technique as 'p' but the initial point is chosen as the</span>
+0091             <span class="comment">% center of a provided sampling</span>
+0092             minSampling=min(sampling);
+0093             maxSampling=max(sampling);
+0094             centerPt=(maxSampling+minSampling)./2;
+0095             <span class="comment">%sorring</span>
+0096             samplingSorted=<a href="#_sub3" class="code" title="subfunction samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)">barypt</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
+0097         <span class="keyword">case</span> {<span class="string">'sc'</span>,<span class="string">'start_center'</span>}
+0098             <span class="comment">%same as nptp but starting at the center of the design space</span>
+0099             centerPt=(Xmax(:)'+Xmin(:)')./2;
+0100             <span class="comment">%sorting</span>
+0101             samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
+0102             
+0103         <span class="keyword">case</span> {<span class="string">'sasc'</span>,<span class="string">'sampling_start_center'</span>}
+0104             <span class="comment">%same as nptp but starting at the the initial point is chosen as the</span>
+0105             <span class="comment">% center of a provided sampling</span>
+0106             minSampling=min(sampling);
+0107             maxSampling=max(sampling);
+0108             centerPt=(maxSampling+minSampling)./2;
+0109             <span class="comment">%sorting</span>
+0110             samplingSorted=<a href="#_sub2" class="code" title="subfunction samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)">nptp</a>(sampling,lnorm,centerPt,<span class="string">'don'</span>,doe);
+0111         <span class="keyword">otherwise</span>
+0112             sortOk=false;
+0113             
+0114     <span class="keyword">end</span>
+0115     
+0116     <span class="keyword">if</span> ~sortOk
+0117         fprintf(<span class="string">'###############################################################\n'</span>);
+0118         fprintf(<span class="string">'## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n'</span>);
+0119         fprintf(<span class="string">'###############################################################\n'</span>);
+0120     <span class="keyword">end</span>
+0121 <span class="keyword">else</span>
+0122     samplingSorted=sampling;
+0123 <span class="keyword">end</span>
+0124 <span class="comment">%renormalization</span>
+0125 samplingSorted=samplingSorted.*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
+0126 <span class="keyword">end</span>
+0127 
+0128 <span class="comment">%% norm of a vector (better behavior in comparison with the norm function of MATLAB)</span>
+0129 <a name="_sub1" href="#_subfunctions" class="code">function N=normp(X,type)</a>
+0130 <span class="comment">%check if an infinity norm is required</span>
+0131 norminf=isinf(type);
+0132 ninf=false;
+0133 <span class="comment">%absolute value of the components</span>
+0134 Xabs=abs(X);
+0135 
+0136 <span class="keyword">if</span> norminf
+0137     <span class="keyword">if</span> -abs(type)==type;ninf=true;<span class="keyword">end</span>
+0138     
+0139     <span class="keyword">if</span> ninf
+0140         <span class="comment">%-Inf norm</span>
+0141         N=min(Xabs,[],2);
+0142     <span class="keyword">else</span>
+0143         <span class="comment">%Inf norm</span>
+0144         N=max(Xabs,[],2);
+0145     <span class="keyword">end</span>
+0146 <span class="keyword">else</span>
+0147     <span class="comment">%p-norm</span>
+0148     N=sum(Xabs.^type,2).^(1/type);
+0149 <span class="keyword">end</span>
+0150 <span class="keyword">end</span>
+0151 
+0152 <span class="comment">%%function for sorting points using an initial point chosen or provided by</span>
+0153 <span class="comment">%%the 'type' input variable</span>
+0154 <a name="_sub2" href="#_subfunctions" class="code">function samplingSorted=nptp(sampling,lnorm,infoPt,type,doe)</a>
+0155 <span class="comment">%number of sample point and variables</span>
+0156 [ns,np]=size(sampling);
+0157 samplingSorted=zeros(ns,np);
+0158 <span class="comment">%list of the number of points</span>
+0159 listNnum=1:ns;
+0160 <span class="comment">%depending on the kind of initial point</span>
+0161 <span class="keyword">switch</span> type
+0162     <span class="keyword">case</span> <span class="string">'exist'</span>
+0163         <span class="comment">%using an existing initial point</span>
+0164         numPtRef=infoPt;
+0165         ptRef=sampling(numPtRef,:);
+0166         samplingSorted(1,:)=ptRef;
+0167         listNnum(numPtRef)=[];
+0168         startFor=1;
+0169     <span class="keyword">case</span> <span class="string">'don'</span>
+0170         <span class="comment">%using a provided point</span>
+0171         ptRef=infoPt;
+0172         startFor=0;
+0173 <span class="keyword">end</span>
+0174 <span class="comment">%for norming the points</span>
+0175 xNorm=doe.Xmax(:)'-doe.Xmin(:)';
+0176 <span class="comment">%sorting</span>
+0177 <span class="keyword">for</span> ii=startFor:ns-1
+0178     <span class="comment">%compute the distance between the reference point and the others</span>
+0179     xDiff=ptRef(ones(1,ns-ii),:)-sampling(listNnum,:);
+0180     xDiff=xDiff./xNorm(ones(1,ns-ii),:);
+0181     distS=<a href="#_sub1" class="code" title="subfunction N=normp(X,type)">normp</a>(xDiff,lnorm);
+0182     <span class="comment">%look for the minimal distance</span>
+0183     [~,IXDmin]=min(distS);
+0184     numPtRef=listNnum(IXDmin(1));
+0185     listNnum(IXDmin(1))=[];
+0186     
+0187     <span class="comment">%new refernce point</span>
+0188     ptRef=sampling(numPtRef,:);
+0189     samplingSorted(ii+1,:)=ptRef;
+0190 <span class="keyword">end</span>
+0191 <span class="keyword">end</span>
+0192 
+0193 <span class="comment">%function for sorting sample points by considering the reference point as</span>
+0194 <span class="comment">%the barycenter of the previous points (the starting point can be chosen as</span>
+0195 <span class="comment">%an existing one or a provided point using the variable 'type')</span>
+0196 <a name="_sub3" href="#_subfunctions" class="code">function samplingSorted=barypt(sampling,lnorm,infoPt,type,doe)</a>
+0197 <span class="comment">%parameter for the distance of the barycenter</span>
+0198 dBary=0.5;
+0199 <span class="comment">%number of sample point and variables</span>
+0200 [ns,np]=size(sampling);
+0201 samplingSorted=zeros(ns,np);
+0202 <span class="comment">%list of the number of points</span>
+0203 listNum=1:ns;
+0204 <span class="comment">%depending on the kind of initial point</span>
+0205 <span class="keyword">switch</span> type
+0206     <span class="keyword">case</span> <span class="string">'exist'</span>
+0207         <span class="comment">%using an existing initial point</span>
+0208         numPtRef=infoPt;
+0209         ptRef=sampling(numPtRef,:);
+0210         ptInit=ptRef;
+0211         samplingSorted(1,:)=ptRef;
+0212         listNum(numPtRef)=[];
+0213         startFor=1;
+0214     <span class="keyword">case</span> <span class="string">'don'</span>
+0215         <span class="comment">%using a provided point</span>
+0216         ptRef=infoPt;
+0217         ptInit=ptRef;
+0218         startFor=0;
+0219 <span class="keyword">end</span>
+0220 <span class="comment">%for norming the points</span>
+0221 xnorm=doe.Xmax(:)'-doe.Xmin(:)';
+0222 <span class="comment">%sorting</span>
+0223 <span class="keyword">for</span> ii=startFor:ns-1
+0224      <span class="comment">%compute the distance between the reference point and the others</span>
+0225     xDiff=ptRef(ones(1,ns-ii),:)-sampling(listNum,:);
+0226     xDiff=xDiff./xnorm(ones(1,ns-ii),:);
+0227     distS=<a href="#_sub1" class="code" title="subfunction N=normp(X,type)">normp</a>(xDiff,lnorm);
+0228     <span class="comment">%look for the minimal distance</span>
+0229     [~,IXDmin]=min(distS);
+0230     numPtAdd=listNum(IXDmin(1));
+0231     listNum(IXDmin(1))=[];
+0232     
+0233     <span class="comment">%add the point to the sampling</span>
+0234     samplingSorted(ii+1,:)=sampling(numPtAdd,:);
+0235     
+0236     <span class="comment">%compute the new reference point using as the barycenter of the</span>
+0237     <span class="comment">%sampling</span>
+0238     nb_pts=ii+1;
+0239     baryPt=1/nb_pts*sum(samplingSorted(1:nb_pts,:),1);
+0240     ptRef=ptInit+dBary*(baryPt-ptInit);
+0241 <span class="keyword">end</span>
+0242 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

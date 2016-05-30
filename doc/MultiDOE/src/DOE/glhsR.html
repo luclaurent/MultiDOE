@@ -4,7 +4,7 @@
 <head>
   <title>Description of glhsR</title>
   <meta name="keywords" content="glhsR">
-  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,43 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
- luc.laurent@lecnam.net
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
  
- This software is a computer program whose purpose is to generate sampling
- using dedicated techniques.
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
  
- This software is governed by the CeCILL license under French law and
- abiding by the rules of distribution of free software.  You can  use, 
- modify and/ or redistribute the software under the terms of the CeCILL
- license as circulated by CEA, CNRS and INRIA at the following URL
- &quot;http://www.cecill.info&quot;. 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
  
- As a counterpart to the access to the source code and  rights to copy,
- modify and redistribute granted by the license, users are provided only
- with a limited warranty  and the software's author,  the holder of the
- economic rights,  and the successive licensors  have only  limited
- liability. 
- 
- In this respect, the user's attention is drawn to the risks associated
- with loading,  using,  modifying and/or developing or reproducing the
- software by the user in light of its specific status of free software,
- that may mean  that it is complicated to manipulate,  and  that  also
- therefore means  that it is reserved for developers  and  experienced
- professionals having in-depth computer knowledge. Users are therefore
- encouraged to load and test the software's suitability as regards their
- requirements in conditions enabling the security of their systems and/or 
- data to be ensured and,  more generally, to use and operate it in the 
- same conditions as regards security. 
- 
- The fact that you are presently reading this means that you have had
- knowledge of the CeCILL license and that you accept its terms.</pre></div>
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -65,160 +49,145 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
+<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
-0002 <span class="comment">% luc.laurent@lecnam.net</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
-0005 <span class="comment">% using dedicated techniques.</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
-0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
-0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
-0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
-0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
-0012 <span class="comment">%</span>
-0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
-0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
-0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
-0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
-0017 <span class="comment">% liability.</span>
-0018 <span class="comment">%</span>
-0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
-0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
-0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
-0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
-0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
-0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
-0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
-0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
-0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
-0028 <span class="comment">% same conditions as regards security.</span>
-0029 <span class="comment">%</span>
-0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
-0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
-0032 
-0033 <span class="comment">%% Build DOE using R (optimized LHS with initial sampling and enrichment)</span>
-0034 <span class="comment">%% LHS S-optimal (using Genetic algorithm)</span>
-0035 <span class="comment">%Refs:  - Stocki, R. (2005) A method to improve design reliability using optimal Latin hypercube sampling Computer Assisted Mechanics and Engineering Sciences 12, 87?105.</span>
-0036 <span class="comment">%       -Stein, M. (1987) Large Sample Properties of Simulations Using Latin Hypercube Sampling. Technometrics. 29, 143?151.</span>
-0037 <span class="comment">% L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net</span>
-0038 
-0039 
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0016 <span class="comment">%</span>
+0017 
+0018 <span class="comment">%% Build DOE using R (optimized LHS with initial sampling and enrichment)</span>
+0019 <span class="comment">%% LHS S-optimal (using Genetic algorithm)</span>
+0020 <span class="comment">%Refs:  - Stocki, R. (2005) A method to improve design reliability using optimal Latin hypercube sampling Computer Assisted Mechanics and Engineering Sciences 12, 87?105.</span>
+0021 <span class="comment">%       -Stein, M. (1987) Large Sample Properties of Simulations Using Latin Hypercube Sampling. Technometrics. 29, 143?151.</span>
+0022 <span class="comment">% L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net</span>
+0023 
+0024 
+0025 
+0026 <a name="_sub0" href="#_subfunctions" class="code">function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)</a>
+0027 
+0028 <span class="comment">%% INPUT:</span>
+0029 <span class="comment">%    - Xmin,Xmax: min and max bounds of the design space</span>
+0030 <span class="comment">%    - ns: number of required sampled points</span>
+0031 <span class="comment">%    - oldSampling: old sampling (for enrichment)</span>
+0032 <span class="comment">%    - nbInfill: number of new required sample point (enrichment)</span>
+0033 <span class="comment">%% OUTPUT</span>
+0034 <span class="comment">%   - sampling: sample points</span>
+0035 <span class="comment">%   - newSampling: new sample points provided byy enrichment</span>
+0036 <span class="comment">%%</span>
+0037 
+0038 <span class="comment">%path declaration for R software</span>
+0039 setenv(<span class="string">'DYLD_LIBRARY_PATH'</span>,<span class="string">'/usr/local/bin/'</span>);
 0040 
-0041 <a name="_sub0" href="#_subfunctions" class="code">function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)</a>
-0042 
-0043 <span class="comment">%% INPUT:</span>
-0044 <span class="comment">%    - Xmin,Xmax: min and max bounds of the design space</span>
-0045 <span class="comment">%    - ns: number of required sampled points</span>
-0046 <span class="comment">%    - oldSampling: old sampling (for enrichment)</span>
-0047 <span class="comment">%    - nbInfill: number of new required sample point (enrichment)</span>
-0048 <span class="comment">%% OUTPUT</span>
-0049 <span class="comment">%   - sampling: sample points</span>
-0050 <span class="comment">%   - newSampling: new sample points provided byy enrichment</span>
-0051 <span class="comment">%%</span>
-0052 
-0053 <span class="comment">%path declaration for R software</span>
-0054 setenv(<span class="string">'DYLD_LIBRARY_PATH'</span>,<span class="string">'/usr/local/bin/'</span>);
-0055 
-0056 <span class="comment">%%initialize options</span>
-0057 <span class="comment">% storing directory</span>
-0058 folderStore=<span class="string">'tmpDOE/LHS_R'</span>;
-0059 <span class="comment">%number of initial sampling</span>
-0060 nbInitSampling=0;
-0061 <span class="comment">%name of the R script file</span>
-0062 nameScript=<span class="string">'glhs_R_'</span>;
-0063 extScript=<span class="string">'.r'</span>;
-0064 <span class="comment">%name of the R data file</span>
-0065 nameDataR=<span class="string">'dataR'</span>;
-0066 extDataR=<span class="string">'.dat'</span>;
-0067 <span class="comment">%pause time after executing R</span>
-0068 timePause=0;
-0069 
-0070 <span class="comment">%options genetic algorithm</span>
-0071 <span class="comment">%initial population</span>
-0072 initPop=100;
-0073 <span class="comment">%nb of mutations</span>
-0074 nbMut=5;
-0075 <span class="comment">%probability of mutation</span>
-0076 probMut=0.25;
-0077 
-0078 <span class="comment">%building DOE</span>
-0079 <span class="keyword">if</span> nargin==3
-0080     
-0081     <span class="comment">% load dimensions (number of variables and sample points)</span>
-0082     np=numel(Xmin);
-0083     <span class="comment">%full name of the R script file</span>
-0084     nameScript=[nameScript num2str(np) <span class="string">'_'</span> num2str(ns) extScript];
-0085     <span class="comment">%full name of the R data file</span>
-0086     nameDataR=[nameDataR num2str(np) <span class="string">'_'</span> num2str(ns) extDataR];
+0041 <span class="comment">%%initialize options</span>
+0042 <span class="comment">% storing directory</span>
+0043 folderStore=<span class="string">'tmpDOE/LHS_R'</span>;
+0044 <span class="comment">%number of initial sampling</span>
+0045 nbInitSampling=0;
+0046 <span class="comment">%name of the R script file</span>
+0047 nameScript=<span class="string">'glhs_R_'</span>;
+0048 extScript=<span class="string">'.r'</span>;
+0049 <span class="comment">%name of the R data file</span>
+0050 nameDataR=<span class="string">'dataR'</span>;
+0051 extDataR=<span class="string">'.dat'</span>;
+0052 <span class="comment">%pause time after executing R</span>
+0053 timePause=0;
+0054 
+0055 <span class="comment">%options genetic algorithm</span>
+0056 <span class="comment">%initial population</span>
+0057 initPop=100;
+0058 <span class="comment">%nb of mutations</span>
+0059 nbMut=5;
+0060 <span class="comment">%probability of mutation</span>
+0061 probMut=0.25;
+0062 
+0063 <span class="comment">%building DOE</span>
+0064 <span class="keyword">if</span> nargin==3
+0065     
+0066     <span class="comment">% load dimensions (number of variables and sample points)</span>
+0067     np=numel(Xmin);
+0068     <span class="comment">%full name of the R script file</span>
+0069     nameScript=[nameScript num2str(np) <span class="string">'_'</span> num2str(ns) extScript];
+0070     <span class="comment">%full name of the R data file</span>
+0071     nameDataR=[nameDataR num2str(np) <span class="string">'_'</span> num2str(ns) extDataR];
+0072     
+0073     <span class="comment">%create storing folder if not existing</span>
+0074     <span class="keyword">if</span> exist(folderStore,<span class="string">'dir'</span>)~=7
+0075         mkdir(folderStore);
+0076     <span class="keyword">end</span>
+0077     
+0078     <span class="comment">%%write R script</span>
+0079     textInit=[<span class="string">'a&lt;-geneticLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">','</span><span class="keyword">...</span>
+0080         num2str(initPop) <span class="string">','</span> num2str(nbMut) <span class="string">','</span> num2str(probMut) <span class="string">')\n'</span>];
+0081     <span class="comment">%infill procedure</span>
+0082     textInfill=[<span class="string">'a&lt;-optAugmentLHS(a,1,4)\n'</span>];
+0083     <span class="comment">%load LHS library</span>
+0084     loadLHS=<span class="string">'library(lhs)\n'</span>;
+0085     <span class="comment">%store sampling</span>
+0086     storeSampling=[<span class="string">'write.table(a,file=&quot;'</span> nameDataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)'</span>];
 0087     
-0088     <span class="comment">%create storing folder if not existing</span>
-0089     <span class="keyword">if</span> exist(folderStore,<span class="string">'dir'</span>)~=7
-0090         mkdir(folderStore);
-0091     <span class="keyword">end</span>
-0092     
-0093     <span class="comment">%%write R script</span>
-0094     textInit=[<span class="string">'a&lt;-geneticLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">','</span><span class="keyword">...</span>
-0095         num2str(initPop) <span class="string">','</span> num2str(nbMut) <span class="string">','</span> num2str(probMut) <span class="string">')\n'</span>];
-0096     <span class="comment">%infill procedure</span>
-0097     textInfill=[<span class="string">'a&lt;-optAugmentLHS(a,1,4)\n'</span>];
-0098     <span class="comment">%load LHS library</span>
-0099     loadLHS=<span class="string">'library(lhs)\n'</span>;
-0100     <span class="comment">%store sampling</span>
-0101     storeSampling=[<span class="string">'write.table(a,file=&quot;'</span> nameDataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)'</span>];
-0102     
-0103     <span class="comment">%create and open script file</span>
-0104     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
-0105     <span class="comment">%write loading of the library</span>
-0106     fprintf(fid,loadLHS);
-0107     <span class="comment">%write initial sampling execution</span>
-0108     fprintf(fid,textInit);
-0109     <span class="comment">%write enrichment</span>
-0110     <span class="keyword">for</span> ii=1:nbInitSampling
-0111         fprintf(fid,textInfill);
-0112     <span class="keyword">end</span>
-0113     <span class="comment">%write storage procedure</span>
-0114     fprintf(fid,storeSampling);
-0115     <span class="comment">%close file</span>
-0116     fclose(fid);
-0117     <span class="comment">%%execute R (R must be installed)</span>
-0118     <span class="comment">%check if available</span>
-0119     [e,~]=unix(<span class="string">'which R'</span>);
-0120     <span class="keyword">if</span> e~=0
-0121         error(<span class="string">'R is not installed (not in the PATH)'</span>);
-0122     <span class="keyword">else</span>
-0123         [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0124         pause(timePause)
-0125     <span class="keyword">end</span>
-0126     <span class="comment">%read data file</span>
-0127     A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0128     <span class="comment">%obtained sampling</span>
-0129     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
-0130     newSampling=[];
+0088     <span class="comment">%create and open script file</span>
+0089     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0090     <span class="comment">%write loading of the library</span>
+0091     fprintf(fid,loadLHS);
+0092     <span class="comment">%write initial sampling execution</span>
+0093     fprintf(fid,textInit);
+0094     <span class="comment">%write enrichment</span>
+0095     <span class="keyword">for</span> ii=1:nbInitSampling
+0096         fprintf(fid,textInfill);
+0097     <span class="keyword">end</span>
+0098     <span class="comment">%write storage procedure</span>
+0099     fprintf(fid,storeSampling);
+0100     <span class="comment">%close file</span>
+0101     fclose(fid);
+0102     <span class="comment">%%execute R (R must be installed)</span>
+0103     <span class="comment">%check if available</span>
+0104     [e,~]=unix(<span class="string">'which R'</span>);
+0105     <span class="keyword">if</span> e~=0
+0106         error(<span class="string">'R is not installed (not in the PATH)'</span>);
+0107     <span class="keyword">else</span>
+0108         [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0109         pause(timePause)
+0110     <span class="keyword">end</span>
+0111     <span class="comment">%read data file</span>
+0112     A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0113     <span class="comment">%obtained sampling</span>
+0114     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
+0115     newSampling=[];
+0116     
+0117     <span class="comment">%enrichment procedure</span>
+0118 <span class="keyword">elseif</span> nargin==5
+0119     
+0120     <span class="comment">%number of sample points in the initial sampling</span>
+0121     nsOld=size(oldSampling,1);
+0122     
+0123     <span class="comment">%read data file</span>
+0124     A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0125     
+0126     <span class="comment">%new sampling</span>
+0127     ind=nsOld+1:nsOld+nbInfill;
+0128     newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
+0129     <span class="comment">%all sample points</span>
+0130     sampling=[oldSampling;newSampling];
 0131     
-0132     <span class="comment">%enrichment procedure</span>
-0133 <span class="keyword">elseif</span> nargin==5
-0134     
-0135     <span class="comment">%number of sample points in the initial sampling</span>
-0136     nsOld=size(oldSampling,1);
-0137     
-0138     <span class="comment">%read data file</span>
-0139     A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0140     
-0141     <span class="comment">%new sampling</span>
-0142     ind=nsOld+1:nsOld+nbInfill;
-0143     newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
-0144     <span class="comment">%all sample points</span>
-0145     sampling=[oldSampling;newSampling];
-0146     
-0147 <span class="keyword">end</span>
-0148 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0132 <span class="keyword">end</span>
+0133 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

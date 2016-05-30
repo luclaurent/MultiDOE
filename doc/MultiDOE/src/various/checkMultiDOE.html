@@ -4,7 +4,7 @@
 <head>
   <title>Description of checkMultiDOE</title>
   <meta name="keywords" content="checkMultiDOE">
-  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,43 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>This is a script file. </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
- luc.laurent@lecnam.net
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
  
- This software is a computer program whose purpose is to generate sampling
- using dedicated techniques.
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
  
- This software is governed by the CeCILL license under French law and
- abiding by the rules of distribution of free software.  You can  use, 
- modify and/ or redistribute the software under the terms of the CeCILL
- license as circulated by CEA, CNRS and INRIA at the following URL
- &quot;http://www.cecill.info&quot;. 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
  
- As a counterpart to the access to the source code and  rights to copy,
- modify and redistribute granted by the license, users are provided only
- with a limited warranty  and the software's author,  the holder of the
- economic rights,  and the successive licensors  have only  limited
- liability. 
- 
- In this respect, the user's attention is drawn to the risks associated
- with loading,  using,  modifying and/or developing or reproducing the
- software by the user in light of its specific status of free software,
- that may mean  that it is complicated to manipulate,  and  that  also
- therefore means  that it is reserved for developers  and  experienced
- professionals having in-depth computer knowledge. Users are therefore
- encouraged to load and test the software's suitability as regards their
- requirements in conditions enabling the security of their systems and/or 
- data to be ensured and,  more generally, to use and operate it in the 
- same conditions as regards security. 
- 
- The fact that you are presently reading this means that you have had
- knowledge of the CeCILL license and that you accept its terms.</pre></div>
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -71,1061 +55,1046 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
-0002 <span class="comment">% luc.laurent@lecnam.net</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
-0005 <span class="comment">% using dedicated techniques.</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
-0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
-0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
-0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
-0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
-0012 <span class="comment">%</span>
-0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
-0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
-0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
-0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
-0017 <span class="comment">% liability.</span>
-0018 <span class="comment">%</span>
-0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
-0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
-0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
-0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
-0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
-0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
-0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
-0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
-0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
-0028 <span class="comment">% same conditions as regards security.</span>
-0029 <span class="comment">%</span>
-0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
-0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
-0032 
-0033 close all
-0034 init_rep
-0035 part=5;
-0036 
-0037 nb_pt_min=5;
-0038 nb_pt_max=100;
-0039 nb_pt=nb_pt_min:5:nb_pt_max;
-0040 
-0041 nb_iter=floor(linspace(1,50,7));
-0042 <span class="keyword">for</span> dim_p=4
-0043     <span class="keyword">for</span> part=5
-0044         dim_tir=dim_p;
-0045         
-0046         nb_tent=50;
-0047         
-0048         Xmin=-50;
-0049         Xmax=100;
-0050         
-0051         doe.Xmin=Xmin*ones(1,dim_tir);
-0052         doe.Xmax=Xmax*ones(1,dim_tir);
-0053         doe.aff=false;
-0054         
-0055         type_tir={<span class="string">'LHS'</span>,<span class="string">'LHS_R'</span>,<span class="string">'IHS'</span>,<span class="string">'IHS_R'</span>,<span class="string">'GLHS_R'</span>,<span class="keyword">...</span>
-0056             <span class="string">'OLHS_R'</span>,<span class="string">'MMLHS_R'</span>,<span class="string">'LHS_O1'</span>,<span class="keyword">...</span>
-0057             <span class="string">'rand'</span>,<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
-0058             <span class="string">'LHSD_CORRMIN'</span>,<span class="string">'HALTON'</span>,<span class="string">'SOBOL'</span>};
-0059         text_leg={<span class="string">'LHS'</span>,<span class="string">'LHS R'</span>,<span class="string">'IHS'</span>,<span class="string">'IHS R'</span>,<span class="string">'GLHS R'</span>,<span class="keyword">...</span>
-0060             <span class="string">'OLHS R'</span>,<span class="string">'MMLHS R'</span>,<span class="string">'LHS O1'</span>,<span class="keyword">...</span>
-0061             <span class="string">'rand'</span>,<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
-0062             <span class="string">'LHSD CORRMIN'</span>,<span class="string">'HALTON'</span>,<span class="string">'SOBOL'</span>};
-0063         <span class="keyword">if</span> part==1
-0064             
-0065             dminmin=zeros(numel(type_tir),numel(nb_pt));
-0066             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
-0067             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;wl2=dminmin;
-0068             <span class="keyword">for</span> ii=1:numel(type_tir)
-0069                 <span class="keyword">for</span> jj=1:numel(nb_pt)
-0070                     doe.type=type_tir{ii};
-0071                     doe.nb_samples=nb_pt(jj);
-0072                     tirages=gene_doe(doe);
-0073                     [uni,dispc]=score_doe(tirages);
-0074                     dminmin(ii,jj)=uni.dist_min;
-0075                     sumd(ii,jj)=uni.sum_dist;
-0076                     recouv(ii,jj)=uni.recouv;
-0077                     rapd(ii,jj)=uni.rap_dist;
-0078                     avgd(ii,jj)=uni.avg_min_dist;
-0079                     l2(ii,jj)=dispc.L2;
-0080                     cl2(ii,jj)=dispc.CL2;
-0081                     ml2(ii,jj)=dispc.ML2;
-0082                     sl2(ii,jj)=dispc.SL2;
-0083                     wl2(ii,jj)=dispc.WL2;
-0084                 <span class="keyword">end</span>
-0085             <span class="keyword">end</span>
-0086             save([<span class="string">'multi_doe_score_p1_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
-0087             
-0088             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
-0089                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
-0090             figure
-0091             subplot(3,4,1)
-0092             textleg=[];
-0093             <span class="keyword">for</span> ii=1:numel(type_tir)
-0094                 plot(nb_pt,dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0095                 hold on
-0096             <span class="keyword">end</span>
-0097             title(<span class="string">'dist min'</span>)
-0098             subplot(3,4,2)
-0099             
-0100             <span class="keyword">for</span> ii=1:numel(type_tir)
-0101                 plot(nb_pt,sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0102                 hold on
-0103             <span class="keyword">end</span>
-0104             title(<span class="string">'Sum Inverse Dist'</span>)
-0105             subplot(3,4,3)
-0106             
-0107             <span class="keyword">for</span> ii=1:numel(type_tir)
-0108                 plot(nb_pt,recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0109                 hold on
-0110             <span class="keyword">end</span>
-0111             title(<span class="string">'recouvrement'</span>)
-0112             subplot(3,4,4)
-0113             
-0114             <span class="keyword">for</span> ii=1:numel(type_tir)
-0115                 plot(nb_pt,rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0116                 hold on
-0117             <span class="keyword">end</span>
-0118             title(<span class="string">'Rapport dist'</span>)
-0119             subplot(3,4,5)
-0120             
-0121             <span class="keyword">for</span> ii=1:numel(type_tir)
-0122                 plot(nb_pt,avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0123                 hold on
-0124             <span class="keyword">end</span>
-0125             title(<span class="string">'Average min dist'</span>)
-0126             subplot(3,4,6)
-0127             
-0128             <span class="keyword">for</span> ii=1:numel(type_tir)
-0129                 plot(nb_pt,l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0130                 hold on
-0131             <span class="keyword">end</span>
-0132             title(<span class="string">'L2 discrepancy'</span>)
-0133             subplot(3,4,7)
-0134             
-0135             <span class="keyword">for</span> ii=1:numel(type_tir)
-0136                 plot(nb_pt,sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0137                 hold on
-0138             <span class="keyword">end</span>
-0139             title(<span class="string">'Symetric L2 discrepancy'</span>)
-0140             subplot(3,4,8)
-0141             
-0142             <span class="keyword">for</span> ii=1:numel(type_tir)
-0143                 plot(nb_pt,cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0144                 hold on
-0145             <span class="keyword">end</span>
-0146             title(<span class="string">'Centered L2 discrepancy'</span>)
-0147             subplot(3,4,9)
-0148             
-0149             <span class="keyword">for</span> ii=1:numel(type_tir)
-0150                 plot(nb_pt,ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0151                 hold on
-0152             <span class="keyword">end</span>
-0153             title(<span class="string">'Modified L2 discrepancy'</span>)
-0154             subplot(3,4,10)
-0155             <span class="keyword">for</span> ii=1:numel(type_tir)
-0156                 plot(nb_pt,wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0157                 hold on
-0158             <span class="keyword">end</span>
-0159             title(<span class="string">'Wrap around L2 discrepancy'</span>)
-0160             subplot(3,4,11)
-0161             <span class="keyword">for</span> ii=1:numel(type_tir)
-0162                 plot(nb_pt,ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0163                 hold on
-0164             <span class="keyword">end</span>
-0165             
-0166             legend(text_leg)
-0167             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0168             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0169             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0170             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0171             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0172             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0173             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0174         <span class="keyword">elseif</span> part==2
-0175             dminmin=cell(numel(type_tir),numel(nb_pt));
-0176             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
-0177             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;wl2=dminmin;
-0178             <span class="keyword">for</span> ii=1:numel(type_tir)
-0179                 <span class="keyword">for</span> jj=1:numel(nb_pt)
-0180                     <span class="keyword">for</span> ll=1:nb_tent
-0181                         doe.type=type_tir{ii};
-0182                         doe.nb_samples=nb_pt(jj);
-0183                         tirages=gene_doe(doe);
-0184                         [uni,dispc]=score_doe(tirages);
-0185                         dminmin{ii,jj}(ll)=uni.dist_min;
-0186                         sumd{ii,jj}(ll)=uni.sum_dist;
-0187                         recouv{ii,jj}(ll)=uni.recouv;
-0188                         rapd{ii,jj}(ll)=uni.rap_dist;
-0189                         avgd{ii,jj}(ll)=uni.avg_min_dist;
-0190                         l2{ii,jj}(ll)=dispc.L2;
-0191                         cl2{ii,jj}(ll)=dispc.CL2;
-0192                         ml2{ii,jj}(ll)=dispc.ML2;
-0193                         sl2{ii,jj}(ll)=dispc.SL2;
-0194                         wl2{ii,jj}(ll)=dispc.WL2;
-0195                     <span class="keyword">end</span>
-0196                 <span class="keyword">end</span>
-0197             <span class="keyword">end</span>
-0198             moy_dminmin=zeros(numel(type_tir),numel(nb_pt));
-0199             moy_sumd=moy_dminmin;moy_recouv=moy_dminmin;
-0200             moy_rapd=moy_dminmin;moy_avgd=moy_dminmin;
-0201             moy_l2=moy_dminmin;moy_cl2=moy_dminmin;
-0202             moy_ml2=moy_dminmin;moy_sl2=moy_dminmin;
-0203             moy_wl2=moy_dminmin;
-0204             std_dminmin=moy_dminmin;
-0205             std_sumd=moy_dminmin;std_recouv=moy_dminmin;
-0206             std_rapd=moy_dminmin;std_avgd=moy_dminmin;
-0207             std_l2=moy_dminmin;std_cl2=moy_dminmin;
-0208             std_ml2=moy_dminmin;std_sl2=moy_dminmin;
-0209             std_wl2=moy_dminmin;
-0210             
-0211             <span class="comment">%calcul moyennes et écarts types</span>
-0212             <span class="keyword">for</span> ii=1:numel(type_tir)
-0213                 <span class="keyword">for</span> jj=1:numel(nb_pt)
-0214                     moy_dminmin(ii,jj)=mean(dminmin{ii,jj});
-0215                     moy_sumd(ii,jj)=mean(sumd{ii,jj});
-0216                     moy_recouv(ii,jj)=mean(recouv{ii,jj});
-0217                     moy_rapd(ii,jj)=mean(rapd{ii,jj});
-0218                     moy_avgd(ii,jj)=mean(avgd{ii,jj});
-0219                     moy_l2(ii,jj)=mean(l2{ii,jj});
-0220                     moy_cl2(ii,jj)=mean(cl2{ii,jj});
-0221                     moy_ml2(ii,jj)=mean(ml2{ii,jj});
-0222                     moy_sl2(ii,jj)=mean(sl2{ii,jj});
-0223                     moy_wl2(ii,jj)=mean(wl2{ii,jj});
-0224                     std_dminmin(ii,jj)=std(dminmin{ii,jj});
-0225                     std_sumd(ii,jj)=std(sumd{ii,jj});
-0226                     std_recouv(ii,jj)=std(recouv{ii,jj});
-0227                     std_rapd(ii,jj)=std(rapd{ii,jj});
-0228                     std_avgd(ii,jj)=std(avgd{ii,jj});
-0229                     std_l2(ii,jj)=std(l2{ii,jj});
-0230                     std_cl2(ii,jj)=std(cl2{ii,jj});
-0231                     std_ml2(ii,jj)=std(ml2{ii,jj});
-0232                     std_sl2(ii,jj)=std(sl2{ii,jj});
-0233                     std_wl2(ii,jj)=std(wl2{ii,jj});
-0234                     
-0235                 <span class="keyword">end</span>
-0236             <span class="keyword">end</span>
-0237             save([<span class="string">'multi_doe_score_p2_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
-0238             
-0239             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
-0240                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
-0241             figure
-0242             subplot(3,4,1)
-0243             textleg=[];
-0244             <span class="keyword">for</span> ii=1:numel(type_tir)
-0245                 plot(nb_pt,moy_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0246                 hold on
-0247             <span class="keyword">end</span>
-0248             title(<span class="string">'MOY dist min'</span>)
-0249             subplot(3,4,2)
-0250             
-0251             <span class="keyword">for</span> ii=1:numel(type_tir)
-0252                 plot(nb_pt,moy_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0253                 hold on
-0254             <span class="keyword">end</span>
-0255             title(<span class="string">'MOY Sum Inverse Dist'</span>)
-0256             subplot(3,4,3)
-0257             
-0258             <span class="keyword">for</span> ii=1:numel(type_tir)
-0259                 plot(nb_pt,moy_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0260                 hold on
-0261             <span class="keyword">end</span>
-0262             title(<span class="string">'MOY recouvrement'</span>)
-0263             subplot(3,4,4)
-0264             
-0265             <span class="keyword">for</span> ii=1:numel(type_tir)
-0266                 plot(nb_pt,moy_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0267                 hold on
-0268             <span class="keyword">end</span>
-0269             title(<span class="string">'MOY Rapport dist'</span>)
-0270             subplot(3,4,5)
-0271             
-0272             <span class="keyword">for</span> ii=1:numel(type_tir)
-0273                 plot(nb_pt,moy_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0274                 hold on
-0275             <span class="keyword">end</span>
-0276             title(<span class="string">'MOY Average min dist'</span>)
-0277             subplot(3,4,6)
-0278             
-0279             <span class="keyword">for</span> ii=1:numel(type_tir)
-0280                 plot(nb_pt,moy_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0281                 hold on
-0282             <span class="keyword">end</span>
-0283             title(<span class="string">'MOY L2 discrepancy'</span>)
-0284             subplot(3,4,7)
-0285             
-0286             <span class="keyword">for</span> ii=1:numel(type_tir)
-0287                 plot(nb_pt,moy_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0288                 hold on
-0289             <span class="keyword">end</span>
-0290             title(<span class="string">'MOY Symetric L2 discrepancy'</span>)
-0291             subplot(3,4,8)
-0292             
-0293             <span class="keyword">for</span> ii=1:numel(type_tir)
-0294                 plot(nb_pt,moy_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0295                 hold on
-0296             <span class="keyword">end</span>
-0297             title(<span class="string">'MOY Centered L2 discrepancy'</span>)
-0298             subplot(3,4,9)
-0299             
-0300             <span class="keyword">for</span> ii=1:numel(type_tir)
-0301                 plot(nb_pt,moy_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0302                 hold on
-0303             <span class="keyword">end</span>
-0304             title(<span class="string">'MOY Modified L2 discrepancy'</span>)
-0305             subplot(3,4,10)
-0306             
-0307             <span class="keyword">for</span> ii=1:numel(type_tir)
-0308                 plot(nb_pt,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0309                 hold on
-0310             <span class="keyword">end</span>
-0311             title(<span class="string">'MOY Wrap around L2 discrepancy'</span>)
-0312             subplot(3,4,11)
-0313             
-0314             <span class="keyword">for</span> ii=1:numel(type_tir)
-0315                 plot(nb_pt,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0316                 hold on
-0317             <span class="keyword">end</span>
-0318             
-0319             legend(text_leg)
-0320             
-0321             <span class="comment">%%%%%</span>
-0322             figure
-0323             subplot(3,4,1)
-0324             textleg=[];
-0325             <span class="keyword">for</span> ii=1:numel(type_tir)
-0326                 plot(nb_pt,std_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0327                 hold on
-0328             <span class="keyword">end</span>
-0329             title(<span class="string">'STD dist min'</span>)
-0330             subplot(3,4,2)
-0331             
-0332             <span class="keyword">for</span> ii=1:numel(type_tir)
-0333                 plot(nb_pt,std_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0334                 hold on
-0335             <span class="keyword">end</span>
-0336             title(<span class="string">'STD Sum Inverse Dist'</span>)
-0337             subplot(3,4,3)
-0338             
-0339             <span class="keyword">for</span> ii=1:numel(type_tir)
-0340                 plot(nb_pt,std_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0341                 hold on
-0342             <span class="keyword">end</span>
-0343             title(<span class="string">'STD recouvrement'</span>)
-0344             subplot(3,4,4)
-0345             
-0346             <span class="keyword">for</span> ii=1:numel(type_tir)
-0347                 plot(nb_pt,std_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0348                 hold on
-0349             <span class="keyword">end</span>
-0350             title(<span class="string">'STD Rapport dist'</span>)
-0351             subplot(3,4,5)
-0352             
-0353             <span class="keyword">for</span> ii=1:numel(type_tir)
-0354                 plot(nb_pt,std_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0355                 hold on
-0356             <span class="keyword">end</span>
-0357             title(<span class="string">'STD Average min dist'</span>)
-0358             subplot(3,4,6)
-0359             
-0360             <span class="keyword">for</span> ii=1:numel(type_tir)
-0361                 plot(nb_pt,std_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0362                 hold on
-0363             <span class="keyword">end</span>
-0364             title(<span class="string">'STD L2 discrepancy'</span>)
-0365             subplot(3,4,7)
-0366             
-0367             <span class="keyword">for</span> ii=1:numel(type_tir)
-0368                 plot(nb_pt,std_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0369                 hold on
-0370             <span class="keyword">end</span>
-0371             title(<span class="string">'STD Symetric L2 discrepancy'</span>)
-0372             subplot(3,4,8)
-0373             
-0374             <span class="keyword">for</span> ii=1:numel(type_tir)
-0375                 plot(nb_pt,std_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0376                 hold on
-0377             <span class="keyword">end</span>
-0378             title(<span class="string">'STD Centered L2 discrepancy'</span>)
-0379             subplot(3,4,9)
-0380             
-0381             <span class="keyword">for</span> ii=1:numel(type_tir)
-0382                 plot(nb_pt,std_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0383                 hold on
-0384             <span class="keyword">end</span>
-0385             title(<span class="string">'STD Modified L2 discrepancy'</span>)
-0386             subplot(3,4,10)
-0387             
-0388             <span class="keyword">for</span> ii=1:numel(type_tir)
-0389                 plot(nb_pt,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0390                 hold on
-0391             <span class="keyword">end</span>
-0392             title(<span class="string">'STD Wrap around L2 discrepancy'</span>)
-0393             subplot(3,4,11)
-0394             
-0395             <span class="keyword">for</span> ii=1:numel(type_tir)
-0396                 plot(nb_pt,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0397                 hold on
-0398             <span class="keyword">end</span>
-0399             
-0400             legend(text_leg)
-0401             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0402             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0403             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0404             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0405             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0406             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0407             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0408         <span class="keyword">elseif</span> part==3
-0409             type_tir={<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
-0410                 <span class="string">'LHSD_CORRMIN'</span>};
-0411             text_leg={<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
-0412                 <span class="string">'LHSD CORRMIN'</span>};
-0413             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
-0414                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
-0415             
-0416             legendCell = cellstr(num2str(nb_iter', <span class="string">'N=%d'</span>));
-0417             dminmin=cell(numel(type_tir),numel(nb_iter));
-0418             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
-0419             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;
-0420             wl2=dminmin;
-0421             <span class="keyword">for</span> ii=1:numel(type_tir)
-0422                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0423                     <span class="keyword">for</span> ll=1:numel(nb_pt)
-0424                         doe.type=type_tir{ii};
-0425                         doe.nb_samples=nb_pt(ll);
-0426                         doe.iter=nb_iter(jj);
-0427                         tirages=gene_doe(doe);
-0428                         [uni,dispc]=score_doe(tirages);
-0429                         dminmin{ii,jj}(ll)=uni.dist_min;
-0430                         sumd{ii,jj}(ll)=uni.sum_dist;
-0431                         recouv{ii,jj}(ll)=uni.recouv;
-0432                         rapd{ii,jj}(ll)=uni.rap_dist;
-0433                         avgd{ii,jj}(ll)=uni.avg_min_dist;
-0434                         l2{ii,jj}(ll)=dispc.L2;
-0435                         cl2{ii,jj}(ll)=dispc.CL2;
-0436                         ml2{ii,jj}(ll)=dispc.ML2;
-0437                         sl2{ii,jj}(ll)=dispc.SL2;
-0438                         wl2{ii,jj}(ll)=dispc.WL2;
-0439                     <span class="keyword">end</span>
-0440                 <span class="keyword">end</span>
-0441             <span class="keyword">end</span>
-0442             save([<span class="string">'multi_doe_score_p3_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
-0443             <span class="keyword">for</span> ii=1:numel(type_tir)
-0444                 figure(<span class="string">'Name'</span>,type_tir{ii})
-0445                 subplot(3,4,1)
-0446                 textleg=[];
-0447                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0448                     plot(nb_pt,dminmin{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0449                     hold on
-0450                 <span class="keyword">end</span>
-0451                 
-0452                 title(<span class="string">'dist min'</span>)
-0453                 subplot(3,4,2)
-0454                 
-0455                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0456                     plot(nb_pt,sumd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0457                     hold on
-0458                 <span class="keyword">end</span>
-0459                 
-0460                 title(<span class="string">'Sum Inverse Dist'</span>)
-0461                 subplot(3,4,3)
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0016 <span class="comment">%</span>
+0017 
+0018 close all
+0019 init_rep
+0020 part=5;
+0021 
+0022 nb_pt_min=5;
+0023 nb_pt_max=100;
+0024 nb_pt=nb_pt_min:5:nb_pt_max;
+0025 
+0026 nb_iter=floor(linspace(1,50,7));
+0027 <span class="keyword">for</span> dim_p=4
+0028     <span class="keyword">for</span> part=5
+0029         dim_tir=dim_p;
+0030         
+0031         nb_tent=50;
+0032         
+0033         Xmin=-50;
+0034         Xmax=100;
+0035         
+0036         doe.Xmin=Xmin*ones(1,dim_tir);
+0037         doe.Xmax=Xmax*ones(1,dim_tir);
+0038         doe.aff=false;
+0039         
+0040         type_tir={<span class="string">'LHS'</span>,<span class="string">'LHS_R'</span>,<span class="string">'IHS'</span>,<span class="string">'IHS_R'</span>,<span class="string">'GLHS_R'</span>,<span class="keyword">...</span>
+0041             <span class="string">'OLHS_R'</span>,<span class="string">'MMLHS_R'</span>,<span class="string">'LHS_O1'</span>,<span class="keyword">...</span>
+0042             <span class="string">'rand'</span>,<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
+0043             <span class="string">'LHSD_CORRMIN'</span>,<span class="string">'HALTON'</span>,<span class="string">'SOBOL'</span>};
+0044         text_leg={<span class="string">'LHS'</span>,<span class="string">'LHS R'</span>,<span class="string">'IHS'</span>,<span class="string">'IHS R'</span>,<span class="string">'GLHS R'</span>,<span class="keyword">...</span>
+0045             <span class="string">'OLHS R'</span>,<span class="string">'MMLHS R'</span>,<span class="string">'LHS O1'</span>,<span class="keyword">...</span>
+0046             <span class="string">'rand'</span>,<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
+0047             <span class="string">'LHSD CORRMIN'</span>,<span class="string">'HALTON'</span>,<span class="string">'SOBOL'</span>};
+0048         <span class="keyword">if</span> part==1
+0049             
+0050             dminmin=zeros(numel(type_tir),numel(nb_pt));
+0051             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
+0052             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;wl2=dminmin;
+0053             <span class="keyword">for</span> ii=1:numel(type_tir)
+0054                 <span class="keyword">for</span> jj=1:numel(nb_pt)
+0055                     doe.type=type_tir{ii};
+0056                     doe.nb_samples=nb_pt(jj);
+0057                     tirages=gene_doe(doe);
+0058                     [uni,dispc]=score_doe(tirages);
+0059                     dminmin(ii,jj)=uni.dist_min;
+0060                     sumd(ii,jj)=uni.sum_dist;
+0061                     recouv(ii,jj)=uni.recouv;
+0062                     rapd(ii,jj)=uni.rap_dist;
+0063                     avgd(ii,jj)=uni.avg_min_dist;
+0064                     l2(ii,jj)=dispc.L2;
+0065                     cl2(ii,jj)=dispc.CL2;
+0066                     ml2(ii,jj)=dispc.ML2;
+0067                     sl2(ii,jj)=dispc.SL2;
+0068                     wl2(ii,jj)=dispc.WL2;
+0069                 <span class="keyword">end</span>
+0070             <span class="keyword">end</span>
+0071             save([<span class="string">'multi_doe_score_p1_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
+0072             
+0073             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
+0074                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
+0075             figure
+0076             subplot(3,4,1)
+0077             textleg=[];
+0078             <span class="keyword">for</span> ii=1:numel(type_tir)
+0079                 plot(nb_pt,dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0080                 hold on
+0081             <span class="keyword">end</span>
+0082             title(<span class="string">'dist min'</span>)
+0083             subplot(3,4,2)
+0084             
+0085             <span class="keyword">for</span> ii=1:numel(type_tir)
+0086                 plot(nb_pt,sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0087                 hold on
+0088             <span class="keyword">end</span>
+0089             title(<span class="string">'Sum Inverse Dist'</span>)
+0090             subplot(3,4,3)
+0091             
+0092             <span class="keyword">for</span> ii=1:numel(type_tir)
+0093                 plot(nb_pt,recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0094                 hold on
+0095             <span class="keyword">end</span>
+0096             title(<span class="string">'recouvrement'</span>)
+0097             subplot(3,4,4)
+0098             
+0099             <span class="keyword">for</span> ii=1:numel(type_tir)
+0100                 plot(nb_pt,rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0101                 hold on
+0102             <span class="keyword">end</span>
+0103             title(<span class="string">'Rapport dist'</span>)
+0104             subplot(3,4,5)
+0105             
+0106             <span class="keyword">for</span> ii=1:numel(type_tir)
+0107                 plot(nb_pt,avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0108                 hold on
+0109             <span class="keyword">end</span>
+0110             title(<span class="string">'Average min dist'</span>)
+0111             subplot(3,4,6)
+0112             
+0113             <span class="keyword">for</span> ii=1:numel(type_tir)
+0114                 plot(nb_pt,l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0115                 hold on
+0116             <span class="keyword">end</span>
+0117             title(<span class="string">'L2 discrepancy'</span>)
+0118             subplot(3,4,7)
+0119             
+0120             <span class="keyword">for</span> ii=1:numel(type_tir)
+0121                 plot(nb_pt,sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0122                 hold on
+0123             <span class="keyword">end</span>
+0124             title(<span class="string">'Symetric L2 discrepancy'</span>)
+0125             subplot(3,4,8)
+0126             
+0127             <span class="keyword">for</span> ii=1:numel(type_tir)
+0128                 plot(nb_pt,cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0129                 hold on
+0130             <span class="keyword">end</span>
+0131             title(<span class="string">'Centered L2 discrepancy'</span>)
+0132             subplot(3,4,9)
+0133             
+0134             <span class="keyword">for</span> ii=1:numel(type_tir)
+0135                 plot(nb_pt,ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0136                 hold on
+0137             <span class="keyword">end</span>
+0138             title(<span class="string">'Modified L2 discrepancy'</span>)
+0139             subplot(3,4,10)
+0140             <span class="keyword">for</span> ii=1:numel(type_tir)
+0141                 plot(nb_pt,wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0142                 hold on
+0143             <span class="keyword">end</span>
+0144             title(<span class="string">'Wrap around L2 discrepancy'</span>)
+0145             subplot(3,4,11)
+0146             <span class="keyword">for</span> ii=1:numel(type_tir)
+0147                 plot(nb_pt,ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0148                 hold on
+0149             <span class="keyword">end</span>
+0150             
+0151             legend(text_leg)
+0152             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0153             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0154             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0155             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0156             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0157             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0158             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0159         <span class="keyword">elseif</span> part==2
+0160             dminmin=cell(numel(type_tir),numel(nb_pt));
+0161             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
+0162             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;wl2=dminmin;
+0163             <span class="keyword">for</span> ii=1:numel(type_tir)
+0164                 <span class="keyword">for</span> jj=1:numel(nb_pt)
+0165                     <span class="keyword">for</span> ll=1:nb_tent
+0166                         doe.type=type_tir{ii};
+0167                         doe.nb_samples=nb_pt(jj);
+0168                         tirages=gene_doe(doe);
+0169                         [uni,dispc]=score_doe(tirages);
+0170                         dminmin{ii,jj}(ll)=uni.dist_min;
+0171                         sumd{ii,jj}(ll)=uni.sum_dist;
+0172                         recouv{ii,jj}(ll)=uni.recouv;
+0173                         rapd{ii,jj}(ll)=uni.rap_dist;
+0174                         avgd{ii,jj}(ll)=uni.avg_min_dist;
+0175                         l2{ii,jj}(ll)=dispc.L2;
+0176                         cl2{ii,jj}(ll)=dispc.CL2;
+0177                         ml2{ii,jj}(ll)=dispc.ML2;
+0178                         sl2{ii,jj}(ll)=dispc.SL2;
+0179                         wl2{ii,jj}(ll)=dispc.WL2;
+0180                     <span class="keyword">end</span>
+0181                 <span class="keyword">end</span>
+0182             <span class="keyword">end</span>
+0183             moy_dminmin=zeros(numel(type_tir),numel(nb_pt));
+0184             moy_sumd=moy_dminmin;moy_recouv=moy_dminmin;
+0185             moy_rapd=moy_dminmin;moy_avgd=moy_dminmin;
+0186             moy_l2=moy_dminmin;moy_cl2=moy_dminmin;
+0187             moy_ml2=moy_dminmin;moy_sl2=moy_dminmin;
+0188             moy_wl2=moy_dminmin;
+0189             std_dminmin=moy_dminmin;
+0190             std_sumd=moy_dminmin;std_recouv=moy_dminmin;
+0191             std_rapd=moy_dminmin;std_avgd=moy_dminmin;
+0192             std_l2=moy_dminmin;std_cl2=moy_dminmin;
+0193             std_ml2=moy_dminmin;std_sl2=moy_dminmin;
+0194             std_wl2=moy_dminmin;
+0195             
+0196             <span class="comment">%calcul moyennes et écarts types</span>
+0197             <span class="keyword">for</span> ii=1:numel(type_tir)
+0198                 <span class="keyword">for</span> jj=1:numel(nb_pt)
+0199                     moy_dminmin(ii,jj)=mean(dminmin{ii,jj});
+0200                     moy_sumd(ii,jj)=mean(sumd{ii,jj});
+0201                     moy_recouv(ii,jj)=mean(recouv{ii,jj});
+0202                     moy_rapd(ii,jj)=mean(rapd{ii,jj});
+0203                     moy_avgd(ii,jj)=mean(avgd{ii,jj});
+0204                     moy_l2(ii,jj)=mean(l2{ii,jj});
+0205                     moy_cl2(ii,jj)=mean(cl2{ii,jj});
+0206                     moy_ml2(ii,jj)=mean(ml2{ii,jj});
+0207                     moy_sl2(ii,jj)=mean(sl2{ii,jj});
+0208                     moy_wl2(ii,jj)=mean(wl2{ii,jj});
+0209                     std_dminmin(ii,jj)=std(dminmin{ii,jj});
+0210                     std_sumd(ii,jj)=std(sumd{ii,jj});
+0211                     std_recouv(ii,jj)=std(recouv{ii,jj});
+0212                     std_rapd(ii,jj)=std(rapd{ii,jj});
+0213                     std_avgd(ii,jj)=std(avgd{ii,jj});
+0214                     std_l2(ii,jj)=std(l2{ii,jj});
+0215                     std_cl2(ii,jj)=std(cl2{ii,jj});
+0216                     std_ml2(ii,jj)=std(ml2{ii,jj});
+0217                     std_sl2(ii,jj)=std(sl2{ii,jj});
+0218                     std_wl2(ii,jj)=std(wl2{ii,jj});
+0219                     
+0220                 <span class="keyword">end</span>
+0221             <span class="keyword">end</span>
+0222             save([<span class="string">'multi_doe_score_p2_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
+0223             
+0224             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
+0225                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
+0226             figure
+0227             subplot(3,4,1)
+0228             textleg=[];
+0229             <span class="keyword">for</span> ii=1:numel(type_tir)
+0230                 plot(nb_pt,moy_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0231                 hold on
+0232             <span class="keyword">end</span>
+0233             title(<span class="string">'MOY dist min'</span>)
+0234             subplot(3,4,2)
+0235             
+0236             <span class="keyword">for</span> ii=1:numel(type_tir)
+0237                 plot(nb_pt,moy_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0238                 hold on
+0239             <span class="keyword">end</span>
+0240             title(<span class="string">'MOY Sum Inverse Dist'</span>)
+0241             subplot(3,4,3)
+0242             
+0243             <span class="keyword">for</span> ii=1:numel(type_tir)
+0244                 plot(nb_pt,moy_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0245                 hold on
+0246             <span class="keyword">end</span>
+0247             title(<span class="string">'MOY recouvrement'</span>)
+0248             subplot(3,4,4)
+0249             
+0250             <span class="keyword">for</span> ii=1:numel(type_tir)
+0251                 plot(nb_pt,moy_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0252                 hold on
+0253             <span class="keyword">end</span>
+0254             title(<span class="string">'MOY Rapport dist'</span>)
+0255             subplot(3,4,5)
+0256             
+0257             <span class="keyword">for</span> ii=1:numel(type_tir)
+0258                 plot(nb_pt,moy_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0259                 hold on
+0260             <span class="keyword">end</span>
+0261             title(<span class="string">'MOY Average min dist'</span>)
+0262             subplot(3,4,6)
+0263             
+0264             <span class="keyword">for</span> ii=1:numel(type_tir)
+0265                 plot(nb_pt,moy_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0266                 hold on
+0267             <span class="keyword">end</span>
+0268             title(<span class="string">'MOY L2 discrepancy'</span>)
+0269             subplot(3,4,7)
+0270             
+0271             <span class="keyword">for</span> ii=1:numel(type_tir)
+0272                 plot(nb_pt,moy_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0273                 hold on
+0274             <span class="keyword">end</span>
+0275             title(<span class="string">'MOY Symetric L2 discrepancy'</span>)
+0276             subplot(3,4,8)
+0277             
+0278             <span class="keyword">for</span> ii=1:numel(type_tir)
+0279                 plot(nb_pt,moy_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0280                 hold on
+0281             <span class="keyword">end</span>
+0282             title(<span class="string">'MOY Centered L2 discrepancy'</span>)
+0283             subplot(3,4,9)
+0284             
+0285             <span class="keyword">for</span> ii=1:numel(type_tir)
+0286                 plot(nb_pt,moy_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0287                 hold on
+0288             <span class="keyword">end</span>
+0289             title(<span class="string">'MOY Modified L2 discrepancy'</span>)
+0290             subplot(3,4,10)
+0291             
+0292             <span class="keyword">for</span> ii=1:numel(type_tir)
+0293                 plot(nb_pt,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0294                 hold on
+0295             <span class="keyword">end</span>
+0296             title(<span class="string">'MOY Wrap around L2 discrepancy'</span>)
+0297             subplot(3,4,11)
+0298             
+0299             <span class="keyword">for</span> ii=1:numel(type_tir)
+0300                 plot(nb_pt,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0301                 hold on
+0302             <span class="keyword">end</span>
+0303             
+0304             legend(text_leg)
+0305             
+0306             <span class="comment">%%%%%</span>
+0307             figure
+0308             subplot(3,4,1)
+0309             textleg=[];
+0310             <span class="keyword">for</span> ii=1:numel(type_tir)
+0311                 plot(nb_pt,std_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0312                 hold on
+0313             <span class="keyword">end</span>
+0314             title(<span class="string">'STD dist min'</span>)
+0315             subplot(3,4,2)
+0316             
+0317             <span class="keyword">for</span> ii=1:numel(type_tir)
+0318                 plot(nb_pt,std_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0319                 hold on
+0320             <span class="keyword">end</span>
+0321             title(<span class="string">'STD Sum Inverse Dist'</span>)
+0322             subplot(3,4,3)
+0323             
+0324             <span class="keyword">for</span> ii=1:numel(type_tir)
+0325                 plot(nb_pt,std_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0326                 hold on
+0327             <span class="keyword">end</span>
+0328             title(<span class="string">'STD recouvrement'</span>)
+0329             subplot(3,4,4)
+0330             
+0331             <span class="keyword">for</span> ii=1:numel(type_tir)
+0332                 plot(nb_pt,std_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0333                 hold on
+0334             <span class="keyword">end</span>
+0335             title(<span class="string">'STD Rapport dist'</span>)
+0336             subplot(3,4,5)
+0337             
+0338             <span class="keyword">for</span> ii=1:numel(type_tir)
+0339                 plot(nb_pt,std_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0340                 hold on
+0341             <span class="keyword">end</span>
+0342             title(<span class="string">'STD Average min dist'</span>)
+0343             subplot(3,4,6)
+0344             
+0345             <span class="keyword">for</span> ii=1:numel(type_tir)
+0346                 plot(nb_pt,std_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0347                 hold on
+0348             <span class="keyword">end</span>
+0349             title(<span class="string">'STD L2 discrepancy'</span>)
+0350             subplot(3,4,7)
+0351             
+0352             <span class="keyword">for</span> ii=1:numel(type_tir)
+0353                 plot(nb_pt,std_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0354                 hold on
+0355             <span class="keyword">end</span>
+0356             title(<span class="string">'STD Symetric L2 discrepancy'</span>)
+0357             subplot(3,4,8)
+0358             
+0359             <span class="keyword">for</span> ii=1:numel(type_tir)
+0360                 plot(nb_pt,std_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0361                 hold on
+0362             <span class="keyword">end</span>
+0363             title(<span class="string">'STD Centered L2 discrepancy'</span>)
+0364             subplot(3,4,9)
+0365             
+0366             <span class="keyword">for</span> ii=1:numel(type_tir)
+0367                 plot(nb_pt,std_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0368                 hold on
+0369             <span class="keyword">end</span>
+0370             title(<span class="string">'STD Modified L2 discrepancy'</span>)
+0371             subplot(3,4,10)
+0372             
+0373             <span class="keyword">for</span> ii=1:numel(type_tir)
+0374                 plot(nb_pt,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0375                 hold on
+0376             <span class="keyword">end</span>
+0377             title(<span class="string">'STD Wrap around L2 discrepancy'</span>)
+0378             subplot(3,4,11)
+0379             
+0380             <span class="keyword">for</span> ii=1:numel(type_tir)
+0381                 plot(nb_pt,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0382                 hold on
+0383             <span class="keyword">end</span>
+0384             
+0385             legend(text_leg)
+0386             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0387             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0388             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0389             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0390             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0391             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0392             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0393         <span class="keyword">elseif</span> part==3
+0394             type_tir={<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
+0395                 <span class="string">'LHSD_CORRMIN'</span>};
+0396             text_leg={<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
+0397                 <span class="string">'LHSD CORRMIN'</span>};
+0398             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
+0399                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
+0400             
+0401             legendCell = cellstr(num2str(nb_iter', <span class="string">'N=%d'</span>));
+0402             dminmin=cell(numel(type_tir),numel(nb_iter));
+0403             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
+0404             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;
+0405             wl2=dminmin;
+0406             <span class="keyword">for</span> ii=1:numel(type_tir)
+0407                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0408                     <span class="keyword">for</span> ll=1:numel(nb_pt)
+0409                         doe.type=type_tir{ii};
+0410                         doe.nb_samples=nb_pt(ll);
+0411                         doe.iter=nb_iter(jj);
+0412                         tirages=gene_doe(doe);
+0413                         [uni,dispc]=score_doe(tirages);
+0414                         dminmin{ii,jj}(ll)=uni.dist_min;
+0415                         sumd{ii,jj}(ll)=uni.sum_dist;
+0416                         recouv{ii,jj}(ll)=uni.recouv;
+0417                         rapd{ii,jj}(ll)=uni.rap_dist;
+0418                         avgd{ii,jj}(ll)=uni.avg_min_dist;
+0419                         l2{ii,jj}(ll)=dispc.L2;
+0420                         cl2{ii,jj}(ll)=dispc.CL2;
+0421                         ml2{ii,jj}(ll)=dispc.ML2;
+0422                         sl2{ii,jj}(ll)=dispc.SL2;
+0423                         wl2{ii,jj}(ll)=dispc.WL2;
+0424                     <span class="keyword">end</span>
+0425                 <span class="keyword">end</span>
+0426             <span class="keyword">end</span>
+0427             save([<span class="string">'multi_doe_score_p3_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
+0428             <span class="keyword">for</span> ii=1:numel(type_tir)
+0429                 figure(<span class="string">'Name'</span>,type_tir{ii})
+0430                 subplot(3,4,1)
+0431                 textleg=[];
+0432                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0433                     plot(nb_pt,dminmin{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0434                     hold on
+0435                 <span class="keyword">end</span>
+0436                 
+0437                 title(<span class="string">'dist min'</span>)
+0438                 subplot(3,4,2)
+0439                 
+0440                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0441                     plot(nb_pt,sumd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0442                     hold on
+0443                 <span class="keyword">end</span>
+0444                 
+0445                 title(<span class="string">'Sum Inverse Dist'</span>)
+0446                 subplot(3,4,3)
+0447                 
+0448                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0449                     plot(nb_pt,recouv{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0450                     hold on
+0451                 <span class="keyword">end</span>
+0452                 
+0453                 title(<span class="string">'recouvrement'</span>)
+0454                 subplot(3,4,4)
+0455                 
+0456                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0457                     plot(nb_pt,rapd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0458                     hold on
+0459                 <span class="keyword">end</span>
+0460                 title(<span class="string">'Rapport dist'</span>)
+0461                 subplot(3,4,5)
 0462                 
 0463                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0464                     plot(nb_pt,recouv{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0464                     plot(nb_pt,avgd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0465                     hold on
 0466                 <span class="keyword">end</span>
 0467                 
-0468                 title(<span class="string">'recouvrement'</span>)
-0469                 subplot(3,4,4)
+0468                 title(<span class="string">'Average min dist'</span>)
+0469                 subplot(3,4,6)
 0470                 
 0471                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0472                     plot(nb_pt,rapd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0472                     plot(nb_pt,l2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0473                     hold on
 0474                 <span class="keyword">end</span>
-0475                 title(<span class="string">'Rapport dist'</span>)
-0476                 subplot(3,4,5)
-0477                 
-0478                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0479                     plot(nb_pt,avgd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0480                     hold on
-0481                 <span class="keyword">end</span>
-0482                 
-0483                 title(<span class="string">'Average min dist'</span>)
-0484                 subplot(3,4,6)
-0485                 
-0486                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0487                     plot(nb_pt,l2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0488                     hold on
-0489                 <span class="keyword">end</span>
-0490                 
-0491                 title(<span class="string">'L2 discrepancy'</span>)
-0492                 subplot(3,4,7)
-0493                 
-0494                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0495                     plot(nb_pt,sl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0496                     hold on
-0497                 <span class="keyword">end</span>
-0498                 
-0499                 title(<span class="string">'Symetric L2 discrepancy'</span>)
-0500                 subplot(3,4,8)
+0475                 
+0476                 title(<span class="string">'L2 discrepancy'</span>)
+0477                 subplot(3,4,7)
+0478                 
+0479                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0480                     plot(nb_pt,sl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0481                     hold on
+0482                 <span class="keyword">end</span>
+0483                 
+0484                 title(<span class="string">'Symetric L2 discrepancy'</span>)
+0485                 subplot(3,4,8)
+0486                 
+0487                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0488                     plot(nb_pt,cl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0489                     hold on
+0490                 <span class="keyword">end</span>
+0491                 
+0492                 title(<span class="string">'Centered L2 discrepancy'</span>)
+0493                 subplot(3,4,9)
+0494                 
+0495                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0496                     plot(nb_pt,ml2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0497                     hold on
+0498                 <span class="keyword">end</span>
+0499                 title(<span class="string">'Modified L2 discrepancy'</span>)
+0500                 subplot(3,4,10)
 0501                 
 0502                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0503                     plot(nb_pt,cl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0503                     plot(nb_pt,wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0504                     hold on
 0505                 <span class="keyword">end</span>
 0506                 
-0507                 title(<span class="string">'Centered L2 discrepancy'</span>)
-0508                 subplot(3,4,9)
+0507                 title(<span class="string">'wrap around L2 discrepancy'</span>)
+0508                 subplot(3,4,11)
 0509                 
 0510                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0511                     plot(nb_pt,ml2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0511                     plot(nb_pt,wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0512                     hold on
 0513                 <span class="keyword">end</span>
-0514                 title(<span class="string">'Modified L2 discrepancy'</span>)
-0515                 subplot(3,4,10)
-0516                 
-0517                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0518                     plot(nb_pt,wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0519                     hold on
-0520                 <span class="keyword">end</span>
-0521                 
-0522                 title(<span class="string">'wrap around L2 discrepancy'</span>)
-0523                 subplot(3,4,11)
-0524                 
-0525                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0526                     plot(nb_pt,wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0527                     hold on
-0528                 <span class="keyword">end</span>
-0529                 legend(legendCell)
-0530                 
-0531             <span class="keyword">end</span>
-0532             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0533             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0534             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0535             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0536             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0537             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0538             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0539         <span class="keyword">elseif</span> part==4
-0540             type_tir={<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
-0541                 <span class="string">'LHSD_CORRMIN'</span>};
-0542             text_leg={<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
-0543                 <span class="string">'LHSD CORRMIN'</span>};
-0544             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
-0545                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
-0546             
-0547             legendCell = cellstr(num2str(nb_iter', <span class="string">'N=%d'</span>));
-0548             dminmin=cell(numel(type_tir),numel(nb_iter));
-0549             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
-0550             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;
-0551             wl2=dminmin;
-0552             <span class="keyword">for</span> ii=1:numel(type_tir)
-0553                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0554                     <span class="keyword">for</span> ll=1:numel(nb_pt)
-0555                         <span class="keyword">for</span> kk=1:nb_tent
-0556                             doe.type=type_tir{ii};
-0557                             doe.nb_samples=nb_pt(ll);
-0558                             doe.iter=nb_iter(jj);
-0559                             tirages=gene_doe(doe);
-0560                             [uni,dispc]=score_doe(tirages);
-0561                             dminmin{ii,jj}(ll,kk)=uni.dist_min;
-0562                             sumd{ii,jj}(ll,kk)=uni.sum_dist;
-0563                             recouv{ii,jj}(ll,kk)=uni.recouv;
-0564                             rapd{ii,jj}(ll,kk)=uni.rap_dist;
-0565                             avgd{ii,jj}(ll,kk)=uni.avg_min_dist;
-0566                             l2{ii,jj}(ll,kk)=dispc.L2;
-0567                             cl2{ii,jj}(ll,kk)=dispc.CL2;
-0568                             ml2{ii,jj}(ll,kk)=dispc.ML2;
-0569                             sl2{ii,jj}(ll,kk)=dispc.SL2;
-0570                             wl2{ii,jj}(ll,kk)=dispc.WL2;
-0571                         <span class="keyword">end</span>
-0572                     <span class="keyword">end</span>
-0573                 <span class="keyword">end</span>
-0574             <span class="keyword">end</span>
-0575             moy_dminmin=cell(numel(type_tir),numel(nb_pt));
-0576             moy_sumd=moy_dminmin;moy_recouv=moy_dminmin;
-0577             moy_rapd=moy_dminmin;moy_avgd=moy_dminmin;
-0578             moy_l2=moy_dminmin;moy_cl2=moy_dminmin;
-0579             moy_ml2=moy_dminmin;moy_sl2=moy_dminmin;
-0580             moy_wl2=moy_dminmin;
-0581             std_dminmin=moy_dminmin;
-0582             std_sumd=moy_dminmin;std_recouv=moy_dminmin;
-0583             std_rapd=moy_dminmin;std_avgd=moy_dminmin;
-0584             std_l2=moy_dminmin;std_cl2=moy_dminmin;
-0585             std_ml2=moy_dminmin;std_sl2=moy_dminmin;
-0586             std_wl2=moy_dminmin;
-0587             
-0588             <span class="comment">%calcul moyennes et écarts types</span>
-0589             <span class="keyword">for</span> ii=1:numel(type_tir)
-0590                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0591                     <span class="keyword">for</span> ll=1:numel(nb_pt)
-0592                         moy_dminmin{ii,jj}(ll)=mean(dminmin{ii,jj}(ll,:));
-0593                         moy_sumd{ii,jj}(ll)=mean(sumd{ii,jj}(ll,:));
-0594                         moy_recouv{ii,jj}(ll)=mean(recouv{ii,jj}(ll,:));
-0595                         moy_rapd{ii,jj}(ll)=mean(rapd{ii,jj}(ll,:));
-0596                         moy_avgd{ii,jj}(ll)=mean(avgd{ii,jj}(ll,:));
-0597                         moy_l2{ii,jj}(ll)=mean(l2{ii,jj}(ll,:));
-0598                         moy_cl2{ii,jj}(ll)=mean(cl2{ii,jj}(ll,:));
-0599                         moy_ml2{ii,jj}(ll)=mean(ml2{ii,jj}(ll,:));
-0600                         moy_sl2{ii,jj}(ll)=mean(sl2{ii,jj}(ll,:));
-0601                         moy_wl2{ii,jj}(ll)=mean(wl2{ii,jj}(ll,:));
-0602                         std_dminmin{ii,jj}(ll)=std(dminmin{ii,jj}(ll,:));
-0603                         std_sumd{ii,jj}(ll)=std(sumd{ii,jj}(ll,:));
-0604                         std_recouv{ii,jj}(ll)=std(recouv{ii,jj}(ll,:));
-0605                         std_rapd{ii,jj}(ll)=std(rapd{ii,jj}(ll,:));
-0606                         std_avgd{ii,jj}(ll)=std(avgd{ii,jj}(ll,:));
-0607                         std_l2{ii,jj}(ll)=std(l2{ii,jj}(ll,:));
-0608                         std_cl2{ii,jj}(ll)=std(cl2{ii,jj}(ll,:));
-0609                         std_ml2{ii,jj}(ll)=std(ml2{ii,jj}(ll,:));
-0610                         std_sl2{ii,jj}(ll)=std(sl2{ii,jj}(ll,:));
-0611                         std_wl2{ii,jj}(ll)=std(wl2{ii,jj}(ll,:));
-0612                     <span class="keyword">end</span>
-0613                 <span class="keyword">end</span>
-0614             <span class="keyword">end</span>
-0615             
-0616             
-0617             save([<span class="string">'multi_doe_score_p4_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
-0618             <span class="keyword">for</span> ii=1:numel(type_tir)
-0619                 figure(<span class="string">'Name'</span>,type_tir{ii})
-0620                 subplot(3,4,1)
-0621                 textleg=[];
-0622                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0623                     plot(nb_pt,moy_dminmin{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0624                     hold on
-0625                 <span class="keyword">end</span>
-0626                 
-0627                 title(<span class="string">'MOY dist min'</span>)
-0628                 subplot(3,4,2)
-0629                 
-0630                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0631                     plot(nb_pt,moy_sumd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0632                     hold on
-0633                 <span class="keyword">end</span>
-0634                 
-0635                 title(<span class="string">'MOY Sum Inverse Dist'</span>)
-0636                 subplot(3,4,3)
+0514                 legend(legendCell)
+0515                 
+0516             <span class="keyword">end</span>
+0517             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0518             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0519             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0520             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0521             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0522             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0523             <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0524         <span class="keyword">elseif</span> part==4
+0525             type_tir={<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
+0526                 <span class="string">'LHSD_CORRMIN'</span>};
+0527             text_leg={<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
+0528                 <span class="string">'LHSD CORRMIN'</span>};
+0529             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
+0530                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
+0531             
+0532             legendCell = cellstr(num2str(nb_iter', <span class="string">'N=%d'</span>));
+0533             dminmin=cell(numel(type_tir),numel(nb_iter));
+0534             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
+0535             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;
+0536             wl2=dminmin;
+0537             <span class="keyword">for</span> ii=1:numel(type_tir)
+0538                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0539                     <span class="keyword">for</span> ll=1:numel(nb_pt)
+0540                         <span class="keyword">for</span> kk=1:nb_tent
+0541                             doe.type=type_tir{ii};
+0542                             doe.nb_samples=nb_pt(ll);
+0543                             doe.iter=nb_iter(jj);
+0544                             tirages=gene_doe(doe);
+0545                             [uni,dispc]=score_doe(tirages);
+0546                             dminmin{ii,jj}(ll,kk)=uni.dist_min;
+0547                             sumd{ii,jj}(ll,kk)=uni.sum_dist;
+0548                             recouv{ii,jj}(ll,kk)=uni.recouv;
+0549                             rapd{ii,jj}(ll,kk)=uni.rap_dist;
+0550                             avgd{ii,jj}(ll,kk)=uni.avg_min_dist;
+0551                             l2{ii,jj}(ll,kk)=dispc.L2;
+0552                             cl2{ii,jj}(ll,kk)=dispc.CL2;
+0553                             ml2{ii,jj}(ll,kk)=dispc.ML2;
+0554                             sl2{ii,jj}(ll,kk)=dispc.SL2;
+0555                             wl2{ii,jj}(ll,kk)=dispc.WL2;
+0556                         <span class="keyword">end</span>
+0557                     <span class="keyword">end</span>
+0558                 <span class="keyword">end</span>
+0559             <span class="keyword">end</span>
+0560             moy_dminmin=cell(numel(type_tir),numel(nb_pt));
+0561             moy_sumd=moy_dminmin;moy_recouv=moy_dminmin;
+0562             moy_rapd=moy_dminmin;moy_avgd=moy_dminmin;
+0563             moy_l2=moy_dminmin;moy_cl2=moy_dminmin;
+0564             moy_ml2=moy_dminmin;moy_sl2=moy_dminmin;
+0565             moy_wl2=moy_dminmin;
+0566             std_dminmin=moy_dminmin;
+0567             std_sumd=moy_dminmin;std_recouv=moy_dminmin;
+0568             std_rapd=moy_dminmin;std_avgd=moy_dminmin;
+0569             std_l2=moy_dminmin;std_cl2=moy_dminmin;
+0570             std_ml2=moy_dminmin;std_sl2=moy_dminmin;
+0571             std_wl2=moy_dminmin;
+0572             
+0573             <span class="comment">%calcul moyennes et écarts types</span>
+0574             <span class="keyword">for</span> ii=1:numel(type_tir)
+0575                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0576                     <span class="keyword">for</span> ll=1:numel(nb_pt)
+0577                         moy_dminmin{ii,jj}(ll)=mean(dminmin{ii,jj}(ll,:));
+0578                         moy_sumd{ii,jj}(ll)=mean(sumd{ii,jj}(ll,:));
+0579                         moy_recouv{ii,jj}(ll)=mean(recouv{ii,jj}(ll,:));
+0580                         moy_rapd{ii,jj}(ll)=mean(rapd{ii,jj}(ll,:));
+0581                         moy_avgd{ii,jj}(ll)=mean(avgd{ii,jj}(ll,:));
+0582                         moy_l2{ii,jj}(ll)=mean(l2{ii,jj}(ll,:));
+0583                         moy_cl2{ii,jj}(ll)=mean(cl2{ii,jj}(ll,:));
+0584                         moy_ml2{ii,jj}(ll)=mean(ml2{ii,jj}(ll,:));
+0585                         moy_sl2{ii,jj}(ll)=mean(sl2{ii,jj}(ll,:));
+0586                         moy_wl2{ii,jj}(ll)=mean(wl2{ii,jj}(ll,:));
+0587                         std_dminmin{ii,jj}(ll)=std(dminmin{ii,jj}(ll,:));
+0588                         std_sumd{ii,jj}(ll)=std(sumd{ii,jj}(ll,:));
+0589                         std_recouv{ii,jj}(ll)=std(recouv{ii,jj}(ll,:));
+0590                         std_rapd{ii,jj}(ll)=std(rapd{ii,jj}(ll,:));
+0591                         std_avgd{ii,jj}(ll)=std(avgd{ii,jj}(ll,:));
+0592                         std_l2{ii,jj}(ll)=std(l2{ii,jj}(ll,:));
+0593                         std_cl2{ii,jj}(ll)=std(cl2{ii,jj}(ll,:));
+0594                         std_ml2{ii,jj}(ll)=std(ml2{ii,jj}(ll,:));
+0595                         std_sl2{ii,jj}(ll)=std(sl2{ii,jj}(ll,:));
+0596                         std_wl2{ii,jj}(ll)=std(wl2{ii,jj}(ll,:));
+0597                     <span class="keyword">end</span>
+0598                 <span class="keyword">end</span>
+0599             <span class="keyword">end</span>
+0600             
+0601             
+0602             save([<span class="string">'multi_doe_score_p4_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
+0603             <span class="keyword">for</span> ii=1:numel(type_tir)
+0604                 figure(<span class="string">'Name'</span>,type_tir{ii})
+0605                 subplot(3,4,1)
+0606                 textleg=[];
+0607                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0608                     plot(nb_pt,moy_dminmin{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0609                     hold on
+0610                 <span class="keyword">end</span>
+0611                 
+0612                 title(<span class="string">'MOY dist min'</span>)
+0613                 subplot(3,4,2)
+0614                 
+0615                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0616                     plot(nb_pt,moy_sumd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0617                     hold on
+0618                 <span class="keyword">end</span>
+0619                 
+0620                 title(<span class="string">'MOY Sum Inverse Dist'</span>)
+0621                 subplot(3,4,3)
+0622                 
+0623                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0624                     plot(nb_pt,moy_recouv{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0625                     hold on
+0626                 <span class="keyword">end</span>
+0627                 
+0628                 title(<span class="string">'MOY recouvrement'</span>)
+0629                 subplot(3,4,4)
+0630                 
+0631                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0632                     plot(nb_pt,moy_rapd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0633                     hold on
+0634                 <span class="keyword">end</span>
+0635                 title(<span class="string">'MOY Rapport dist'</span>)
+0636                 subplot(3,4,5)
 0637                 
 0638                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0639                     plot(nb_pt,moy_recouv{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0639                     plot(nb_pt,moy_avgd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0640                     hold on
 0641                 <span class="keyword">end</span>
 0642                 
-0643                 title(<span class="string">'MOY recouvrement'</span>)
-0644                 subplot(3,4,4)
+0643                 title(<span class="string">'MOY Average min dist'</span>)
+0644                 subplot(3,4,6)
 0645                 
 0646                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0647                     plot(nb_pt,moy_rapd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0647                     plot(nb_pt,moy_l2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0648                     hold on
 0649                 <span class="keyword">end</span>
-0650                 title(<span class="string">'MOY Rapport dist'</span>)
-0651                 subplot(3,4,5)
-0652                 
-0653                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0654                     plot(nb_pt,moy_avgd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0655                     hold on
-0656                 <span class="keyword">end</span>
-0657                 
-0658                 title(<span class="string">'MOY Average min dist'</span>)
-0659                 subplot(3,4,6)
-0660                 
-0661                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0662                     plot(nb_pt,moy_l2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0663                     hold on
-0664                 <span class="keyword">end</span>
-0665                 
-0666                 title(<span class="string">'MOY L2 discrepancy'</span>)
-0667                 subplot(3,4,7)
-0668                 
-0669                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0670                     plot(nb_pt,moy_sl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0671                     hold on
-0672                 <span class="keyword">end</span>
-0673                 
-0674                 title(<span class="string">'MOY Symetric L2 discrepancy'</span>)
-0675                 subplot(3,4,8)
+0650                 
+0651                 title(<span class="string">'MOY L2 discrepancy'</span>)
+0652                 subplot(3,4,7)
+0653                 
+0654                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0655                     plot(nb_pt,moy_sl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0656                     hold on
+0657                 <span class="keyword">end</span>
+0658                 
+0659                 title(<span class="string">'MOY Symetric L2 discrepancy'</span>)
+0660                 subplot(3,4,8)
+0661                 
+0662                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0663                     plot(nb_pt,moy_cl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0664                     hold on
+0665                 <span class="keyword">end</span>
+0666                 
+0667                 title(<span class="string">'MOY Centered L2 discrepancy'</span>)
+0668                 subplot(3,4,9)
+0669                 
+0670                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0671                     plot(nb_pt,moy_ml2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0672                     hold on
+0673                 <span class="keyword">end</span>
+0674                 title(<span class="string">'MOY Modified L2 discrepancy'</span>)
+0675                 subplot(3,4,10)
 0676                 
 0677                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0678                     plot(nb_pt,moy_cl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0678                     plot(nb_pt,moy_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0679                     hold on
 0680                 <span class="keyword">end</span>
 0681                 
-0682                 title(<span class="string">'MOY Centered L2 discrepancy'</span>)
-0683                 subplot(3,4,9)
+0682                 title(<span class="string">'MOY wrap around L2 discrepancy'</span>)
+0683                 subplot(3,4,11)
 0684                 
 0685                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0686                     plot(nb_pt,moy_ml2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0686                     plot(nb_pt,moy_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0687                     hold on
 0688                 <span class="keyword">end</span>
-0689                 title(<span class="string">'MOY Modified L2 discrepancy'</span>)
-0690                 subplot(3,4,10)
-0691                 
-0692                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0693                     plot(nb_pt,moy_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0694                     hold on
-0695                 <span class="keyword">end</span>
-0696                 
-0697                 title(<span class="string">'MOY wrap around L2 discrepancy'</span>)
-0698                 subplot(3,4,11)
-0699                 
-0700                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0701                     plot(nb_pt,moy_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0702                     hold on
-0703                 <span class="keyword">end</span>
-0704                 legend(legendCell)
-0705                 
-0706             <span class="keyword">end</span>
-0707             <span class="keyword">for</span> ii=1:numel(type_tir)
-0708                 figure(<span class="string">'Name'</span>,type_tir{ii})
-0709                 subplot(3,4,1)
-0710                 textleg=[];
-0711                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0712                     plot(nb_pt,std_dminmin{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0713                     hold on
-0714                 <span class="keyword">end</span>
-0715                 
-0716                 title(<span class="string">'STD dist min'</span>)
-0717                 subplot(3,4,2)
-0718                 
-0719                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0720                     plot(nb_pt,std_sumd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0721                     hold on
-0722                 <span class="keyword">end</span>
-0723                 
-0724                 title(<span class="string">'STD Sum Inverse Dist'</span>)
-0725                 subplot(3,4,3)
+0689                 legend(legendCell)
+0690                 
+0691             <span class="keyword">end</span>
+0692             <span class="keyword">for</span> ii=1:numel(type_tir)
+0693                 figure(<span class="string">'Name'</span>,type_tir{ii})
+0694                 subplot(3,4,1)
+0695                 textleg=[];
+0696                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0697                     plot(nb_pt,std_dminmin{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0698                     hold on
+0699                 <span class="keyword">end</span>
+0700                 
+0701                 title(<span class="string">'STD dist min'</span>)
+0702                 subplot(3,4,2)
+0703                 
+0704                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0705                     plot(nb_pt,std_sumd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0706                     hold on
+0707                 <span class="keyword">end</span>
+0708                 
+0709                 title(<span class="string">'STD Sum Inverse Dist'</span>)
+0710                 subplot(3,4,3)
+0711                 
+0712                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0713                     plot(nb_pt,std_recouv{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0714                     hold on
+0715                 <span class="keyword">end</span>
+0716                 
+0717                 title(<span class="string">'STD recouvrement'</span>)
+0718                 subplot(3,4,4)
+0719                 
+0720                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0721                     plot(nb_pt,std_rapd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0722                     hold on
+0723                 <span class="keyword">end</span>
+0724                 title(<span class="string">'STD Rapport dist'</span>)
+0725                 subplot(3,4,5)
 0726                 
 0727                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0728                     plot(nb_pt,std_recouv{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0728                     plot(nb_pt,std_avgd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0729                     hold on
 0730                 <span class="keyword">end</span>
 0731                 
-0732                 title(<span class="string">'STD recouvrement'</span>)
-0733                 subplot(3,4,4)
+0732                 title(<span class="string">'STD Average min dist'</span>)
+0733                 subplot(3,4,6)
 0734                 
 0735                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0736                     plot(nb_pt,std_rapd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0736                     plot(nb_pt,std_l2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0737                     hold on
 0738                 <span class="keyword">end</span>
-0739                 title(<span class="string">'STD Rapport dist'</span>)
-0740                 subplot(3,4,5)
-0741                 
-0742                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0743                     plot(nb_pt,std_avgd{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0744                     hold on
-0745                 <span class="keyword">end</span>
-0746                 
-0747                 title(<span class="string">'STD Average min dist'</span>)
-0748                 subplot(3,4,6)
-0749                 
-0750                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0751                     plot(nb_pt,std_l2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0752                     hold on
-0753                 <span class="keyword">end</span>
-0754                 
-0755                 title(<span class="string">'STD L2 discrepancy'</span>)
-0756                 subplot(3,4,7)
-0757                 
-0758                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0759                     plot(nb_pt,std_sl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0760                     hold on
-0761                 <span class="keyword">end</span>
-0762                 
-0763                 title(<span class="string">'STD Symetric L2 discrepancy'</span>)
-0764                 subplot(3,4,8)
+0739                 
+0740                 title(<span class="string">'STD L2 discrepancy'</span>)
+0741                 subplot(3,4,7)
+0742                 
+0743                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0744                     plot(nb_pt,std_sl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0745                     hold on
+0746                 <span class="keyword">end</span>
+0747                 
+0748                 title(<span class="string">'STD Symetric L2 discrepancy'</span>)
+0749                 subplot(3,4,8)
+0750                 
+0751                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0752                     plot(nb_pt,std_cl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0753                     hold on
+0754                 <span class="keyword">end</span>
+0755                 
+0756                 title(<span class="string">'STD Centered L2 discrepancy'</span>)
+0757                 subplot(3,4,9)
+0758                 
+0759                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0760                     plot(nb_pt,std_ml2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0761                     hold on
+0762                 <span class="keyword">end</span>
+0763                 title(<span class="string">'STD Modified L2 discrepancy'</span>)
+0764                 subplot(3,4,10)
 0765                 
 0766                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0767                     plot(nb_pt,std_cl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0767                     plot(nb_pt,std_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0768                     hold on
 0769                 <span class="keyword">end</span>
 0770                 
-0771                 title(<span class="string">'STD Centered L2 discrepancy'</span>)
-0772                 subplot(3,4,9)
+0771                 title(<span class="string">'STD wrap around L2 discrepancy'</span>)
+0772                 subplot(3,4,11)
 0773                 
 0774                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0775                     plot(nb_pt,std_ml2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
+0775                     plot(nb_pt,std_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
 0776                     hold on
 0777                 <span class="keyword">end</span>
-0778                 title(<span class="string">'STD Modified L2 discrepancy'</span>)
-0779                 subplot(3,4,10)
-0780                 
-0781                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0782                     plot(nb_pt,std_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0783                     hold on
-0784                 <span class="keyword">end</span>
-0785                 
-0786                 title(<span class="string">'STD wrap around L2 discrepancy'</span>)
-0787                 subplot(3,4,11)
-0788                 
-0789                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0790                     plot(nb_pt,std_wl2{ii,jj},type_dess{jj},<span class="string">'LineWidth'</span>,2);
-0791                     hold on
-0792                 <span class="keyword">end</span>
-0793                 legend(legendCell)
-0794                 
-0795             <span class="keyword">end</span>
-0796         <span class="keyword">elseif</span> part==5
-0797             type_tir={<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
-0798                 <span class="string">'LHSD_CORRMIN'</span>};
-0799             text_leg={<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
-0800                 <span class="string">'LHSD CORRMIN'</span>};
-0801             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
-0802                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
-0803             nb_iter=1:20;
-0804             nb_pt=50;
-0805             nb_tent=50;
-0806             
-0807             dminmin=cell(numel(type_tir),numel(nb_iter));
-0808             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
-0809             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;
-0810             wl2=dminmin;
-0811             <span class="keyword">for</span> ii=1:numel(type_tir)
-0812                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0813                     <span class="keyword">for</span> ll=1:numel(nb_pt)
-0814                         <span class="keyword">for</span> kk=1:nb_tent
-0815                             doe.type=type_tir{ii};
-0816                             doe.nb_samples=nb_pt(ll);
-0817                             doe.iter=nb_iter(jj);
-0818                             tirages=gene_doe(doe);
-0819                             [uni,dispc]=score_doe(tirages);
-0820                             dminmin{ii,jj}(ll,kk)=uni.dist_min;
-0821                             sumd{ii,jj}(ll,kk)=uni.sum_dist;
-0822                             recouv{ii,jj}(ll,kk)=uni.recouv;
-0823                             rapd{ii,jj}(ll,kk)=uni.rap_dist;
-0824                             avgd{ii,jj}(ll,kk)=uni.avg_min_dist;
-0825                             l2{ii,jj}(ll,kk)=dispc.L2;
-0826                             cl2{ii,jj}(ll,kk)=dispc.CL2;
-0827                             ml2{ii,jj}(ll,kk)=dispc.ML2;
-0828                             sl2{ii,jj}(ll,kk)=dispc.SL2;
-0829                             wl2{ii,jj}(ll,kk)=dispc.WL2;
-0830                         <span class="keyword">end</span>
-0831                     <span class="keyword">end</span>
-0832                 <span class="keyword">end</span>
-0833             <span class="keyword">end</span>
-0834             moy_dminmin=zeros(numel(type_tir),numel(nb_pt));
-0835             moy_sumd=moy_dminmin;moy_recouv=moy_dminmin;
-0836             moy_rapd=moy_dminmin;moy_avgd=moy_dminmin;
-0837             moy_l2=moy_dminmin;moy_cl2=moy_dminmin;
-0838             moy_ml2=moy_dminmin;moy_sl2=moy_dminmin;
-0839             moy_wl2=moy_dminmin;
-0840             std_dminmin=moy_dminmin;
-0841             std_sumd=moy_dminmin;std_recouv=moy_dminmin;
-0842             std_rapd=moy_dminmin;std_avgd=moy_dminmin;
-0843             std_l2=moy_dminmin;std_cl2=moy_dminmin;
-0844             std_ml2=moy_dminmin;std_sl2=moy_dminmin;
-0845             std_wl2=moy_dminmin;
-0846             
-0847             <span class="comment">%calcul moyennes et écarts types</span>
-0848             <span class="keyword">for</span> ii=1:numel(type_tir)
-0849                 <span class="keyword">for</span> jj=1:numel(nb_iter)
-0850                     moy_dminmin(ii,jj)=mean(dminmin{ii,jj}(:));
-0851                     moy_sumd(ii,jj)=mean(sumd{ii,jj}(:));
-0852                     moy_recouv(ii,jj)=mean(recouv{ii,jj}(:));
-0853                     moy_rapd(ii,jj)=mean(rapd{ii,jj}(:));
-0854                     moy_avgd(ii,jj)=mean(avgd{ii,jj}(:));
-0855                     moy_l2(ii,jj)=mean(l2{ii,jj}(:));
-0856                     moy_cl2(ii,jj)=mean(cl2{ii,jj}(:));
-0857                     moy_ml2(ii,jj)=mean(ml2{ii,jj}(:));
-0858                     moy_sl2(ii,jj)=mean(sl2{ii,jj}(:));
-0859                     moy_wl2(ii,jj)=mean(wl2{ii,jj}(:));
-0860                     std_dminmin(ii,jj)=std(dminmin{ii,jj}(:));
-0861                     std_sumd(ii,jj)=std(sumd{ii,jj}(:));
-0862                     std_recouv(ii,jj)=std(recouv{ii,jj}(:));
-0863                     std_rapd(ii,jj)=std(rapd{ii,jj}(:));
-0864                     std_avgd(ii,jj)=std(avgd{ii,jj}(:));
-0865                     std_l2(ii,jj)=std(l2{ii,jj}(:));
-0866                     std_cl2(ii,jj)=std(cl2{ii,jj}(:));
-0867                     std_ml2(ii,jj)=std(ml2{ii,jj}(:));
-0868                     std_sl2(ii,jj)=std(sl2{ii,jj}(:));
-0869                     std_wl2(ii,jj)=std(wl2{ii,jj}(:));
-0870                 <span class="keyword">end</span>
-0871                 
-0872             <span class="keyword">end</span>
-0873             
-0874             
-0875             save([<span class="string">'multi_doe_score_p5_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
-0876             figure(<span class="string">'Name'</span>,[<span class="string">'Dim '</span> num2str(dim_p) <span class="string">' - Nb points '</span> num2str(nb_pt)])
-0877             subplot(3,4,1)
-0878             <span class="keyword">for</span> ii=1:numel(type_tir)
-0879                 textleg=[];
-0880                 plot(nb_iter,moy_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0881                 hold on
-0882             <span class="keyword">end</span>
-0883             
-0884             title(<span class="string">'MOY dist min'</span>)
-0885             subplot(3,4,2)
-0886             
-0887             <span class="keyword">for</span> ii=1:numel(type_tir)
-0888                 plot(nb_iter,moy_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0889                 hold on
-0890             <span class="keyword">end</span>
-0891             
-0892             title(<span class="string">'MOY Sum Inverse Dist'</span>)
-0893             subplot(3,4,3)
+0778                 legend(legendCell)
+0779                 
+0780             <span class="keyword">end</span>
+0781         <span class="keyword">elseif</span> part==5
+0782             type_tir={<span class="string">'LHSD'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_MAXMIN'</span>,<span class="keyword">...</span>
+0783                 <span class="string">'LHSD_CORRMIN'</span>};
+0784             text_leg={<span class="string">'LHSD'</span>,<span class="string">'LHSD NS'</span>,<span class="string">'LHSD MAXMIN'</span>,<span class="keyword">...</span>
+0785                 <span class="string">'LHSD CORRMIN'</span>};
+0786             type_dess={<span class="string">'k'</span>,<span class="string">'r'</span>,<span class="string">'b'</span>,<span class="string">'m'</span>,<span class="string">'--k'</span>,<span class="string">'--r'</span>,<span class="string">'--b'</span>,<span class="keyword">...</span>
+0787                 <span class="string">'--m'</span>,<span class="string">'.-k'</span>,<span class="string">'.-r'</span>,<span class="string">'.-b'</span>,<span class="string">'.-m'</span>,<span class="string">':k'</span>,<span class="string">':r'</span>,<span class="string">':b'</span>};
+0788             nb_iter=1:20;
+0789             nb_pt=50;
+0790             nb_tent=50;
+0791             
+0792             dminmin=cell(numel(type_tir),numel(nb_iter));
+0793             sumd=dminmin;recouv=dminmin;rapd=dminmin;avgd=dminmin;
+0794             l2=dminmin;cl2=dminmin;ml2=dminmin;sl2=dminmin;
+0795             wl2=dminmin;
+0796             <span class="keyword">for</span> ii=1:numel(type_tir)
+0797                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0798                     <span class="keyword">for</span> ll=1:numel(nb_pt)
+0799                         <span class="keyword">for</span> kk=1:nb_tent
+0800                             doe.type=type_tir{ii};
+0801                             doe.nb_samples=nb_pt(ll);
+0802                             doe.iter=nb_iter(jj);
+0803                             tirages=gene_doe(doe);
+0804                             [uni,dispc]=score_doe(tirages);
+0805                             dminmin{ii,jj}(ll,kk)=uni.dist_min;
+0806                             sumd{ii,jj}(ll,kk)=uni.sum_dist;
+0807                             recouv{ii,jj}(ll,kk)=uni.recouv;
+0808                             rapd{ii,jj}(ll,kk)=uni.rap_dist;
+0809                             avgd{ii,jj}(ll,kk)=uni.avg_min_dist;
+0810                             l2{ii,jj}(ll,kk)=dispc.L2;
+0811                             cl2{ii,jj}(ll,kk)=dispc.CL2;
+0812                             ml2{ii,jj}(ll,kk)=dispc.ML2;
+0813                             sl2{ii,jj}(ll,kk)=dispc.SL2;
+0814                             wl2{ii,jj}(ll,kk)=dispc.WL2;
+0815                         <span class="keyword">end</span>
+0816                     <span class="keyword">end</span>
+0817                 <span class="keyword">end</span>
+0818             <span class="keyword">end</span>
+0819             moy_dminmin=zeros(numel(type_tir),numel(nb_pt));
+0820             moy_sumd=moy_dminmin;moy_recouv=moy_dminmin;
+0821             moy_rapd=moy_dminmin;moy_avgd=moy_dminmin;
+0822             moy_l2=moy_dminmin;moy_cl2=moy_dminmin;
+0823             moy_ml2=moy_dminmin;moy_sl2=moy_dminmin;
+0824             moy_wl2=moy_dminmin;
+0825             std_dminmin=moy_dminmin;
+0826             std_sumd=moy_dminmin;std_recouv=moy_dminmin;
+0827             std_rapd=moy_dminmin;std_avgd=moy_dminmin;
+0828             std_l2=moy_dminmin;std_cl2=moy_dminmin;
+0829             std_ml2=moy_dminmin;std_sl2=moy_dminmin;
+0830             std_wl2=moy_dminmin;
+0831             
+0832             <span class="comment">%calcul moyennes et écarts types</span>
+0833             <span class="keyword">for</span> ii=1:numel(type_tir)
+0834                 <span class="keyword">for</span> jj=1:numel(nb_iter)
+0835                     moy_dminmin(ii,jj)=mean(dminmin{ii,jj}(:));
+0836                     moy_sumd(ii,jj)=mean(sumd{ii,jj}(:));
+0837                     moy_recouv(ii,jj)=mean(recouv{ii,jj}(:));
+0838                     moy_rapd(ii,jj)=mean(rapd{ii,jj}(:));
+0839                     moy_avgd(ii,jj)=mean(avgd{ii,jj}(:));
+0840                     moy_l2(ii,jj)=mean(l2{ii,jj}(:));
+0841                     moy_cl2(ii,jj)=mean(cl2{ii,jj}(:));
+0842                     moy_ml2(ii,jj)=mean(ml2{ii,jj}(:));
+0843                     moy_sl2(ii,jj)=mean(sl2{ii,jj}(:));
+0844                     moy_wl2(ii,jj)=mean(wl2{ii,jj}(:));
+0845                     std_dminmin(ii,jj)=std(dminmin{ii,jj}(:));
+0846                     std_sumd(ii,jj)=std(sumd{ii,jj}(:));
+0847                     std_recouv(ii,jj)=std(recouv{ii,jj}(:));
+0848                     std_rapd(ii,jj)=std(rapd{ii,jj}(:));
+0849                     std_avgd(ii,jj)=std(avgd{ii,jj}(:));
+0850                     std_l2(ii,jj)=std(l2{ii,jj}(:));
+0851                     std_cl2(ii,jj)=std(cl2{ii,jj}(:));
+0852                     std_ml2(ii,jj)=std(ml2{ii,jj}(:));
+0853                     std_sl2(ii,jj)=std(sl2{ii,jj}(:));
+0854                     std_wl2(ii,jj)=std(wl2{ii,jj}(:));
+0855                 <span class="keyword">end</span>
+0856                 
+0857             <span class="keyword">end</span>
+0858             
+0859             
+0860             save([<span class="string">'multi_doe_score_p5_'</span> num2str(dim_tir) <span class="string">'.mat'</span>])
+0861             figure(<span class="string">'Name'</span>,[<span class="string">'Dim '</span> num2str(dim_p) <span class="string">' - Nb points '</span> num2str(nb_pt)])
+0862             subplot(3,4,1)
+0863             <span class="keyword">for</span> ii=1:numel(type_tir)
+0864                 textleg=[];
+0865                 plot(nb_iter,moy_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0866                 hold on
+0867             <span class="keyword">end</span>
+0868             
+0869             title(<span class="string">'MOY dist min'</span>)
+0870             subplot(3,4,2)
+0871             
+0872             <span class="keyword">for</span> ii=1:numel(type_tir)
+0873                 plot(nb_iter,moy_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0874                 hold on
+0875             <span class="keyword">end</span>
+0876             
+0877             title(<span class="string">'MOY Sum Inverse Dist'</span>)
+0878             subplot(3,4,3)
+0879             
+0880             <span class="keyword">for</span> ii=1:numel(type_tir)
+0881                 plot(nb_iter,moy_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0882                 hold on
+0883             <span class="keyword">end</span>
+0884             
+0885             title(<span class="string">'MOY recouvrement'</span>)
+0886             subplot(3,4,4)
+0887             
+0888             <span class="keyword">for</span> ii=1:numel(type_tir)
+0889                 plot(nb_iter,moy_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0890                 hold on
+0891             <span class="keyword">end</span>
+0892             title(<span class="string">'MOY Rapport dist'</span>)
+0893             subplot(3,4,5)
 0894             
 0895             <span class="keyword">for</span> ii=1:numel(type_tir)
-0896                 plot(nb_iter,moy_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0896                 plot(nb_iter,moy_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 0897                 hold on
 0898             <span class="keyword">end</span>
 0899             
-0900             title(<span class="string">'MOY recouvrement'</span>)
-0901             subplot(3,4,4)
+0900             title(<span class="string">'MOY Average min dist'</span>)
+0901             subplot(3,4,6)
 0902             
 0903             <span class="keyword">for</span> ii=1:numel(type_tir)
-0904                 plot(nb_iter,moy_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0904                 plot(nb_iter,moy_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 0905                 hold on
 0906             <span class="keyword">end</span>
-0907             title(<span class="string">'MOY Rapport dist'</span>)
-0908             subplot(3,4,5)
-0909             
-0910             <span class="keyword">for</span> ii=1:numel(type_tir)
-0911                 plot(nb_iter,moy_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0912                 hold on
-0913             <span class="keyword">end</span>
-0914             
-0915             title(<span class="string">'MOY Average min dist'</span>)
-0916             subplot(3,4,6)
-0917             
-0918             <span class="keyword">for</span> ii=1:numel(type_tir)
-0919                 plot(nb_iter,moy_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0920                 hold on
-0921             <span class="keyword">end</span>
-0922             
-0923             title(<span class="string">'MOY L2 discrepancy'</span>)
-0924             subplot(3,4,7)
-0925             
-0926             <span class="keyword">for</span> ii=1:numel(type_tir)
-0927                 plot(nb_iter,moy_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0928                 hold on
-0929             <span class="keyword">end</span>
-0930             
-0931             title(<span class="string">'MOY Symetric L2 discrepancy'</span>)
-0932             subplot(3,4,8)
+0907             
+0908             title(<span class="string">'MOY L2 discrepancy'</span>)
+0909             subplot(3,4,7)
+0910             
+0911             <span class="keyword">for</span> ii=1:numel(type_tir)
+0912                 plot(nb_iter,moy_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0913                 hold on
+0914             <span class="keyword">end</span>
+0915             
+0916             title(<span class="string">'MOY Symetric L2 discrepancy'</span>)
+0917             subplot(3,4,8)
+0918             
+0919             <span class="keyword">for</span> ii=1:numel(type_tir)
+0920                 plot(nb_iter,moy_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0921                 hold on
+0922             <span class="keyword">end</span>
+0923             
+0924             title(<span class="string">'MOY Centered L2 discrepancy'</span>)
+0925             subplot(3,4,9)
+0926             
+0927             <span class="keyword">for</span> ii=1:numel(type_tir)
+0928                 plot(nb_iter,moy_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0929                 hold on
+0930             <span class="keyword">end</span>
+0931             title(<span class="string">'MOY Modified L2 discrepancy'</span>)
+0932             subplot(3,4,10)
 0933             
 0934             <span class="keyword">for</span> ii=1:numel(type_tir)
-0935                 plot(nb_iter,moy_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0935                 plot(nb_iter,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 0936                 hold on
 0937             <span class="keyword">end</span>
 0938             
-0939             title(<span class="string">'MOY Centered L2 discrepancy'</span>)
-0940             subplot(3,4,9)
+0939             title(<span class="string">'MOY wrap around L2 discrepancy'</span>)
+0940             subplot(3,4,11)
 0941             
 0942             <span class="keyword">for</span> ii=1:numel(type_tir)
-0943                 plot(nb_iter,moy_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0943                 plot(nb_iter,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 0944                 hold on
 0945             <span class="keyword">end</span>
-0946             title(<span class="string">'MOY Modified L2 discrepancy'</span>)
-0947             subplot(3,4,10)
+0946             legend(text_leg)
+0947             
 0948             
-0949             <span class="keyword">for</span> ii=1:numel(type_tir)
-0950                 plot(nb_iter,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0951                 hold on
-0952             <span class="keyword">end</span>
-0953             
-0954             title(<span class="string">'MOY wrap around L2 discrepancy'</span>)
-0955             subplot(3,4,11)
+0949             figure(<span class="string">'Name'</span>,[<span class="string">'Dim '</span> num2str(dim_p) <span class="string">' - Nb points '</span> num2str(nb_pt)])
+0950             subplot(3,4,1)
+0951             textleg=[];
+0952             <span class="keyword">for</span> ii=1:numel(type_tir)
+0953                 plot(nb_iter,std_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0954                 hold on
+0955             <span class="keyword">end</span>
 0956             
-0957             <span class="keyword">for</span> ii=1:numel(type_tir)
-0958                 plot(nb_iter,moy_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0959                 hold on
-0960             <span class="keyword">end</span>
-0961             legend(text_leg)
-0962             
-0963             
-0964             figure(<span class="string">'Name'</span>,[<span class="string">'Dim '</span> num2str(dim_p) <span class="string">' - Nb points '</span> num2str(nb_pt)])
-0965             subplot(3,4,1)
-0966             textleg=[];
-0967             <span class="keyword">for</span> ii=1:numel(type_tir)
-0968                 plot(nb_iter,std_dminmin(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0969                 hold on
-0970             <span class="keyword">end</span>
-0971             
-0972             title(<span class="string">'STD dist min'</span>)
-0973             subplot(3,4,2)
-0974             
-0975             <span class="keyword">for</span> ii=1:numel(type_tir)
-0976                 plot(nb_iter,std_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-0977                 hold on
-0978             <span class="keyword">end</span>
-0979             
-0980             title(<span class="string">'STD Sum Inverse Dist'</span>)
-0981             subplot(3,4,3)
+0957             title(<span class="string">'STD dist min'</span>)
+0958             subplot(3,4,2)
+0959             
+0960             <span class="keyword">for</span> ii=1:numel(type_tir)
+0961                 plot(nb_iter,std_sumd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0962                 hold on
+0963             <span class="keyword">end</span>
+0964             
+0965             title(<span class="string">'STD Sum Inverse Dist'</span>)
+0966             subplot(3,4,3)
+0967             
+0968             <span class="keyword">for</span> ii=1:numel(type_tir)
+0969                 plot(nb_iter,std_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0970                 hold on
+0971             <span class="keyword">end</span>
+0972             
+0973             title(<span class="string">'STD recouvrement'</span>)
+0974             subplot(3,4,4)
+0975             
+0976             <span class="keyword">for</span> ii=1:numel(type_tir)
+0977                 plot(nb_iter,std_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0978                 hold on
+0979             <span class="keyword">end</span>
+0980             title(<span class="string">'STD Rapport dist'</span>)
+0981             subplot(3,4,5)
 0982             
-0983             <span class="keyword">for</span> ii=1:numel(type_tir)
-0984                 plot(nb_iter,std_recouv(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0983             <span class="keyword">for</span> jj=1:numel(nb_iter)
+0984                 plot(nb_iter,std_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 0985                 hold on
 0986             <span class="keyword">end</span>
 0987             
-0988             title(<span class="string">'STD recouvrement'</span>)
-0989             subplot(3,4,4)
+0988             title(<span class="string">'STD Average min dist'</span>)
+0989             subplot(3,4,6)
 0990             
 0991             <span class="keyword">for</span> ii=1:numel(type_tir)
-0992                 plot(nb_iter,std_rapd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+0992                 plot(nb_iter,std_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 0993                 hold on
 0994             <span class="keyword">end</span>
-0995             title(<span class="string">'STD Rapport dist'</span>)
-0996             subplot(3,4,5)
-0997             
-0998             <span class="keyword">for</span> jj=1:numel(nb_iter)
-0999                 plot(nb_iter,std_avgd(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-1000                 hold on
-1001             <span class="keyword">end</span>
-1002             
-1003             title(<span class="string">'STD Average min dist'</span>)
-1004             subplot(3,4,6)
-1005             
-1006             <span class="keyword">for</span> ii=1:numel(type_tir)
-1007                 plot(nb_iter,std_l2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-1008                 hold on
-1009             <span class="keyword">end</span>
-1010             
-1011             title(<span class="string">'STD L2 discrepancy'</span>)
-1012             subplot(3,4,7)
-1013             
-1014             <span class="keyword">for</span> ii=1:numel(type_tir)
-1015                 plot(nb_iter,std_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-1016                 hold on
-1017             <span class="keyword">end</span>
-1018             
-1019             title(<span class="string">'STD Symetric L2 discrepancy'</span>)
-1020             subplot(3,4,8)
+0995             
+0996             title(<span class="string">'STD L2 discrepancy'</span>)
+0997             subplot(3,4,7)
+0998             
+0999             <span class="keyword">for</span> ii=1:numel(type_tir)
+1000                 plot(nb_iter,std_sl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+1001                 hold on
+1002             <span class="keyword">end</span>
+1003             
+1004             title(<span class="string">'STD Symetric L2 discrepancy'</span>)
+1005             subplot(3,4,8)
+1006             
+1007             <span class="keyword">for</span> ii=1:numel(type_tir)
+1008                 plot(nb_iter,std_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+1009                 hold on
+1010             <span class="keyword">end</span>
+1011             
+1012             title(<span class="string">'STD Centered L2 discrepancy'</span>)
+1013             subplot(3,4,9)
+1014             
+1015             <span class="keyword">for</span> ii=1:numel(type_tir)
+1016                 plot(nb_iter,std_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+1017                 hold on
+1018             <span class="keyword">end</span>
+1019             title(<span class="string">'STD Modified L2 discrepancy'</span>)
+1020             subplot(3,4,10)
 1021             
 1022             <span class="keyword">for</span> ii=1:numel(type_tir)
-1023                 plot(nb_iter,std_cl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+1023                 plot(nb_iter,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 1024                 hold on
 1025             <span class="keyword">end</span>
 1026             
-1027             title(<span class="string">'STD Centered L2 discrepancy'</span>)
-1028             subplot(3,4,9)
+1027             title(<span class="string">'STD wrap around L2 discrepancy'</span>)
+1028             subplot(3,4,11)
 1029             
 1030             <span class="keyword">for</span> ii=1:numel(type_tir)
-1031                 plot(nb_iter,std_ml2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
+1031                 plot(nb_iter,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
 1032                 hold on
 1033             <span class="keyword">end</span>
-1034             title(<span class="string">'STD Modified L2 discrepancy'</span>)
-1035             subplot(3,4,10)
+1034             legend(text_leg)
+1035             
 1036             
-1037             <span class="keyword">for</span> ii=1:numel(type_tir)
-1038                 plot(nb_iter,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-1039                 hold on
-1040             <span class="keyword">end</span>
-1041             
-1042             title(<span class="string">'STD wrap around L2 discrepancy'</span>)
-1043             subplot(3,4,11)
-1044             
-1045             <span class="keyword">for</span> ii=1:numel(type_tir)
-1046                 plot(nb_iter,std_wl2(ii,:),type_dess{ii},<span class="string">'LineWidth'</span>,2);
-1047                 hold on
-1048             <span class="keyword">end</span>
-1049             legend(text_leg)
-1050             
-1051             
-1052             
-1053         <span class="keyword">end</span>
-1054     <span class="keyword">end</span>
-1055 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+1037             
+1038         <span class="keyword">end</span>
+1039     <span class="keyword">end</span>
+1040 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

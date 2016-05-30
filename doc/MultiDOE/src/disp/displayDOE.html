@@ -4,7 +4,7 @@
 <head>
   <title>Description of displayDOE</title>
   <meta name="keywords" content="displayDOE">
-  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,43 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function displayDOE(sampling,doe,missData) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
- luc.laurent@lecnam.net
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
  
- This software is a computer program whose purpose is to generate sampling
- using dedicated techniques.
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
  
- This software is governed by the CeCILL license under French law and
- abiding by the rules of distribution of free software.  You can  use, 
- modify and/ or redistribute the software under the terms of the CeCILL
- license as circulated by CEA, CNRS and INRIA at the following URL
- &quot;http://www.cecill.info&quot;. 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
  
- As a counterpart to the access to the source code and  rights to copy,
- modify and redistribute granted by the license, users are provided only
- with a limited warranty  and the software's author,  the holder of the
- economic rights,  and the successive licensors  have only  limited
- liability. 
- 
- In this respect, the user's attention is drawn to the risks associated
- with loading,  using,  modifying and/or developing or reproducing the
- software by the user in light of its specific status of free software,
- that may mean  that it is complicated to manipulate,  and  that  also
- therefore means  that it is reserved for developers  and  experienced
- professionals having in-depth computer knowledge. Users are therefore
- encouraged to load and test the software's suitability as regards their
- requirements in conditions enabling the security of their systems and/or 
- data to be ensured and,  more generally, to use and operate it in the 
- same conditions as regards security. 
- 
- The fact that you are presently reading this means that you have had
- knowledge of the CeCILL license and that you accept its terms.</pre></div>
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -65,7 +49,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	Copyright or Â© or Copr. Luc LAURENT (30/06/2016)</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
+<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -73,197 +57,182 @@ This function is called by:
 <li><a href="#_sub1" class="code">function plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
-0002 <span class="comment">% luc.laurent@lecnam.net</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
-0005 <span class="comment">% using dedicated techniques.</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
-0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
-0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
-0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
-0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
-0012 <span class="comment">%</span>
-0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
-0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
-0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
-0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
-0017 <span class="comment">% liability.</span>
-0018 <span class="comment">%</span>
-0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
-0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
-0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
-0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
-0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
-0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
-0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
-0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
-0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
-0028 <span class="comment">% same conditions as regards security.</span>
-0029 <span class="comment">%</span>
-0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
-0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
-0032 
-0033 <span class="comment">%% Function for displaying sampling with nD variables</span>
-0034 <span class="comment">%% L. LUARENT -- 10/02/2012 -- luc.laurent@lecnam.net</span>
-0035 
-0036 
-0037 <a name="_sub0" href="#_subfunctions" class="code">function displayDOE(sampling,doe,missData)</a>
-0038 
-0039 <span class="comment">%show order of the sampling</span>
-0040 dispTXT=true;
-0041 
-0042 <span class="comment">%load bounds of the design space</span>
-0043 <span class="keyword">if</span> isfield(doe,<span class="string">'Xmin'</span>)&amp;&amp;isfield(doe,<span class="string">'Xmax'</span>)
-0044     Xmin=doe.Xmin;
-0045     Xmax=doe.Xmax;
-0046 <span class="keyword">elseif</span> isfield(doe,<span class="string">'bounds'</span>)
-0047     Xmin=doe.bornes(:,1);
-0048     Xmax=doe.bornes(:,2);
-0049 <span class="keyword">end</span>
-0050 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0051 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0052 <span class="comment">%seek and reordering data in the case of missing data</span>
-0053 listSampleOK=1:size(sampling,1);
-0054 listRespMiss=[];
-0055 listGradMiss=[];
-0056 listBothMiss=[];
-0057 <span class="keyword">if</span> nargin==3
-0058     <span class="keyword">if</span> missData.resp.on
-0059         listRespMiss=unique(missData.resp.ixMiss(:));
-0060         <span class="keyword">for</span> ii=1:numel(listRespMiss)
-0061             ix=find(listSampleOK==listRespMiss(ii));
-0062             listSampleOK(ix)=[];
-0063         <span class="keyword">end</span>
-0064     <span class="keyword">end</span>
-0065     <span class="keyword">if</span> missData.grad.on
-0066         listGradMiss=unique(missData.grad.ixMiss(:,1));
-0067         <span class="keyword">for</span> ii=1:numel(listGradMiss)
-0068             ix=find(listSampleOK==listGradMiss(ii));
-0069             listSampleOK(ix)=[];
-0070             
-0071         <span class="keyword">end</span>
-0072     <span class="keyword">end</span>
-0073     <span class="keyword">if</span> missData.resp.on|| missData.grad.on
-0074         listBothMiss=intersect(listRespMiss,listGradMiss);
-0075         <span class="keyword">for</span> ii=1:numel(listBothMiss)
-0076             ix=find(listRespMiss==listBothMiss(ii));
-0077             listRespMiss(ix)=[];
-0078             ix=find(listGradMiss==listBothMiss(ii));
-0079             listGradMiss(ix)=[];
-0080         <span class="keyword">end</span>
-0081     <span class="keyword">end</span>
-0082 <span class="keyword">end</span>
-0083 <span class="comment">%text to display or not</span>
-0084 f1 = @(x) sprintf(<span class="string">'%i'</span>,x);
-0085 f2 = @(x) cellfun(f1, num2cell(x), <span class="string">'UniformOutput'</span>, false);
-0086 listSampleOKtxt=f2(listSampleOK);
-0087 listRespMissTxt=f2(listRespMiss);
-0088 listGradMissTxt=f2(listGradMiss);
-0089 listBothMissTxt=f2(listBothMiss);
-0090 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0091 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0092 <span class="comment">%number of variables</span>
-0093 np=numel(Xmin);
-0094 
-0095 <span class="keyword">if</span> doe.disp
-0096     para=0.1;
-0097     <span class="keyword">if</span> np==1
-0098         figure
-0099         hold on
-0100         yy=0.*sampling;
-0101         <span class="comment">%show sample points on which all data are available</span>
-0102         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listSampleOK),yy(listSampleOK),<span class="keyword">...</span>
-0103             listSampleOKtxt,<span class="string">'o'</span>,<span class="string">'k'</span>,7,dispTXT);
-0104         <span class="comment">%show sample point(s) on which response(s) is(are) missing</span>
-0105          <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listRespMiss),yy(listRespMiss),<span class="keyword">...</span>
-0106             listRespMissTxt,<span class="string">'rs'</span>,<span class="string">'r'</span>,7,dispTXT);
-0107         <span class="comment">%show sample point(s) on which gradients(s) is(are) missing</span>
-0108         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listGradMiss),yy(listGradMiss),<span class="keyword">...</span>
-0109             listGradMissTxt,<span class="string">'v'</span>,<span class="string">'g'</span>,7,dispTXT);
-0110         <span class="comment">%show sample point(s) on which response(s) and gradient(s) are missing</span>
-0111         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss),yy(listBothMiss),<span class="keyword">...</span>
-0112             listBothMissTxt,<span class="string">'d'</span>,<span class="string">'d'</span>,7,dispTXT);
-0113         hold off
-0114         xMin=Xmin(:)';
-0115         xMax=Xmax(:)';
-0116         depXX=xMax-xMin;
-0117         axis([(xMin-para*depXX) (xMax+para*depXX) -1 1])
-0118     <span class="keyword">elseif</span> np==2
-0119         
-0120         xMin=Xmin(1);
-0121         xMax=Xmax(1);
-0122         yMin=Xmin(2);
-0123         yMax=Xmax(2);
-0124         depXX=xMax-xMin;
-0125         depYY=yMax-yMin;
-0126         figure
-0127         hold on
-0128         <span class="comment">%show sample points on which all data are available</span>
-0129         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listSampleOK,1),sampling(listSampleOK,2),<span class="keyword">...</span>
-0130             listSampleOKtxt,<span class="string">'o'</span>,<span class="string">'k'</span>,7,dispTXT);
-0131         <span class="comment">%show sample point(s) on which response(s) is(are) missing</span>
-0132         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listRespMiss,1),sampling(listRespMiss,2),<span class="keyword">...</span>
-0133             listRespMissTxt,<span class="string">'rs'</span>,<span class="string">'r'</span>,7,dispTXT);
-0134         <span class="comment">%show sample point(s) on which gradients(s) is(are) missing</span>
-0135         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listGradMiss,1),sampling(listGradMiss,2),<span class="keyword">...</span>
-0136             listGradMissTxt,<span class="string">'v'</span>,<span class="string">'g'</span>,7,dispTXT);
-0137         <span class="comment">%show sample point(s) on which response(s) and gradient(s) are missing</span>
-0138         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss,1),sampling(listBothMiss,2),<span class="keyword">...</span>
-0139             listBothMissTxt,<span class="string">'d'</span>,<span class="string">'r'</span>,7,dispTXT);
-0140         hold off
-0141         axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
-0142         line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
-0143     <span class="keyword">else</span>
-0144         figure
-0145         it=0;
-0146         depX=Xmax(:)'-Xmin(:)';
-0147         <span class="keyword">for</span> ii=1:np
-0148             <span class="keyword">for</span> jj=1:np
-0149                 it=it+1;
-0150                 <span class="keyword">if</span> ii~=jj
-0151                     subplot(np,np,it)
-0152                     hold on
-0153                      <span class="comment">%show sample points on which all data are available</span>
-0154                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listSampleOK,ii),sampling(listSampleOK,jj),<span class="keyword">...</span>
-0155                         listSampleOKtxt,<span class="string">'o'</span>,<span class="string">'k'</span>,7,dispTXT);
-0156                     <span class="comment">%show sample point(s) on which response(s) is(are) missing</span>
-0157                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listRespMiss,ii),sampling(listRespMiss,jj),<span class="keyword">...</span>
-0158                         listRespMissTxt,<span class="string">'rs'</span>,<span class="string">'r'</span>,7,dispTXT);
-0159                     <span class="comment">%show sample point(s) on which gradients(s) is(are) missing</span>
-0160                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listGradMiss,ii),sampling(listGradMiss,jj),<span class="keyword">...</span>
-0161                         listGradMissTxt,<span class="string">'v'</span>,<span class="string">'g'</span>,7,dispTXT);
-0162                     <span class="comment">%show sample point(s) on which response(s) and gradient(s) are missing</span>
-0163                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss,ii),sampling(listBothMiss,jj),<span class="keyword">...</span>
-0164                         listBothMissTxt,<span class="string">'d'</span>,<span class="string">'r'</span>,7,dispTXT);
-0165                     hold off
-0166                     xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depXX=depX(ii);depYY=depX(jj);
-0167                     axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
-0168                     line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
-0169                 <span class="keyword">else</span>
-0170                     subplot(np,np,it)
-0171                     hist(sampling(:,ii))
-0172                     xMin=Xmin(ii);xMax=Xmax(ii);depXX=depX(ii);depYY=depX(jj);
-0173                     xlim([(xMin-para*depXX) (xMax+para*depYY)])
-0174                 <span class="keyword">end</span>
-0175             <span class="keyword">end</span>
-0176         <span class="keyword">end</span>
-0177     <span class="keyword">end</span>
-0178 <span class="keyword">end</span>
-0179 <span class="keyword">end</span>
-0180 
-0181 <span class="comment">%%fonction for showing points and text above it</span>
-0182 <a name="_sub1" href="#_subfunctions" class="code">function plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)</a>
-0183 plot(X,Y,<span class="keyword">...</span>
-0184     markM,<span class="string">'MarkerEdgeColor'</span>,colorM,<span class="keyword">...</span>
-0185     <span class="string">'MarkerFaceColor'</span>,colorM,<span class="keyword">...</span>
-0186     <span class="string">'MarkerSize'</span>,sizeM);
-0187 <span class="keyword">if</span> txtOn
-0188     text(X,Y,<span class="keyword">...</span>
-0189         TXT,<span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>);
-0190 <span class="keyword">end</span>
-0191 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0016 <span class="comment">%</span>
+0017 
+0018 <span class="comment">%% Function for displaying sampling with nD variables</span>
+0019 <span class="comment">%% L. LUARENT -- 10/02/2012 -- luc.laurent@lecnam.net</span>
+0020 
+0021 
+0022 <a name="_sub0" href="#_subfunctions" class="code">function displayDOE(sampling,doe,missData)</a>
+0023 
+0024 <span class="comment">%show order of the sampling</span>
+0025 dispTXT=true;
+0026 
+0027 <span class="comment">%load bounds of the design space</span>
+0028 <span class="keyword">if</span> isfield(doe,<span class="string">'Xmin'</span>)&amp;&amp;isfield(doe,<span class="string">'Xmax'</span>)
+0029     Xmin=doe.Xmin;
+0030     Xmax=doe.Xmax;
+0031 <span class="keyword">elseif</span> isfield(doe,<span class="string">'bounds'</span>)
+0032     Xmin=doe.bornes(:,1);
+0033     Xmax=doe.bornes(:,2);
+0034 <span class="keyword">end</span>
+0035 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0036 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0037 <span class="comment">%seek and reordering data in the case of missing data</span>
+0038 listSampleOK=1:size(sampling,1);
+0039 listRespMiss=[];
+0040 listGradMiss=[];
+0041 listBothMiss=[];
+0042 <span class="keyword">if</span> nargin==3
+0043     <span class="keyword">if</span> missData.resp.on
+0044         listRespMiss=unique(missData.resp.ixMiss(:));
+0045         <span class="keyword">for</span> ii=1:numel(listRespMiss)
+0046             ix=find(listSampleOK==listRespMiss(ii));
+0047             listSampleOK(ix)=[];
+0048         <span class="keyword">end</span>
+0049     <span class="keyword">end</span>
+0050     <span class="keyword">if</span> missData.grad.on
+0051         listGradMiss=unique(missData.grad.ixMiss(:,1));
+0052         <span class="keyword">for</span> ii=1:numel(listGradMiss)
+0053             ix=find(listSampleOK==listGradMiss(ii));
+0054             listSampleOK(ix)=[];
+0055             
+0056         <span class="keyword">end</span>
+0057     <span class="keyword">end</span>
+0058     <span class="keyword">if</span> missData.resp.on|| missData.grad.on
+0059         listBothMiss=intersect(listRespMiss,listGradMiss);
+0060         <span class="keyword">for</span> ii=1:numel(listBothMiss)
+0061             ix=find(listRespMiss==listBothMiss(ii));
+0062             listRespMiss(ix)=[];
+0063             ix=find(listGradMiss==listBothMiss(ii));
+0064             listGradMiss(ix)=[];
+0065         <span class="keyword">end</span>
+0066     <span class="keyword">end</span>
+0067 <span class="keyword">end</span>
+0068 <span class="comment">%text to display or not</span>
+0069 f1 = @(x) sprintf(<span class="string">'%i'</span>,x);
+0070 f2 = @(x) cellfun(f1, num2cell(x), <span class="string">'UniformOutput'</span>, false);
+0071 listSampleOKtxt=f2(listSampleOK);
+0072 listRespMissTxt=f2(listRespMiss);
+0073 listGradMissTxt=f2(listGradMiss);
+0074 listBothMissTxt=f2(listBothMiss);
+0075 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0076 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0077 <span class="comment">%number of variables</span>
+0078 np=numel(Xmin);
+0079 
+0080 <span class="keyword">if</span> doe.disp
+0081     para=0.1;
+0082     <span class="keyword">if</span> np==1
+0083         figure
+0084         hold on
+0085         yy=0.*sampling;
+0086         <span class="comment">%show sample points on which all data are available</span>
+0087         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listSampleOK),yy(listSampleOK),<span class="keyword">...</span>
+0088             listSampleOKtxt,<span class="string">'o'</span>,<span class="string">'k'</span>,7,dispTXT);
+0089         <span class="comment">%show sample point(s) on which response(s) is(are) missing</span>
+0090          <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listRespMiss),yy(listRespMiss),<span class="keyword">...</span>
+0091             listRespMissTxt,<span class="string">'rs'</span>,<span class="string">'r'</span>,7,dispTXT);
+0092         <span class="comment">%show sample point(s) on which gradients(s) is(are) missing</span>
+0093         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listGradMiss),yy(listGradMiss),<span class="keyword">...</span>
+0094             listGradMissTxt,<span class="string">'v'</span>,<span class="string">'g'</span>,7,dispTXT);
+0095         <span class="comment">%show sample point(s) on which response(s) and gradient(s) are missing</span>
+0096         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss),yy(listBothMiss),<span class="keyword">...</span>
+0097             listBothMissTxt,<span class="string">'d'</span>,<span class="string">'d'</span>,7,dispTXT);
+0098         hold off
+0099         xMin=Xmin(:)';
+0100         xMax=Xmax(:)';
+0101         depXX=xMax-xMin;
+0102         axis([(xMin-para*depXX) (xMax+para*depXX) -1 1])
+0103     <span class="keyword">elseif</span> np==2
+0104         
+0105         xMin=Xmin(1);
+0106         xMax=Xmax(1);
+0107         yMin=Xmin(2);
+0108         yMax=Xmax(2);
+0109         depXX=xMax-xMin;
+0110         depYY=yMax-yMin;
+0111         figure
+0112         hold on
+0113         <span class="comment">%show sample points on which all data are available</span>
+0114         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listSampleOK,1),sampling(listSampleOK,2),<span class="keyword">...</span>
+0115             listSampleOKtxt,<span class="string">'o'</span>,<span class="string">'k'</span>,7,dispTXT);
+0116         <span class="comment">%show sample point(s) on which response(s) is(are) missing</span>
+0117         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listRespMiss,1),sampling(listRespMiss,2),<span class="keyword">...</span>
+0118             listRespMissTxt,<span class="string">'rs'</span>,<span class="string">'r'</span>,7,dispTXT);
+0119         <span class="comment">%show sample point(s) on which gradients(s) is(are) missing</span>
+0120         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listGradMiss,1),sampling(listGradMiss,2),<span class="keyword">...</span>
+0121             listGradMissTxt,<span class="string">'v'</span>,<span class="string">'g'</span>,7,dispTXT);
+0122         <span class="comment">%show sample point(s) on which response(s) and gradient(s) are missing</span>
+0123         <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss,1),sampling(listBothMiss,2),<span class="keyword">...</span>
+0124             listBothMissTxt,<span class="string">'d'</span>,<span class="string">'r'</span>,7,dispTXT);
+0125         hold off
+0126         axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
+0127         line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
+0128     <span class="keyword">else</span>
+0129         figure
+0130         it=0;
+0131         depX=Xmax(:)'-Xmin(:)';
+0132         <span class="keyword">for</span> ii=1:np
+0133             <span class="keyword">for</span> jj=1:np
+0134                 it=it+1;
+0135                 <span class="keyword">if</span> ii~=jj
+0136                     subplot(np,np,it)
+0137                     hold on
+0138                      <span class="comment">%show sample points on which all data are available</span>
+0139                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listSampleOK,ii),sampling(listSampleOK,jj),<span class="keyword">...</span>
+0140                         listSampleOKtxt,<span class="string">'o'</span>,<span class="string">'k'</span>,7,dispTXT);
+0141                     <span class="comment">%show sample point(s) on which response(s) is(are) missing</span>
+0142                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listRespMiss,ii),sampling(listRespMiss,jj),<span class="keyword">...</span>
+0143                         listRespMissTxt,<span class="string">'rs'</span>,<span class="string">'r'</span>,7,dispTXT);
+0144                     <span class="comment">%show sample point(s) on which gradients(s) is(are) missing</span>
+0145                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listGradMiss,ii),sampling(listGradMiss,jj),<span class="keyword">...</span>
+0146                         listGradMissTxt,<span class="string">'v'</span>,<span class="string">'g'</span>,7,dispTXT);
+0147                     <span class="comment">%show sample point(s) on which response(s) and gradient(s) are missing</span>
+0148                     <a href="#_sub1" class="code" title="subfunction plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)">plottext</a>(sampling(listBothMiss,ii),sampling(listBothMiss,jj),<span class="keyword">...</span>
+0149                         listBothMissTxt,<span class="string">'d'</span>,<span class="string">'r'</span>,7,dispTXT);
+0150                     hold off
+0151                     xMin=Xmin(ii);xMax=Xmax(ii);yMin=Xmin(jj);yMax=Xmax(jj);depXX=depX(ii);depYY=depX(jj);
+0152                     axis([(xMin-para*depXX) (xMax+para*depXX) (yMin-para*depYY) (yMax+para*depYY)])
+0153                     line([xMin;xMin;xMax;xMax;xMax;xMax;xMax;xMin],[yMin;yMax;yMax;yMax;yMax;yMin;yMin;yMin])
+0154                 <span class="keyword">else</span>
+0155                     subplot(np,np,it)
+0156                     hist(sampling(:,ii))
+0157                     xMin=Xmin(ii);xMax=Xmax(ii);depXX=depX(ii);depYY=depX(jj);
+0158                     xlim([(xMin-para*depXX) (xMax+para*depYY)])
+0159                 <span class="keyword">end</span>
+0160             <span class="keyword">end</span>
+0161         <span class="keyword">end</span>
+0162     <span class="keyword">end</span>
+0163 <span class="keyword">end</span>
+0164 <span class="keyword">end</span>
+0165 
+0166 <span class="comment">%%fonction for showing points and text above it</span>
+0167 <a name="_sub1" href="#_subfunctions" class="code">function plottext(X,Y,TXT,markM,colorM,sizeM,txtOn)</a>
+0168 plot(X,Y,<span class="keyword">...</span>
+0169     markM,<span class="string">'MarkerEdgeColor'</span>,colorM,<span class="keyword">...</span>
+0170     <span class="string">'MarkerFaceColor'</span>,colorM,<span class="keyword">...</span>
+0171     <span class="string">'MarkerSize'</span>,sizeM);
+0172 <span class="keyword">if</span> txtOn
+0173     text(X,Y,<span class="keyword">...</span>
+0174         TXT,<span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>);
+0175 <span class="keyword">end</span>
+0176 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
