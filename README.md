@@ -33,7 +33,7 @@ Requirements
 The toolbox requires:
 
 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software (for the `lhsdesign` command called using `LHSD` keyword, optional)
-* the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (for obtaining LHS or IHS called using `IHS_R` or `LHS_R` commands, optional)
+* the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (for obtaining LHS or IHS called using `IHS_R` or `LHS_R` commands, optional) 
 * the [lhs](https://cran.r-project.org/web/packages/lhs/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) installed on R (see for instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
 * the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) for building the documentation (optional).
 
@@ -41,7 +41,7 @@ Documentation
 ------
 The automatic building of the documentation is based on the [m2html](http://www.artefact.tk/software/matlab/m2html/) software.
 
-License
+License ![GNU GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)
 ----
 
     MultiDOE - Toolbox for sampling a bounded space
