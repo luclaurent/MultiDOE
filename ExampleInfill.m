@@ -1,4 +1,4 @@
-% Copyright or Â© or Copr. Luc LAURENT (30/06/2016)
+% Copyright or © or Copr. Luc LAURENT (30/06/2016)
 % luc.laurent@lecnam.net
 % 
 % This software is a computer program whose purpose is to generate sampling
