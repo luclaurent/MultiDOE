@@ -12,8 +12,8 @@ This Matlab toolbox regroups many existing tools for generating sample points us
 Many techniques proposed in this toolbox are based on 
 
 * the [R software](https://cran.r-project.org/). More precisely, the library [lhs](https://cran.r-project.org/web/packages/lhs/index.html) is used. 
-* the [IHS](https://people.sc.fsu.edu/~jburkardt/m_src/ihs/ihs.html) matlab's softwares proposed by [John Burkardt](http://people.sc.fsu.edu/~jburkardt/)
-* the [LHS](http://www.mathworks.com/matlabcentral/fileexchange/4352-latin-hypercube-sampling/content/lhsu.m) proposed by Budiman Minasny
+* the [IHS](https://people.sc.fsu.edu/~jburkardt/m_src/ihs/ihs.html) matlab's softwares proposed by [John Burkardt](http://people.sc.fsu.edu/~jburkardt/).
+* the [LHS](http://www.mathworks.com/matlabcentral/fileexchange/4352-latin-hypercube-sampling/content/lhsu.m) proposed by Budiman Minasny.
 
 Features
 ------
@@ -59,5 +59,3 @@ License ![GNU GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
