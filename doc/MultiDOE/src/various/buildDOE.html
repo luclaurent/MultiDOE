@@ -442,8 +442,8 @@ This function is called by:
 0396 <a name="_sub1" href="#_subfunctions" class="code">function [sampling,fich]=checkDOE(nameFile,np,ns)</a>
 0397 
 0398 <span class="comment">%check if the storage folder exists</span>
-0399 <span class="keyword">if</span> exist(<span class="string">'TIR_MANU'</span>,<span class="string">'dir'</span>)~=7
-0400     unix(<span class="string">'mkdir TIR_MANU'</span>);
+0399 <span class="keyword">if</span> exist(<span class="string">'tmpDOE/TIR_MANU'</span>,<span class="string">'dir'</span>)~=7
+0400     mkdir(<span class="string">'tmpDOE/TIR_MANU'</span>);
 0401 <span class="keyword">end</span>
 0402 
 0403 <span class="comment">%if the sampling exists, it will be loaded</span>
@@ -458,6 +458,6 @@ This function is called by:
 0412 <span class="keyword">end</span>
 0413 <span class="keyword">end</span>
 0414</pre></div>
-<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 30-May-2016 11:08:35 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

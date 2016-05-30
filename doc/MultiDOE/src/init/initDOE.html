@@ -101,89 +101,87 @@ This function is called by:
 0057     funT=[];
 0058 <span class="keyword">end</span>
 0059 
-0060 
-0061 espM=[];
-0062 <span class="comment">%automatic definition</span>
-0063 <span class="keyword">if</span> ~isempty(funT)
-0064     [espM,dim]=<a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>(dim,funT);
-0065 <span class="keyword">end</span>
-0066 
-0067 <span class="comment">%number of design variables</span>
-0068 doe.dimPB=dim;
-0069 <span class="comment">%number of sample points</span>
-0070 doe.ns=[];
-0071 
-0072 doe.funT=[];
-0073 doe.infos=[];
-0074 <span class="keyword">if</span> ~isempty(funT)
-0075     <span class="comment">%save the name of the test function</span>
-0076     doe.funT=[<span class="string">'fct_'</span> funT];
-0077     
-0078     <span class="comment">%if the test function exists (in a .m file)</span>
-0079     <span class="keyword">if</span> exist(doe.fct,<span class="string">'file'</span>)==2
-0080         <span class="comment">%recover informations about the function (local abnd global minima)</span>
-0081         [~,~,doe.infos]=feval(doe.fct,[],dim);
-0082     <span class="keyword">end</span>
-0083 <span class="keyword">end</span>
-0084 
-0085 <span class="comment">%%sorting of the sampling</span>
-0086 <span class="comment">%criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)</span>
-0087 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
-0088 doe.sort.on=true;
-0089 doe.sort.type=<span class="string">'sac'</span>;
-0090 doe.sort.para=1;
-0091 doe.sort.ptref=[];
-0092 
-0093 <span class="comment">%display sampling</span>
-0094 doe.disp=true;
-0095 
-0096 <span class="comment">%manual definition</span>
-0097 <span class="keyword">if</span> ~isempty(espM)
-0098     doe.Xmin=espM(:,1);
-0099     doe.Xmax=espM(:,2);
-0100 <span class="keyword">end</span>
-0101 <span class="keyword">if</span> ~isempty(espM)
-0102     doe.Xmin=espM(:,1);
-0103     doe.Xmax=espM(:,2);
-0104 <span class="keyword">end</span>
-0105 <span class="comment">%otherwise empty</span>
-0106 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
-0107     doe.Xmin=[];
-0108     doe.Xmax=[];
-0109 <span class="keyword">end</span>
-0110 
-0111 <span class="comment">%kind of sampling</span>
-0112 doe.type=<span class="string">'LHS'</span>;
-0113 
-0114 <span class="comment">%show information</span>
-0115 <span class="keyword">if</span> ~isempty(funT)
-0116     fprintf(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
-0117 <span class="keyword">else</span>
-0118     <span class="keyword">if</span> ~isempty(dim)
-0119         fprintf(<span class="string">'++ Number of variables: %i\n'</span>,dim)
-0120     <span class="keyword">end</span>
-0121 <span class="keyword">end</span>
-0122 fprintf(<span class="string">'++ Design space: '</span>);
-0123 <span class="keyword">if</span> isempty(doe.Xmin)
-0124     fprintf(<span class="string">'UNDEFINED\n'</span>)
-0125 <span class="keyword">else</span>
-0126     fprintf(<span class="string">'   Min  |'</span>);
-0127     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
-0128     fprintf(<span class="string">'   Max  |'</span>);
-0129     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
-0130 <span class="keyword">end</span>
-0131 fprintf(<span class="string">'++ Sorting of the sampling du tirages: '</span>);
-0132 <span class="keyword">if</span> ~doe.sort.on
-0133     fprintf(<span class="string">'NO\n'</span>);
-0134 <span class="keyword">else</span>
-0135     fprintf(<span class="string">'YES\n'</span>);
-0136     fprintf(<span class="string">'Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
-0137 <span class="keyword">end</span>
-0138 fprintf(<span class="string">'++ Display sampling: '</span>);
-0139 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
-0140 
-0141 <a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
-0142 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
-<hr><address>Generated on Mon 30-May-2016 11:06:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0060 <span class="comment">%automatic definition</span>
+0061 <span class="keyword">if</span> ~isempty(funT)
+0062     [espM,dim]=<a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>(dim,funT);
+0063 <span class="keyword">end</span>
+0064 
+0065 <span class="comment">%number of design variables</span>
+0066 doe.dimPB=dim;
+0067 <span class="comment">%number of sample points</span>
+0068 doe.ns=[];
+0069 
+0070 doe.funT=[];
+0071 doe.infos=[];
+0072 <span class="keyword">if</span> ~isempty(funT)
+0073     <span class="comment">%save the name of the test function</span>
+0074     doe.funT=[<span class="string">'fun'</span> funT];
+0075     
+0076     <span class="comment">%if the test function exists (in a .m file)</span>
+0077     <span class="keyword">if</span> exist(doe.funT,<span class="string">'file'</span>)==2
+0078         <span class="comment">%recover informations about the function (local abnd global minima)</span>
+0079         [~,~,doe.infos]=feval(doe.funT,[],dim);
+0080     <span class="keyword">end</span>
+0081 <span class="keyword">end</span>
+0082 
+0083 <span class="comment">%%sorting of the sampling</span>
+0084 <span class="comment">%criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)</span>
+0085 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
+0086 doe.sort.on=true;
+0087 doe.sort.type=<span class="string">'sac'</span>;
+0088 doe.sort.para=1;
+0089 doe.sort.ptref=[];
+0090 
+0091 <span class="comment">%display sampling</span>
+0092 doe.disp=true;
+0093 
+0094 <span class="comment">%manual definition</span>
+0095 <span class="keyword">if</span> ~isempty(espM)
+0096     doe.Xmin=espM(:,1);
+0097     doe.Xmax=espM(:,2);
+0098 <span class="keyword">end</span>
+0099 <span class="keyword">if</span> ~isempty(espM)
+0100     doe.Xmin=espM(:,1);
+0101     doe.Xmax=espM(:,2);
+0102 <span class="keyword">end</span>
+0103 <span class="comment">%otherwise empty</span>
+0104 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
+0105     doe.Xmin=[];
+0106     doe.Xmax=[];
+0107 <span class="keyword">end</span>
+0108 
+0109 <span class="comment">%kind of sampling</span>
+0110 doe.type=<span class="string">'LHS'</span>;
+0111 
+0112 <span class="comment">%show information</span>
+0113 <span class="keyword">if</span> ~isempty(funT)
+0114     fprintf(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
+0115 <span class="keyword">else</span>
+0116     <span class="keyword">if</span> ~isempty(dim)
+0117         fprintf(<span class="string">'++ Number of variables: %i\n'</span>,dim)
+0118     <span class="keyword">end</span>
+0119 <span class="keyword">end</span>
+0120 fprintf(<span class="string">'++ Design space: '</span>);
+0121 <span class="keyword">if</span> isempty(doe.Xmin)
+0122     fprintf(<span class="string">'UNDEFINED\n'</span>)
+0123 <span class="keyword">else</span>
+0124     fprintf(<span class="string">'   Min  |'</span>);
+0125     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
+0126     fprintf(<span class="string">'   Max  |'</span>);
+0127     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
+0128 <span class="keyword">end</span>
+0129 fprintf(<span class="string">'++ Sorting of the sampling du tirages: '</span>);
+0130 <span class="keyword">if</span> ~doe.sort.on
+0131     fprintf(<span class="string">'NO\n'</span>);
+0132 <span class="keyword">else</span>
+0133     fprintf(<span class="string">'YES\n'</span>);
+0134     fprintf(<span class="string">'Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
+0135 <span class="keyword">end</span>
+0136 fprintf(<span class="string">'++ Display sampling: '</span>);
+0137 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
+0138 
+0139 <a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
+0140 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
+<hr><address>Generated on Mon 30-May-2016 11:08:35 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
