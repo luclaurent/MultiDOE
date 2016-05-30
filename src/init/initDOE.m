@@ -57,8 +57,6 @@ elseif nargin==2
     funT=[];
 end
 
-
-espM=[];
 %automatic definition
 if ~isempty(funT)
     [espM,dim]=initDOEfun(dim,funT);
@@ -73,12 +71,12 @@ doe.funT=[];
 doe.infos=[];
 if ~isempty(funT)
     %save the name of the test function
-    doe.funT=['fct_' funT];
+    doe.funT=['fun' funT];
     
     %if the test function exists (in a .m file)
-    if exist(doe.fct,'file')==2
+    if exist(doe.funT,'file')==2
         %recover informations about the function (local abnd global minima)
-        [~,~,doe.infos]=feval(doe.fct,[],dim);
+        [~,~,doe.infos]=feval(doe.funT,[],dim);
     end
 end
 

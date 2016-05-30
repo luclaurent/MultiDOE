@@ -396,8 +396,8 @@ end
 function [sampling,fich]=checkDOE(nameFile,np,ns)
 
 %check if the storage folder exists
-if exist('TIR_MANU','dir')~=7
-    unix('mkdir TIR_MANU');
+if exist('tmpDOE/TIR_MANU','dir')~=7
+    mkdir('tmpDOE/TIR_MANU');
 end
 
 %if the sampling exists, it will be loaded

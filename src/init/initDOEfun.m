@@ -4,57 +4,57 @@
 function [espM,dim]=initDOEfun(dim,fct)
 
 switch fct
-    case 'manu'
+    case 'Manu'
         espM=[-1 5];
         dim=1;
-    case 'ackley'
+    case 'Ackley'
         val=1.5;
         espM=val*[-ones(dim,1),ones(dim,1)];
-    case {'rosenbrock','rosenbrockM'}
+    case {'Rosenbrock','RosenbrockM'}
         val=2.048;
         espM=val*[-ones(dim,1),ones(dim,1)];
-    case 'branin'
+    case 'Branin'
         xmin=-5;xmax=10;ymin=0;ymax=15;
         espM=[xmin xmax;ymin ymax];
-    case 'gold'
+    case 'Gold'
         val=2;xmin=-val;xmax=val;ymin=-val;ymax=val;
         espM=[xmin xmax;ymin ymax];
-    case 'peaks'
+    case 'Peaks'
         val=3;xmin=-val;xmax=val;ymin=-val;ymax=val;
         espM=[xmin xmax;ymin ymax];
-    case 'sixhump'
+    case 'SixHump'
         xmin=-2;xmax=2;ymin=-1;ymax=1;
         espM=[xmin xmax;ymin ymax];
-    case 'schwefel'
+    case 'Schwefel'
         val=500;
         espM=val*[-ones(dim,1),ones(dim,1)];
-    case 'mystery'
+    case 'Mystery'
         val=5;xmin=0;xmax=val;ymin=0;ymax=val;
         espM=[xmin xmax;ymin ymax];
-    case {'bohachevsky1','bohachevsky2','bohachevsky3'}
+    case {'Bohachevsky1','Bohachevsky2','Bohachevsky3'}
         val=100;
         espM=[-val,val;-val,val];
-    case 'booth'
+    case 'Booth'
         val=10;
         espM=[-val,val;-val,val];
-    case 'colville'
+    case 'Colville'
         val=10;
         espM=val*[-1,1;-1,1;-1,1;-1,1];
-    case {'dixon','sphere','sumsquare'}
+    case {'Dixon','Sphere','SumSquare'}
         val=10;
         espM=val*[-ones(dim,1),ones(dim,1)];
-    case 'michalewicz'
+    case 'Michalewicz'
         val=pi;
         espM=val*[zeros(dim,1),ones(dim,1)];
-    case {'null','cst','slope'}
+    case {'Null','Cst','Slope'}
         val=5;
         espM=val*[-ones(dim,1),ones(dim,1)];
-    case {'dejong','AHE','rastrigin'}
+    case {'Dejong','AHE','Rastrigin'}
         val=5.12;
         espM=val*[-ones(dim,1),ones(dim,1)];
     case 'RHE'
         val=65.536;
         espM=val*[-ones(dim,1),ones(dim,1)];
     otherwise
-        error(['>> Unavailable test function (see',mfilename,')']);
+        error(['>> Unavailable test function (see ',mfilename,')']);
 end
