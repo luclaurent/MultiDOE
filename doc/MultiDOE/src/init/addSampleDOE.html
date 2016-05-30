@@ -4,7 +4,7 @@
 <head>
   <title>Description of addSampleDOE</title>
   <meta name="keywords" content="addSampleDOE">
-  <meta name="description" content="% Function for adding new points in an existing sampling">
+  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,55 +20,116 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Function for adding new points in an existing sampling</strong></div>
+<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function newSampling=addSampleDOE(oldSampling,doe) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Function for adding new points in an existing sampling
-% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
+ luc.laurent@lecnam.net
+ 
+ This software is a computer program whose purpose is to generate sampling
+ using dedicated techniques.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ &quot;http://www.cecill.info&quot;. 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li></ul>
+<li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li></ul>
+<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	Copyright or Â© or Copr. Luc LAURENT (30/06/2016)</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Function for adding new points in an existing sampling</span>
-0002 <span class="comment">%% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <span class="comment">% the enrichment requires the library 'R.matlab' in R software</span>
-0005 
-0006 <a name="_sub0" href="#_subfunctions" class="code">function newSampling=addSampleDOE(oldSampling,doe)</a>
-0007 
-0008 Xmin=doe.Xmin;
-0009 Xmax=doe.Xmax;
-0010 
-0011 ns=doe.ns;
-0012 
-0013 <span class="comment">%extract the right information</span>
-0014 <span class="keyword">if</span> isstruct(oldSampling);
-0015     oldSampling=oldSampling.unsorted;
-0016 <span class="keyword">end</span>
-0017 
-0018 <span class="comment">% depending on the initial sampling</span>
-0019 <span class="keyword">switch</span> doe.type
-0020     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
-0021         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
-0022     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
-0023         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
-0024     <span class="keyword">otherwise</span>
-0025         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
-0026         newSampling=[];
-0027 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
+0002 <span class="comment">% luc.laurent@lecnam.net</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
+0005 <span class="comment">% using dedicated techniques.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
+0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
+0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
+0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
+0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
+0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
+0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
+0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
+0017 <span class="comment">% liability.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
+0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
+0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
+0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
+0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
+0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
+0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
+0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
+0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
+0028 <span class="comment">% same conditions as regards security.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
+0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
+0032 
+0033 <span class="comment">%% Function for adding new points in an existing sampling</span>
+0034 <span class="comment">%% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net</span>
+0035 
+0036 <span class="comment">% the enrichment requires the library 'R.matlab' in R software</span>
+0037 
+0038 <a name="_sub0" href="#_subfunctions" class="code">function newSampling=addSampleDOE(oldSampling,doe)</a>
+0039 
+0040 Xmin=doe.Xmin;
+0041 Xmax=doe.Xmax;
+0042 
+0043 ns=doe.ns;
+0044 
+0045 <span class="comment">%extract the right information</span>
+0046 <span class="keyword">if</span> isstruct(oldSampling);
+0047     oldSampling=oldSampling.unsorted;
+0048 <span class="keyword">end</span>
+0049 
+0050 <span class="comment">% depending on the initial sampling</span>
+0051 <span class="keyword">switch</span> doe.type
+0052     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
+0053         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
+0054     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
+0055         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
+0056     <span class="keyword">otherwise</span>
+0057         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
+0058         newSampling=[];
+0059 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

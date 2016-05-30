@@ -4,7 +4,7 @@
 <head>
   <title>Description of lhsuR</title>
   <meta name="keywords" content="lhsuR">
-  <meta name="description" content="% Build DOE using R (LHS with initial sampling and enrichment)">
+  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,14 +20,43 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Build DOE using R (LHS with initial sampling and enrichment)</strong></div>
+<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Build DOE using R (LHS with initial sampling and enrichment)
- L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
+ luc.laurent@lecnam.net
+ 
+ This software is a computer program whose purpose is to generate sampling
+ using dedicated techniques.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ &quot;http://www.cecill.info&quot;. 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -36,7 +65,7 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	% Function for adding new points in an existing sampling</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="../../../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -44,135 +73,167 @@ This function is called by:
 <li><a href="#_sub1" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a></li><li><a href="#_sub2" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a></li><li><a href="#_sub3" class="code">function out = varname(var)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Build DOE using R (LHS with initial sampling and enrichment)</span>
-0002 <span class="comment">% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</span>
-0003 
-0004 
-0005 <a name="_sub0" href="#_subfunctions" class="code">function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)</a>
-0006 
-0007 <span class="comment">%% INPUT:</span>
-0008 <span class="comment">%    - Xmin,Xmax: min and max bounds of the design space</span>
-0009 <span class="comment">%    - ns: number of required sampled points</span>
-0010 <span class="comment">%    - oldSampling: old sampling (for enrichment)</span>
-0011 <span class="comment">%    - nbInfill: number of new required sample point (enrichment)</span>
-0012 <span class="comment">%% OUTPUT</span>
-0013 <span class="comment">%   - sampling: sample points</span>
-0014 <span class="comment">%   - newSampling: new sample points provided byy enrichment</span>
-0015 <span class="comment">%%</span>
-0016 
-0017 <span class="comment">%path declaration for R software</span>
-0018 setenv(<span class="string">'DYLD_LIBRARY_PATH'</span>,<span class="string">'/usr/local/bin/'</span>);
-0019 
-0020 <span class="comment">%%initialize options</span>
-0021 <span class="comment">% storing directory</span>
-0022 folderStore=<span class="string">'tmpDOE/LHS_R'</span>;
-0023 <span class="comment">%name of the R script file</span>
-0024 nameScript=<span class="string">'lhsu_R_'</span>;
-0025 extScript=<span class="string">'.r'</span>;
-0026 <span class="comment">%name of the R data file</span>
-0027 nameDataR=<span class="string">'dataR_'</span>;
-0028 nameDataM=nameDataR;
-0029 extDataR=<span class="string">'.dat'</span>;
-0030 extDataM=<span class="string">'.mat'</span>;
-0031 <span class="comment">%pause time after executing R</span>
-0032 timePause=0;
-0033 
-0034 <span class="keyword">if</span> nargin==4
-0035     nb_old=size(oldSampling,1);
-0036 <span class="keyword">else</span>
-0037     nb_old=1;
-0038 <span class="keyword">end</span>
-0039 
-0040 <span class="comment">% load dimensions (number of variables and sample points)</span>
-0041 np=numel(Xmin);
-0042 <span class="comment">%full name of the R script file</span>
-0043 nameScript=[nameScript num2str(np) <span class="string">'_'</span> num2str(ns+nb_old) extScript];
-0044 <span class="comment">%full name of the R data file</span>
-0045 nameDataR=[nameDataR num2str(np) <span class="string">'_'</span> num2str(ns+nb_old) extDataR];
-0046 <span class="comment">%full name of the R mat file</span>
-0047 nameDataM=[nameDataM num2str(np) <span class="string">'_'</span> num2str(ns+nb_old) extDataM];
-0048 <span class="comment">%load LHS library</span>
-0049 loadLHS=<span class="string">'library(lhs)\n'</span>;
-0050 <span class="comment">%load R.matlab library</span>
-0051 loadRmat=<span class="string">'library(R.matlab)\n'</span>;
-0052 <span class="comment">%store sampling</span>
-0053 storeSampling=[<span class="string">'write.table(a,file=&quot;'</span> nameDataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)\n'</span>];
-0054 
-0055 <span class="comment">%building DOE</span>
-0056 <span class="keyword">if</span> nargin==3
-0057     <span class="comment">%create storing folder if not existing</span>
-0058     <span class="keyword">if</span> exist(folderStore,<span class="string">'dir'</span>)~=7
-0059         mkdir(folderStore);
-0060     <span class="keyword">end</span>
-0061     
-0062     <span class="comment">%%write R script</span>
-0063     textInit=[<span class="string">'a&lt;-randomLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">')\n'</span>];
-0064     <span class="comment">%create and open script file</span>
-0065     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
-0066     <span class="comment">%write loading of the library</span>
-0067     fprintf(fid,loadLHS);
-0068     <span class="comment">%write initial sampling execution</span>
-0069     fprintf(fid,textInit);
-0070     <span class="comment">%write storage procedure</span>
-0071     fprintf(fid,storeSampling);
-0072     <span class="comment">%cole file</span>
-0073     fclose(fid);
-0074     
-0075     <span class="comment">%enrichment procedure</span>
-0076 <span class="keyword">elseif</span> nargin==4
-0077     <span class="comment">%normalisation of the old sampling</span>
-0078     OldSamplingN=<a href="#_sub1" class="code" title="subfunction samplingN=normSampling(sampling,Xmin,Xmax)">normSampling</a>(oldSampling,Xmin,Xmax);
-0079     <span class="comment">%write .mat file of the old sampling</span>
-0080     save([folderStore <span class="string">'/'</span> nameDataM],<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
-0081     <span class="comment">%reload old sampling</span>
-0082     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
-0083     <span class="comment">%write enrichment procedure</span>
-0084     text_enrich=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
-0085     <span class="comment">%create and open script file</span>
-0086     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
-0087     <span class="comment">%write loading of libraries</span>
-0088     fprintf(fid,loadLHS);
-0089     fprintf(fid,loadRmat);
-0090     <span class="comment">%write procedure for loading old sampling</span>
-0091     fprintf(fid,text_charg);
-0092     <span class="comment">%write enrichment</span>
-0093     fprintf(fid,text_enrich);
-0094     <span class="comment">%write storage procedure</span>
-0095     fprintf(fid,storeSampling);
-0096 <span class="keyword">end</span>
-0097 
-0098 <span class="comment">%%execute R script (R must be installed)</span>
-0099 <span class="comment">%check if available</span>
-0100 [e,~]=unix(<span class="string">'which R'</span>);
-0101 <span class="keyword">if</span> e~=0
-0102     error(<span class="string">'R non installe (absent du PATH)'</span>);
-0103 <span class="keyword">else</span>
-0104     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0105     pause(timePause)
-0106 <span class="keyword">end</span>
-0107 <span class="comment">%read data file</span>
-0108 A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0109 <span class="comment">%tirage obtenu</span>
-0110 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=denorm_tir(sampling,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
-0111 <span class="comment">%new sampling</span>
-0112 newSampling=sampling(nb_old:<span class="keyword">end</span>,:);
-0113 <span class="keyword">end</span>
-0114 
-0115 <span class="comment">%function for normalization and renormalization of the sampling</span>
-0116 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
-0117 nbs=size(sampling,1);
-0118 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
-0119 <span class="keyword">end</span>
-0120 
-0121 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a>
-0122 nbs=size(sampling,1);
-0123 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
-0124 <span class="keyword">end</span>
-0125 
-0126 <span class="comment">%name of the variable to a string</span>
-0127 <a name="_sub3" href="#_subfunctions" class="code">function out = varname(var)</a>
-0128 out = inputname(1);
-0129 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
+0002 <span class="comment">% luc.laurent@lecnam.net</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
+0005 <span class="comment">% using dedicated techniques.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
+0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
+0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
+0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
+0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
+0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
+0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
+0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
+0017 <span class="comment">% liability.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
+0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
+0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
+0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
+0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
+0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
+0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
+0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
+0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
+0028 <span class="comment">% same conditions as regards security.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
+0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
+0032 
+0033 <span class="comment">%% Build DOE using R (LHS with initial sampling and enrichment)</span>
+0034 <span class="comment">% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</span>
+0035 
+0036 
+0037 <a name="_sub0" href="#_subfunctions" class="code">function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)</a>
+0038 
+0039 <span class="comment">%% INPUT:</span>
+0040 <span class="comment">%    - Xmin,Xmax: min and max bounds of the design space</span>
+0041 <span class="comment">%    - ns: number of required sampled points</span>
+0042 <span class="comment">%    - oldSampling: old sampling (for enrichment)</span>
+0043 <span class="comment">%    - nbInfill: number of new required sample point (enrichment)</span>
+0044 <span class="comment">%% OUTPUT</span>
+0045 <span class="comment">%   - sampling: sample points</span>
+0046 <span class="comment">%   - newSampling: new sample points provided byy enrichment</span>
+0047 <span class="comment">%%</span>
+0048 
+0049 <span class="comment">%path declaration for R software</span>
+0050 setenv(<span class="string">'DYLD_LIBRARY_PATH'</span>,<span class="string">'/usr/local/bin/'</span>);
+0051 
+0052 <span class="comment">%%initialize options</span>
+0053 <span class="comment">% storing directory</span>
+0054 folderStore=<span class="string">'tmpDOE/LHS_R'</span>;
+0055 <span class="comment">%name of the R script file</span>
+0056 nameScript=<span class="string">'lhsu_R_'</span>;
+0057 extScript=<span class="string">'.r'</span>;
+0058 <span class="comment">%name of the R data file</span>
+0059 nameDataR=<span class="string">'dataR_'</span>;
+0060 nameDataM=nameDataR;
+0061 extDataR=<span class="string">'.dat'</span>;
+0062 extDataM=<span class="string">'.mat'</span>;
+0063 <span class="comment">%pause time after executing R</span>
+0064 timePause=0;
+0065 
+0066 <span class="keyword">if</span> nargin==4
+0067     nb_old=size(oldSampling,1);
+0068 <span class="keyword">else</span>
+0069     nb_old=1;
+0070 <span class="keyword">end</span>
+0071 
+0072 <span class="comment">% load dimensions (number of variables and sample points)</span>
+0073 np=numel(Xmin);
+0074 <span class="comment">%full name of the R script file</span>
+0075 nameScript=[nameScript num2str(np) <span class="string">'_'</span> num2str(ns+nb_old) extScript];
+0076 <span class="comment">%full name of the R data file</span>
+0077 nameDataR=[nameDataR num2str(np) <span class="string">'_'</span> num2str(ns+nb_old) extDataR];
+0078 <span class="comment">%full name of the R mat file</span>
+0079 nameDataM=[nameDataM num2str(np) <span class="string">'_'</span> num2str(ns+nb_old) extDataM];
+0080 <span class="comment">%load LHS library</span>
+0081 loadLHS=<span class="string">'library(lhs)\n'</span>;
+0082 <span class="comment">%load R.matlab library</span>
+0083 loadRmat=<span class="string">'library(R.matlab)\n'</span>;
+0084 <span class="comment">%store sampling</span>
+0085 storeSampling=[<span class="string">'write.table(a,file=&quot;'</span> nameDataR <span class="string">'&quot;,row.names=FALSE,col.names=FALSE)\n'</span>];
+0086 
+0087 <span class="comment">%building DOE</span>
+0088 <span class="keyword">if</span> nargin==3
+0089     <span class="comment">%create storing folder if not existing</span>
+0090     <span class="keyword">if</span> exist(folderStore,<span class="string">'dir'</span>)~=7
+0091         mkdir(folderStore);
+0092     <span class="keyword">end</span>
+0093     
+0094     <span class="comment">%%write R script</span>
+0095     textInit=[<span class="string">'a&lt;-randomLHS('</span> num2str(ns) <span class="string">','</span> num2str(np) <span class="string">')\n'</span>];
+0096     <span class="comment">%create and open script file</span>
+0097     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0098     <span class="comment">%write loading of the library</span>
+0099     fprintf(fid,loadLHS);
+0100     <span class="comment">%write initial sampling execution</span>
+0101     fprintf(fid,textInit);
+0102     <span class="comment">%write storage procedure</span>
+0103     fprintf(fid,storeSampling);
+0104     <span class="comment">%cole file</span>
+0105     fclose(fid);
+0106     
+0107     <span class="comment">%enrichment procedure</span>
+0108 <span class="keyword">elseif</span> nargin==4
+0109     <span class="comment">%normalisation of the old sampling</span>
+0110     OldSamplingN=<a href="#_sub1" class="code" title="subfunction samplingN=normSampling(sampling,Xmin,Xmax)">normSampling</a>(oldSampling,Xmin,Xmax);
+0111     <span class="comment">%write .mat file of the old sampling</span>
+0112     save([folderStore <span class="string">'/'</span> nameDataM],<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
+0113     <span class="comment">%reload old sampling</span>
+0114     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
+0115     <span class="comment">%write enrichment procedure</span>
+0116     text_enrich=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
+0117     <span class="comment">%create and open script file</span>
+0118     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
+0119     <span class="comment">%write loading of libraries</span>
+0120     fprintf(fid,loadLHS);
+0121     fprintf(fid,loadRmat);
+0122     <span class="comment">%write procedure for loading old sampling</span>
+0123     fprintf(fid,text_charg);
+0124     <span class="comment">%write enrichment</span>
+0125     fprintf(fid,text_enrich);
+0126     <span class="comment">%write storage procedure</span>
+0127     fprintf(fid,storeSampling);
+0128 <span class="keyword">end</span>
+0129 
+0130 <span class="comment">%%execute R script (R must be installed)</span>
+0131 <span class="comment">%check if available</span>
+0132 [e,~]=unix(<span class="string">'which R'</span>);
+0133 <span class="keyword">if</span> e~=0
+0134     error(<span class="string">'R non installe (absent du PATH)'</span>);
+0135 <span class="keyword">else</span>
+0136     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0137     pause(timePause)
+0138 <span class="keyword">end</span>
+0139 <span class="comment">%read data file</span>
+0140 A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0141 <span class="comment">%tirage obtenu</span>
+0142 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=denorm_tir(sampling,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
+0143 <span class="comment">%new sampling</span>
+0144 newSampling=sampling(nb_old:<span class="keyword">end</span>,:);
+0145 <span class="keyword">end</span>
+0146 
+0147 <span class="comment">%function for normalization and renormalization of the sampling</span>
+0148 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
+0149 nbs=size(sampling,1);
+0150 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
+0151 <span class="keyword">end</span>
+0152 
+0153 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a>
+0154 nbs=size(sampling,1);
+0155 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+0156 <span class="keyword">end</span>
+0157 
+0158 <span class="comment">%name of the variable to a string</span>
+0159 <a name="_sub3" href="#_subfunctions" class="code">function out = varname(var)</a>
+0160 out = inputname(1);
+0161 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

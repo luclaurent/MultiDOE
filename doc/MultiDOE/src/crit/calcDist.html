@@ -4,7 +4,7 @@
 <head>
   <title>Description of calcDist</title>
   <meta name="keywords" content="calcDist">
-  <meta name="description" content="% function for computing inter-sample distances">
+  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,14 +20,43 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% function for computing inter-sample distances</strong></div>
+<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% function for computing inter-sample distances
-% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
+ luc.laurent@lecnam.net
+ 
+ This software is a computer program whose purpose is to generate sampling
+ using dedicated techniques.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ &quot;http://www.cecill.info&quot;. 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -36,63 +65,95 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li></ul>
+<li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% function for computing inter-sample distances</span>
-0002 <span class="comment">%% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <a name="_sub0" href="#_subfunctions" class="code">function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)</a>
-0005 
-0006 <span class="comment">%if q is not specified, the euclidian distance will be used</span>
-0007 <span class="keyword">if</span> nargin==1
-0008     q=2;
-0009 <span class="keyword">end</span>
-0010 
-0011 <span class="comment">%number of variables</span>
-0012 ns=size(sampling,1);
-0013 
-0014 <span class="comment">%geenrate combinations</span>
-0015 comb=fullfact([ns ns]);
-0016 comb1=comb(:,1);comb2=comb(:,2);
-0017 diffC=comb1-comb2;
-0018 iX=diffC~=0;
-0019 iXX=diffC&lt;0;
-0020 
-0021 iX=iX&amp;iXX;
-0022 
-0023 comb1=comb1(iX);
-0024 comb2=comb2(iX);
-0025 <span class="comment">%[comb1 comb2]</span>
-0026 <span class="comment">%compute inter-sample points distances</span>
-0027 pti=sampling(comb1,:);
-0028 ptj=sampling(comb2,:);
-0029 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
-0030 <span class="comment">%store in a matrix</span>
-0031 distMat=zeros(ns);
-0032 IX=sub2ind([ns ns],comb1,comb2);
-0033 distMat(IX)=distVect;
-0034 distMat=distMat+distMat';
+<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
+0002 <span class="comment">% luc.laurent@lecnam.net</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
+0005 <span class="comment">% using dedicated techniques.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
+0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
+0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
+0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
+0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
+0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
+0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
+0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
+0017 <span class="comment">% liability.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
+0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
+0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
+0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
+0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
+0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
+0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
+0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
+0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
+0028 <span class="comment">% same conditions as regards security.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
+0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
+0032 
+0033 <span class="comment">%% function for computing inter-sample distances</span>
+0034 <span class="comment">%% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</span>
 0035 
-0036 <span class="keyword">if</span> nargout&gt;1
-0037     <span class="comment">%concatenate distance</span>
-0038     dist_cat=distVect(:);    
-0039     <span class="keyword">if</span> nargout&gt;2
-0040         <span class="comment">%remove duplicates</span>
-0041         uniqDist=unique(dist_cat);
-0042         <span class="keyword">if</span> nargout&gt;3
-0043             <span class="comment">%build table of the multiplicity of the distances</span>
-0044             multiDOE=zeros(size(uniqDist));
-0045             <span class="keyword">for</span> ii=1:length(uniqDist)
-0046                 multiDOE(ii)=sum(ismember(dist_cat,uniqDist(ii)));
-0047             <span class="keyword">end</span>
-0048         <span class="keyword">end</span>
-0049     <span class="keyword">end</span>
-0050 <span class="keyword">end</span>
-0051</pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0036 <a name="_sub0" href="#_subfunctions" class="code">function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)</a>
+0037 
+0038 <span class="comment">%if q is not specified, the euclidian distance will be used</span>
+0039 <span class="keyword">if</span> nargin==1
+0040     q=2;
+0041 <span class="keyword">end</span>
+0042 
+0043 <span class="comment">%number of variables</span>
+0044 ns=size(sampling,1);
+0045 
+0046 <span class="comment">%geenrate combinations</span>
+0047 comb=fullfact([ns ns]);
+0048 comb1=comb(:,1);comb2=comb(:,2);
+0049 diffC=comb1-comb2;
+0050 iX=diffC~=0;
+0051 iXX=diffC&lt;0;
+0052 
+0053 iX=iX&amp;iXX;
+0054 
+0055 comb1=comb1(iX);
+0056 comb2=comb2(iX);
+0057 <span class="comment">%[comb1 comb2]</span>
+0058 <span class="comment">%compute inter-sample points distances</span>
+0059 pti=sampling(comb1,:);
+0060 ptj=sampling(comb2,:);
+0061 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
+0062 <span class="comment">%store in a matrix</span>
+0063 distMat=zeros(ns);
+0064 IX=sub2ind([ns ns],comb1,comb2);
+0065 distMat(IX)=distVect;
+0066 distMat=distMat+distMat';
+0067 
+0068 <span class="keyword">if</span> nargout&gt;1
+0069     <span class="comment">%concatenate distance</span>
+0070     dist_cat=distVect(:);    
+0071     <span class="keyword">if</span> nargout&gt;2
+0072         <span class="comment">%remove duplicates</span>
+0073         uniqDist=unique(dist_cat);
+0074         <span class="keyword">if</span> nargout&gt;3
+0075             <span class="comment">%build table of the multiplicity of the distances</span>
+0076             multiDOE=zeros(size(uniqDist));
+0077             <span class="keyword">for</span> ii=1:length(uniqDist)
+0078                 multiDOE(ii)=sum(ismember(dist_cat,uniqDist(ii)));
+0079             <span class="keyword">end</span>
+0080         <span class="keyword">end</span>
+0081     <span class="keyword">end</span>
+0082 <span class="keyword">end</span>
+0083</pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

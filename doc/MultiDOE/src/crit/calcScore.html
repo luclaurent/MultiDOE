@@ -4,7 +4,7 @@
 <head>
   <title>Description of calcScore</title>
   <meta name="keywords" content="calcScore">
-  <meta name="description" content="% Computation of the score associated to a sampling">
+  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,204 +20,265 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Computation of the score associated to a sampling</strong></div>
+<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [uniform,discrepancy]=calcScore(sampling,q) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Computation of the score associated to a sampling
- L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
+ luc.laurent@lecnam.net
+ 
+ This software is a computer program whose purpose is to generate sampling
+ using dedicated techniques.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ &quot;http://www.cecill.info&quot;. 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="calcDist.html" class="code" title="function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)">calcDist</a>	% function for computing inter-sample distances</li></ul>
+<li><a href="calcDist.html" class="code" title="function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)">calcDist</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Computation of the score associated to a sampling</span>
-0002 <span class="comment">% L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <a name="_sub0" href="#_subfunctions" class="code">function [uniform,discrepancy]=calcScore(sampling,q)</a>
-0005 
-0006 <span class="comment">% norme use for computing the distance</span>
-0007 <span class="keyword">if</span> nargin==1
-0008     q=2;
-0009 <span class="keyword">end</span>
-0010 
-0011 <span class="comment">%number of points and variables</span>
-0012 ns=size(sampling,1);
-0013 np=size(sampling,2);
-0014 
-0015 <span class="comment">%the sampling is reduced to the unit hypercube (space [0,1]^d)</span>
-0016 minSampling=min(sampling);
-0017 maxSampling=max(sampling);
-0018 p=1./(maxSampling-minSampling);
-0019 c=-minSampling.*p;
-0020 samplingN=sampling.*repmat(p,ns,1)+repmat(c,ns,1);
-0021 
-0022 <span class="comment">% Compute inter-sample points distance + multiplicity(see Forrester,Sobester&amp;Keane</span>
-0023 <span class="comment">% 2008)</span>
-0024 [distM,distV,distU,pairS]=<a href="calcDist.html" class="code" title="function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)">calcDist</a>(sampling,q);
-0025 <span class="comment">%meme calculs sur les valeurs normees</span>
-0026 [distNM,distNV,distNU,paireNS]=<a href="calcDist.html" class="code" title="function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)">calcDist</a>(samplingN,q);
-0027 
-0028 <span class="comment">%remove diagonals</span>
-0029 distM(logical(eye(ns)))=NaN;
-0030 distNM(logical(eye(ns)))=NaN;
-0031 <span class="comment">%% with raw data</span>
-0032 <span class="comment">%minimal distance of each sample points</span>
-0033 minDistPt=min(distM);
-0034 <span class="comment">%average minimal distance</span>
-0035 minDistAvg=mean(minDistPt);
-0036 <span class="comment">%minimal distance</span>
-0037 uniform.minDist=distU(1);
-0038 <span class="comment">%sum of the inverse of the distances (see Leary et al. 2004)</span>
-0039 uniform.sumDist=sum(1./distU(:).^2);
-0040 <span class="comment">%%criteria for the PhD thesis of Jessica FRANCO 2008</span>
-0041 <span class="comment">%average minimal distance</span>
-0042 uniform.avgMinDist=minDistAvg;
-0043 <span class="comment">%%</span>
-0044 <span class="comment">%£ with normalized data</span>
-0045 <span class="comment">%minimal distance of each sample points</span>
-0046 minDistPtN=min(distNM);
-0047 <span class="comment">%average minimal distance</span>
-0048 minDistAvg=mean(minDistPtN);
-0049 <span class="comment">%minimal distance (maximin)</span>
-0050 uniform.minDistN=distNU(1);
-0051 <span class="comment">%sum of the inverse of the distances (see Leary et al. 2004)</span>
-0052 uniform.sumDistN=sum(1./distNU(:).^2);
-0053 <span class="comment">%%criteria for the PhD thesis of Jessica FRANCO 2008</span>
-0054 <span class="comment">%measure of the covering/uniformity</span>
-0055 uniform.cover=1/minDistAvg*<span class="keyword">...</span>
-0056     (1/ns*sum(minDistPtN-minDistAvg)^2)^.5;
-0057 <span class="comment">%ratio of the distances</span>
-0058 uniform.distRatio=distNU(end)/distNU(1);
-0059 <span class="comment">%average minimal distance</span>
-0060 uniform.avgMinDistN=minDistAvg;
-0061 
-0062 <span class="comment">%criteria from Morris &amp; Mitechll 1995</span>
-0063 uniform.morris=sum(pairS.*distU.^(-q))^(1/q);
-0064 uniform.morrisN=sum(paireNS.*distNU.^(-q))^(1/q);
-0065 
-0066 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0067 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0068 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0069 <span class="comment">%% Discrepancy</span>
-0070 <span class="comment">%(formulas from Fang et al., Uniform Design: Theory and Application</span>
-0071 <span class="comment">%2000 &amp; and from Jessica Franco)</span>
-0072 
-0073 <span class="keyword">if</span> nargout&gt;=2
-0074     <span class="comment">%value in [0,1]^d</span>
-0075     sampling=samplingN;
-0076     <span class="comment">%initialize</span>
-0077     samplingM=reshape(sampling,ns,1,np);
-0078     samplingM=repmat(samplingM,[1 ns 1]);
-0079     ind=[2 1 3];
-0080     samplingMB=permute(samplingM,ind);
-0081     samplingMC=samplingM-0.5;
-0082     samplingMBC=samplingMB-0.5;
-0083     
-0084     <span class="comment">% L2-discrepancy</span>
-0085     part1=prod(1-sampling.^2,2);
-0086     maxSampling=max(samplingM,samplingMB);
-0087     prodm=prod(1-maxSampling,3);
-0088     part2=sum(prodm(:));
-0089     <span class="comment">%     part2=0;</span>
-0090     <span class="comment">%     for ii=1:nb_val</span>
-0091     <span class="comment">%         for jj=1:nb_val</span>
-0092     <span class="comment">%             tmp=1;</span>
-0093     <span class="comment">%             for ll=1:nb_var</span>
-0094     <span class="comment">%                 tmp=tmp*(1-max(tirages(ii,ll),tirages(jj,ll)));</span>
-0095     <span class="comment">%             end</span>
-0096     <span class="comment">%             part2=part2+tmp;</span>
-0097     <span class="comment">%         end</span>
-0098     <span class="comment">%     end</span>
-0099     
-0100     discrepancy.L2=3^(-np)-<span class="keyword">...</span>
-0101         2^(1-np)/ns*sum(part1)<span class="keyword">...</span>
-0102         +1/ns*part2;
-0103     
-0104     <span class="comment">% Centered L2-discrepancy</span>
-0105     part1=prod(1+0.5*abs(sampling-0.5)-0.5*(sampling-0.5).^2,2);
-0106     opt=1+0.5*abs(samplingMC)+0.5*abs(samplingMBC);
-0107     prodm=prod(opt,3);
-0108     part2=sum(prodm(:));
-0109     <span class="comment">%     part2=0;</span>
-0110     <span class="comment">%     for ii=1:nb_val</span>
-0111     <span class="comment">%         for jj=1:nb_val</span>
-0112     <span class="comment">%             tmp=1;</span>
-0113     <span class="comment">%             for ll=1:nb_var</span>
-0114     <span class="comment">%                 tmp=tmp*(1+0.5*abs(tirages(ii,ll)-0.5)+...</span>
-0115     <span class="comment">%                     0.5*abs(tirages(jj,ll)-0.5));</span>
-0116     <span class="comment">%             end</span>
-0117     <span class="comment">%             part2=part2+tmp;</span>
-0118     <span class="comment">%         end</span>
-0119     <span class="comment">%     end</span>
-0120     
-0121     
-0122     discrepancy.CL2=(13/12)^np-2/ns*sum(part1)+<span class="keyword">...</span>
-0123         1/ns^2*part2;
-0124     
-0125     <span class="comment">% Symetric L2-discrepancy</span>
-0126     part1=prod(1+2*sampling-2*sampling.^2,2);
-0127     opt=1+0.5*abs(samplingMC)+0.5*abs(samplingMBC)-<span class="keyword">...</span>
-0128         0.5*abs(samplingMC-samplingMBC);
-0129     prodm=prod(opt,3);
-0130     part2=sum(prodm(:));
-0131     <span class="comment">%     part2=0;</span>
-0132     <span class="comment">%     for ii=1:nb_val</span>
-0133     <span class="comment">%         for jj=1:nb_val</span>
-0134     <span class="comment">%             tmp=1;</span>
-0135     <span class="comment">%             for ll=1:nb_var</span>
-0136     <span class="comment">%                 tmp=tmp*(1+0.5*abs(tirages(ii,ll)-0.5)+...</span>
-0137     <span class="comment">%                     0.5*abs(tirages(jj,ll)-0.5)-...</span>
-0138     <span class="comment">%                     0.5*abs(tirages(ii,ll)-tirages(jj,ll)));</span>
-0139     <span class="comment">%             end</span>
-0140     <span class="comment">%             part2=part2+tmp;</span>
-0141     <span class="comment">%         end</span>
-0142     <span class="comment">%     end</span>
-0143     
-0144     discrepancy.SL2=(4/3)^np-<span class="keyword">...</span>
-0145         2/ns*sum(part1)+<span class="keyword">...</span>
-0146         2^np/ns^2*part2;
-0147     
-0148     <span class="comment">% Modified L2-discrepancy</span>
-0149     part1=prod(3-sampling.^2,2);
-0150     opt=1-abs(samplingM-samplingMB);
-0151     prodm=prod(opt,3);
-0152     part2=sum(prodm(:));
-0153     <span class="comment">%     part2=0;</span>
-0154     <span class="comment">%     for ii=1:nb_val</span>
-0155     <span class="comment">%         for jj=1:nb_val</span>
-0156     <span class="comment">%             tmp=1;</span>
-0157     <span class="comment">%             for ll=1:nb_var</span>
-0158     <span class="comment">%                 tmp=tmp*(1-abs(tirages(ii,ll)-tirages(jj,ll)));</span>
-0159     <span class="comment">%             end</span>
-0160     <span class="comment">%             part2=part2+tmp;</span>
-0161     <span class="comment">%         end</span>
-0162     <span class="comment">%     end</span>
-0163     discrepancy.ML2=(4/3)^np-<span class="keyword">...</span>
-0164         2^(1-np)/ns*sum(part1)+<span class="keyword">...</span>
-0165         1/ns^2*part2;
-0166     
-0167     <span class="comment">% wrap around L2-discrepancy</span>
-0168     part1=abs(samplingM-samplingMB);
-0169     opt=3/2-part1.*(1-part1);
-0170     prodm=prod(opt,3);
-0171     part2=sum(prodm(:));
-0172     discrepancy.WL2=ns*(-(4/3)^np+<span class="keyword">...</span>
-0173         1/ns^2*part2);
-0174     
+<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
+0002 <span class="comment">% luc.laurent@lecnam.net</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
+0005 <span class="comment">% using dedicated techniques.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
+0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
+0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
+0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
+0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
+0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
+0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
+0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
+0017 <span class="comment">% liability.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
+0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
+0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
+0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
+0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
+0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
+0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
+0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
+0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
+0028 <span class="comment">% same conditions as regards security.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
+0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
+0032 
+0033 <span class="comment">%% Computation of the score associated to a sampling</span>
+0034 <span class="comment">% L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net</span>
+0035 
+0036 <a name="_sub0" href="#_subfunctions" class="code">function [uniform,discrepancy]=calcScore(sampling,q)</a>
+0037 
+0038 <span class="comment">% norme use for computing the distance</span>
+0039 <span class="keyword">if</span> nargin==1
+0040     q=2;
+0041 <span class="keyword">end</span>
+0042 
+0043 <span class="comment">%number of points and variables</span>
+0044 ns=size(sampling,1);
+0045 np=size(sampling,2);
+0046 
+0047 <span class="comment">%the sampling is reduced to the unit hypercube (space [0,1]^d)</span>
+0048 minSampling=min(sampling);
+0049 maxSampling=max(sampling);
+0050 p=1./(maxSampling-minSampling);
+0051 c=-minSampling.*p;
+0052 samplingN=sampling.*repmat(p,ns,1)+repmat(c,ns,1);
+0053 
+0054 <span class="comment">% Compute inter-sample points distance + multiplicity(see Forrester,Sobester&amp;Keane</span>
+0055 <span class="comment">% 2008)</span>
+0056 [distM,distV,distU,pairS]=<a href="calcDist.html" class="code" title="function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)">calcDist</a>(sampling,q);
+0057 <span class="comment">%meme calculs sur les valeurs normees</span>
+0058 [distNM,distNV,distNU,paireNS]=<a href="calcDist.html" class="code" title="function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)">calcDist</a>(samplingN,q);
+0059 
+0060 <span class="comment">%remove diagonals</span>
+0061 distM(logical(eye(ns)))=NaN;
+0062 distNM(logical(eye(ns)))=NaN;
+0063 <span class="comment">%% with raw data</span>
+0064 <span class="comment">%minimal distance of each sample points</span>
+0065 minDistPt=min(distM);
+0066 <span class="comment">%average minimal distance</span>
+0067 minDistAvg=mean(minDistPt);
+0068 <span class="comment">%minimal distance</span>
+0069 uniform.minDist=distU(1);
+0070 <span class="comment">%sum of the inverse of the distances (see Leary et al. 2004)</span>
+0071 uniform.sumDist=sum(1./distU(:).^2);
+0072 <span class="comment">%%criteria for the PhD thesis of Jessica FRANCO 2008</span>
+0073 <span class="comment">%average minimal distance</span>
+0074 uniform.avgMinDist=minDistAvg;
+0075 <span class="comment">%%</span>
+0076 <span class="comment">%£ with normalized data</span>
+0077 <span class="comment">%minimal distance of each sample points</span>
+0078 minDistPtN=min(distNM);
+0079 <span class="comment">%average minimal distance</span>
+0080 minDistAvg=mean(minDistPtN);
+0081 <span class="comment">%minimal distance (maximin)</span>
+0082 uniform.minDistN=distNU(1);
+0083 <span class="comment">%sum of the inverse of the distances (see Leary et al. 2004)</span>
+0084 uniform.sumDistN=sum(1./distNU(:).^2);
+0085 <span class="comment">%%criteria for the PhD thesis of Jessica FRANCO 2008</span>
+0086 <span class="comment">%measure of the covering/uniformity</span>
+0087 uniform.cover=1/minDistAvg*<span class="keyword">...</span>
+0088     (1/ns*sum(minDistPtN-minDistAvg)^2)^.5;
+0089 <span class="comment">%ratio of the distances</span>
+0090 uniform.distRatio=distNU(end)/distNU(1);
+0091 <span class="comment">%average minimal distance</span>
+0092 uniform.avgMinDistN=minDistAvg;
+0093 
+0094 <span class="comment">%criteria from Morris &amp; Mitechll 1995</span>
+0095 uniform.morris=sum(pairS.*distU.^(-q))^(1/q);
+0096 uniform.morrisN=sum(paireNS.*distNU.^(-q))^(1/q);
+0097 
+0098 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0099 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0100 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0101 <span class="comment">%% Discrepancy</span>
+0102 <span class="comment">%(formulas from Fang et al., Uniform Design: Theory and Application</span>
+0103 <span class="comment">%2000 &amp; and from Jessica Franco)</span>
+0104 
+0105 <span class="keyword">if</span> nargout&gt;=2
+0106     <span class="comment">%value in [0,1]^d</span>
+0107     sampling=samplingN;
+0108     <span class="comment">%initialize</span>
+0109     samplingM=reshape(sampling,ns,1,np);
+0110     samplingM=repmat(samplingM,[1 ns 1]);
+0111     ind=[2 1 3];
+0112     samplingMB=permute(samplingM,ind);
+0113     samplingMC=samplingM-0.5;
+0114     samplingMBC=samplingMB-0.5;
+0115     
+0116     <span class="comment">% L2-discrepancy</span>
+0117     part1=prod(1-sampling.^2,2);
+0118     maxSampling=max(samplingM,samplingMB);
+0119     prodm=prod(1-maxSampling,3);
+0120     part2=sum(prodm(:));
+0121     <span class="comment">%     part2=0;</span>
+0122     <span class="comment">%     for ii=1:nb_val</span>
+0123     <span class="comment">%         for jj=1:nb_val</span>
+0124     <span class="comment">%             tmp=1;</span>
+0125     <span class="comment">%             for ll=1:nb_var</span>
+0126     <span class="comment">%                 tmp=tmp*(1-max(tirages(ii,ll),tirages(jj,ll)));</span>
+0127     <span class="comment">%             end</span>
+0128     <span class="comment">%             part2=part2+tmp;</span>
+0129     <span class="comment">%         end</span>
+0130     <span class="comment">%     end</span>
+0131     
+0132     discrepancy.L2=3^(-np)-<span class="keyword">...</span>
+0133         2^(1-np)/ns*sum(part1)<span class="keyword">...</span>
+0134         +1/ns*part2;
+0135     
+0136     <span class="comment">% Centered L2-discrepancy</span>
+0137     part1=prod(1+0.5*abs(sampling-0.5)-0.5*(sampling-0.5).^2,2);
+0138     opt=1+0.5*abs(samplingMC)+0.5*abs(samplingMBC);
+0139     prodm=prod(opt,3);
+0140     part2=sum(prodm(:));
+0141     <span class="comment">%     part2=0;</span>
+0142     <span class="comment">%     for ii=1:nb_val</span>
+0143     <span class="comment">%         for jj=1:nb_val</span>
+0144     <span class="comment">%             tmp=1;</span>
+0145     <span class="comment">%             for ll=1:nb_var</span>
+0146     <span class="comment">%                 tmp=tmp*(1+0.5*abs(tirages(ii,ll)-0.5)+...</span>
+0147     <span class="comment">%                     0.5*abs(tirages(jj,ll)-0.5));</span>
+0148     <span class="comment">%             end</span>
+0149     <span class="comment">%             part2=part2+tmp;</span>
+0150     <span class="comment">%         end</span>
+0151     <span class="comment">%     end</span>
+0152     
+0153     
+0154     discrepancy.CL2=(13/12)^np-2/ns*sum(part1)+<span class="keyword">...</span>
+0155         1/ns^2*part2;
+0156     
+0157     <span class="comment">% Symetric L2-discrepancy</span>
+0158     part1=prod(1+2*sampling-2*sampling.^2,2);
+0159     opt=1+0.5*abs(samplingMC)+0.5*abs(samplingMBC)-<span class="keyword">...</span>
+0160         0.5*abs(samplingMC-samplingMBC);
+0161     prodm=prod(opt,3);
+0162     part2=sum(prodm(:));
+0163     <span class="comment">%     part2=0;</span>
+0164     <span class="comment">%     for ii=1:nb_val</span>
+0165     <span class="comment">%         for jj=1:nb_val</span>
+0166     <span class="comment">%             tmp=1;</span>
+0167     <span class="comment">%             for ll=1:nb_var</span>
+0168     <span class="comment">%                 tmp=tmp*(1+0.5*abs(tirages(ii,ll)-0.5)+...</span>
+0169     <span class="comment">%                     0.5*abs(tirages(jj,ll)-0.5)-...</span>
+0170     <span class="comment">%                     0.5*abs(tirages(ii,ll)-tirages(jj,ll)));</span>
+0171     <span class="comment">%             end</span>
+0172     <span class="comment">%             part2=part2+tmp;</span>
+0173     <span class="comment">%         end</span>
+0174     <span class="comment">%     end</span>
 0175     
-0176 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0176     discrepancy.SL2=(4/3)^np-<span class="keyword">...</span>
+0177         2/ns*sum(part1)+<span class="keyword">...</span>
+0178         2^np/ns^2*part2;
+0179     
+0180     <span class="comment">% Modified L2-discrepancy</span>
+0181     part1=prod(3-sampling.^2,2);
+0182     opt=1-abs(samplingM-samplingMB);
+0183     prodm=prod(opt,3);
+0184     part2=sum(prodm(:));
+0185     <span class="comment">%     part2=0;</span>
+0186     <span class="comment">%     for ii=1:nb_val</span>
+0187     <span class="comment">%         for jj=1:nb_val</span>
+0188     <span class="comment">%             tmp=1;</span>
+0189     <span class="comment">%             for ll=1:nb_var</span>
+0190     <span class="comment">%                 tmp=tmp*(1-abs(tirages(ii,ll)-tirages(jj,ll)));</span>
+0191     <span class="comment">%             end</span>
+0192     <span class="comment">%             part2=part2+tmp;</span>
+0193     <span class="comment">%         end</span>
+0194     <span class="comment">%     end</span>
+0195     discrepancy.ML2=(4/3)^np-<span class="keyword">...</span>
+0196         2^(1-np)/ns*sum(part1)+<span class="keyword">...</span>
+0197         1/ns^2*part2;
+0198     
+0199     <span class="comment">% wrap around L2-discrepancy</span>
+0200     part1=abs(samplingM-samplingMB);
+0201     opt=3/2-part1.*(1-part1);
+0202     prodm=prod(opt,3);
+0203     part2=sum(prodm(:));
+0204     discrepancy.WL2=ns*(-(4/3)^np+<span class="keyword">...</span>
+0205         1/ns^2*part2);
+0206     
+0207     
+0208 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

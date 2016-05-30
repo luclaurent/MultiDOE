@@ -4,7 +4,7 @@
 <head>
   <title>Description of initDOE</title>
   <meta name="keywords" content="initDOE">
-  <meta name="description" content="% Initialization on the DOE structure (definition of the options)">
+  <meta name="description" content="Copyright or © or Copr. Luc LAURENT (30/06/2016)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,168 +20,229 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Initialization on the DOE structure (definition of the options)</strong></div>
+<div class="box"><strong>Copyright or © or Copr. Luc LAURENT (30/06/2016)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [doe]=initDOE(dim,espM,funT) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Initialization on the DOE structure (definition of the options)
-% L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment"> Copyright or © or Copr. Luc LAURENT (30/06/2016)
+ luc.laurent@lecnam.net
+ 
+ This software is a computer program whose purpose is to generate sampling
+ using dedicated techniques.
+ 
+ This software is governed by the CeCILL license under French law and
+ abiding by the rules of distribution of free software.  You can  use, 
+ modify and/ or redistribute the software under the terms of the CeCILL
+ license as circulated by CEA, CNRS and INRIA at the following URL
+ &quot;http://www.cecill.info&quot;. 
+ 
+ As a counterpart to the access to the source code and  rights to copy,
+ modify and redistribute granted by the license, users are provided only
+ with a limited warranty  and the software's author,  the holder of the
+ economic rights,  and the successive licensors  have only  limited
+ liability. 
+ 
+ In this respect, the user's attention is drawn to the risks associated
+ with loading,  using,  modifying and/or developing or reproducing the
+ software by the user in light of its specific status of free software,
+ that may mean  that it is complicated to manipulate,  and  that  also
+ therefore means  that it is reserved for developers  and  experienced
+ professionals having in-depth computer knowledge. Users are therefore
+ encouraged to load and test the software's suitability as regards their
+ requirements in conditions enabling the security of their systems and/or 
+ data to be ensured and,  more generally, to use and operate it in the 
+ same conditions as regards security. 
+ 
+ The fact that you are presently reading this means that you have had
+ knowledge of the CeCILL license and that you accept its terms.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>	% Initialisation of the design space for some analytical functions</li><li><a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	% Script dedicated to the initiailisation, the measure and the display of the spent time</li></ul>
+<li><a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li><li><a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	Copyright or © or Copr. Luc LAURENT (30/06/2016)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	% Example of use of the MultiDOE toolbox</li></ul>
+<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	Copyright or Â© or Copr. Luc LAURENT (30/06/2016)</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	% Example of use of the MultiDOE toolbox</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Initialization on the DOE structure (definition of the options)</span>
-0002 <span class="comment">%% L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <span class="comment">%% usable syntaxes</span>
-0005 <span class="comment">%init_doe</span>
-0006 <span class="comment">%init_doe(dim)</span>
-0007 <span class="comment">%init_doe(dim,esp)</span>
-0008 <span class="comment">%init_doe(dim,esp,funT)</span>
-0009 
-0010 <span class="comment">%% INPUT variables</span>
-0011 <span class="comment">% -dim : number of design variables</span>
-0012 <span class="comment">% -espM : matrix for defining the bounds of the design space</span>
-0013 <span class="comment">%       -nb of row=dim</span>
-0014 <span class="comment">%       -nb of columns=2 (lower and upper bounds)</span>
-0015 <span class="comment">% -funT : name of a test function (see below)</span>
-0016 <span class="comment">% if the test function is available in the matlab's path the function will</span>
-0017 <span class="comment">% create the right 'doe' structure that conatins the right options</span>
-0018 
-0019 <span class="comment">%% OUTPUT variables</span>
-0020 <span class="comment">% doe.dimPB: nb of design variables</span>
-0021 <span class="comment">% doe.fctT: name of a test function (Peaks, Rosenbrock..., see below)</span>
-0022 <span class="comment">% doe.infos: available information about the test function</span>
-0023 <span class="comment">% doe.sort.on: active sorting</span>
-0024 <span class="comment">% doe.sort.type:</span>
-0025 <span class="comment">%       - 'v' or 'variable': sort wrt the specified variable (variable</span>
-0026 <span class="comment">%       doe.sort.para)</span>
-0027 <span class="comment">%       - 'nptp' or 'normal_pt_to_pt'</span>
-0028 <span class="comment">%       - 'p' or 'point':</span>
-0029 <span class="comment">%       - 'c' or 'center'</span>
-0030 <span class="comment">%       - 'sac' or 'sampling_center' (default)</span>
-0031 <span class="comment">%       - 'sc' or 'start_center'</span>
-0032 <span class="comment">%       - 'sasc' or 'sampling_start_center'</span>
-0033 <span class="comment">% doe.sort.para: parameter of the sorting method</span>
-0034 <span class="comment">% doe.sort.ptref: reference point used for sorting data (nptp, p)</span>
-0035 <span class="comment">% (see also buildDOE.m for the meaning of these options)</span>
-0036 <span class="comment">% doe.disp: display or not of the obatined sampling (true by default)</span>
-0037 <span class="comment">% doe.Xmin: lower bounds (vector)</span>
-0038 <span class="comment">% doe.Xmax: upper bounds (vector)</span>
-0039 <span class="comment">% doe.type: type of DOE</span>
-0040 
-0041 <a name="_sub0" href="#_subfunctions" class="code">function [doe]=initDOE(dim,espM,funT)</a>
-0042 
-0043 
-0044 fprintf(<span class="string">'=========================================\n'</span>)
-0045 fprintf(<span class="string">'      &gt;&gt;&gt; DOE INITIALIZATION &lt;&lt;&lt;\n'</span>);
-0046 [tMesu,tInit]=<a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>;
-0047 
-0048 <span class="comment">%depending on the number of parameters</span>
-0049 <span class="keyword">if</span> nargin==0
-0050     funT=[];
-0051     dim=[];
-0052     espM=[];
-0053 <span class="keyword">elseif</span> nargin==1
-0054     espM=[];
-0055     funT=[];
-0056 <span class="keyword">elseif</span> nargin==2
-0057     funT=[];
-0058 <span class="keyword">end</span>
-0059 
-0060 <span class="comment">%automatic definition</span>
-0061 <span class="keyword">if</span> ~isempty(funT)
-0062     [espM,dim]=<a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>(dim,funT);
-0063 <span class="keyword">end</span>
-0064 
-0065 <span class="comment">%number of design variables</span>
-0066 doe.dimPB=dim;
-0067 <span class="comment">%number of sample points</span>
-0068 doe.ns=[];
-0069 
-0070 doe.funT=[];
-0071 doe.infos=[];
-0072 <span class="keyword">if</span> ~isempty(funT)
-0073     <span class="comment">%save the name of the test function</span>
-0074     doe.funT=[<span class="string">'fun'</span> funT];
-0075     
-0076     <span class="comment">%if the test function exists (in a .m file)</span>
-0077     <span class="keyword">if</span> exist(doe.funT,<span class="string">'file'</span>)==2
-0078         <span class="comment">%recover informations about the function (local abnd global minima)</span>
-0079         [~,~,doe.infos]=feval(doe.funT,[],dim);
-0080     <span class="keyword">end</span>
-0081 <span class="keyword">end</span>
-0082 
-0083 <span class="comment">%%sorting of the sampling</span>
-0084 <span class="comment">%criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)</span>
-0085 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
-0086 doe.sort.on=true;
-0087 doe.sort.type=<span class="string">'sac'</span>;
-0088 doe.sort.para=1;
-0089 doe.sort.ptref=[];
-0090 
-0091 <span class="comment">%display sampling</span>
-0092 doe.disp=true;
-0093 
-0094 <span class="comment">%manual definition</span>
-0095 <span class="keyword">if</span> ~isempty(espM)
-0096     doe.Xmin=espM(:,1);
-0097     doe.Xmax=espM(:,2);
-0098 <span class="keyword">end</span>
-0099 <span class="keyword">if</span> ~isempty(espM)
-0100     doe.Xmin=espM(:,1);
-0101     doe.Xmax=espM(:,2);
-0102 <span class="keyword">end</span>
-0103 <span class="comment">%otherwise empty</span>
-0104 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
-0105     doe.Xmin=[];
-0106     doe.Xmax=[];
-0107 <span class="keyword">end</span>
-0108 
-0109 <span class="comment">%kind of sampling</span>
-0110 doe.type=<span class="string">'LHS'</span>;
-0111 
-0112 <span class="comment">%show information</span>
-0113 <span class="keyword">if</span> ~isempty(funT)
-0114     fprintf(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
-0115 <span class="keyword">else</span>
-0116     <span class="keyword">if</span> ~isempty(dim)
-0117         fprintf(<span class="string">'++ Number of variables: %i\n'</span>,dim)
-0118     <span class="keyword">end</span>
-0119 <span class="keyword">end</span>
-0120 fprintf(<span class="string">'++ Design space: '</span>);
-0121 <span class="keyword">if</span> isempty(doe.Xmin)
-0122     fprintf(<span class="string">'UNDEFINED\n'</span>)
-0123 <span class="keyword">else</span>
-0124     fprintf(<span class="string">'   Min  |'</span>);
-0125     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
-0126     fprintf(<span class="string">'   Max  |'</span>);
-0127     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
-0128 <span class="keyword">end</span>
-0129 fprintf(<span class="string">'++ Sorting of the sampling du tirages: '</span>);
-0130 <span class="keyword">if</span> ~doe.sort.on
-0131     fprintf(<span class="string">'NO\n'</span>);
-0132 <span class="keyword">else</span>
-0133     fprintf(<span class="string">'YES\n'</span>);
-0134     fprintf(<span class="string">'Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
-0135 <span class="keyword">end</span>
-0136 fprintf(<span class="string">'++ Display sampling: '</span>);
-0137 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
-0138 
-0139 <a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
-0140 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<div class="fragment"><pre>0001 <span class="comment">% Copyright or © or Copr. Luc LAURENT (30/06/2016)</span>
+0002 <span class="comment">% luc.laurent@lecnam.net</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">% This software is a computer program whose purpose is to generate sampling</span>
+0005 <span class="comment">% using dedicated techniques.</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">% This software is governed by the CeCILL license under French law and</span>
+0008 <span class="comment">% abiding by the rules of distribution of free software.  You can  use,</span>
+0009 <span class="comment">% modify and/ or redistribute the software under the terms of the CeCILL</span>
+0010 <span class="comment">% license as circulated by CEA, CNRS and INRIA at the following URL</span>
+0011 <span class="comment">% &quot;http://www.cecill.info&quot;.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">% As a counterpart to the access to the source code and  rights to copy,</span>
+0014 <span class="comment">% modify and redistribute granted by the license, users are provided only</span>
+0015 <span class="comment">% with a limited warranty  and the software's author,  the holder of the</span>
+0016 <span class="comment">% economic rights,  and the successive licensors  have only  limited</span>
+0017 <span class="comment">% liability.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">% In this respect, the user's attention is drawn to the risks associated</span>
+0020 <span class="comment">% with loading,  using,  modifying and/or developing or reproducing the</span>
+0021 <span class="comment">% software by the user in light of its specific status of free software,</span>
+0022 <span class="comment">% that may mean  that it is complicated to manipulate,  and  that  also</span>
+0023 <span class="comment">% therefore means  that it is reserved for developers  and  experienced</span>
+0024 <span class="comment">% professionals having in-depth computer knowledge. Users are therefore</span>
+0025 <span class="comment">% encouraged to load and test the software's suitability as regards their</span>
+0026 <span class="comment">% requirements in conditions enabling the security of their systems and/or</span>
+0027 <span class="comment">% data to be ensured and,  more generally, to use and operate it in the</span>
+0028 <span class="comment">% same conditions as regards security.</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">% The fact that you are presently reading this means that you have had</span>
+0031 <span class="comment">% knowledge of the CeCILL license and that you accept its terms.</span>
+0032 
+0033 <span class="comment">%% Initialization on the DOE structure (definition of the options)</span>
+0034 <span class="comment">%% L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net</span>
+0035 
+0036 <span class="comment">%% usable syntaxes</span>
+0037 <span class="comment">%init_doe</span>
+0038 <span class="comment">%init_doe(dim)</span>
+0039 <span class="comment">%init_doe(dim,esp)</span>
+0040 <span class="comment">%init_doe(dim,esp,funT)</span>
+0041 
+0042 <span class="comment">%% INPUT variables</span>
+0043 <span class="comment">% -dim : number of design variables</span>
+0044 <span class="comment">% -espM : matrix for defining the bounds of the design space</span>
+0045 <span class="comment">%       -nb of row=dim</span>
+0046 <span class="comment">%       -nb of columns=2 (lower and upper bounds)</span>
+0047 <span class="comment">% -funT : name of a test function (see below)</span>
+0048 <span class="comment">% if the test function is available in the matlab's path the function will</span>
+0049 <span class="comment">% create the right 'doe' structure that conatins the right options</span>
+0050 
+0051 <span class="comment">%% OUTPUT variables</span>
+0052 <span class="comment">% doe.dimPB: nb of design variables</span>
+0053 <span class="comment">% doe.fctT: name of a test function (Peaks, Rosenbrock..., see below)</span>
+0054 <span class="comment">% doe.infos: available information about the test function</span>
+0055 <span class="comment">% doe.sort.on: active sorting</span>
+0056 <span class="comment">% doe.sort.type:</span>
+0057 <span class="comment">%       - 'v' or 'variable': sort wrt the specified variable (variable</span>
+0058 <span class="comment">%       doe.sort.para)</span>
+0059 <span class="comment">%       - 'nptp' or 'normal_pt_to_pt'</span>
+0060 <span class="comment">%       - 'p' or 'point':</span>
+0061 <span class="comment">%       - 'c' or 'center'</span>
+0062 <span class="comment">%       - 'sac' or 'sampling_center' (default)</span>
+0063 <span class="comment">%       - 'sc' or 'start_center'</span>
+0064 <span class="comment">%       - 'sasc' or 'sampling_start_center'</span>
+0065 <span class="comment">% doe.sort.para: parameter of the sorting method</span>
+0066 <span class="comment">% doe.sort.ptref: reference point used for sorting data (nptp, p)</span>
+0067 <span class="comment">% (see also buildDOE.m for the meaning of these options)</span>
+0068 <span class="comment">% doe.disp: display or not of the obatined sampling (true by default)</span>
+0069 <span class="comment">% doe.Xmin: lower bounds (vector)</span>
+0070 <span class="comment">% doe.Xmax: upper bounds (vector)</span>
+0071 <span class="comment">% doe.type: type of DOE</span>
+0072 
+0073 <a name="_sub0" href="#_subfunctions" class="code">function [doe]=initDOE(dim,espM,funT)</a>
+0074 
+0075 
+0076 fprintf(<span class="string">'=========================================\n'</span>)
+0077 fprintf(<span class="string">'      &gt;&gt;&gt; DOE INITIALIZATION &lt;&lt;&lt;\n'</span>);
+0078 [tMesu,tInit]=<a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>;
+0079 
+0080 <span class="comment">%depending on the number of parameters</span>
+0081 <span class="keyword">if</span> nargin==0
+0082     funT=[];
+0083     dim=[];
+0084     espM=[];
+0085 <span class="keyword">elseif</span> nargin==1
+0086     espM=[];
+0087     funT=[];
+0088 <span class="keyword">elseif</span> nargin==2
+0089     funT=[];
+0090 <span class="keyword">end</span>
+0091 
+0092 <span class="comment">%automatic definition</span>
+0093 <span class="keyword">if</span> ~isempty(funT)
+0094     [espM,dim]=<a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>(dim,funT);
+0095 <span class="keyword">end</span>
+0096 
+0097 <span class="comment">%number of design variables</span>
+0098 doe.dimPB=dim;
+0099 <span class="comment">%number of sample points</span>
+0100 doe.ns=[];
+0101 
+0102 doe.funT=[];
+0103 doe.infos=[];
+0104 <span class="keyword">if</span> ~isempty(funT)
+0105     <span class="comment">%save the name of the test function</span>
+0106     doe.funT=[<span class="string">'fun'</span> funT];
+0107     
+0108     <span class="comment">%if the test function exists (in a .m file)</span>
+0109     <span class="keyword">if</span> exist(doe.funT,<span class="string">'file'</span>)==2
+0110         <span class="comment">%recover informations about the function (local abnd global minima)</span>
+0111         [~,~,doe.infos]=feval(doe.funT,[],dim);
+0112     <span class="keyword">end</span>
+0113 <span class="keyword">end</span>
+0114 
+0115 <span class="comment">%%sorting of the sampling</span>
+0116 <span class="comment">%criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)</span>
+0117 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
+0118 doe.sort.on=true;
+0119 doe.sort.type=<span class="string">'sac'</span>;
+0120 doe.sort.para=1;
+0121 doe.sort.ptref=[];
+0122 
+0123 <span class="comment">%display sampling</span>
+0124 doe.disp=true;
+0125 
+0126 <span class="comment">%manual definition</span>
+0127 <span class="keyword">if</span> ~isempty(espM)
+0128     doe.Xmin=espM(:,1);
+0129     doe.Xmax=espM(:,2);
+0130 <span class="keyword">end</span>
+0131 <span class="keyword">if</span> ~isempty(espM)
+0132     doe.Xmin=espM(:,1);
+0133     doe.Xmax=espM(:,2);
+0134 <span class="keyword">end</span>
+0135 <span class="comment">%otherwise empty</span>
+0136 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
+0137     doe.Xmin=[];
+0138     doe.Xmax=[];
+0139 <span class="keyword">end</span>
+0140 
+0141 <span class="comment">%kind of sampling</span>
+0142 doe.type=<span class="string">'LHS'</span>;
+0143 
+0144 <span class="comment">%show information</span>
+0145 <span class="keyword">if</span> ~isempty(funT)
+0146     fprintf(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
+0147 <span class="keyword">else</span>
+0148     <span class="keyword">if</span> ~isempty(dim)
+0149         fprintf(<span class="string">'++ Number of variables: %i\n'</span>,dim)
+0150     <span class="keyword">end</span>
+0151 <span class="keyword">end</span>
+0152 fprintf(<span class="string">'++ Design space: '</span>);
+0153 <span class="keyword">if</span> isempty(doe.Xmin)
+0154     fprintf(<span class="string">'UNDEFINED\n'</span>)
+0155 <span class="keyword">else</span>
+0156     fprintf(<span class="string">'   Min  |'</span>);
+0157     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
+0158     fprintf(<span class="string">'   Max  |'</span>);
+0159     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
+0160 <span class="keyword">end</span>
+0161 fprintf(<span class="string">'++ Sorting of the sampling du tirages: '</span>);
+0162 <span class="keyword">if</span> ~doe.sort.on
+0163     fprintf(<span class="string">'NO\n'</span>);
+0164 <span class="keyword">else</span>
+0165     fprintf(<span class="string">'YES\n'</span>);
+0166     fprintf(<span class="string">'Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
+0167 <span class="keyword">end</span>
+0168 fprintf(<span class="string">'++ Display sampling: '</span>);
+0169 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
+0170 
+0171 <a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
+0172 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:25:53 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
