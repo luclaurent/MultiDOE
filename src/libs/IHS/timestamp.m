@@ -1,8 +1,25 @@
-function ts = timestamp()
-% 
-% TIMESTAMP returns the current system time.
-% The output is type string and without EOL.
-% (LB 9'02)
+function timestamp ( )
 
-TempTime=clock;
-ts = ['(' num2str(TempTime(4),'%02.0f') ':' num2str(TempTime(5),'%02.0f') ':' num2str(TempTime(6),'%02.0f') ')'];
+%*****************************************************************************80
+%
+%% TIMESTAMP prints the current YMDHMS date as a timestamp.
+%
+%  Licensing:
+%
+%    This code is distributed under the GNU LGPL license.
+%
+%  Modified:
+%
+%    14 February 2003
+%
+%  Author:
+%
+%    John Burkardt
+%
+  t = now;
+  c = datevec ( t );
+  s = datestr ( c, 0 );
+  fprintf ( 1, '%s\n', s );
+
+  return
+end
