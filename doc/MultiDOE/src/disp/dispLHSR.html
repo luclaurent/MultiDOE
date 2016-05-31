@@ -4,7 +4,7 @@
 <head>
   <title>Description of dispLHSR</title>
   <meta name="keywords" content="dispLHSR">
-  <meta name="description" content="% Showing LHS/IHS obtained with R with enrichment">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,14 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Showing LHS/IHS obtained with R with enrichment</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>This is a script file. </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Showing LHS/IHS obtained with R with enrichment
- L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+ 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+ 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+ 
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -42,93 +55,110 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Showing LHS/IHS obtained with R with enrichment</span>
-0002 <span class="comment">% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</span>
-0003 close all
-0004 <span class="comment">%dimension [1 2 3 4 5 6 7 8 9 10] number of variables</span>
-0005 np=2;
-0006 <span class="comment">%nb of initial sample points [2 5 10 15 20 30 50] (before enrichment)</span>
-0007 nsMin=30;
-0008 <span class="comment">%type of DOE 'LHS' or 'IHS'</span>
-0009 doeType=<span class="string">'LHS'</span>;
-0010 
-0011 fich=[doeType <span class="string">'_R/'</span> num2str(np) <span class="string">'d_'</span> num2str(nsMin) <span class="string">'.mat'</span>];
-0012 fprintf(<span class="string">'%s\n'</span>,fich)
-0013 load(fich)
-0014 
-0015 dispOn=true;
-0016 <span class="keyword">if</span> dispOn
-0017     <span class="keyword">if</span> np==1
-0018         figure;
-0019         hold on
-0020         <span class="keyword">for</span> ii=1:nsMin
-0021             plot(t(ii),2,<span class="string">'r*'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>)
-0022         <span class="keyword">end</span>
-0023         iter=1;
-0024         <span class="keyword">for</span> ii=(nsMin+1):nbs_max
-0025             plot(tt(ii),2,<span class="string">'bo'</span>,<span class="string">'MarkerSize'</span>,10);
-0026             F(iter)=getframe;
-0027             iter=iter+1;
-0028         <span class="keyword">end</span>
-0029         hold off
-0030     <span class="keyword">elseif</span> np==2
-0031         figure;
-0032         hold on
-0033         <span class="keyword">for</span> ii=1:nsMin
-0034             plot(t(ii,1),t(ii,2),<span class="string">'ro'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>)
-0035         <span class="keyword">end</span>
-0036         iter=1;
-0037         <span class="keyword">for</span> ii=(nsMin+1):nbs_max
-0038             plot(tt(ii,1),tt(ii,2),<span class="string">'bo'</span>,<span class="string">'MarkerSize'</span>,10);
-0039             F(iter)=getframe;
-0040             iter=iter+1;
-0041         <span class="keyword">end</span>
-0042     <span class="keyword">else</span>
-0043         h=figure;
-0044         it=0;
-0045         para=0.1;
-0046         depX=Xmax-Xmin;iter=1;
-0047         <span class="keyword">for</span> ll=1:nsMin
-0048             <span class="keyword">for</span> ii=1:np
-0049                 <span class="keyword">for</span> jj=1:np
-0050                     it=it+1;
-0051                     <span class="keyword">if</span> ii~=jj
-0052                         subplot(np,np,it)
-0053                         hold on
-0054                         plot(tt(ll,ii),tt(ll,jj),<span class="string">'ro'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>)
-0055                         hold off
-0056                         xmin=Xmin(ii);xmax=Xmax(ii);ymin=Xmin(jj);ymax=Xmax(jj);depx=depX(ii);depy=depX(jj);
-0057                         axis([(xmin-para*depx) (xmax+para*depx) (ymin-para*depy) (ymax+para*depy)])
-0058                         line([xmin;xmin;xmax;xmax;xmax;xmax;xmax;xmin],[ymin;ymax;ymax;ymax;ymax;ymin;ymin;ymin])
-0059                     <span class="keyword">end</span>
-0060                 <span class="keyword">end</span>
-0061             <span class="keyword">end</span>
-0062             it=0;
-0063         <span class="keyword">end</span>
-0064         <span class="keyword">for</span> ll=(nsMin+1):nbs_max
-0065             fprintf(<span class="string">'%g '</span>,ll);
-0066             <span class="keyword">for</span> ii=1:np
-0067                 <span class="keyword">for</span> jj=1:np
-0068                     it=it+1;
-0069                     <span class="keyword">if</span> ii~=jj
-0070                         subplot(np,np,it)
-0071                         hold on
-0072                         plot(tt(ll,ii),tt(ll,jj),<span class="string">'bo'</span>,<span class="string">'MarkerSize'</span>,10);
-0073                         hold off
-0074                         xmin=Xmin(ii);xmax=Xmax(ii);ymin=Xmin(jj);ymax=Xmax(jj);depx=depX(ii);depy=depX(jj);
-0075                         axis([(xmin-para*depx) (xmax+para*depx) (ymin-para*depy) (ymax+para*depy)])
-0076                         line([xmin;xmin;xmax;xmax;xmax;xmax;xmax;xmin],[ymin;ymax;ymax;ymax;ymax;ymin;ymin;ymin])
-0077                     <span class="keyword">end</span>
-0078                 <span class="keyword">end</span>
-0079             <span class="keyword">end</span>
-0080             it=0;
-0081             F(iter)=getframe(h);
-0082             iter=iter+1;
-0083         <span class="keyword">end</span>
-0084         
-0085     <span class="keyword">end</span>
-0086     movie(F)
-0087 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0016 <span class="comment">%</span>
+0017 
+0018 <span class="comment">%% Showing LHS/IHS obtained with R with enrichment</span>
+0019 <span class="comment">% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</span>
+0020 close all
+0021 <span class="comment">%dimension [1 2 3 4 5 6 7 8 9 10] number of variables</span>
+0022 np=2;
+0023 <span class="comment">%nb of initial sample points [2 5 10 15 20 30 50] (before enrichment)</span>
+0024 nsMin=30;
+0025 <span class="comment">%type of DOE 'LHS' or 'IHS'</span>
+0026 doeType=<span class="string">'LHS'</span>;
+0027 
+0028 fich=[doeType <span class="string">'_R/'</span> num2str(np) <span class="string">'d_'</span> num2str(nsMin) <span class="string">'.mat'</span>];
+0029 fprintf(<span class="string">'%s\n'</span>,fich)
+0030 load(fich)
+0031 
+0032 dispOn=true;
+0033 <span class="keyword">if</span> dispOn
+0034     <span class="keyword">if</span> np==1
+0035         figure;
+0036         hold on
+0037         <span class="keyword">for</span> ii=1:nsMin
+0038             plot(t(ii),2,<span class="string">'r*'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>)
+0039         <span class="keyword">end</span>
+0040         iter=1;
+0041         <span class="keyword">for</span> ii=(nsMin+1):nbs_max
+0042             plot(tt(ii),2,<span class="string">'bo'</span>,<span class="string">'MarkerSize'</span>,10);
+0043             F(iter)=getframe;
+0044             iter=iter+1;
+0045         <span class="keyword">end</span>
+0046         hold off
+0047     <span class="keyword">elseif</span> np==2
+0048         figure;
+0049         hold on
+0050         <span class="keyword">for</span> ii=1:nsMin
+0051             plot(t(ii,1),t(ii,2),<span class="string">'ro'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>)
+0052         <span class="keyword">end</span>
+0053         iter=1;
+0054         <span class="keyword">for</span> ii=(nsMin+1):nbs_max
+0055             plot(tt(ii,1),tt(ii,2),<span class="string">'bo'</span>,<span class="string">'MarkerSize'</span>,10);
+0056             F(iter)=getframe;
+0057             iter=iter+1;
+0058         <span class="keyword">end</span>
+0059     <span class="keyword">else</span>
+0060         h=figure;
+0061         it=0;
+0062         para=0.1;
+0063         depX=Xmax-Xmin;iter=1;
+0064         <span class="keyword">for</span> ll=1:nsMin
+0065             <span class="keyword">for</span> ii=1:np
+0066                 <span class="keyword">for</span> jj=1:np
+0067                     it=it+1;
+0068                     <span class="keyword">if</span> ii~=jj
+0069                         subplot(np,np,it)
+0070                         hold on
+0071                         plot(tt(ll,ii),tt(ll,jj),<span class="string">'ro'</span>,<span class="string">'MarkerSize'</span>,10,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'r'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'r'</span>)
+0072                         hold off
+0073                         xmin=Xmin(ii);xmax=Xmax(ii);ymin=Xmin(jj);ymax=Xmax(jj);depx=depX(ii);depy=depX(jj);
+0074                         axis([(xmin-para*depx) (xmax+para*depx) (ymin-para*depy) (ymax+para*depy)])
+0075                         line([xmin;xmin;xmax;xmax;xmax;xmax;xmax;xmin],[ymin;ymax;ymax;ymax;ymax;ymin;ymin;ymin])
+0076                     <span class="keyword">end</span>
+0077                 <span class="keyword">end</span>
+0078             <span class="keyword">end</span>
+0079             it=0;
+0080         <span class="keyword">end</span>
+0081         <span class="keyword">for</span> ll=(nsMin+1):nbs_max
+0082             fprintf(<span class="string">'%g '</span>,ll);
+0083             <span class="keyword">for</span> ii=1:np
+0084                 <span class="keyword">for</span> jj=1:np
+0085                     it=it+1;
+0086                     <span class="keyword">if</span> ii~=jj
+0087                         subplot(np,np,it)
+0088                         hold on
+0089                         plot(tt(ll,ii),tt(ll,jj),<span class="string">'bo'</span>,<span class="string">'MarkerSize'</span>,10);
+0090                         hold off
+0091                         xmin=Xmin(ii);xmax=Xmax(ii);ymin=Xmin(jj);ymax=Xmax(jj);depx=depX(ii);depy=depX(jj);
+0092                         axis([(xmin-para*depx) (xmax+para*depx) (ymin-para*depy) (ymax+para*depy)])
+0093                         line([xmin;xmin;xmax;xmax;xmax;xmax;xmax;xmin],[ymin;ymax;ymax;ymax;ymax;ymin;ymin;ymin])
+0094                     <span class="keyword">end</span>
+0095                 <span class="keyword">end</span>
+0096             <span class="keyword">end</span>
+0097             it=0;
+0098             F(iter)=getframe(h);
+0099             iter=iter+1;
+0100         <span class="keyword">end</span>
+0101         
+0102     <span class="keyword">end</span>
+0103     movie(F)
+0104 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

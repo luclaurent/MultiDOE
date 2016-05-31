@@ -2,9 +2,11 @@
 digraph m2html {
   ExampleInfill -> initDirMultiDOE;
   ExampleUse -> initDirMultiDOE;
+  LICENSE -> LICENSE;
 
   ExampleInfill [URL="ExampleInfill.html"];
   ExampleUse [URL="ExampleUse.html"];
+  LICENSE [URL="LICENSE.html"];
   README [URL="README.html"];
   initDirMultiDOE [URL="initDirMultiDOE.html"];
 }

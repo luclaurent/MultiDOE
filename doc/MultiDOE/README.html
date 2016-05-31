@@ -52,7 +52,7 @@ This function is called by:
 0009 * Improved Hypercube Sampling
 0010 * Random Sampling
 0011 
-0012 Many techniques propose in this toolbox are based on 
+0012 Many techniques proposed in this toolbox are based on 
 0013 
 0014 * the [R software](https://cran.r-project.org/). More precisely, the library [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) is used. 
 0015 * the [IHS](https://people.sc.fsu.edu/~jburkardt/m_src/<a href="../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>/ihs.html) matlab's softwares proposed by [John Burkardt](http://people.sc.fsu.edu/~jburkardt/)
@@ -65,7 +65,7 @@ This function is called by:
 0022 * generate sampling
 0023 * sort the sample points using many techniques
 0024 * add points to an existing sampling (based on the <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> and IHS procedures of the R software)
-0025 * normalize/renormalize the sample points to be weel defined in the specified design space
+0025 * normalize/renormalize the sample points to be well defined in the specified design space
 0026 * call automatically the R software (on Unix/Linux/OSX systems only)
 0027 * compute scores (minimal distances, discrepancy<span class="keyword">...</span><span class="comment">), see for instance the [Franco's PhD thesis (2008)](https://tel.archives-ouvertes.fr/tel-00803107/)</span>
 0028 
@@ -75,8 +75,8 @@ This function is called by:
 0032 ------
 0033 The toolbox requires:
 0034 
-0035 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software
-0036 * the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line
+0035 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software (<span class="keyword">for</span> the `lhsdesign` command called using `LHSD` keyword, optional)
+0036 * the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (<span class="keyword">for</span> obtaining <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> or IHS called using `IHS_R` or `LHS_R` commands, optional)
 0037 * the [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) installed on R (see <span class="keyword">for</span> instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
 0038 * the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) <span class="keyword">for</span> building the documentation (optional).
 0039 
@@ -85,7 +85,25 @@ This function is called by:
 0042 The automatic building of the documentation is based on the [m2html](http://www.artefact.tk/software/matlab/m2html/) software.
 0043 
 0044 License
-0045 ----</pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0045 ----
+0046 
+0047     MultiDOE - Toolbox <span class="keyword">for</span> sampling a bounded space
+0048     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+0049 
+0050     This program is free software: you can redistribute it and/or modify
+0051     it under the terms of the GNU General Public License as published by
+0052     the Free Software Foundation, either version 3 of the License, or
+0053     (at your option) any later version.
+0054 
+0055     This program is distributed in the hope that it will be useful,
+0056     but WITHOUT ANY WARRANTY; without even the implied warranty of
+0057     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+0058     GNU General Public License <span class="keyword">for</span> more details.
+0059 
+0060     You should have received a copy of the GNU General Public License
+0061     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+0062 
+0063</pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

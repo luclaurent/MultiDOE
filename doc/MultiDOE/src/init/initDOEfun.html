@@ -4,7 +4,7 @@
 <head>
   <title>Description of initDOEfun</title>
   <meta name="keywords" content="initDOEfun">
-  <meta name="description" content="% Initialisation of the design space for some analytical functions">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,14 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Initialisation of the design space for some analytical functions</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [espM,dim]=initDOEfun(dim,fct) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Initialisation of the design space for some analytical functions
-% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+ 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+ 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+ 
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -36,72 +49,89 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li></ul>
+<li><a href="initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Initialisation of the design space for some analytical functions</span>
-0002 <span class="comment">%% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <a name="_sub0" href="#_subfunctions" class="code">function [espM,dim]=initDOEfun(dim,fct)</a>
-0005 
-0006 <span class="keyword">switch</span> fct
-0007     <span class="keyword">case</span> <span class="string">'Manu'</span>
-0008         espM=[-1 5];
-0009         dim=1;
-0010     <span class="keyword">case</span> <span class="string">'Ackley'</span>
-0011         val=1.5;
-0012         espM=val*[-ones(dim,1),ones(dim,1)];
-0013     <span class="keyword">case</span> {<span class="string">'Rosenbrock'</span>,<span class="string">'RosenbrockM'</span>}
-0014         val=2.048;
-0015         espM=val*[-ones(dim,1),ones(dim,1)];
-0016     <span class="keyword">case</span> <span class="string">'Branin'</span>
-0017         xmin=-5;xmax=10;ymin=0;ymax=15;
-0018         espM=[xmin xmax;ymin ymax];
-0019     <span class="keyword">case</span> <span class="string">'Gold'</span>
-0020         val=2;xmin=-val;xmax=val;ymin=-val;ymax=val;
-0021         espM=[xmin xmax;ymin ymax];
-0022     <span class="keyword">case</span> <span class="string">'Peaks'</span>
-0023         val=3;xmin=-val;xmax=val;ymin=-val;ymax=val;
-0024         espM=[xmin xmax;ymin ymax];
-0025     <span class="keyword">case</span> <span class="string">'SixHump'</span>
-0026         xmin=-2;xmax=2;ymin=-1;ymax=1;
-0027         espM=[xmin xmax;ymin ymax];
-0028     <span class="keyword">case</span> <span class="string">'Schwefel'</span>
-0029         val=500;
-0030         espM=val*[-ones(dim,1),ones(dim,1)];
-0031     <span class="keyword">case</span> <span class="string">'Mystery'</span>
-0032         val=5;xmin=0;xmax=val;ymin=0;ymax=val;
-0033         espM=[xmin xmax;ymin ymax];
-0034     <span class="keyword">case</span> {<span class="string">'Bohachevsky1'</span>,<span class="string">'Bohachevsky2'</span>,<span class="string">'Bohachevsky3'</span>}
-0035         val=100;
-0036         espM=[-val,val;-val,val];
-0037     <span class="keyword">case</span> <span class="string">'Booth'</span>
-0038         val=10;
-0039         espM=[-val,val;-val,val];
-0040     <span class="keyword">case</span> <span class="string">'Colville'</span>
-0041         val=10;
-0042         espM=val*[-1,1;-1,1;-1,1;-1,1];
-0043     <span class="keyword">case</span> {<span class="string">'Dixon'</span>,<span class="string">'Sphere'</span>,<span class="string">'SumSquare'</span>}
-0044         val=10;
-0045         espM=val*[-ones(dim,1),ones(dim,1)];
-0046     <span class="keyword">case</span> <span class="string">'Michalewicz'</span>
-0047         val=pi;
-0048         espM=val*[zeros(dim,1),ones(dim,1)];
-0049     <span class="keyword">case</span> {<span class="string">'Null'</span>,<span class="string">'Cst'</span>,<span class="string">'Slope'</span>}
-0050         val=5;
-0051         espM=val*[-ones(dim,1),ones(dim,1)];
-0052     <span class="keyword">case</span> {<span class="string">'Dejong'</span>,<span class="string">'AHE'</span>,<span class="string">'Rastrigin'</span>}
-0053         val=5.12;
-0054         espM=val*[-ones(dim,1),ones(dim,1)];
-0055     <span class="keyword">case</span> <span class="string">'RHE'</span>
-0056         val=65.536;
-0057         espM=val*[-ones(dim,1),ones(dim,1)];
-0058     <span class="keyword">otherwise</span>
-0059         error([<span class="string">'&gt;&gt; Unavailable test function (see '</span>,mfilename,<span class="string">')'</span>]);
-0060 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 15:03:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0016 <span class="comment">%</span>
+0017 
+0018 <span class="comment">%% Initialisation of the design space for some analytical functions</span>
+0019 <span class="comment">%% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net</span>
+0020 
+0021 <a name="_sub0" href="#_subfunctions" class="code">function [espM,dim]=initDOEfun(dim,fct)</a>
+0022 
+0023 <span class="keyword">switch</span> fct
+0024     <span class="keyword">case</span> <span class="string">'Manu'</span>
+0025         espM=[-1 5];
+0026         dim=1;
+0027     <span class="keyword">case</span> <span class="string">'Ackley'</span>
+0028         val=1.5;
+0029         espM=val*[-ones(dim,1),ones(dim,1)];
+0030     <span class="keyword">case</span> {<span class="string">'Rosenbrock'</span>,<span class="string">'RosenbrockM'</span>}
+0031         val=2.048;
+0032         espM=val*[-ones(dim,1),ones(dim,1)];
+0033     <span class="keyword">case</span> <span class="string">'Branin'</span>
+0034         xmin=-5;xmax=10;ymin=0;ymax=15;
+0035         espM=[xmin xmax;ymin ymax];
+0036     <span class="keyword">case</span> <span class="string">'Gold'</span>
+0037         val=2;xmin=-val;xmax=val;ymin=-val;ymax=val;
+0038         espM=[xmin xmax;ymin ymax];
+0039     <span class="keyword">case</span> <span class="string">'Peaks'</span>
+0040         val=3;xmin=-val;xmax=val;ymin=-val;ymax=val;
+0041         espM=[xmin xmax;ymin ymax];
+0042     <span class="keyword">case</span> <span class="string">'SixHump'</span>
+0043         xmin=-2;xmax=2;ymin=-1;ymax=1;
+0044         espM=[xmin xmax;ymin ymax];
+0045     <span class="keyword">case</span> <span class="string">'Schwefel'</span>
+0046         val=500;
+0047         espM=val*[-ones(dim,1),ones(dim,1)];
+0048     <span class="keyword">case</span> <span class="string">'Mystery'</span>
+0049         val=5;xmin=0;xmax=val;ymin=0;ymax=val;
+0050         espM=[xmin xmax;ymin ymax];
+0051     <span class="keyword">case</span> {<span class="string">'Bohachevsky1'</span>,<span class="string">'Bohachevsky2'</span>,<span class="string">'Bohachevsky3'</span>}
+0052         val=100;
+0053         espM=[-val,val;-val,val];
+0054     <span class="keyword">case</span> <span class="string">'Booth'</span>
+0055         val=10;
+0056         espM=[-val,val;-val,val];
+0057     <span class="keyword">case</span> <span class="string">'Colville'</span>
+0058         val=10;
+0059         espM=val*[-1,1;-1,1;-1,1;-1,1];
+0060     <span class="keyword">case</span> {<span class="string">'Dixon'</span>,<span class="string">'Sphere'</span>,<span class="string">'SumSquare'</span>}
+0061         val=10;
+0062         espM=val*[-ones(dim,1),ones(dim,1)];
+0063     <span class="keyword">case</span> <span class="string">'Michalewicz'</span>
+0064         val=pi;
+0065         espM=val*[zeros(dim,1),ones(dim,1)];
+0066     <span class="keyword">case</span> {<span class="string">'Null'</span>,<span class="string">'Cst'</span>,<span class="string">'Slope'</span>}
+0067         val=5;
+0068         espM=val*[-ones(dim,1),ones(dim,1)];
+0069     <span class="keyword">case</span> {<span class="string">'Dejong'</span>,<span class="string">'AHE'</span>,<span class="string">'Rastrigin'</span>}
+0070         val=5.12;
+0071         espM=val*[-ones(dim,1),ones(dim,1)];
+0072     <span class="keyword">case</span> <span class="string">'RHE'</span>
+0073         val=65.536;
+0074         espM=val*[-ones(dim,1),ones(dim,1)];
+0075     <span class="keyword">otherwise</span>
+0076         error([<span class="string">'&gt;&gt; Unavailable test function (see '</span>,mfilename,<span class="string">')'</span>]);
+0077 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
