@@ -1,3 +1,8 @@
+%% Build DOE using R (IHS with)
+% IHS: Improved Hypercube Sampling
+% Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
+% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,12 +18,7 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Build DOE using R (IHS with)
-% IHS: Improved Hypercube Sampling
-% Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
-% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
+%   
 
 
 function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)
@@ -116,10 +116,8 @@ end
 
 %%execute R script (R must be installed)
 %check if available
-[e,~]=unix('which R');
-if e~=0
-    error('R is not installed (not in the PATH)');
-else
+[rOk,TBXOk]=checkR;
+if rOk&&TBXOk
     [~,~]=unix(['cd ' folderStore ' && R -f ' nameScript]);
     pause(timePause)
 end

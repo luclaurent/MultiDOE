@@ -1,19 +1,19 @@
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
-% 
+%
 %     This program is free software: you can redistribute it and/or modify
 %     it under the terms of the GNU General Public License as published by
 %     the Free Software Foundation, either version 3 of the License, or
 %     (at your option) any later version.
-% 
+%
 %     This program is distributed in the hope that it will be useful,
 %     but WITHOUT ANY WARRANTY; without even the implied warranty of
 %     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 %     GNU General Public License for more details.
-% 
+%
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
+%
 
 %% Build DOE using R (LHS with initial sampling and enrichment)
 % L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
@@ -114,10 +114,8 @@ end
 
 %%execute R script (R must be installed)
 %check if available
-[e,~]=unix('which R');
-if e~=0
-    error('R non installe (absent du PATH)');
-else
+[rOk,TBXOk]=checkR;
+if rOk&&TBXOk
     [~,~]=unix(['cd ' folderStore ' && R -f ' nameScript]);
     pause(timePause)
 end
