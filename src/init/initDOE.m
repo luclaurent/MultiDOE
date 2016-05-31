@@ -143,7 +143,7 @@ else
     fprintf('   Max  |');
     fprintf('%+4.2f|',doe.Xmax);fprintf('\n');
 end
-fprintf('++ Sorting of the sampling du tirages: ');
+fprintf('++ Sorting of the sampling: ');
 if ~doe.sort.on
     fprintf('NO\n');
 else
