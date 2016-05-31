@@ -85,7 +85,7 @@ if ~isfield(doe.sort,'on');doe.sort.on=false;end
 if ~isfield(doe.sort,'lnorm');doe.sort.lnorm=2;end
 
 %% Show information
-fprintf(' >> Kind of DOE de tirages: %s\n',doe.type);
+fprintf(' >> Kind of DOE: %s\n',doe.type);
 fprintf(' >> Number of sample points: ')
 fprintf('%i ',ns);fprintf('\n');
 fprintf(' >> Number of variables: %i\n',np);
