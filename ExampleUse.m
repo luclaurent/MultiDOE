@@ -49,8 +49,8 @@ doe.Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 % - rand
 % - perso
 
-doe.type='IHS';
-doe.ns=30;
+doe.type='IHS_R_manu';
+doe.ns=32;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE

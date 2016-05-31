@@ -51,7 +51,7 @@ timePause=0;
 if nargin==4
     nb_old=size(oldSampling,1);
 else
-    nb_old=1;
+    nb_old=0;
 end
 
 % load dimensions (number of variables and sample points)
@@ -96,18 +96,18 @@ elseif nargin==4
     %write .mat file of the old sampling
     save([folderStore '/' nameDataM],varname(OldSamplingN));
     %reload old sampling
-    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$%s\n',nameDataM,varname(OldSamplingN));
+    textReload=sprintf('a<-readMat(''%s'')\n a<-a$%s\n',nameDataM,varname(OldSamplingN));
     %write enrichment procedure
-    text_enrich=sprintf('a<-augmentLHS(a,%i)\n',ns);
+    textInfill=sprintf('a<-augmentLHS(a,%i)\n',ns);
     %create and open script file
     fid=fopen([folderStore '/' nameScript],'w','n','UTF-8');
     %write loading of libraries
     fprintf(fid,loadLHS);
     fprintf(fid,loadRmat);
     %write procedure for loading old sampling
-    fprintf(fid,text_charg);
+    fprintf(fid,textReload);
     %write enrichment
-    fprintf(fid,text_enrich);
+    fprintf(fid,textInfill);
     %write storage procedure
     fprintf(fid,storeSampling);
 end
@@ -124,7 +124,7 @@ A=load([folderStore '/' nameDataR]);
 %tirage obtenu
 sampling=denorm_tir(A,Xmin,Xmax);
 %new sampling
-newSampling=sampling(nb_old:end,:);
+newSampling=sampling(nb_old+1:end,:);
 end
 
 %function for normalization and renormalization of the sampling

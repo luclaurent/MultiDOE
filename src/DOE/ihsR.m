@@ -52,7 +52,7 @@ timePause=0;
 if nargin==4
     nsOld=size(oldSampling,1);
 else
-    nsOld=1;
+    nsOld=0;
 end
 
 % load dimensions (number of variables and sample points)
@@ -62,7 +62,7 @@ nameScript=[nameScript num2str(np) '_' num2str(ns+nsOld) extScript];
 %full name of the R data file
 nameDataR=[nameDataR num2str(np) '_' num2str(ns+nsOld) extDataR];
 %full name of the R mat file
-nomDataM=[nomDataM num2str(np) '_' num2str(ns+nsOld) extDataM];
+nameDataM=[nomDataM num2str(np) '_' num2str(ns+nsOld) extDataM];
 %load LHS library
 loadLHS='library(lhs)\n';
 %load R.matlab library
@@ -98,7 +98,7 @@ elseif nargin==4
     %write .mat file of the old sampling
     save([folderStore '/' nameDataM],varname(OldSamplingN));
     %reload old sampling
-    text_charg=sprintf('a<-readMat(''%s'')\n a<-a$%s\n',nameDataM,varname(OldSamplingN));
+    textReLoad=sprintf('a<-readMat(''%s'')\n a<-a$%s\n',nameDataM,varname(OldSamplingN));
     %write enrichment procedure
     textInfill=sprintf('a<-augmentLHS(a,%i)\n',ns);
     %create and open script file
@@ -126,7 +126,7 @@ A=load([folderStore '/' nameDataR]);
 %obtained sampling
 sampling=renormSampling(A,Xmin,Xmax);
 %new sampling
-newSampling=sampling(nsOld:end,:);
+newSampling=sampling(nsOld+1:end,:);
 end
 
 %function for normalization and renormalization of the sampling
