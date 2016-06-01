@@ -2,10 +2,10 @@
 digraph m2html {
   buildDOE -> mesuTime;
   buildDOE -> sortDOE;
-  buildDoc -> listFilesToolbox;
+  buildDocMultiDOE -> listFilesToolbox;
 
   buildDOE [URL="buildDOE.html"];
-  buildDoc [URL="buildDoc.html"];
+  buildDocMultiDOE [URL="buildDocMultiDOE.html"];
   checkLhsuR [URL="checkLhsuR.html"];
   checkMultiDOE [URL="checkMultiDOE.html"];
   checkR [URL="checkR.html"];

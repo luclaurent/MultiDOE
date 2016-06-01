@@ -66,8 +66,8 @@ digraph m2html {
   buildDOE -> lhsu;
   buildDOE -> mesuTime;
   buildDOE -> sortDOE;
-  buildDoc -> initDirMultiDOE;
-  buildDoc -> listFilesToolbox;
+  buildDocMultiDOE -> initDirMultiDOE;
+  buildDocMultiDOE -> listFilesToolbox;
   checkLhsuR -> ihsR;
 
   ExampleInfill [URL="MultiDOE/ExampleInfill.html"];
@@ -122,7 +122,7 @@ digraph m2html {
   multitransp [URL="MultiDOE/src/libs/multitransp.html"];
   multitransp [URL="MultiDOE/src/libs/multitransp.html"];
   buildDOE [URL="MultiDOE/src/various/buildDOE.html"];
-  buildDoc [URL="MultiDOE/src/various/buildDoc.html"];
+  buildDocMultiDOE [URL="MultiDOE/src/various/buildDocMultiDOE.html"];
   checkLhsuR [URL="MultiDOE/src/various/checkLhsuR.html"];
   checkMultiDOE [URL="MultiDOE/src/various/checkMultiDOE.html"];
   checkR [URL="MultiDOE/src/various/checkR.html"];
