@@ -1,3 +1,28 @@
+%% Building sampling
+% L. LAURENT -- 17/12/2010 -- luc.laurent@lecnam.net
+%
+%Some criteria require the Matlab's toolbox "Random Numbers Generators" or
+%the R software
+%
+%All sampling techniques provide sample points with values between 0 and 1.
+%The convertion to the right sapce is done at the end of this file.
+%
+%% Syntax: gene_doe(doe)
+%% INPUT variables:
+% -doe: structure obtaind with initDOE and complete manually
+%
+%   + Kind of DOE (doe.type): see the switch command below
+%   + All methods containing the string '_R' require the R software
+%   (installed on the computer and accessible using the command line).
+%   Libraries 'lhs' and 'R.matlab' must be installed on R
+%   + All methods containing the string '_MANU' are saved sampling (they
+%   are built one time are are reloaded from a .mat file)
+%   + Many sorting methods are available using doe.sort (see sortDOE.m)
+%
+%% OUTPUT variables
+% - out: contains the sampling (sorted and unsorted)
+% -infoSampling(optional): many information about the sampling
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,33 +38,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Building sampling
-%% L. LAURENT -- 17/12/2010 -- luc.laurent@lecnam.net
-
-%Some criteria require the Matlab's toolbox "Random Numbers Generators" or
-%the R software
-
-%All sampling techniques provide sample points with values between 0 and 1.
-%The convertion to the right sapce is done at the end of this file.
-
-%% Syntax: gene_doe(doe)
-%% INPUT variables:
-% -doe: structure obtaind with initDOE and complete manually
-
-%   + Kind of DOE (doe.type): see the switch command below
-%   + All methods containing the string '_R' require the R software
-%   (installed on the computer and accessible using the command line).
-%   Libraries 'lhs' and 'R.matlab' must be installed on R
-%   + All methods containing the string '_MANU' are saved sampling (they
-%   are built one time are are reloaded from a .mat file)
-%   + Many sorting methods are available using doe.sort (see sortDOE.m)
-
-%% OUTPUT variables
-% - out: contains the sampling (sorted and unsorted)
-% -infoSampling(optional): many information about the sampling
-
 
 function [out,infoSampling]=buildDOE(doe)
 

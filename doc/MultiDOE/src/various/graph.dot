@@ -8,6 +8,7 @@ digraph m2html {
   buildDoc [URL="buildDoc.html"];
   checkLhsuR [URL="checkLhsuR.html"];
   checkMultiDOE [URL="checkMultiDOE.html"];
+  checkR [URL="checkR.html"];
   checkScore [URL="checkScore.html"];
   listFilesToolbox [URL="listFilesToolbox.html"];
   mesuTime [URL="mesuTime.html"];

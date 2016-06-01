@@ -14,6 +14,11 @@ digraph m2html {
   README -> ihs;
   README -> LHS;
   augmentLHS_Example -> augmentLHS_Example;
+  glhsR -> checkR;
+  ihsR -> checkR;
+  lhsuR -> checkR;
+  mmlhsR -> checkR;
+  olhsR -> checkR;
   calcScore -> calcDist;
   addSampleDOE -> ihsR;
   addSampleDOE -> lhsuR;
@@ -120,6 +125,7 @@ digraph m2html {
   buildDoc [URL="MultiDOE/src/various/buildDoc.html"];
   checkLhsuR [URL="MultiDOE/src/various/checkLhsuR.html"];
   checkMultiDOE [URL="MultiDOE/src/various/checkMultiDOE.html"];
+  checkR [URL="MultiDOE/src/various/checkR.html"];
   checkScore [URL="MultiDOE/src/various/checkScore.html"];
   listFilesToolbox [URL="MultiDOE/src/various/listFilesToolbox.html"];
   mesuTime [URL="MultiDOE/src/various/mesuTime.html"];

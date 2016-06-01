@@ -1,3 +1,6 @@
+%% function for computing inter-sample distances
+% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,10 +16,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% function for computing inter-sample distances
-%% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net
 
 function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)
 

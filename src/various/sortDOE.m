@@ -1,3 +1,6 @@
+%% Sorting of sample points
+% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,10 +16,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Sorting of sample points
-%% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net
 
 function samplingSorted = sortDOE(sampling,doe)
 %for normalization

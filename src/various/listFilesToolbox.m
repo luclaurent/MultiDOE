@@ -1,3 +1,8 @@
+%% List all files of the GRENAT Toolbox
+% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net
+%
+% To be executed at the root position of the toolbox
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,13 +18,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% List all files of the GRENAT Toolbox
-% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net
-
-
-% To be executed at the root position of the toolbox
 
 
 function listF=listFilesToolbox(dirT)

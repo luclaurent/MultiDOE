@@ -1,3 +1,6 @@
+%% Script dedicated to the initiailisation, the measure and the display of the spent time
+% L. LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,10 +16,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Script dedicated to the initiailisation, the measure and the display of the spent time
-%% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net
 
 function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)
 

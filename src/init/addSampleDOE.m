@@ -1,3 +1,8 @@
+%% Function for adding new points in an existing sampling
+% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net
+%
+% the enrichment requires the library 'R.matlab' in R software
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,12 +18,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Function for adding new points in an existing sampling
-%% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net
-
-% the enrichment requires the library 'R.matlab' in R software
 
 function newSampling=addSampleDOE(oldSampling,doe)
 

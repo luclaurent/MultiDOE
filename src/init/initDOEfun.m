@@ -1,3 +1,6 @@
+%% Initialisation of the design space for some analytical functions
+% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,10 +16,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Initialisation of the design space for some analytical functions
-%% L. LAURENT -- 16/01/2014 -- luc.laurent@lecnam.net
 
 function [espM,dim]=initDOEfun(dim,fct)
 

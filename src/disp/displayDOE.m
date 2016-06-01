@@ -1,3 +1,6 @@
+%% Function for displaying sampling with nD variables
+% L. LAURENT -- 10/02/2012 -- luc.laurent@lecnam.net
+
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -13,11 +16,6 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
-
-%% Function for displaying sampling with nD variables
-%% L. LUARENT -- 10/02/2012 -- luc.laurent@lecnam.net
-
 
 function displayDOE(sampling,doe,missData)
 

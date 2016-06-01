@@ -4,7 +4,7 @@
 <head>
   <title>Description of buildDOE</title>
   <meta name="keywords" content="buildDOE">
-  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
+  <meta name="description" content="% Building sampling">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,36 +20,45 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
+<div class="box"><strong>% Building sampling</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [out,infoSampling]=buildDOE(doe) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
-     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
- 
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
- 
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
- 
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+<div class="fragment"><pre class="comment">% Building sampling
+ L. LAURENT -- 17/12/2010 -- luc.laurent@lecnam.net
+
+Some criteria require the Matlab's toolbox &quot;Random Numbers Generators&quot; or
+the R software
+
+All sampling techniques provide sample points with values between 0 and 1.
+The convertion to the right sapce is done at the end of this file.
+
+% Syntax: gene_doe(doe)
+% INPUT variables:
+ -doe: structure obtaind with initDOE and complete manually
+
+   + Kind of DOE (doe.type): see the switch command below
+   + All methods containing the string '_R' require the R software
+   (installed on the computer and accessible using the command line).
+   Libraries 'lhs' and 'R.matlab' must be installed on R
+   + All methods containing the string '_MANU' are saved sampling (they
+   are built one time are are reloaded from a .mat file)
+   + Many sorting methods are available using doe.sort (see sortDOE.m)
+
+% OUTPUT variables
+ - out: contains the sampling (sorted and unsorted)
+ -infoSampling(optional): many information about the sampling</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>	% Function for displaying sampling with nD variables</li><li><a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	% Script dedicated to the initiailisation, the measure and the display of the spent time</li><li><a href="sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>	% Sorting of sample points</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	% Example of use of the MultiDOE toolbox</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -57,437 +66,435 @@ This function is called by:
 <li><a href="#_sub1" class="code">function [sampling,fich]=checkDOE(nameFile,np,ns)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
-0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+<div class="fragment"><pre>0001 <span class="comment">%% Building sampling</span>
+0002 <span class="comment">% L. LAURENT -- 17/12/2010 -- luc.laurent@lecnam.net</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0007 <span class="comment">%     (at your option) any later version.</span>
-0008 <span class="comment">%</span>
-0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0012 <span class="comment">%     GNU General Public License for more details.</span>
+0004 <span class="comment">%Some criteria require the Matlab's toolbox &quot;Random Numbers Generators&quot; or</span>
+0005 <span class="comment">%the R software</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%All sampling techniques provide sample points with values between 0 and 1.</span>
+0008 <span class="comment">%The convertion to the right sapce is done at the end of this file.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%% Syntax: gene_doe(doe)</span>
+0011 <span class="comment">%% INPUT variables:</span>
+0012 <span class="comment">% -doe: structure obtaind with initDOE and complete manually</span>
 0013 <span class="comment">%</span>
-0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0016 <span class="comment">%</span>
-0017 
-0018 <span class="comment">%% Building sampling</span>
-0019 <span class="comment">%% L. LAURENT -- 17/12/2010 -- luc.laurent@lecnam.net</span>
-0020 
-0021 <span class="comment">%Some criteria require the Matlab's toolbox &quot;Random Numbers Generators&quot; or</span>
-0022 <span class="comment">%the R software</span>
-0023 
-0024 <span class="comment">%All sampling techniques provide sample points with values between 0 and 1.</span>
-0025 <span class="comment">%The convertion to the right sapce is done at the end of this file.</span>
-0026 
-0027 <span class="comment">%% Syntax: gene_doe(doe)</span>
-0028 <span class="comment">%% INPUT variables:</span>
-0029 <span class="comment">% -doe: structure obtaind with initDOE and complete manually</span>
-0030 
-0031 <span class="comment">%   + Kind of DOE (doe.type): see the switch command below</span>
-0032 <span class="comment">%   + All methods containing the string '_R' require the R software</span>
-0033 <span class="comment">%   (installed on the computer and accessible using the command line).</span>
-0034 <span class="comment">%   Libraries 'lhs' and 'R.matlab' must be installed on R</span>
-0035 <span class="comment">%   + All methods containing the string '_MANU' are saved sampling (they</span>
-0036 <span class="comment">%   are built one time are are reloaded from a .mat file)</span>
-0037 <span class="comment">%   + Many sorting methods are available using doe.sort (see sortDOE.m)</span>
-0038 
-0039 <span class="comment">%% OUTPUT variables</span>
-0040 <span class="comment">% - out: contains the sampling (sorted and unsorted)</span>
-0041 <span class="comment">% -infoSampling(optional): many information about the sampling</span>
-0042 
+0014 <span class="comment">%   + Kind of DOE (doe.type): see the switch command below</span>
+0015 <span class="comment">%   + All methods containing the string '_R' require the R software</span>
+0016 <span class="comment">%   (installed on the computer and accessible using the command line).</span>
+0017 <span class="comment">%   Libraries 'lhs' and 'R.matlab' must be installed on R</span>
+0018 <span class="comment">%   + All methods containing the string '_MANU' are saved sampling (they</span>
+0019 <span class="comment">%   are built one time are are reloaded from a .mat file)</span>
+0020 <span class="comment">%   + Many sorting methods are available using doe.sort (see sortDOE.m)</span>
+0021 <span class="comment">%</span>
+0022 <span class="comment">%% OUTPUT variables</span>
+0023 <span class="comment">% - out: contains the sampling (sorted and unsorted)</span>
+0024 <span class="comment">% -infoSampling(optional): many information about the sampling</span>
+0025 
+0026 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0027 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0028 <span class="comment">%</span>
+0029 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0030 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0031 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0032 <span class="comment">%     (at your option) any later version.</span>
+0033 <span class="comment">%</span>
+0034 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0035 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0036 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0037 <span class="comment">%     GNU General Public License for more details.</span>
+0038 <span class="comment">%</span>
+0039 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0040 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0041 
+0042 <a name="_sub0" href="#_subfunctions" class="code">function [out,infoSampling]=buildDOE(doe)</a>
 0043 
-0044 <a name="_sub0" href="#_subfunctions" class="code">function [out,infoSampling]=buildDOE(doe)</a>
-0045 
-0046 
-0047 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
-0048 fprintf(<span class="string">'    &gt;&gt;&gt; BUILDING SAMPLING &lt;&lt;&lt;\n'</span>);
-0049 [tMesu,tInit]=<a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>;
-0050 
-0051 <span class="comment">% For obtaining an &quot;actual&quot; pseudo-random sampling</span>
-0052 s = RandStream(<span class="string">'mt19937ar'</span>,<span class="string">'Seed'</span>,<span class="string">'shuffle'</span>);
-0053 RandStream.setGlobalStream(s);
-0054 
-0055 <span class="comment">%recovering the required number of sample points</span>
-0056 nsUndef=true;
-0057 <span class="keyword">if</span> isfield(doe,<span class="string">'ns'</span>)
-0058     <span class="keyword">if</span> ~isempty(doe.ns)
-0059         ns=doe.ns;
-0060         nsUndef=false;
-0061     <span class="keyword">end</span>
-0062 <span class="keyword">end</span>
-0063 <span class="keyword">if</span> nsUndef;
-0064     error([<span class="string">'Undefined number of sample points ''doe.ns'' ('</span>,mfilename,<span class="string">')'</span>]);
-0065 <span class="keyword">end</span>
-0066 
-0067 <span class="comment">%recovering number of iteration if specified</span>
-0068 <span class="keyword">if</span> isfield(doe,<span class="string">'iter'</span>);nbIter=doe.iter;<span class="keyword">else</span> nbIter=5;<span class="keyword">end</span>
-0069 
-0070 <span class="comment">%number of generation for computing the scores</span>
-0071 nbGene=20;
-0072 
-0073 <span class="comment">%recovering bounds of the design sapce</span>
-0074 boundsUndef=true;
-0075 <span class="keyword">if</span> isfield(doe,<span class="string">'Xmin'</span>)&amp;&amp;isfield(doe,<span class="string">'Xmax'</span>)
-0076     <span class="keyword">if</span> ~isempty(doe.Xmin)&amp;&amp;~isempty(doe.Xmax)
-0077         Xmin=doe.Xmin;
-0078         Xmax=doe.Xmax;
-0079         boundsUndef=false;
-0080     <span class="keyword">end</span>
-0081 <span class="keyword">elseif</span> isfield(doe,<span class="string">'bornes'</span>)
-0082     <span class="keyword">if</span> ~isempty(doe.bornes)
-0083         Xmin=doe.bornes(:,1);
-0084         Xmax=doe.bornes(:,2);
-0085         doe.Xmin=Xmin;doe.Xmax=Xmax;
-0086         boundsUndef=false;
-0087     <span class="keyword">end</span>
-0088 <span class="keyword">end</span>
-0089 <span class="keyword">if</span> boundsUndef
-0090     error([<span class="string">'Undefined bounds of the design space ''doe.Xmin'' an ''doe.Xmax'' ('</span>,mfilename,<span class="string">')'</span>]);
-0091 <span class="keyword">end</span>
-0092 
-0093 <span class="comment">%default values</span>
-0094 XminDef=0.*Xmin;XmaxDef=0.*Xmax+1;
-0095 
-0096 <span class="comment">%number ofvariables</span>
-0097 np=numel(Xmin);
-0098 
-0099 <span class="comment">%default sorting options</span>
-0100 <span class="keyword">if</span> ~isfield(doe,<span class="string">'sort'</span>);doe.sort=[];<span class="keyword">end</span>
-0101 <span class="keyword">if</span> ~isfield(doe.sort,<span class="string">'on'</span>);doe.sort.on=false;<span class="keyword">end</span>
-0102 <span class="keyword">if</span> ~isfield(doe.sort,<span class="string">'lnorm'</span>);doe.sort.lnorm=2;<span class="keyword">end</span>
-0103 
-0104 <span class="comment">%% Show information</span>
-0105 fprintf(<span class="string">' &gt;&gt; Kind of DOE de tirages: %s\n'</span>,doe.type);
-0106 fprintf(<span class="string">' &gt;&gt; Number of sample points: '</span>)
-0107 fprintf(<span class="string">'%i '</span>,ns);fprintf(<span class="string">'\n'</span>);
-0108 fprintf(<span class="string">' &gt;&gt; Number of variables: %i\n'</span>,np);
-0109 
-0110 samplingOK=true;
-0111 customSampling=false;
-0112 <span class="comment">%depending on the chosen DOE technique</span>
-0113 <span class="keyword">switch</span> doe.type
-0114     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0115     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0116     <span class="comment">% full factorial</span>
-0117     <span class="keyword">case</span> <span class="string">'ffact'</span>        
-0118         sampling=<a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>(ns,XminDef,XmaxDef);
-0119         <span class="keyword">if</span> numel(ns)==1
-0120             ns=ns^np;
-0121         <span class="keyword">end</span>
-0122         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0123         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0124         <span class="comment">% Latin Hypercube Sampling with R (and initial enrichment)</span>
-0125     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
-0126         sampling=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(XminDef,XmaxDef,prod(ns(:)));
-0127         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0128         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0129     <span class="keyword">case</span> <span class="string">'LHS_R_manu'</span>
-0130         <span class="comment">%recover sampling if available</span>
-0131         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsuR'</span>,np,ns);
-0132         <span class="keyword">if</span> isempty(sampling)
-0133             sampling=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(XminDef,XmaxDef,prod(ns(:))); 
-0134             save(fich,<span class="string">'sampling'</span>);
-0135         <span class="keyword">end</span>
-0136         
-0137         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0138         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0139         <span class="comment">% Optimal Latin Hypercube Sampling with R (and initial enrichment)</span>
-0140     <span class="keyword">case</span> <span class="string">'OLHS_R'</span>
-0141         sampling=<a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>(XminDef,XmaxDef,prod(ns(:)));
-0142         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0143         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0144     <span class="keyword">case</span> <span class="string">'OLHS_R_manu'</span>
-0145         <span class="comment">%recover sampling if available</span>
-0146         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'olhsR'</span>,np,ns);
-0147         <span class="keyword">if</span> isempty(sampling)
-0148             sampling=<a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>(XminDef,XmaxDef,prod(ns(:)));
-0149             save(fich,<span class="string">'sampling'</span>);
-0150         <span class="keyword">end</span>
-0151         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0152         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0153         <span class="comment">% Maximin Latin Hypercube Sampling with R (and initial enrichment)</span>
-0154     <span class="keyword">case</span> <span class="string">'MMLHS_R'</span>
-0155         sampling=<a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>(XminDef,XmaxDef,prod(ns(:)));
-0156         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0157         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0158     <span class="keyword">case</span> <span class="string">'MMLHS_R_manu'</span>
-0159          <span class="comment">%recover sampling if available</span>
-0160         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'mmlhsR'</span>,np,ns);
-0161         <span class="keyword">if</span> isempty(sampling)
-0162             sampling=<a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>(XminDef,XmaxDef,prod(ns(:))); 
-0163             save(fich,<span class="string">'sampling'</span>);
-0164         <span class="keyword">end</span>
-0165         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0166         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0167         <span class="comment">% Genetic  Latin Hypercube Sampling with R (and initial enrichment)</span>
-0168     <span class="keyword">case</span> <span class="string">'GLHS_R'</span>
-0169         sampling=<a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>(XminDef,XmaxDef,prod(ns(:)));
-0170         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0171         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0172     <span class="keyword">case</span> <span class="string">'GLHS_R_manu'</span>
-0173          <span class="comment">%recover sampling if available</span>
-0174         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'glhsR'</span>,np,ns);
-0175         <span class="keyword">if</span> isempty(sampling)
-0176             sampling=glhsuR(XminDef,XmaxDef,prod(ns(:))); 
-0177             save(fich,<span class="string">'sampling'</span>);
-0178         <span class="keyword">end</span>
-0179         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0180         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0181         <span class="comment">% Improved Hypercube Sampling avec R (et preenrichissement)</span>
-0182     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
-0183         sampling=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(XminDef,XmaxDef,prod(ns(:)));
-0184         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0185         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0186     <span class="keyword">case</span> <span class="string">'IHS_R_manu'</span>
-0187          <span class="comment">%recover sampling if available</span>
-0188         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'ihsR'</span>,np,ns);
-0189         <span class="keyword">if</span> isempty(sampling)
-0190             sampling=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(XminDef,XmaxDef,prod(ns(:))); 
-0191             save(fich,<span class="string">'sampling'</span>);
-0192         <span class="keyword">end</span>
-0193         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0194         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0195         <span class="comment">% Sampling using Halton sequence (Matlab's function)</span>
-0196     <span class="keyword">case</span> <span class="string">'HALTON'</span>
-0197         p = haltonset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
-0198         p = scramble(p,<span class="string">'RR2'</span>);
-0199         sampling=net(p,prod(ns(:)));
-0200         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0201         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0202         <span class="comment">% Halton with storage of the data</span>
-0203     <span class="keyword">case</span> <span class="string">'HALTON_manu'</span>
-0204          <span class="comment">%recover sampling if available</span>
-0205         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'halton'</span>,np,ns);
-0206         <span class="keyword">if</span> isempty(sampling)
-0207             p = haltonset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
-0208             p = scramble(p,<span class="string">'RR2'</span>);
-0209             sampling=net(p,prod(ns(:)));
-0210             save(fich,<span class="string">'sampling'</span>);
-0211         <span class="keyword">end</span>
-0212         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0213         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0214         <span class="comment">% Sampling using Sobol sequence (Matlab's function)</span>
-0215     <span class="keyword">case</span> <span class="string">'SOBOL'</span>
-0216         p = sobolset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
-0217         p = scramble(p,<span class="string">'MatousekAffineOwen'</span>);
-0218         sampling=net(p,prod(ns(:)));
-0219         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0220         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0221         <span class="comment">% Sobol with storage of the data</span>
-0222     <span class="keyword">case</span> <span class="string">'SOBOL_manu'</span>
-0223          <span class="comment">%recover sampling if available</span>
-0224         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'sobol'</span>,np,ns);
-0225         <span class="keyword">if</span> isempty(sampling)
-0226             p = sobolset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
-0227             p = scramble(p,<span class="string">'MatousekAffineOwen'</span>);
-0228             sampling=net(p,prod(ns(:)));
-0229             save(fich,<span class="string">'sampling'</span>);
-0230         <span class="keyword">end</span>
-0231         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0232         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0233         <span class="comment">% Latin Hypercube Sampling (Matlab's function)</span>
-0234     <span class="keyword">case</span> <span class="string">'LHSD'</span>
-0235         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'iterations'</span>,nbIter);
-0236         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0237         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0238         <span class="comment">% LHS with storage of the data</span>
-0239     <span class="keyword">case</span> <span class="string">'LHSD_manu'</span>
-0240          <span class="comment">%recover sampling if available</span>
-0241         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsd'</span>,np,ns);
-0242         <span class="keyword">if</span> isempty(sampling)
-0243             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'iterations'</span>,nbIter);
-0244             save(fich,<span class="string">'sampling'</span>);
-0245         <span class="keyword">end</span>
-0246         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0247         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0248         <span class="comment">% Latin Hypercube Sampling (Matlab's function) with minimization of the correlation (see help)</span>
-0249     <span class="keyword">case</span> <span class="string">'LHSD_CORRMIN'</span>
-0250         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'correlation'</span>,<span class="string">'iterations'</span>,nbIter);
-0251         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0252         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0253        <span class="comment">% LHS with storage of the data</span>
-0254     <span class="keyword">case</span> <span class="string">'LHSD_CORRMIN_manu'</span>
-0255          <span class="comment">%recover sampling if available</span>
-0256         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsdcorrmin'</span>,np,ns);
-0257         <span class="keyword">if</span> isempty(sampling)
-0258             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'correlation'</span>,<span class="string">'iterations'</span>,nbIter);
-0259             save(fich,<span class="string">'sampling'</span>);
-0260         <span class="keyword">end</span>
-0261         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0262         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0263         <span class="comment">% Latin Hypercube Sampling (Matlab's function) with maximin (see help)</span>
-0264     <span class="keyword">case</span> <span class="string">'LHSD_MAXMIN'</span>
-0265         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'maximin'</span>,<span class="string">'iterations'</span>,nbIter);
-0266         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0267         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0268         <span class="comment">% LHS with storage of the data</span>
-0269     <span class="keyword">case</span> <span class="string">'LHSD_MAXMIN_manu'</span>
-0270          <span class="comment">%recover sampling if available</span>
-0271         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsdmaxmin'</span>,np,ns);
-0272         <span class="keyword">if</span> isempty(sampling)
-0273             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'maximin'</span>,<span class="string">'iterations'</span>,nbIter);
-0274             save(fich,<span class="string">'sampling'</span>);
-0275         <span class="keyword">end</span>
-0276         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0277         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0278         <span class="comment">% Latin Hypercube Sampling (Matlab's function) with Non-smooth (see help)</span>
-0279     <span class="keyword">case</span> <span class="string">'LHSD_NS'</span>
-0280         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'smooth'</span>,<span class="string">'off'</span>,<span class="string">'iterations'</span>,nbIter);
-0281         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0282         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0283         <span class="comment">% LHS with storage of the data</span>
-0284     <span class="keyword">case</span> <span class="string">'LHSD_NS_manu'</span>
-0285          <span class="comment">%recover sampling if available</span>
-0286         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsdns'</span>,np,ns);
-0287         <span class="keyword">if</span> isempty(sampling)
-0288             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'smooth'</span>,<span class="string">'off'</span>,<span class="string">'iterations'</span>,nbIter);
-0289             save(fich,<span class="string">'sampling'</span>);
-0290         <span class="keyword">end</span>
-0291         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0292         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0293         <span class="comment">% Latin Hypercube Sampling (with uniform law)</span>
-0294     <span class="keyword">case</span> <span class="string">'LHS'</span>
-0295         sampling=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
-0296         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0297         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0298         <span class="comment">% LHS with storage of the data</span>
-0299     <span class="keyword">case</span> <span class="string">'LHS_manu'</span>
-0300          <span class="comment">%recover sampling if available</span>
-0301         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsu'</span>,np,ns);
-0302         <span class="keyword">if</span> isempty(sampling)
-0303             sampling=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
-0304             save(fich,<span class="string">'sampling'</span>);
-0305         <span class="keyword">end</span>
-0306         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0307         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0308         <span class="comment">% Improved Hypercube Sampling</span>
-0309     <span class="keyword">case</span> <span class="string">'IHS'</span>
-0310         sampling=<a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>(np,ns,5);
-0311         sampling=sampling./ns;
-0312         sampling=sampling';
-0313         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0314         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0315     <span class="keyword">case</span> <span class="string">'IHS_manu'</span>
-0316          <span class="comment">%recover sampling if available</span>
-0317         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'ihs'</span>,np,ns);
-0318         <span class="keyword">if</span> isempty(sampling)
-0319             sampling=<a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>(np,ns,5);
-0320             sampling=sampling./ns;
-0321             sampling=sampling';
-0322             save(fich,<span class="string">'sampling'</span>);
-0323         <span class="keyword">end</span>
-0324         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0325         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0326         <span class="comment">% Latin Hypercube Sampling (with uniform law) with minimization of</span>
-0327         <span class="comment">% distance of the inter-sample points</span>
-0328     <span class="keyword">case</span> <span class="string">'LHS_O1'</span>
-0329         samplingTMP=cell(1,nbGene);
-0330         sc=zeros(1,nbGene);
-0331         <span class="comment">%nbGene sampling are generated</span>
-0332         <span class="keyword">for</span> ii=1:nbGene
-0333             samplingTMP{ii}=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
-0334             <span class="comment">%compute score</span>
-0335             uni=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(samplingTMP{ii});
-0336             sc(ii)=uni.sumDist;
-0337         <span class="keyword">end</span>
-0338         [~,IX]=min(sc);
-0339         sampling=samplingTMP{IX};
-0340         clear samplingTMP;
-0341         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0342         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0343         <span class="comment">% LHS_O1 with storange of the data</span>
-0344     <span class="keyword">case</span> <span class="string">'LHS_O1_manu'</span>
-0345          <span class="comment">%recover sampling if available</span>
-0346         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhs_o1'</span>,np,ns);
-0347         <span class="keyword">if</span> isempty(sampling)
-0348             samplingTMP=cell(1,nbGene);
-0349             sc=zeros(1,nbGene);
-0350             <span class="comment">%nbGene sampling are generated</span>
-0351             <span class="keyword">for</span> ii=1:nbGene
-0352                 samplingTMP{ii}=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
-0353                 <span class="comment">%compute score</span>
-0354                 uni=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(samplingTMP{ii});
-0355                 sc(ii)=uni.sumDist;
-0356             <span class="keyword">end</span>
-0357             [~,IX]=min(sc);
-0358             sampling=samplingTMP{IX};
-0359             clear samplingTMP
-0360             save(fich,<span class="string">'sampling'</span>);
-0361         <span class="keyword">end</span>
-0362         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0363         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0364         <span class="comment">% randm sampling</span>
-0365     <span class="keyword">case</span> <span class="string">'rand'</span>
-0366         sampling=rand(prod(ns(:)),np);
-0367         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0368         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0369         <span class="comment">%manually defined sampling</span>
-0370     <span class="keyword">case</span> <span class="string">'custom'</span>
-0371         sampling=doe.manu;
-0372         customSampling=true;
-0373         disp(<span class="string">'/!\ Manual sampling (cf. initDOE.m)'</span>);
-0374     <span class="keyword">otherwise</span>
-0375         error([<span class="string">'Undefined DOE methods ('</span>,mfilename,<span class="string">')'</span>]);
-0376         samplingOK=false;
-0377 <span class="keyword">end</span>
-0378 
-0379 <span class="keyword">if</span> samplingOK
-0380     <span class="keyword">if</span> ~customSampling
-0381         <span class="comment">% correction of the sampling for obtaining sampling defined on the</span>
-0382         <span class="comment">% right design space</span>
-0383         sampling=sampling.*repmat(Xmax(:)'-Xmin(:)',prod(ns(:)),1)+repmat(Xmin(:)',prod(ns(:)),1);
-0384     <span class="keyword">end</span>
-0385     
-0386     <span class="comment">%if two output variables, other information will be stored</span>
-0387     <span class="keyword">if</span> nargout==2
-0388         <span class="keyword">if</span> doe.sort.on
-0389             infoSampling.unsorted=sampling;
-0390         <span class="keyword">end</span>
-0391         <span class="comment">%compute scores of the sampling</span>
-0392         [infoSampling.uniform,infoSampling.discrepance]=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(sampling);
-0393     <span class="keyword">end</span>
-0394     <span class="comment">%sorting of the sampling</span>
-0395     sortedSampling=<a href="sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>(sampling,doe);
-0396     
-0397     <span class="comment">%shwo sampling</span>
-0398     <a href="../../../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(sortedSampling,doe)
-0399 <span class="keyword">else</span>
-0400     sortedSampling=[];
-0401 <span class="keyword">end</span>
-0402 
-0403 <span class="comment">%output</span>
-0404 out.sorted=sortedSampling;
-0405 out.unsorted=sampling;
-0406 
-0407 <a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
-0408 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
-0409 <span class="keyword">end</span>
-0410 
-0411 
-0412 <span class="comment">%%function for checking if a sampling already exists</span>
-0413 <a name="_sub1" href="#_subfunctions" class="code">function [sampling,fich]=checkDOE(nameFile,np,ns)</a>
-0414 
-0415 <span class="comment">%check if the storage folder exists</span>
-0416 <span class="keyword">if</span> exist(<span class="string">'tmpDOE/TIR_MANU'</span>,<span class="string">'dir'</span>)~=7
-0417     mkdir(<span class="string">'tmpDOE/TIR_MANU'</span>);
-0418 <span class="keyword">end</span>
-0419 
-0420 <span class="comment">%if the sampling exists, it will be loaded</span>
-0421 fi=[<span class="string">'tmpDOE/TIR_MANU/'</span> nameFile <span class="string">'_man_'</span> num2str(np) <span class="string">'_'</span>  num2str(ns)];
-0422 fich=[fi <span class="string">'.mat'</span>];
-0423 <span class="keyword">if</span> exist(fich,<span class="string">'file'</span>)==2
-0424     st=load(fich);
-0425     sampling=st.sampling;
-0426 <span class="keyword">else</span>
-0427     fprintf(<span class="string">'Sampling does not exist \n'</span>);
-0428     sampling=[];
-0429 <span class="keyword">end</span>
-0430 <span class="keyword">end</span>
-0431</pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0044 
+0045 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0046 fprintf(<span class="string">'    &gt;&gt;&gt; BUILDING SAMPLING &lt;&lt;&lt;\n'</span>);
+0047 [tMesu,tInit]=<a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>;
+0048 
+0049 <span class="comment">% For obtaining an &quot;actual&quot; pseudo-random sampling</span>
+0050 s = RandStream(<span class="string">'mt19937ar'</span>,<span class="string">'Seed'</span>,<span class="string">'shuffle'</span>);
+0051 RandStream.setGlobalStream(s);
+0052 
+0053 <span class="comment">%recovering the required number of sample points</span>
+0054 nsUndef=true;
+0055 <span class="keyword">if</span> isfield(doe,<span class="string">'ns'</span>)
+0056     <span class="keyword">if</span> ~isempty(doe.ns)
+0057         ns=doe.ns;
+0058         nsUndef=false;
+0059     <span class="keyword">end</span>
+0060 <span class="keyword">end</span>
+0061 <span class="keyword">if</span> nsUndef;
+0062     error([<span class="string">'Undefined number of sample points ''doe.ns'' ('</span>,mfilename,<span class="string">')'</span>]);
+0063 <span class="keyword">end</span>
+0064 
+0065 <span class="comment">%recovering number of iteration if specified</span>
+0066 <span class="keyword">if</span> isfield(doe,<span class="string">'iter'</span>);nbIter=doe.iter;<span class="keyword">else</span> nbIter=5;<span class="keyword">end</span>
+0067 
+0068 <span class="comment">%number of generation for computing the scores</span>
+0069 nbGene=20;
+0070 
+0071 <span class="comment">%recovering bounds of the design sapce</span>
+0072 boundsUndef=true;
+0073 <span class="keyword">if</span> isfield(doe,<span class="string">'Xmin'</span>)&amp;&amp;isfield(doe,<span class="string">'Xmax'</span>)
+0074     <span class="keyword">if</span> ~isempty(doe.Xmin)&amp;&amp;~isempty(doe.Xmax)
+0075         Xmin=doe.Xmin;
+0076         Xmax=doe.Xmax;
+0077         boundsUndef=false;
+0078     <span class="keyword">end</span>
+0079 <span class="keyword">elseif</span> isfield(doe,<span class="string">'bornes'</span>)
+0080     <span class="keyword">if</span> ~isempty(doe.bornes)
+0081         Xmin=doe.bornes(:,1);
+0082         Xmax=doe.bornes(:,2);
+0083         doe.Xmin=Xmin;doe.Xmax=Xmax;
+0084         boundsUndef=false;
+0085     <span class="keyword">end</span>
+0086 <span class="keyword">end</span>
+0087 <span class="keyword">if</span> boundsUndef
+0088     error([<span class="string">'Undefined bounds of the design space ''doe.Xmin'' an ''doe.Xmax'' ('</span>,mfilename,<span class="string">')'</span>]);
+0089 <span class="keyword">end</span>
+0090 
+0091 <span class="comment">%default values</span>
+0092 XminDef=0.*Xmin;XmaxDef=0.*Xmax+1;
+0093 
+0094 <span class="comment">%number ofvariables</span>
+0095 np=numel(Xmin);
+0096 
+0097 <span class="comment">%default sorting options</span>
+0098 <span class="keyword">if</span> ~isfield(doe,<span class="string">'sort'</span>);doe.sort=[];<span class="keyword">end</span>
+0099 <span class="keyword">if</span> ~isfield(doe.sort,<span class="string">'on'</span>);doe.sort.on=false;<span class="keyword">end</span>
+0100 <span class="keyword">if</span> ~isfield(doe.sort,<span class="string">'lnorm'</span>);doe.sort.lnorm=2;<span class="keyword">end</span>
+0101 
+0102 <span class="comment">%% Show information</span>
+0103 fprintf(<span class="string">' &gt;&gt; Kind of DOE: %s\n'</span>,doe.type);
+0104 fprintf(<span class="string">' &gt;&gt; Number of sample points: '</span>)
+0105 fprintf(<span class="string">'%i '</span>,ns);fprintf(<span class="string">'\n'</span>);
+0106 fprintf(<span class="string">' &gt;&gt; Number of variables: %i\n'</span>,np);
+0107 
+0108 samplingOK=true;
+0109 customSampling=false;
+0110 <span class="comment">%depending on the chosen DOE technique</span>
+0111 <span class="keyword">switch</span> doe.type
+0112     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0113     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0114     <span class="comment">% full factorial</span>
+0115     <span class="keyword">case</span> <span class="string">'ffact'</span>        
+0116         sampling=<a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>(ns,XminDef,XmaxDef);
+0117         <span class="keyword">if</span> numel(ns)==1
+0118             ns=ns^np;
+0119         <span class="keyword">end</span>
+0120         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0121         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0122         <span class="comment">% Latin Hypercube Sampling with R (and initial enrichment)</span>
+0123     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
+0124         sampling=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(XminDef,XmaxDef,prod(ns(:)));
+0125         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0126         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0127     <span class="keyword">case</span> <span class="string">'LHS_R_manu'</span>
+0128         <span class="comment">%recover sampling if available</span>
+0129         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsuR'</span>,np,ns);
+0130         <span class="keyword">if</span> isempty(sampling)
+0131             sampling=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(XminDef,XmaxDef,prod(ns(:))); 
+0132             save(fich,<span class="string">'sampling'</span>);
+0133         <span class="keyword">end</span>
+0134         
+0135         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0136         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0137         <span class="comment">% Optimal Latin Hypercube Sampling with R (and initial enrichment)</span>
+0138     <span class="keyword">case</span> <span class="string">'OLHS_R'</span>
+0139         sampling=<a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>(XminDef,XmaxDef,prod(ns(:)));
+0140         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0141         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0142     <span class="keyword">case</span> <span class="string">'OLHS_R_manu'</span>
+0143         <span class="comment">%recover sampling if available</span>
+0144         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'olhsR'</span>,np,ns);
+0145         <span class="keyword">if</span> isempty(sampling)
+0146             sampling=<a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>(XminDef,XmaxDef,prod(ns(:)));
+0147             save(fich,<span class="string">'sampling'</span>);
+0148         <span class="keyword">end</span>
+0149         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0150         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0151         <span class="comment">% Maximin Latin Hypercube Sampling with R (and initial enrichment)</span>
+0152     <span class="keyword">case</span> <span class="string">'MMLHS_R'</span>
+0153         sampling=<a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>(XminDef,XmaxDef,prod(ns(:)));
+0154         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0155         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0156     <span class="keyword">case</span> <span class="string">'MMLHS_R_manu'</span>
+0157          <span class="comment">%recover sampling if available</span>
+0158         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'mmlhsR'</span>,np,ns);
+0159         <span class="keyword">if</span> isempty(sampling)
+0160             sampling=<a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>(XminDef,XmaxDef,prod(ns(:))); 
+0161             save(fich,<span class="string">'sampling'</span>);
+0162         <span class="keyword">end</span>
+0163         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0164         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0165         <span class="comment">% Genetic  Latin Hypercube Sampling with R (and initial enrichment)</span>
+0166     <span class="keyword">case</span> <span class="string">'GLHS_R'</span>
+0167         sampling=<a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>(XminDef,XmaxDef,prod(ns(:)));
+0168         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0169         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0170     <span class="keyword">case</span> <span class="string">'GLHS_R_manu'</span>
+0171          <span class="comment">%recover sampling if available</span>
+0172         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'glhsR'</span>,np,ns);
+0173         <span class="keyword">if</span> isempty(sampling)
+0174             sampling=glhsuR(XminDef,XmaxDef,prod(ns(:))); 
+0175             save(fich,<span class="string">'sampling'</span>);
+0176         <span class="keyword">end</span>
+0177         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0178         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0179         <span class="comment">% Improved Hypercube Sampling avec R (et preenrichissement)</span>
+0180     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
+0181         sampling=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(XminDef,XmaxDef,prod(ns(:)));
+0182         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0183         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0184     <span class="keyword">case</span> <span class="string">'IHS_R_manu'</span>
+0185          <span class="comment">%recover sampling if available</span>
+0186         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'ihsR'</span>,np,ns);
+0187         <span class="keyword">if</span> isempty(sampling)
+0188             sampling=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(XminDef,XmaxDef,prod(ns(:))); 
+0189             save(fich,<span class="string">'sampling'</span>);
+0190         <span class="keyword">end</span>
+0191         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0192         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0193         <span class="comment">% Sampling using Halton sequence (Matlab's function)</span>
+0194     <span class="keyword">case</span> <span class="string">'HALTON'</span>
+0195         p = haltonset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0196         p = scramble(p,<span class="string">'RR2'</span>);
+0197         sampling=net(p,prod(ns(:)));
+0198         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0199         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0200         <span class="comment">% Halton with storage of the data</span>
+0201     <span class="keyword">case</span> <span class="string">'HALTON_manu'</span>
+0202          <span class="comment">%recover sampling if available</span>
+0203         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'halton'</span>,np,ns);
+0204         <span class="keyword">if</span> isempty(sampling)
+0205             p = haltonset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0206             p = scramble(p,<span class="string">'RR2'</span>);
+0207             sampling=net(p,prod(ns(:)));
+0208             save(fich,<span class="string">'sampling'</span>);
+0209         <span class="keyword">end</span>
+0210         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0211         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0212         <span class="comment">% Sampling using Sobol sequence (Matlab's function)</span>
+0213     <span class="keyword">case</span> <span class="string">'SOBOL'</span>
+0214         p = sobolset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0215         p = scramble(p,<span class="string">'MatousekAffineOwen'</span>);
+0216         sampling=net(p,prod(ns(:)));
+0217         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0218         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0219         <span class="comment">% Sobol with storage of the data</span>
+0220     <span class="keyword">case</span> <span class="string">'SOBOL_manu'</span>
+0221          <span class="comment">%recover sampling if available</span>
+0222         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'sobol'</span>,np,ns);
+0223         <span class="keyword">if</span> isempty(sampling)
+0224             p = sobolset(np,<span class="string">'Skip'</span>,1e3,<span class="string">'Leap'</span>,1e2);
+0225             p = scramble(p,<span class="string">'MatousekAffineOwen'</span>);
+0226             sampling=net(p,prod(ns(:)));
+0227             save(fich,<span class="string">'sampling'</span>);
+0228         <span class="keyword">end</span>
+0229         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0230         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0231         <span class="comment">% Latin Hypercube Sampling (Matlab's function)</span>
+0232     <span class="keyword">case</span> <span class="string">'LHSD'</span>
+0233         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'iterations'</span>,nbIter);
+0234         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0235         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0236         <span class="comment">% LHS with storage of the data</span>
+0237     <span class="keyword">case</span> <span class="string">'LHSD_manu'</span>
+0238          <span class="comment">%recover sampling if available</span>
+0239         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsd'</span>,np,ns);
+0240         <span class="keyword">if</span> isempty(sampling)
+0241             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'iterations'</span>,nbIter);
+0242             save(fich,<span class="string">'sampling'</span>);
+0243         <span class="keyword">end</span>
+0244         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0245         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0246         <span class="comment">% Latin Hypercube Sampling (Matlab's function) with minimization of the correlation (see help)</span>
+0247     <span class="keyword">case</span> <span class="string">'LHSD_CORRMIN'</span>
+0248         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'correlation'</span>,<span class="string">'iterations'</span>,nbIter);
+0249         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0250         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0251        <span class="comment">% LHS with storage of the data</span>
+0252     <span class="keyword">case</span> <span class="string">'LHSD_CORRMIN_manu'</span>
+0253          <span class="comment">%recover sampling if available</span>
+0254         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsdcorrmin'</span>,np,ns);
+0255         <span class="keyword">if</span> isempty(sampling)
+0256             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'correlation'</span>,<span class="string">'iterations'</span>,nbIter);
+0257             save(fich,<span class="string">'sampling'</span>);
+0258         <span class="keyword">end</span>
+0259         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0260         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0261         <span class="comment">% Latin Hypercube Sampling (Matlab's function) with maximin (see help)</span>
+0262     <span class="keyword">case</span> <span class="string">'LHSD_MAXMIN'</span>
+0263         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'maximin'</span>,<span class="string">'iterations'</span>,nbIter);
+0264         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0265         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0266         <span class="comment">% LHS with storage of the data</span>
+0267     <span class="keyword">case</span> <span class="string">'LHSD_MAXMIN_manu'</span>
+0268          <span class="comment">%recover sampling if available</span>
+0269         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsdmaxmin'</span>,np,ns);
+0270         <span class="keyword">if</span> isempty(sampling)
+0271             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'criterion'</span>,<span class="string">'maximin'</span>,<span class="string">'iterations'</span>,nbIter);
+0272             save(fich,<span class="string">'sampling'</span>);
+0273         <span class="keyword">end</span>
+0274         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0275         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0276         <span class="comment">% Latin Hypercube Sampling (Matlab's function) with Non-smooth (see help)</span>
+0277     <span class="keyword">case</span> <span class="string">'LHSD_NS'</span>
+0278         sampling=lhsdesign(prod(ns(:)),np,<span class="string">'smooth'</span>,<span class="string">'off'</span>,<span class="string">'iterations'</span>,nbIter);
+0279         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0280         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0281         <span class="comment">% LHS with storage of the data</span>
+0282     <span class="keyword">case</span> <span class="string">'LHSD_NS_manu'</span>
+0283          <span class="comment">%recover sampling if available</span>
+0284         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsdns'</span>,np,ns);
+0285         <span class="keyword">if</span> isempty(sampling)
+0286             sampling=lhsdesign(prod(ns(:)),np,<span class="string">'smooth'</span>,<span class="string">'off'</span>,<span class="string">'iterations'</span>,nbIter);
+0287             save(fich,<span class="string">'sampling'</span>);
+0288         <span class="keyword">end</span>
+0289         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0290         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0291         <span class="comment">% Latin Hypercube Sampling (with uniform law)</span>
+0292     <span class="keyword">case</span> <span class="string">'LHS'</span>
+0293         sampling=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
+0294         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0295         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0296         <span class="comment">% LHS with storage of the data</span>
+0297     <span class="keyword">case</span> <span class="string">'LHS_manu'</span>
+0298          <span class="comment">%recover sampling if available</span>
+0299         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhsu'</span>,np,ns);
+0300         <span class="keyword">if</span> isempty(sampling)
+0301             sampling=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
+0302             save(fich,<span class="string">'sampling'</span>);
+0303         <span class="keyword">end</span>
+0304         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0305         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0306         <span class="comment">% Improved Hypercube Sampling</span>
+0307     <span class="keyword">case</span> <span class="string">'IHS'</span>
+0308         sampling=<a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>(np,ns,5);
+0309         sampling=sampling./ns;
+0310         sampling=sampling';
+0311         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0312         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0313     <span class="keyword">case</span> <span class="string">'IHS_manu'</span>
+0314          <span class="comment">%recover sampling if available</span>
+0315         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'ihs'</span>,np,ns);
+0316         <span class="keyword">if</span> isempty(sampling)
+0317             sampling=<a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>(np,ns,5);
+0318             sampling=sampling./ns;
+0319             sampling=sampling';
+0320             save(fich,<span class="string">'sampling'</span>);
+0321         <span class="keyword">end</span>
+0322         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0323         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0324         <span class="comment">% Latin Hypercube Sampling (with uniform law) with minimization of</span>
+0325         <span class="comment">% distance of the inter-sample points</span>
+0326     <span class="keyword">case</span> <span class="string">'LHS_O1'</span>
+0327         samplingTMP=cell(1,nbGene);
+0328         sc=zeros(1,nbGene);
+0329         <span class="comment">%nbGene sampling are generated</span>
+0330         <span class="keyword">for</span> ii=1:nbGene
+0331             samplingTMP{ii}=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
+0332             <span class="comment">%compute score</span>
+0333             uni=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(samplingTMP{ii});
+0334             sc(ii)=uni.sumDist;
+0335         <span class="keyword">end</span>
+0336         [~,IX]=min(sc);
+0337         sampling=samplingTMP{IX};
+0338         clear samplingTMP;
+0339         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0340         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0341         <span class="comment">% LHS_O1 with storange of the data</span>
+0342     <span class="keyword">case</span> <span class="string">'LHS_O1_manu'</span>
+0343          <span class="comment">%recover sampling if available</span>
+0344         [sampling,fich]=<a href="#_sub1" class="code" title="subfunction [sampling,fich]=checkDOE(nameFile,np,ns)">checkDOE</a>(<span class="string">'lhs_o1'</span>,np,ns);
+0345         <span class="keyword">if</span> isempty(sampling)
+0346             samplingTMP=cell(1,nbGene);
+0347             sc=zeros(1,nbGene);
+0348             <span class="comment">%nbGene sampling are generated</span>
+0349             <span class="keyword">for</span> ii=1:nbGene
+0350                 samplingTMP{ii}=<a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>(XminDef,XmaxDef,prod(ns(:)));
+0351                 <span class="comment">%compute score</span>
+0352                 uni=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(samplingTMP{ii});
+0353                 sc(ii)=uni.sumDist;
+0354             <span class="keyword">end</span>
+0355             [~,IX]=min(sc);
+0356             sampling=samplingTMP{IX};
+0357             clear samplingTMP
+0358             save(fich,<span class="string">'sampling'</span>);
+0359         <span class="keyword">end</span>
+0360         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0361         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0362         <span class="comment">% randm sampling</span>
+0363     <span class="keyword">case</span> <span class="string">'rand'</span>
+0364         sampling=rand(prod(ns(:)),np);
+0365         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0366         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0367         <span class="comment">%manually defined sampling</span>
+0368     <span class="keyword">case</span> <span class="string">'custom'</span>
+0369         sampling=doe.manu;
+0370         customSampling=true;
+0371         disp(<span class="string">'/!\ Manual sampling (cf. initDOE.m)'</span>);
+0372     <span class="keyword">otherwise</span>
+0373         error([<span class="string">'Undefined DOE methods ('</span>,mfilename,<span class="string">')'</span>]);
+0374         samplingOK=false;
+0375 <span class="keyword">end</span>
+0376 
+0377 <span class="keyword">if</span> samplingOK
+0378     <span class="keyword">if</span> ~customSampling
+0379         <span class="comment">% correction of the sampling for obtaining sampling defined on the</span>
+0380         <span class="comment">% right design space</span>
+0381         sampling=sampling.*repmat(Xmax(:)'-Xmin(:)',prod(ns(:)),1)+repmat(Xmin(:)',prod(ns(:)),1);
+0382     <span class="keyword">end</span>
+0383     
+0384     <span class="comment">%if two output variables, other information will be stored</span>
+0385     <span class="keyword">if</span> nargout==2
+0386         <span class="keyword">if</span> doe.sort.on
+0387             infoSampling.unsorted=sampling;
+0388         <span class="keyword">end</span>
+0389         <span class="comment">%compute scores of the sampling</span>
+0390         [infoSampling.uniform,infoSampling.discrepance]=<a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(sampling);
+0391     <span class="keyword">end</span>
+0392     <span class="comment">%sorting of the sampling</span>
+0393     sortedSampling=<a href="sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>(sampling,doe);
+0394     
+0395     <span class="comment">%shwo sampling</span>
+0396     <a href="../../../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(sortedSampling,doe)
+0397 <span class="keyword">else</span>
+0398     sortedSampling=[];
+0399 <span class="keyword">end</span>
+0400 
+0401 <span class="comment">%output</span>
+0402 out.sorted=sortedSampling;
+0403 out.unsorted=sampling;
+0404 
+0405 <a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
+0406 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0407 <span class="keyword">end</span>
+0408 
+0409 
+0410 <span class="comment">%%function for checking if a sampling already exists</span>
+0411 <a name="_sub1" href="#_subfunctions" class="code">function [sampling,fich]=checkDOE(nameFile,np,ns)</a>
+0412 
+0413 <span class="comment">%check if the storage folder exists</span>
+0414 <span class="keyword">if</span> exist(<span class="string">'tmpDOE/TIR_MANU'</span>,<span class="string">'dir'</span>)~=7
+0415     mkdir(<span class="string">'tmpDOE/TIR_MANU'</span>);
+0416 <span class="keyword">end</span>
+0417 
+0418 <span class="comment">%if the sampling exists, it will be loaded</span>
+0419 fi=[<span class="string">'tmpDOE/TIR_MANU/'</span> nameFile <span class="string">'_man_'</span> num2str(np) <span class="string">'_'</span>  num2str(ns)];
+0420 fich=[fi <span class="string">'.mat'</span>];
+0421 <span class="keyword">if</span> exist(fich,<span class="string">'file'</span>)==2
+0422     st=load(fich);
+0423     sampling=st.sampling;
+0424 <span class="keyword">else</span>
+0425     fprintf(<span class="string">'Sampling does not exist \n'</span>);
+0426     sampling=[];
+0427 <span class="keyword">end</span>
+0428 <span class="keyword">end</span>
+0429</pre></div>
+<hr><address>Generated on Wed 01-Jun-2016 17:07:01 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

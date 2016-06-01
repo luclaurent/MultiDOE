@@ -4,7 +4,7 @@
 <head>
   <title>Description of ExampleUse</title>
   <meta name="keywords" content="ExampleUse">
-  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
+  <meta name="description" content="% Example of use of the MultiDOE toolbox">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,33 +20,20 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
+<div class="box"><strong>% Example of use of the MultiDOE toolbox</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="box"><strong>This is a script file. </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
-     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
- 
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
- 
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
- 
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+<div class="fragment"><pre class="comment">% Example of use of the MultiDOE toolbox
+ L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	% Initialization of the directories (MATLAB's path)</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -55,65 +42,64 @@ This function is called by:
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
-0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
-0003 <span class="comment">%</span>
-0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0007 <span class="comment">%     (at your option) any later version.</span>
-0008 <span class="comment">%</span>
-0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0012 <span class="comment">%     GNU General Public License for more details.</span>
-0013 <span class="comment">%</span>
-0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+<div class="fragment"><pre>0001 <span class="comment">%% Example of use of the MultiDOE toolbox</span>
+0002 <span class="comment">% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</span>
+0003 
+0004 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0005 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0006 <span class="comment">%</span>
+0007 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0008 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0009 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0010 <span class="comment">%     (at your option) any later version.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0013 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0014 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0015 <span class="comment">%     GNU General Public License for more details.</span>
 0016 <span class="comment">%</span>
-0017     
-0018 <span class="comment">%% Example of use of the MultiDOE toolbox</span>
-0019 <span class="comment">% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</span>
-0020 
-0021 <span class="comment">%initialize folders of the toolbox</span>
-0022 <a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
+0017 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0018 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0019 
+0020 <span class="comment">%initialize folders of the toolbox</span>
+0021 <a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
+0022 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0023 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0024 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0025 <span class="comment">%load configuration</span>
-0026 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>(3);
-0027 <span class="comment">%</span>
-0028 doe.Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
-0029 doe.Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
-0030 
-0031 <span class="comment">% available sampling techniques :</span>
-0032 <span class="comment">% - ffact &quot;full factorial&quot;</span>
-0033 <span class="comment">% - LHS_R</span>
-0034 <span class="comment">% - OLHS_R</span>
-0035 <span class="comment">% - MMLHS_R</span>
-0036 <span class="comment">% - GLHS_R</span>
-0037 <span class="comment">% - IHS_R</span>
-0038 <span class="comment">% - HALTON</span>
-0039 <span class="comment">% - SOBOL</span>
-0040 <span class="comment">% - LHSD --&gt; MATLAB (lhsdesign)</span>
-0041 <span class="comment">% - LHSD_CORRMIN</span>
-0042 <span class="comment">% - LHSD_MAXMIN</span>
-0043 <span class="comment">% - LHSD_NS</span>
-0044 <span class="comment">% - LHS</span>
-0045 <span class="comment">% - IHS</span>
-0046 <span class="comment">% - LHS_O1</span>
-0047 <span class="comment">% - IHS_R_manu_infill</span>
-0048 <span class="comment">% - LHS_R_manu_infill</span>
-0049 <span class="comment">% - rand</span>
-0050 <span class="comment">% - perso</span>
-0051 
-0052 doe.type=<span class="string">'IHS'</span>;
-0053 doe.ns=30;
+0024 <span class="comment">%load configuration</span>
+0025 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>(3);
+0026 <span class="comment">%</span>
+0027 doe.Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
+0028 doe.Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
+0029 
+0030 <span class="comment">% available sampling techniques :</span>
+0031 <span class="comment">% - ffact &quot;full factorial&quot;</span>
+0032 <span class="comment">% - LHS_R</span>
+0033 <span class="comment">% - OLHS_R</span>
+0034 <span class="comment">% - MMLHS_R</span>
+0035 <span class="comment">% - GLHS_R</span>
+0036 <span class="comment">% - IHS_R</span>
+0037 <span class="comment">% - HALTON</span>
+0038 <span class="comment">% - SOBOL</span>
+0039 <span class="comment">% - LHSD --&gt; MATLAB (lhsdesign)</span>
+0040 <span class="comment">% - LHSD_CORRMIN</span>
+0041 <span class="comment">% - LHSD_MAXMIN</span>
+0042 <span class="comment">% - LHSD_NS</span>
+0043 <span class="comment">% - LHS</span>
+0044 <span class="comment">% - IHS</span>
+0045 <span class="comment">% - LHS_O1</span>
+0046 <span class="comment">% - IHS_R_manu_infill</span>
+0047 <span class="comment">% - LHS_R_manu_infill</span>
+0048 <span class="comment">% - rand</span>
+0049 <span class="comment">% - perso</span>
+0050 
+0051 doe.type=<span class="string">'IHS_R_manu'</span>;
+0052 doe.ns=32;
+0053 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0054 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0055 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0056 <span class="comment">%build DOE</span>
-0057 [sampling,infos]=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>(doe);
-0058 sampling.sorted
-0059 sampling.unsorted</pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0055 <span class="comment">%build DOE</span>
+0056 [sampling,infos]=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>(doe);
+0057 sampling.sorted
+0058 sampling.unsorted</pre></div>
+<hr><address>Generated on Wed 01-Jun-2016 17:07:01 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
