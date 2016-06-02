@@ -1,4 +1,4 @@
-%% List all files of the GRENAT Toolbox
+%% List all files of the MultiDOE Toolbox
 % L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net
 %
 % To be executed at the root position of the toolbox
@@ -20,7 +20,7 @@
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-function listF=listFilesToolbox(dirT)
+function listF=listFilesToolboxMultiDOE(dirT)
 listF={};
 %process all directories in the directory 'dirT'
 for ii=1:numel(dirT)
@@ -57,8 +57,6 @@ for jj=1:numel(blacklist)
         listF={listF{IX}};
     end
 end
-%manually addition
-listF{end+1}='src/libs/PSOt/pso_Trelea_mod.m';
 end
 
 

@@ -2,9 +2,9 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of listFilesToolbox</title>
-  <meta name="keywords" content="listFilesToolbox">
-  <meta name="description" content="% List all files of the GRENAT Toolbox">
+  <title>Description of listFilesToolboxMultiDOE</title>
+  <meta name="keywords" content="listFilesToolboxMultiDOE">
+  <meta name="description" content="% List all files of the MultiDOE Toolbox">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -16,17 +16,17 @@
 <body>
 <a name="_top"></a>
 <!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html various -->
-<h1>listFilesToolbox
+<h1>listFilesToolboxMultiDOE
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% List all files of the GRENAT Toolbox</strong></div>
+<div class="box"><strong>% List all files of the MultiDOE Toolbox</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function listF=listFilesToolbox(dirT) </strong></div>
+<div class="box"><strong>function listF=listFilesToolboxMultiDOE(dirT) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% List all files of the GRENAT Toolbox
+<div class="fragment"><pre class="comment">% List all files of the MultiDOE Toolbox
  L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net
 
  To be executed at the root position of the toolbox</pre></div>
@@ -46,7 +46,7 @@ This function is called by:
 <li><a href="#_sub1" class="code">function [filDir]=listFileDir(dirM)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% List all files of the GRENAT Toolbox</span>
+<div class="fragment"><pre>0001 <span class="comment">%% List all files of the MultiDOE Toolbox</span>
 0002 <span class="comment">% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</span>
 0003 <span class="comment">%</span>
 0004 <span class="comment">% To be executed at the root position of the toolbox</span>
@@ -68,7 +68,7 @@ This function is called by:
 0020 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0021 
 0022 
-0023 <a name="_sub0" href="#_subfunctions" class="code">function listF=listFilesToolbox(dirT)</a>
+0023 <a name="_sub0" href="#_subfunctions" class="code">function listF=listFilesToolboxMultiDOE(dirT)</a>
 0024 listF={};
 0025 <span class="comment">%process all directories in the directory 'dirT'</span>
 0026 <span class="keyword">for</span> ii=1:numel(dirT)
@@ -105,20 +105,18 @@ This function is called by:
 0057         listF={listF{IX}};
 0058     <span class="keyword">end</span>
 0059 <span class="keyword">end</span>
-0060 <span class="comment">%manually addition</span>
-0061 listF{end+1}=<span class="string">'src/libs/PSOt/pso_Trelea_mod.m'</span>;
-0062 <span class="keyword">end</span>
-0063 
-0064 
-0065 <span class="comment">% list files in a directory</span>
-0066 <a name="_sub1" href="#_subfunctions" class="code">function [filDir]=listFileDir(dirM)</a>
-0067 <span class="comment">%rawlist</span>
-0068 rawList=dir(dirM);
-0069 <span class="comment">%flag file</span>
-0070 flag_file=~[rawList.isdir];
-0071 <span class="comment">%list of files in the directory</span>
-0072 filDir={rawList(flag_file).name};
-0073 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Wed 01-Jun-2016 23:45:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0060 <span class="keyword">end</span>
+0061 
+0062 
+0063 <span class="comment">% list files in a directory</span>
+0064 <a name="_sub1" href="#_subfunctions" class="code">function [filDir]=listFileDir(dirM)</a>
+0065 <span class="comment">%rawlist</span>
+0066 rawList=dir(dirM);
+0067 <span class="comment">%flag file</span>
+0068 flag_file=~[rawList.isdir];
+0069 <span class="comment">%list of files in the directory</span>
+0070 filDir={rawList(flag_file).name};
+0071 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Thu 02-Jun-2016 11:32:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -31,7 +31,7 @@ analyseDir='MultiDOE';
 %ignDir={'};
 
 %list of files
-listFiles=listFilesToolbox(dirPath);
+listFiles=listFilesToolboxMultiDOE(dirPath);
 %add path to all files
 listFiles=cellfun(@(x) sprintf('%s/%s',analyseDir,x),listFiles,'UniformOutput',false);
 

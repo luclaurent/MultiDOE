@@ -67,7 +67,7 @@ digraph m2html {
   buildDOE -> mesuTime;
   buildDOE -> sortDOE;
   buildDocMultiDOE -> initDirMultiDOE;
-  buildDocMultiDOE -> listFilesToolbox;
+  buildDocMultiDOE -> listFilesToolboxMultiDOE;
   checkLhsuR -> ihsR;
 
   ExampleInfill [URL="MultiDOE/ExampleInfill.html"];
@@ -127,7 +127,7 @@ digraph m2html {
   checkMultiDOE [URL="MultiDOE/src/various/checkMultiDOE.html"];
   checkR [URL="MultiDOE/src/various/checkR.html"];
   checkScore [URL="MultiDOE/src/various/checkScore.html"];
-  listFilesToolbox [URL="MultiDOE/src/various/listFilesToolbox.html"];
+  listFilesToolboxMultiDOE [URL="MultiDOE/src/various/listFilesToolboxMultiDOE.html"];
   mesuTime [URL="MultiDOE/src/various/mesuTime.html"];
   sortDOE [URL="MultiDOE/src/various/sortDOE.html"];
 }
