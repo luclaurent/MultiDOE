@@ -21,14 +21,13 @@ function displayDOE(sampling,doe,missData)
 
 %show order of the sampling
 dispTXT=true;
-
 %load bounds of the design space
 if isfield(doe,'Xmin')&&isfield(doe,'Xmax')
     Xmin=doe.Xmin;
     Xmax=doe.Xmax;
 elseif isfield(doe,'bounds')
-    Xmin=doe.bornes(:,1);
-    Xmax=doe.bornes(:,2);
+    Xmin=doe.bounds(:,1);
+    Xmax=doe.bounds(:,2);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -75,7 +74,7 @@ listBothMissTxt=f2(listBothMiss);
 %number of variables
 np=numel(Xmin);
 
-if doe.disp
+if doe.dispOn&&~isempty(sampling)
     para=0.1;
     if np==1
         figure

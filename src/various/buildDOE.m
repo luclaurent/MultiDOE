@@ -5,23 +5,22 @@
 %the R software
 %
 %All sampling techniques provide sample points with values between 0 and 1.
-%The convertion to the right sapce is done at the end of this file.
+%The convertion to the right space is done at the end of this file.
 %
 %% Syntax: gene_doe(doe)
 %% INPUT variables:
-% -doe: structure obtaind with initDOE and complete manually
-%
-%   + Kind of DOE (doe.type): see the switch command below
+% - type: Kind of DOE (doe.type): see the switch command below
+% - ns: number of sample points
+% - Xmin: lower bound of the design space
+% - Xmax: upper bound of the design space
 %   + All methods containing the string '_R' require the R software
 %   (installed on the computer and accessible using the command line).
 %   Libraries 'lhs' and 'R.matlab' must be installed on R
 %   + All methods containing the string '_MANU' are saved sampling (they
 %   are built one time are are reloaded from a .mat file)
-%   + Many sorting methods are available using doe.sort (see sortDOE.m)
 %
 %% OUTPUT variables
-% - out: contains the sampling (sorted and unsorted)
-% -infoSampling(optional): many information about the sampling
+% - sampling: contains the sampling
 
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
@@ -39,7 +38,7 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function [out,infoSampling]=buildDOE(doe)
+function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)
 
 
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
@@ -50,57 +49,24 @@ fprintf('    >>> BUILDING SAMPLING <<<\n');
 s = RandStream('mt19937ar','Seed','shuffle');
 RandStream.setGlobalStream(s);
 
-%recovering the required number of sample points
-nsUndef=true;
-if isfield(doe,'ns')
-    if ~isempty(doe.ns)
-        ns=doe.ns;
-        nsUndef=false;
-    end
-end
-if nsUndef;
-    error(['Undefined number of sample points ''doe.ns'' (',mfilename,')']);
-end
-
 %recovering number of iteration if specified
-if isfield(doe,'iter');nbIter=doe.iter;else nbIter=5;end
+if nargin>=5
+    if isfield(opts,'iter');nbIter=opts.iter;else nbIter=5;end
+else
+    nbIter=5;
+end
 
 %number of generation for computing the scores
 nbGene=20;
 
-%recovering bounds of the design sapce
-boundsUndef=true;
-if isfield(doe,'Xmin')&&isfield(doe,'Xmax')
-    if ~isempty(doe.Xmin)&&~isempty(doe.Xmax)
-        Xmin=doe.Xmin;
-        Xmax=doe.Xmax;
-        boundsUndef=false;
-    end
-elseif isfield(doe,'bornes')
-    if ~isempty(doe.bornes)
-        Xmin=doe.bornes(:,1);
-        Xmax=doe.bornes(:,2);
-        doe.Xmin=Xmin;doe.Xmax=Xmax;
-        boundsUndef=false;
-    end
-end
-if boundsUndef
-    error(['Undefined bounds of the design space ''doe.Xmin'' an ''doe.Xmax'' (',mfilename,')']);
-end
-
 %default values
 XminDef=0.*Xmin;XmaxDef=0.*Xmax+1;
 
-%number ofvariables
+%number of variables
 np=numel(Xmin);
 
-%default sorting options
-if ~isfield(doe,'sort');doe.sort=[];end
-if ~isfield(doe.sort,'on');doe.sort.on=false;end
-if ~isfield(doe.sort,'lnorm');doe.sort.lnorm=2;end
-
 %% Show information
-fprintf(' >> Kind of DOE: %s\n',doe.type);
+fprintf(' >> Kind of DOE: %s\n',type);
 fprintf(' >> Number of sample points: ')
 fprintf('%i ',ns);fprintf('\n');
 fprintf(' >> Number of variables: %i\n',np);
@@ -108,7 +74,7 @@ fprintf(' >> Number of variables: %i\n',np);
 samplingOK=true;
 customSampling=false;
 %depending on the chosen DOE technique
-switch doe.type
+switch type
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % full factorial
@@ -366,7 +332,7 @@ switch doe.type
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %manually defined sampling
     case 'custom'
-        sampling=doe.manu;
+        sampling=opts.manu;
         customSampling=true;
         disp('/!\ Manual sampling (cf. initDOE.m)');
     otherwise
@@ -379,28 +345,10 @@ if samplingOK
         % correction of the sampling for obtaining sampling defined on the
         % right design space
         sampling=sampling.*repmat(Xmax(:)'-Xmin(:)',prod(ns(:)),1)+repmat(Xmin(:)',prod(ns(:)),1);
-    end
-    
-    %if two output variables, other information will be stored
-    if nargout==2
-        if doe.sort.on
-            infoSampling.unsorted=sampling;
-        end
-        %compute scores of the sampling
-        [infoSampling.uniform,infoSampling.discrepance]=calcScore(sampling);
-    end
-    %sorting of the sampling
-    sortedSampling=sortDOE(sampling,doe);
-    
-    %shwo sampling
-    displayDOE(sortedSampling,doe)
+    end   
 else
-    sortedSampling=[];
+    sampling=[];
 end
-
-%output
-out.sorted=sortedSampling;
-out.unsorted=sampling;
 
 mesuTime(tMesu,tInit);
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')

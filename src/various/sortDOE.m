@@ -22,7 +22,7 @@ function samplingSorted = sortDOE(sampling,doe)
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
 
-infoSort=doe.sort;
+infoSort=doe.sortInfo;
 %used norm
 lnorm=infoSort.lnorm;
 %number of sample points and design variables
