@@ -54,7 +54,7 @@ The convertion to the right space is done at the end of this file.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	% Script dedicated to the initiailisation, the measure and the display of the spent time</li></ul>
+<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
@@ -110,7 +110,7 @@ This function is called by:
 0043 
 0044 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
 0045 fprintf(<span class="string">'    &gt;&gt;&gt; BUILDING SAMPLING &lt;&lt;&lt;\n'</span>);
-0046 [tMesu,tInit]=<a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>;
+0046 TimeCount=<a href="mesuTime.html" class="code" title="">mesuTime</a>;
 0047 
 0048 <span class="comment">% For obtaining an &quot;actual&quot; pseudo-random sampling</span>
 0049 s = RandStream(<span class="string">'mt19937ar'</span>,<span class="string">'Seed'</span>,<span class="string">'shuffle'</span>);
@@ -417,7 +417,7 @@ This function is called by:
 0350     sampling=[];
 0351 <span class="keyword">end</span>
 0352 
-0353 <a href="mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
+0353 TimeCount.stop;
 0354 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
 0355 <span class="keyword">end</span>
 0356 
@@ -442,6 +442,6 @@ This function is called by:
 0375 <span class="keyword">end</span>
 0376 <span class="keyword">end</span>
 0377</pre></div>
-<hr><address>Generated on Fri 01-Jul-2016 18:05:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Fri 01-Jul-2016 23:28:38 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

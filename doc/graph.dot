@@ -71,6 +71,7 @@ digraph m2html {
   buildDocMultiDOE -> initDirMultiDOE;
   buildDocMultiDOE -> listFilesToolboxMultiDOE;
   checkLhsuR -> ihsR;
+  mesuTime -> mesuTime;
 
   ExampleInfill [URL="MultiDOE/ExampleInfill.html"];
   ExampleUse [URL="MultiDOE/ExampleUse.html"];

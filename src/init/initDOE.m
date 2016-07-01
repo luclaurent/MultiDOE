@@ -100,7 +100,7 @@ if ~isempty(funT)
     [espM,dim]=initDOEfun(dim,funT);
 end
 
-[tMesu,tInit]=mesuTime;
+TimeCount=mesuTime;
 
 %type of doe
 doe.type=type;
@@ -180,5 +180,5 @@ end
 fprintf('++ Display sampling: ');
 if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
 
-if stateAutonomous;mesuTime(tMesu,tInit);end
+if stateAutonomous;TimeCount.stop;end
 fprintf('=========================================\n')

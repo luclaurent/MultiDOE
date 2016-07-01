@@ -2,6 +2,7 @@
 digraph m2html {
   buildDOE -> mesuTime;
   buildDocMultiDOE -> listFilesToolboxMultiDOE;
+  mesuTime -> mesuTime;
 
   buildDOE [URL="buildDOE.html"];
   buildDocMultiDOE [URL="buildDocMultiDOE.html"];

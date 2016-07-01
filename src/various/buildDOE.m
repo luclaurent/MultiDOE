@@ -43,7 +43,7 @@ function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)
 
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
 fprintf('    >>> BUILDING SAMPLING <<<\n');
-[tMesu,tInit]=mesuTime;
+TimeCount=mesuTime;
 
 % For obtaining an "actual" pseudo-random sampling
 s = RandStream('mt19937ar','Seed','shuffle');
@@ -350,7 +350,7 @@ else
     sampling=[];
 end
 
-mesuTime(tMesu,tInit);
+TimeCount.stop;
 fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
 end
 
