@@ -1,6 +1,25 @@
-classdef multiDOE < handle
     %% multiDOE class for manipulating sampling
     % L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net
+    
+    % A multiDOE object can be created using the following syntax:
+    % multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
+    % where:
+    %  - dimPBIn: number of design variables
+    %  - typeIn: type of DOE (default: LHS)
+    %  - nsIn: number of sample points
+    %  - XminIn,XmaxIn: lower and upper bounds of the design space
+    %
+    % Each property can be set manually 
+    % for instance:
+    % <obj>.dimPB=3
+    % <obj>.type='LHS'
+    % <obj>.ns=30
+    %
+    % The smple points can be obtained using 
+    % <obj>.sorted or <obj>.unsorted
+    %
+    % The method 'show' allows to plot the sample points in any dimension
+
     
     %     MultiDOE - Toolbox for sampling a bounded space
     %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
@@ -17,6 +36,8 @@ classdef multiDOE < handle
     %
     %     You should have received a copy of the GNU General Public License
     %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+classdef multiDOE < handle
     
     properties
         dimPB=[];
