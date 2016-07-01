@@ -27,7 +27,26 @@
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre class="comment">% multiDOE class for manipulating sampling
- L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net</pre></div>
+ L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net
+
+ A multiDOE object can be created using the following syntax:
+ multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
+ where:
+  - dimPBIn: number of design variables
+  - typeIn: type of DOE (default: LHS)
+  - nsIn: number of sample points
+  - XminIn,XmaxIn: lower and upper bounds of the design space
+
+ Each property can be set manually 
+ for instance:
+ &lt;obj&gt;.dimPB=3
+ &lt;obj&gt;.type='LHS'
+ &lt;obj&gt;.ns=30
+
+ The smple points can be obtained using 
+ &lt;obj&gt;.sorted or &lt;obj&gt;.unsorted
+
+ The method 'show' allows to plot the sample points in any dimension</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
@@ -46,7 +65,7 @@ This function is called by:
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="fragment"><pre>0001     <span class="comment">%% multiDOE class for manipulating sampling</span>
 0002     <span class="comment">% L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net</span>
-0003     
+0003     <span class="comment">%</span>
 0004     <span class="comment">% A multiDOE object can be created using the following syntax:</span>
 0005     <span class="comment">% multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)</span>
 0006     <span class="comment">% where:</span>
@@ -456,6 +475,6 @@ This function is called by:
 0410     fprintf(<span class="string">'%s%s%s\n'</span>,tableA{itT},spaceTxt(ones(1,spaceA(itT))),tableB{itT});
 0411 <span class="keyword">end</span>
 0412 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 01-Jul-2016 18:02:58 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Fri 01-Jul-2016 18:05:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

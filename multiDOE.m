@@ -1,6 +1,6 @@
     %% multiDOE class for manipulating sampling
     % L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net
-    
+    %
     % A multiDOE object can be created using the following syntax:
     % multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
     % where:
