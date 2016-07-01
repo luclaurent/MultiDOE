@@ -73,8 +73,7 @@ listBothMissTxt=f2(listBothMiss);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %number of variables
 np=numel(Xmin);
-
-if doe.dispOn&&~isempty(sampling)
+if ~isempty(sampling)
     para=0.1;
     if np==1
         figure

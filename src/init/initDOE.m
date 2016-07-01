@@ -55,12 +55,12 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function [doe]=initDOE(dim,type,espM,funT)
+function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)
 
 
 fprintf('=========================================\n')
 fprintf('      >>> DOE INITIALIZATION <<<\n');
-[tMesu,tInit]=mesuTime;
+
 
 %depending on the number of parameters
 if nargin==0
@@ -68,15 +68,31 @@ if nargin==0
     funT=[];
     dim=[];
     espM=[zeros(dim,1) ones(dim,1)];
+    stateAutonomous=true;
 elseif nargin==1
     type='LHS';
     funT=[];
     espM=[zeros(dim,1) ones(dim,1)];
+    stateAutonomous=true;
 elseif nargin==2
+    if isempty(type);type='LHS';end
     espM=[zeros(dim,1) ones(dim,1)];
     funT=[];
+    stateAutonomous=true;
 elseif nargin==3
+    if isempty(type);type='LHS';end
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
     funT=[];
+    stateAutonomous=true;
+elseif nargin==4
+    if isempty(type);type='LHS';end
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
+    if isempty(funT);type=[];end
+     stateAutonomous=true;
+elseif nargin==5
+    if isempty(type);type='LHS';end
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
+    if isempty(funT);funT=[];end   
 end
 
 %automatic definition
@@ -84,12 +100,14 @@ if ~isempty(funT)
     [espM,dim]=initDOEfun(dim,funT);
 end
 
+[tMesu,tInit]=mesuTime;
+
 %type of doe
 doe.type=type;
 %number of design variables
 doe.dimPB=dim;
 %number of sample points
-doe.ns=[];
+doe.nS=[];
 
 doe.funT=[];
 doe.infos=[];
@@ -114,7 +132,7 @@ doe.sort.ptref=[];
 doe.sort.lnorm=2;
 
 %display sampling
-doe.disp=true;
+doe.disp=false;
 
 %manual definition
 if ~isempty(espM)
@@ -132,33 +150,35 @@ if ~isfield(doe,'Xmin')
 end
 
 %show information
-if ~isempty(funT)
-    fprintf('++ Test function: %s (%iD)\n',funT,dim);
-else
-    if ~isempty(dim)
-        fprintf('++ Number of variables: %i\n',dim)
+if stateAutonomous
+    if ~isempty(funT)
+        fprintf('++ Test function: %s (%iD)\n',funT,dim);
+    else
+        if ~isempty(dim)
+            fprintf('++ Number of variables: %i\n',dim)
+        end
     end
-end
-fprintf('++ Type of DOE: ');
-if isempty(doe.type);fprintf('UNDEFINED\n');else fprintf('%s\n',doe.type);end
-fprintf('++ Design space: \n');
-if isempty(doe.Xmin)
-    fprintf('UNDEFINED\n')
-else
-    fprintf('   Min  |');
-    fprintf('%+4.2f|',doe.Xmin);fprintf('\n');
-    fprintf('   Max  |');
-    fprintf('%+4.2f|',doe.Xmax);fprintf('\n');
+    fprintf('++ Type of DOE: ');
+    if isempty(doe.type);fprintf('UNDEFINED\n');else fprintf('%s\n',doe.type);end
+    fprintf('++ Design space: \n');
+    if isempty(doe.Xmin)
+        fprintf('UNDEFINED\n')
+    else
+        fprintf('   Min  |');
+        fprintf('%+4.2f|',doe.Xmin);fprintf('\n');
+        fprintf('   Max  |');
+        fprintf('%+4.2f|',doe.Xmax);fprintf('\n');
+    end
 end
 fprintf('++ Sorting of the sampling: ');
 if ~doe.sort.on
     fprintf('NO\n');
 else
     fprintf('YES\n');
-    fprintf('Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
+    fprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
 end
 fprintf('++ Display sampling: ');
 if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
 
-mesuTime(tMesu,tInit);
+if stateAutonomous;mesuTime(tMesu,tInit);end
 fprintf('=========================================\n')

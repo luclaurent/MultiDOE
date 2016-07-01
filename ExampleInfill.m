@@ -17,26 +17,22 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%initialize folders of the toolbox
-initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load configuration
 doe=initDOE(3);
 %
-doe.Xmin=[-1 -2 -3];
-doe.Xmax=[3 2 1];
-doe.type='LHS_R'; %or LHS_R
-doe.ns=5;
-doe.sort.on=false; %w/o sorting
-doe.disp=true;
+Xmin=[-1 -2 -3];
+Xmax=[3 2 1];
+type='LHS_R'; %or LHS_R
+ns=5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
-sampling=buildDOE(doe);
+sampling=multiDOE(3,type,ns,Xmin,Xmax);
+sampling.show()
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %enrichment
-doe.ns=2;
-newSample=addSampleDOE(sampling,doe);
-displayDOE(newSample,doe)
+sampling.addSample(2);
+sampling.show()

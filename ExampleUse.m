@@ -17,15 +17,12 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%initialize folders of the toolbox
-initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load configuration
-doe=initDOE(3);
 %
-doe.Xmin=[-1 -2 -3];% -1 -2 -3 -1 -2 -3 -3];
-doe.Xmax=[3 2 1];% 3 2 1 3 2 1 1];
+Xmin=[-1 -2 -3];% -1 -2 -3 -1 -2 -3 -3];
+Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 
 % available sampling techniques :
 % - ffact "full factorial"
@@ -48,11 +45,12 @@ doe.Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 % - rand
 % - perso
 
-doe.type='IHS_R_manu';
-doe.ns=32;
+type='IHS_R_manu';
+ns=32;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
-[sampling,infos]=buildDOE(doe);
+sampling=multiDOE(3,type,ns,Xmin,Xmax);
 sampling.sorted
 sampling.unsorted
+sampling.show()
