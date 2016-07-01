@@ -9,6 +9,8 @@ This Matlab toolbox regroups many existing tools for generating sample points us
 * Improved Hypercube Sampling
 * Random Sampling
 
+The toolbox is based on an Oriented-Object syntax for helping to manipulate and generate sample points.
+
 Many techniques proposed in this toolbox are based on 
 
 * the [R software](https://cran.r-project.org/). More precisely, the library [lhs](https://cran.r-project.org/web/packages/lhs/index.html) is used. 
@@ -16,6 +18,15 @@ Many techniques proposed in this toolbox are based on
 * the [LHS](http://www.mathworks.com/matlabcentral/fileexchange/4352-latin-hypercube-sampling/content/lhsu.m) proposed by Budiman Minasny.
 
 **NOTICE: sampling techniques based on the R software are only usable on a Unix OS.**
+
+First start
+------
+
+Some examples are proposed by functions:
+
+* `ExampleUse.m` simple example of the use of the toolbox
+* `ExampleInfill.m` example of the use of the toolbox with infill of the initial sampling
+
 
 Features
 ------
