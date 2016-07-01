@@ -23,7 +23,7 @@
 <div class="box"><strong>% Function for adding new points in an existing sampling</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function newSampling=addSampleDOE(oldSampling,doe) </strong></div>
+<div class="box"><strong>function newSampling=addSampleDOE(oldSampling,nsAdd,doe) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">% Function for adding new points in an existing sampling
@@ -38,7 +38,7 @@ This function calls:
 <li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li></ul>
+<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	</li></ul>
 <!-- crossreference -->
 
 
@@ -65,28 +65,26 @@ This function is called by:
 0019 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
 0020 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0021 
-0022 <a name="_sub0" href="#_subfunctions" class="code">function newSampling=addSampleDOE(oldSampling,doe)</a>
+0022 <a name="_sub0" href="#_subfunctions" class="code">function newSampling=addSampleDOE(oldSampling,nsAdd,doe)</a>
 0023 
 0024 Xmin=doe.Xmin;
 0025 Xmax=doe.Xmax;
 0026 
-0027 ns=doe.ns;
-0028 
-0029 <span class="comment">%extract the right information</span>
-0030 <span class="keyword">if</span> isstruct(oldSampling);
-0031     oldSampling=oldSampling.unsorted;
-0032 <span class="keyword">end</span>
-0033 
-0034 <span class="comment">% depending on the initial sampling</span>
-0035 <span class="keyword">switch</span> doe.type
-0036     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
-0037         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
-0038     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
-0039         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
-0040     <span class="keyword">otherwise</span>
-0041         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
-0042         newSampling=[];
-0043 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Thu 02-Jun-2016 11:32:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0027 <span class="comment">%extract the right information</span>
+0028 <span class="keyword">if</span> isstruct(oldSampling);
+0029     oldSampling=oldSampling.unsorted;
+0030 <span class="keyword">end</span>
+0031 
+0032 <span class="comment">% depending on the initial sampling</span>
+0033 <span class="keyword">switch</span> doe.type
+0034     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
+0035         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,nsAdd,oldSampling);
+0036     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
+0037         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,nsAdd,oldSampling);
+0038     <span class="keyword">otherwise</span>
+0039         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
+0040         newSampling=[];
+0041 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 01-Jul-2016 17:44:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	% Initialization of the directories (MATLAB's path)</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="multiDOE.html" class="code" title="">multiDOE</a>	</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -61,45 +61,43 @@ This function is called by:
 0017 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
 0018 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0019 
-0020 <span class="comment">%initialize folders of the toolbox</span>
-0021 <a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
-0022 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0023 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0024 <span class="comment">%load configuration</span>
-0025 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>(3);
-0026 <span class="comment">%</span>
-0027 doe.Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
-0028 doe.Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
-0029 
-0030 <span class="comment">% available sampling techniques :</span>
-0031 <span class="comment">% - ffact &quot;full factorial&quot;</span>
-0032 <span class="comment">% - LHS_R</span>
-0033 <span class="comment">% - OLHS_R</span>
-0034 <span class="comment">% - MMLHS_R</span>
-0035 <span class="comment">% - GLHS_R</span>
-0036 <span class="comment">% - IHS_R</span>
-0037 <span class="comment">% - HALTON</span>
-0038 <span class="comment">% - SOBOL</span>
-0039 <span class="comment">% - LHSD --&gt; MATLAB (lhsdesign)</span>
-0040 <span class="comment">% - LHSD_CORRMIN</span>
-0041 <span class="comment">% - LHSD_MAXMIN</span>
-0042 <span class="comment">% - LHSD_NS</span>
-0043 <span class="comment">% - LHS</span>
-0044 <span class="comment">% - IHS</span>
-0045 <span class="comment">% - LHS_O1</span>
-0046 <span class="comment">% - IHS_R_manu_infill</span>
-0047 <span class="comment">% - LHS_R_manu_infill</span>
-0048 <span class="comment">% - rand</span>
-0049 <span class="comment">% - perso</span>
-0050 
-0051 doe.type=<span class="string">'IHS_R_manu'</span>;
-0052 doe.ns=32;
-0053 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0054 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0055 <span class="comment">%build DOE</span>
-0056 [sampling,infos]=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>(doe);
-0057 sampling.sorted
-0058 sampling.unsorted</pre></div>
-<hr><address>Generated on Thu 02-Jun-2016 11:32:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0020 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0021 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0022 <span class="comment">%load configuration</span>
+0023 <span class="comment">%</span>
+0024 Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
+0025 Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
+0026 
+0027 <span class="comment">% available sampling techniques :</span>
+0028 <span class="comment">% - ffact &quot;full factorial&quot;</span>
+0029 <span class="comment">% - LHS_R</span>
+0030 <span class="comment">% - OLHS_R</span>
+0031 <span class="comment">% - MMLHS_R</span>
+0032 <span class="comment">% - GLHS_R</span>
+0033 <span class="comment">% - IHS_R</span>
+0034 <span class="comment">% - HALTON</span>
+0035 <span class="comment">% - SOBOL</span>
+0036 <span class="comment">% - LHSD --&gt; MATLAB (lhsdesign)</span>
+0037 <span class="comment">% - LHSD_CORRMIN</span>
+0038 <span class="comment">% - LHSD_MAXMIN</span>
+0039 <span class="comment">% - LHSD_NS</span>
+0040 <span class="comment">% - LHS</span>
+0041 <span class="comment">% - IHS</span>
+0042 <span class="comment">% - LHS_O1</span>
+0043 <span class="comment">% - IHS_R_manu_infill</span>
+0044 <span class="comment">% - LHS_R_manu_infill</span>
+0045 <span class="comment">% - rand</span>
+0046 <span class="comment">% - perso</span>
+0047 
+0048 type=<span class="string">'IHS_R_manu'</span>;
+0049 ns=32;
+0050 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0051 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0052 <span class="comment">%build DOE</span>
+0053 sampling=<a href="multiDOE.html" class="code" title="">multiDOE</a>(3,type,ns,Xmin,Xmax);
+0054 sampling.sorted
+0055 sampling.unsorted
+0056 sampling.show()</pre></div>
+<hr><address>Generated on Fri 01-Jul-2016 17:44:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

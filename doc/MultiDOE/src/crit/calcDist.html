@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li></ul>
@@ -101,14 +101,14 @@ This function is called by:
 0057         uniqDist=unique(dist_cat);
 0058         <span class="keyword">if</span> nargout&gt;3
 0059             <span class="comment">%build table of the multiplicity of the distances</span>
-0060             multiDOE=zeros(size(uniqDist));
+0060             <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>=zeros(size(uniqDist));
 0061             <span class="keyword">for</span> ii=1:length(uniqDist)
-0062                 multiDOE(ii)=sum(ismember(dist_cat,uniqDist(ii)));
+0062                 <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>(ii)=sum(ismember(dist_cat,uniqDist(ii)));
 0063             <span class="keyword">end</span>
 0064         <span class="keyword">end</span>
 0065     <span class="keyword">end</span>
 0066 <span class="keyword">end</span>
 0067</pre></div>
-<hr><address>Generated on Thu 02-Jun-2016 11:32:25 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Fri 01-Jul-2016 17:44:43 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

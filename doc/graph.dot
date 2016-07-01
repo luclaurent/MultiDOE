@@ -1,24 +1,28 @@
 /* Created by mdot for Matlab */
 digraph m2html {
-  ExampleInfill -> initDirMultiDOE;
-  ExampleInfill -> displayDOE;
-  ExampleInfill -> addSampleDOE;
+  ExampleInfill -> multiDOE;
   ExampleInfill -> initDOE;
-  ExampleInfill -> buildDOE;
-  ExampleUse -> initDirMultiDOE;
-  ExampleUse -> initDOE;
-  ExampleUse -> buildDOE;
+  ExampleUse -> multiDOE;
   LICENSE -> LICENSE;
   LICENSE -> contents;
   README -> lhs;
   README -> ihs;
   README -> LHS;
+  multiDOE -> initDirMultiDOE;
+  multiDOE -> multiDOE;
+  multiDOE -> calcScore;
+  multiDOE -> displayDOE;
+  multiDOE -> addSampleDOE;
+  multiDOE -> initDOE;
+  multiDOE -> buildDOE;
+  multiDOE -> sortDOE;
   augmentLHS_Example -> augmentLHS_Example;
   glhsR -> checkR;
   ihsR -> checkR;
   lhsuR -> checkR;
   mmlhsR -> checkR;
   olhsR -> checkR;
+  calcDist -> multiDOE;
   calcScore -> calcDist;
   addSampleDOE -> ihsR;
   addSampleDOE -> lhsuR;
@@ -61,11 +65,9 @@ digraph m2html {
   buildDOE -> mmlhsR;
   buildDOE -> olhsR;
   buildDOE -> calcScore;
-  buildDOE -> displayDOE;
   buildDOE -> ihs;
   buildDOE -> lhsu;
   buildDOE -> mesuTime;
-  buildDOE -> sortDOE;
   buildDocMultiDOE -> initDirMultiDOE;
   buildDocMultiDOE -> listFilesToolboxMultiDOE;
   checkLhsuR -> ihsR;
@@ -75,6 +77,7 @@ digraph m2html {
   LICENSE [URL="MultiDOE/LICENSE.html"];
   README [URL="MultiDOE/README.html"];
   initDirMultiDOE [URL="MultiDOE/initDirMultiDOE.html"];
+  multiDOE [URL="MultiDOE/multiDOE.html"];
   augmentLHS_Example [URL="MultiDOE/src/DOE/augmentLHS_Example.html"];
   box_behnken [URL="MultiDOE/src/DOE/box_behnken.html"];
   fullFactDOE [URL="MultiDOE/src/DOE/fullFactDOE.html"];
