@@ -53,4 +53,4 @@ ns=32;
 sampling=multiDOE(3,type,ns,Xmin,Xmax);
 sampling.sorted
 sampling.unsorted
-sampling.show()
+sampling.show

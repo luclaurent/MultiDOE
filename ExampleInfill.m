@@ -30,9 +30,9 @@ ns=5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
 sampling=multiDOE(3,type,ns,Xmin,Xmax);
-sampling.show()
+sampling.show
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %enrichment
 sampling.addSample(2);
-sampling.show()
+sampling.show

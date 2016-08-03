@@ -152,8 +152,6 @@ classdef multiDOE < handle
             if obj.okData
                 %compute scores
                 obj.scoreVal=score(obj);
-                %display
-                if obj.dispOn;show(obj);end
             end
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
