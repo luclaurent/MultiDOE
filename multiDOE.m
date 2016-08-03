@@ -209,8 +209,7 @@ classdef multiDOE < handle
                     obj.sortInfo.(field2check) = structIn.(field2check);
                 end
             end
-        end
-        
+        end        
         %%%%%%
         %%%%%%getter
         %get sorted
@@ -328,9 +327,7 @@ classdef multiDOE < handle
             %two kind of input variables list (with keywords or not)
             %depend on the first argument: boolean for classical list of
             %argument or string if the use of keywords
-            if isa(varargin{1},'logical')
-                disp('logical')
-                
+            if isa(varargin{1},'logical')              
                 if nargin>1;obj.sortInfo=struct('on',varargin{1});end
                 if nargin>2;
                     if ismember(varargin{2},obj.sortAvail)
@@ -342,7 +339,6 @@ classdef multiDOE < handle
                 if nargin>3;obj.sortInfo=struct('para',varargin{3});end
                 if nargin>4;obj.sortInfo=struct('ptref',varargin{4});end
                 if nargin>5;obj.sortInfo=struct('lnorm',varargin{5});end
-                obj.sortInfo
             elseif isa(varargin{1},'char')
                 if mod(nargin-1,2)==0
                     for itV=1:2:nargin-1
@@ -378,8 +374,7 @@ classdef multiDOE < handle
                 fprintf('sortConf(bool,type,ptref,para,lnorm)\n')
                 fprintf('or sortConf(''key1'',val1,''key2'',val2...)\n')
                 availableSort(obj);
-            end
-            
+            end            
         end
         %compare two sampling
         function iseq=eq(doeA,doeB)
