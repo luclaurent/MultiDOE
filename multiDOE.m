@@ -53,6 +53,7 @@ classdef multiDOE < handle
     end
     properties (Access = private)
         runDOE=true; %flag for checking if sampling is obsolete
+        okData=false; %flag for checking if sufficient data is available
     end
     properties (Constant)
         qnorm=2; % options for computing the scores of a sampling
@@ -122,7 +123,7 @@ classdef multiDOE < handle
             %specific configuration
             if nargin>0;obj.dimPB=dimPBIn;else obj.dimPB=retInit.dimPB;end
             if nargin>1;obj.type=typeIn;end
-            if nargin>2;obj.ns=nsIn;else obj.ns=retInit.ns;end
+            if nargin>2;obj.ns=nsIn;end
             if nargin>4;
                 obj.Xmin=XminIn;obj.Xmax=XmaxIn;
             else
@@ -134,10 +135,13 @@ classdef multiDOE < handle
             obj.dispOn=retInit.disp;
             %build sampling
             obj=build(obj);
-            %compute scores
-            obj.scoreVal=score(obj);
-            %display
-            if obj.dispOn;show(obj);end
+            %if all is ok, continue
+            if obj.okData
+                %compute scores
+                obj.scoreVal=score(obj);
+                %display
+                if obj.dispOn;show(obj);end
+            end
         end
         %%%%%%setter
         %flag for obsolete sampling
@@ -148,14 +152,14 @@ classdef multiDOE < handle
         function set.ns(obj,nsIn)
             %check the kind of input data
             obj.ns=nsIn(:);
-            obj.runDOE=true;
+            initRunDOE(obj,true);
             fprintf('++ Number of sample points: %d\n',obj.ns);
         end
         %number of design variables
         function set.dimPB(obj,dimIn)
             %check the kind of input data
             obj.dimPB=dimIn(:);
-            obj.runDOE=true;
+            initRunDOE(obj,true);
             fprintf('++ Number of design variables: %d\n',obj.dimPB);
         end
         %load lower bound
@@ -163,7 +167,7 @@ classdef multiDOE < handle
             %check the kind of input data
             if size(XminIn,1)==1||size(XminIn,2)==1
                 obj.Xmin=XminIn(:);
-                obj.runDOE=true;
+                initRunDOE(obj,true);
             else
                 fprintf('>> Wrong input data: lower bound must be a vector\n');
             end
@@ -175,7 +179,7 @@ classdef multiDOE < handle
             %check the kind of input data
             if size(XmaxIn,1)==1||size(XmaxIn,2)==1
                 obj.Xmax=XmaxIn(:);
-                obj.runDOE=true;
+                initRunDOE(obj,true);
             else
                 fprintf('>> Wrong input data: upper bound must be a vector\n');
             end
@@ -187,7 +191,7 @@ classdef multiDOE < handle
             %check the type is available
             if any(ismember(typeIn,obj.sampleAvail))
                 obj.type=typeIn;
-                obj.runDOE=true;
+                initRunDOE(obj,true);
             else
                 fprintf('>> Wrong input data: the type of sample must be\n chosen along the following list\n');
                 obj.availableType();
@@ -214,25 +218,31 @@ classdef multiDOE < handle
         %%%%%%getter
         %get sorted
         function sorted=get.sorted(obj)
-            if obj.runDOE
-                %build sampling
-                obj=build(obj);
-                %compute scores
-                obj.scoreVal=score(obj);
-            end
-            sorted=obj.sorted;
+            sorted=[];
+                if obj.runDOE&&obj.okData
+                    %build sampling
+                    obj=build(obj);
+                    %compute scores
+                    obj.scoreVal=score(obj);
+                    sorted=obj.sorted;
+                end
         end
         %get unsorted
         function unsorted=get.unsorted(obj)
-            if obj.runDOE
+            unsorted=[];
+            if obj.runDOE&&obj.okData
                 %build sampling
                 obj=build(obj);
                 %compute scores
                 obj.scoreVal=score(obj);
+                unsorted=obj.unsorted;
             end
-            unsorted=obj.unsorted;
         end
         %%%%%%
+        %function for initializing runDOE
+        function initRunDOE(obj,flag)
+            obj.runDOE=flag;
+        end
         %check data
         function isOk=check(obj)
             isOk=true;
@@ -256,6 +266,7 @@ classdef multiDOE < handle
                 isOk=false;
                 fprintf('>> Undefined type of DOE\n');
             end
+            obj.okData=isOk;
         end
         %sampling
         function obj=build(obj)
