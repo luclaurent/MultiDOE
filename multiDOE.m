@@ -50,6 +50,7 @@ classdef multiDOE < handle
         sorted=[];
         unsorted=[];
         scoreVal=[];
+        funTest=''; %test function used
     end
     properties (Access = private)
         runDOE=true; %flag for checking if sampling is obsolete
@@ -114,21 +115,33 @@ classdef multiDOE < handle
     end
     
     methods
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %constructor
-        function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
+        function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn,funTest)
             %load directories on the path
             initDirMultiDOE;
             %load default configuration
-            retInit=initDOE(dimPBIn,[],[],[],false);
-            %specific configuration
-            if nargin>0;obj.dimPB=dimPBIn;else obj.dimPB=retInit.dimPB;end
-            if nargin>1;obj.type=typeIn;end
-            if nargin>2;obj.ns=nsIn;end
-            if nargin>4;
-                obj.Xmin=XminIn;obj.Xmax=XmaxIn;
+            if nargin>5
+                retInit=initDOE(dimPBIn,[],[],funTest,false);
             else
-                obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
+                retInit=initDOE(dimPBIn,[],[],[],false);
             end
+            %specific configuration
+            obj.dimPB=retInit.dimPB;
+            if nargin>1;if ~isempty(typeIn);obj.type=typeIn;end,end
+            if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end
+             obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
+            if nargin>4;
+                if ~isempty(XminIn)&&~iempty(XmaxIn)
+                    obj.Xmin=XminIn;obj.Xmax=XmaxIn;
+                end
+            end
+            %specified the test function
+            if ~isempty(retInit.funT);obj.funTest=retInit.funT;end
             %load default configuration
             obj.sortInfo=retInit.sort;
             %active display
@@ -143,6 +156,11 @@ classdef multiDOE < handle
                 if obj.dispOn;show(obj);end
             end
         end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%setter
         %flag for obsolete sampling
         function set.runDOE(obj,runIn)
@@ -209,36 +227,51 @@ classdef multiDOE < handle
                 %turn cell into string for convenience
                 field2check = fn{1};
                 if isfield(oldVal,field2check)
-                    %# simply assign the fields you don't care about
+                    % simply assign the fields you don't care about
                     obj.sortInfo.(field2check) = structIn.(field2check);
                 end
             end
         end        
-        %%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%getter
         %get sorted
         function sorted=get.sorted(obj)
-            sorted=[];
                 if obj.runDOE&&obj.okData
                     %build sampling
                     obj=build(obj);
                     %compute scores
                     obj.scoreVal=score(obj);
-                    sorted=obj.sorted;
                 end
+                sorted=obj.sorted;
         end
         %get unsorted
         function unsorted=get.unsorted(obj)
-            unsorted=[];
             if obj.runDOE&&obj.okData
                 %build sampling
                 obj=build(obj);
                 %compute scores
                 obj.scoreVal=score(obj);
-                unsorted=obj.unsorted;
             end
+            unsorted=obj.unsorted;
         end
-        %%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %function for loading configuration associated with a test function
+        function loadConf(obj,funTest)
+            %load configuration
+            retInit=initDOE(obj.dimPB,[],[],funTest,false);
+            %defining properties
+            obj.funTest=retInit.funT;
+            obj.Xmin=retInit.Xmin;
+            obj.Xmax=retInit.Xmax;
+        end
         %function for initializing runDOE
         function initRunDOE(obj,flag)
             obj.runDOE=flag;

@@ -4,8 +4,10 @@
 %% usable syntaxes
 %init_doe
 %init_doe(dim)
-%init_doe(dim,esp)
-%init_doe(dim,esp,funT)
+%initDOE(dim,type)
+%initDOE(dim,type,espM)
+%initDOE(dim,type,espM,funT)
+%initDOE(dim,type,espM,funT,stateAutonomous)
 %
 %% INPUT variables
 % -type : type of DOE
