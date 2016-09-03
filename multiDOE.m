@@ -124,11 +124,19 @@ classdef multiDOE < handle
         function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn,funTest)
             %load directories on the path
             initDirMultiDOE;
+            %if the design space if given directly
+            spaceD=[];
+            if size(dimPBIn,2)==2
+                dimPBOk=size(dimPBIn,1);
+                spaceD=dimPBIn;
+            else
+                dimPBOk=dimPBIn;
+            end
             %load default configuration
             if nargin>5
-                retInit=initDOE(dimPBIn,[],[],funTest,false);
+                retInit=initDOE(dimPBOk,[],spaceD,funTest,false);
             else
-                retInit=initDOE(dimPBIn,[],[],[],false);
+                retInit=initDOE(dimPBOk,[],spaceD,[],false);
             end
             %specific configuration
             obj.dimPB=retInit.dimPB;
