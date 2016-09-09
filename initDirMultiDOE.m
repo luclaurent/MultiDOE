@@ -28,7 +28,7 @@ function foldersLoad=initDirMultiDOE(pathcustom,other,flagNested)
 % variable 'flasgNested' (optional) is type boolean must be used in the
 % case of the use of this toolbox on a nested position (called by another
 % toolbox). The default value is false.
-if nargin<3;flagNested=false;
+if nargin<3;flagNested=false;end
 
 %folders of the MultiDOE toolbox
 foldersLoad={'src',...
