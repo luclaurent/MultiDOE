@@ -54,7 +54,7 @@ This function is called by:
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj=mesuTime()</a></li><li><a href="#_sub2" class="code">function start(obj)</a></li><li><a href="#_sub3" class="code">function stop(obj)</a></li><li><a href="#_sub4" class="code">function show(obj)</a></li></ul>
+<li><a href="#_sub1" class="code">function obj=mesuTime()</a></li><li><a href="#_sub2" class="code">function start(obj)</a></li><li><a href="#_sub3" class="code">function stop(obj,flagDisp)</a></li><li><a href="#_sub4" class="code">function timeElapsed=cpuElapsed(obj)</a></li><li><a href="#_sub5" class="code">function timeElapsed=Elapsed(obj)</a></li><li><a href="#_sub6" class="code">function show(obj)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
@@ -74,7 +74,7 @@ This function is called by:
 0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
 0017 
-0018 <span class="comment">%% Script dedicated to the initiailisation, the measure and the display of the spent time</span>
+0018 <span class="comment">%% Script dedicated to the initialisation, the measure and the display of the spent time</span>
 0019 <span class="comment">%% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net</span>
 0020 
 0021 classdef <a href="mesuTime.html" class="code" title="">mesuTime</a> &lt; handle
@@ -99,22 +99,34 @@ This function is called by:
 0040             obj.tInit=cputime;
 0041         <span class="keyword">end</span>
 0042         <span class="comment">%stop the measure</span>
-0043         <a name="_sub2" href="#_subfunctions" class="code">function stop(obj)</a>
-0044             <span class="comment">%Measure initial CPU time</span>
-0045             obj.tElapsed=toc(obj.counterTicToc);
-0046             <span class="comment">%Elapsed time</span>
-0047             obj.tCPUElapsed=cputime-obj.tInit;
-0048             <span class="comment">%show the result</span>
-0049             <a href="#_sub4" class="code" title="subfunction show(obj)">show</a>(obj);
-0050         <span class="keyword">end</span>
-0051         <span class="comment">%display the elapsed time</span>
-0052         <a name="_sub3" href="#_subfunctions" class="code">function show(obj)</a>
-0053             fprintf(<span class="string">' - - - - - - - - - - - - - - - - - - - - \n'</span>)
-0054             fprintf(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
-0055         <span class="keyword">end</span>
-0056     <span class="keyword">end</span>
-0057 <span class="keyword">end</span>
-0058</pre></div>
-<hr><address>Generated on Thu 04-Aug-2016 12:35:33 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0043         <a name="_sub2" href="#_subfunctions" class="code">function stop(obj,flagDisp)</a>
+0044             <span class="keyword">if</span> nargin==1;flagDisp=true;<span class="keyword">end</span>
+0045             <span class="comment">%Measure initial CPU time</span>
+0046             obj.tElapsed=toc(obj.counterTicToc);
+0047             <span class="comment">%Elapsed time</span>
+0048             obj.tCPUElapsed=cputime-obj.tInit;
+0049             <span class="comment">%show the result</span>
+0050             <span class="keyword">if</span> flagDisp
+0051                 <a href="#_sub6" class="code" title="subfunction show(obj)">show</a>(obj);
+0052             <span class="keyword">end</span>
+0053         <span class="keyword">end</span>
+0054         <span class="comment">%get CPU time elasped</span>
+0055         <a name="_sub3" href="#_subfunctions" class="code">function timeElapsed=cpuElapsed(obj)</a>
+0056             <span class="keyword">if</span> isempty(obj.tCPUElapsed);obj.stop(false);<span class="keyword">end</span>
+0057             timeElapsed=obj.tCPUElapsed;
+0058         <span class="keyword">end</span>
+0059         <span class="comment">%get time elasped</span>
+0060         <a name="_sub4" href="#_subfunctions" class="code">function timeElapsed=Elapsed(obj)</a>
+0061             <span class="keyword">if</span> isempty(obj.tCPUElapsed);obj.stop(false);<span class="keyword">end</span>
+0062             timeElapsed=obj.tElapsed;
+0063         <span class="keyword">end</span>
+0064         <span class="comment">%display the elapsed time</span>
+0065         <a name="_sub5" href="#_subfunctions" class="code">function show(obj)</a>
+0066             fprintf(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
+0067         <span class="keyword">end</span>
+0068     <span class="keyword">end</span>
+0069 <span class="keyword">end</span>
+0070</pre></div>
+<hr><address>Generated on Fri 09-Sep-2016 19:57:20 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
