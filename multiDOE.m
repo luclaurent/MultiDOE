@@ -343,22 +343,25 @@ classdef multiDOE < handle
             end
         end
         %manually add points
-        function obj=addManuSample(obj,ptsIn)
-            szP=size(ptsIn);
-            if szP(2)==obj.dimPB
-                fprintf('++ Add %i sample point(s) manually: ',szP(1));
-                fprintf(repmat([repmat(' %g',1,sP(2)) '\n'],sP(1),1),ptsIn);
-                %add new points
-                obj.unsorted=[obj.unsorted;ptsIn];
-                obj.sorted=sort(obj);
-                obj.ns=obj.ns+1;
-                obj.runDOE=false;
-                %compute scores
-                obj.scoreVal=score(obj);
+        function addManuSample(obj,ptsIn)
+            if ~isempty(ptsIn)
+                szP=size(ptsIn);
+                if szP(2)==obj.dimPB
+                    fprintf('++ Add %i sample point(s) manually: ',szP(1));
+                    fprintf(repmat([repmat(' %g',1,sP(2)) '\n'],sP(1),1),ptsIn);
+                    %add new points
+                    obj.unsorted=[obj.unsorted;ptsIn];
+                    obj.sorted=sort(obj);
+                    obj.ns=obj.ns+1;
+                    obj.runDOE=false;
+                    %compute scores
+                    obj.scoreVal=score(obj);
+                else
+                    fprintf('Wrong dimension of the points\n');
+                    fprintf('No sample points added\n');
+                end
             else
-                fprintf('Wrong dimension of the points\n');
                 fprintf('No sample points added\n');
-                obj=[];
             end
         end
         %compute scores
