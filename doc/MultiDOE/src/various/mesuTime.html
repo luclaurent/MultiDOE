@@ -46,7 +46,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
@@ -122,11 +122,11 @@ This function is called by:
 0063         <span class="keyword">end</span>
 0064         <span class="comment">%display the elapsed time</span>
 0065         <a name="_sub5" href="#_subfunctions" class="code">function show(obj)</a>
-0066             fprintf(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
+0066             <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
 0067         <span class="keyword">end</span>
 0068     <span class="keyword">end</span>
 0069 <span class="keyword">end</span>
 0070</pre></div>
-<hr><address>Generated on Fri 09-Sep-2016 20:01:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

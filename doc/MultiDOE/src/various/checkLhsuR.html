@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li></ul>
+<li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 </ul>
@@ -82,7 +82,7 @@ This function is called by:
 0038         <span class="comment">%execute enrichment</span>
 0039         [tt,ntt]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,nsMin,t,nsMax);
 0040         fich=[<span class="string">'IHS_R/'</span> num2str(dim) <span class="string">'d_'</span> num2str(nsMin) <span class="string">'.mat'</span>];
-0041         fprintf(<span class="string">'%s\n'</span>,fich)
+0041         <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%s\n'</span>,fich)
 0042         save(fich)
 0043     <span class="keyword">end</span>
 0044 <span class="keyword">end</span>
@@ -136,7 +136,7 @@ This function is called by:
 0092             it=0;
 0093         <span class="keyword">end</span>
 0094         <span class="keyword">for</span> ll=(nsMin+1):nsMax
-0095             fprintf(<span class="string">'%g '</span>,ll);
+0095             <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%g '</span>,ll);
 0096             <span class="keyword">for</span> ii=1:dim
 0097                 <span class="keyword">for</span> jj=1:dim
 0098                     it=it+1;
@@ -159,6 +159,6 @@ This function is called by:
 0115     <span class="keyword">end</span>
 0116     movie(F)
 0117 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 09-Sep-2016 20:01:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

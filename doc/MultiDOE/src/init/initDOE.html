@@ -73,7 +73,7 @@ initDOE(dim,type,espM,funT,stateAutonomous)
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>	% Initialisation of the design space for some analytical functions</li><li><a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>	% Initialisation of the design space for some analytical functions</li><li><a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li><li><a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	% Example of use of the enrichment of IHS</li><li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
@@ -144,8 +144,8 @@ This function is called by:
 0060 <a name="_sub0" href="#_subfunctions" class="code">function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)</a>
 0061 
 0062 
-0063 fprintf(<span class="string">'=========================================\n'</span>)
-0064 fprintf(<span class="string">'      &gt;&gt;&gt; DOE INITIALIZATION &lt;&lt;&lt;\n'</span>);
+0063 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=========================================\n'</span>)
+0064 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'      &gt;&gt;&gt; DOE INITIALIZATION &lt;&lt;&lt;\n'</span>);
 0065 
 0066 
 0067 <span class="comment">%depending on the number of parameters</span>
@@ -238,36 +238,36 @@ This function is called by:
 0154 <span class="comment">%show information</span>
 0155 <span class="keyword">if</span> stateAutonomous
 0156     <span class="keyword">if</span> ~isempty(funT)
-0157         fprintf(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
+0157         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
 0158     <span class="keyword">else</span>
 0159         <span class="keyword">if</span> ~isempty(dim)
-0160             fprintf(<span class="string">'++ Number of variables: %i\n'</span>,dim)
+0160             <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Number of variables: %i\n'</span>,dim)
 0161         <span class="keyword">end</span>
 0162     <span class="keyword">end</span>
-0163     fprintf(<span class="string">'++ Type of DOE: '</span>);
-0164     <span class="keyword">if</span> isempty(doe.type);fprintf(<span class="string">'UNDEFINED\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'%s\n'</span>,doe.type);<span class="keyword">end</span>
-0165     fprintf(<span class="string">'++ Design space: \n'</span>);
+0163     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Type of DOE: '</span>);
+0164     <span class="keyword">if</span> isempty(doe.type);<a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'UNDEFINED\n'</span>);<span class="keyword">else</span> <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%s\n'</span>,doe.type);<span class="keyword">end</span>
+0165     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Design space: \n'</span>);
 0166     <span class="keyword">if</span> isempty(doe.Xmin)
-0167         fprintf(<span class="string">'UNDEFINED\n'</span>)
+0167         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'UNDEFINED\n'</span>)
 0168     <span class="keyword">else</span>
-0169         fprintf(<span class="string">'   Min  |'</span>);
-0170         fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
-0171         fprintf(<span class="string">'   Max  |'</span>);
-0172         fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
+0169         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'   Min  |'</span>);
+0170         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%+4.2f|'</span>,doe.Xmin);<a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
+0171         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'   Max  |'</span>);
+0172         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%+4.2f|'</span>,doe.Xmax);<a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
 0173     <span class="keyword">end</span>
 0174 <span class="keyword">end</span>
-0175 fprintf(<span class="string">'++ Sorting of the sampling: '</span>);
+0175 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Sorting of the sampling: '</span>);
 0176 <span class="keyword">if</span> ~doe.sort.on
-0177     fprintf(<span class="string">'NO\n'</span>);
+0177     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'NO\n'</span>);
 0178 <span class="keyword">else</span>
-0179     fprintf(<span class="string">'YES\n'</span>);
-0180     fprintf(<span class="string">'+++ Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
+0179     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'YES\n'</span>);
+0180     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'+++ Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
 0181 <span class="keyword">end</span>
-0182 fprintf(<span class="string">'++ Display sampling: '</span>);
-0183 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
+0182 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Display sampling: '</span>);
+0183 <span class="keyword">if</span> doe.disp; <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
 0184 
 0185 <span class="keyword">if</span> stateAutonomous;TimeCount.stop;<span class="keyword">end</span>
-0186 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
-<hr><address>Generated on Fri 09-Sep-2016 20:01:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0186 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=========================================\n'</span>)</pre></div>
+<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

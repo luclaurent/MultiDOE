@@ -8,12 +8,14 @@ digraph m2html {
   README -> lhs;
   README -> ihs;
   README -> LHS;
+  initDirMultiDOE -> Mfprintf;
   multiDOE -> initDirMultiDOE;
   multiDOE -> multiDOE;
   multiDOE -> calcScore;
   multiDOE -> displayDOE;
   multiDOE -> addSampleDOE;
   multiDOE -> initDOE;
+  multiDOE -> Mfprintf;
   multiDOE -> buildDOE;
   multiDOE -> sortDOE;
   augmentLHS_Example -> augmentLHS_Example;
@@ -24,9 +26,12 @@ digraph m2html {
   olhsR -> checkR;
   calcDist -> multiDOE;
   calcScore -> calcDist;
+  dispLHSR -> Mfprintf;
   addSampleDOE -> ihsR;
   addSampleDOE -> lhsuR;
+  addSampleDOE -> Mfprintf;
   initDOE -> initDOEfun;
+  initDOE -> Mfprintf;
   initDOE -> mesuTime;
   ihs_test -> ihs_test01;
   ihs_test -> ihs_test02;
@@ -67,11 +72,16 @@ digraph m2html {
   buildDOE -> calcScore;
   buildDOE -> ihs;
   buildDOE -> lhsu;
+  buildDOE -> Mfprintf;
   buildDOE -> mesuTime;
   buildDocMultiDOE -> initDirMultiDOE;
   buildDocMultiDOE -> listFilesToolboxMultiDOE;
   checkLhsuR -> ihsR;
+  checkLhsuR -> Mfprintf;
+  checkR -> Mfprintf;
+  mesuTime -> Mfprintf;
   mesuTime -> mesuTime;
+  sortDOE -> Mfprintf;
 
   ExampleInfill [URL="MultiDOE/ExampleInfill.html"];
   ExampleUse [URL="MultiDOE/ExampleUse.html"];
@@ -125,6 +135,7 @@ digraph m2html {
   test_sampling2 [URL="MultiDOE/src/libs/LHS/test_sampling2.html"];
   multitransp [URL="MultiDOE/src/libs/multitransp.html"];
   multitransp [URL="MultiDOE/src/libs/multitransp.html"];
+  Mfprintf [URL="MultiDOE/src/various/Mfprintf.html"];
   buildDOE [URL="MultiDOE/src/various/buildDOE.html"];
   buildDocMultiDOE [URL="MultiDOE/src/various/buildDocMultiDOE.html"];
   checkLhsuR [URL="MultiDOE/src/various/checkLhsuR.html"];

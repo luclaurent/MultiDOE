@@ -34,7 +34,7 @@ check if the R software is available
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li></ul>
@@ -88,7 +88,7 @@ This function is called by:
 0043 runRCMD=<span class="string">'R --vanilla'</span>;
 0044 [e,~]=unix([runRCMD <span class="string">' &lt;&lt;&lt; '</span> loadLHS]);
 0045 <span class="keyword">if</span> e~=0
-0046     fprintf(<span class="string">'The library lhs is not installed in R\n'</span>);
+0046     <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'The library lhs is not installed in R\n'</span>);
 0047 <span class="keyword">else</span>
 0048     TBXOk=true;
 0049 <span class="keyword">end</span>
@@ -97,7 +97,7 @@ This function is called by:
 0052 runRCMD=<span class="string">'R --vanilla'</span>;
 0053 [e,~]=unix([runRCMD <span class="string">' &lt;&lt;&lt; '</span> loadRmat]);
 0054 <span class="keyword">if</span> e~=0
-0055     fprintf(<span class="string">'The library R.matlab is not installed in R\n'</span>);
+0055     <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'The library R.matlab is not installed in R\n'</span>);
 0056 <span class="keyword">else</span>
 0057     TBXOk=TBXOk&amp;true;
 0058 <span class="keyword">end</span>
@@ -105,6 +105,6 @@ This function is called by:
 0060 
 0061 
 0062</pre></div>
-<hr><address>Generated on Fri 09-Sep-2016 20:01:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -54,7 +54,7 @@ The convertion to the right space is done at the end of this file.
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/DOE/fullFactDOE.html" class="code" title="function sampling=fullFactDOE(ns,Xmin,Xmax)">fullFactDOE</a>	% Building a full factorial doe with nD variables</li><li><a href="../../../MultiDOE/src/DOE/glhsR.html" class="code" title="function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">glhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>	% Build DOE using R (IHS with)</li><li><a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>	% Build DOE using R (LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/mmlhsR.html" class="code" title="function [sampling,newSampling]=mmlhsR(Xmin,Xmax,ns,oldsampling,nbInfill)">mmlhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/DOE/olhsR.html" class="code" title="function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)">olhsR</a>	% Build DOE using R (optimized LHS with initial sampling and enrichment)</li><li><a href="../../../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li><li><a href="../../../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>	*****************************************************************************80</li><li><a href="../../../MultiDOE/src/libs/LHS/lhsu.html" class="code" title="function s=lhsu(xmin,xmax,nsample)">lhsu</a>	s=lhsu(xmin,xmax,nsample)</li><li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
@@ -108,8 +108,8 @@ This function is called by:
 0041 <a name="_sub0" href="#_subfunctions" class="code">function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)</a>
 0042 
 0043 
-0044 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
-0045 fprintf(<span class="string">'    &gt;&gt;&gt; BUILDING SAMPLING &lt;&lt;&lt;\n'</span>);
+0044 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0045 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'    &gt;&gt;&gt; BUILDING SAMPLING &lt;&lt;&lt;\n'</span>);
 0046 TimeCount=<a href="mesuTime.html" class="code" title="">mesuTime</a>;
 0047 
 0048 <span class="comment">% For obtaining an &quot;actual&quot; pseudo-random sampling</span>
@@ -133,10 +133,10 @@ This function is called by:
 0066 np=numel(Xmin);
 0067 
 0068 <span class="comment">%% Show information</span>
-0069 fprintf(<span class="string">' &gt;&gt; Kind of DOE: %s\n'</span>,type);
-0070 fprintf(<span class="string">' &gt;&gt; Number of sample points: '</span>)
-0071 fprintf(<span class="string">'%i '</span>,ns);fprintf(<span class="string">'\n'</span>);
-0072 fprintf(<span class="string">' &gt;&gt; Number of variables: %i\n'</span>,np);
+0069 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Kind of DOE: %s\n'</span>,type);
+0070 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Number of sample points: '</span>)
+0071 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%i '</span>,ns);<a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
+0072 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Number of variables: %i\n'</span>,np);
 0073 
 0074 samplingOK=true;
 0075 customSampling=false;
@@ -418,7 +418,7 @@ This function is called by:
 0351 <span class="keyword">end</span>
 0352 
 0353 TimeCount.stop;
-0354 fprintf(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0354 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
 0355 <span class="keyword">end</span>
 0356 
 0357 
@@ -437,11 +437,11 @@ This function is called by:
 0370     st=load(fich);
 0371     sampling=st.sampling;
 0372 <span class="keyword">else</span>
-0373     fprintf(<span class="string">'Sampling does not exist \n'</span>);
+0373     <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Sampling does not exist \n'</span>);
 0374     sampling=[];
 0375 <span class="keyword">end</span>
 0376 <span class="keyword">end</span>
 0377</pre></div>
-<hr><address>Generated on Fri 09-Sep-2016 20:01:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

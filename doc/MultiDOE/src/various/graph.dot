@@ -1,9 +1,15 @@
 /* Created by mdot for Matlab */
 digraph m2html {
+  buildDOE -> Mfprintf;
   buildDOE -> mesuTime;
   buildDocMultiDOE -> listFilesToolboxMultiDOE;
+  checkLhsuR -> Mfprintf;
+  checkR -> Mfprintf;
+  mesuTime -> Mfprintf;
   mesuTime -> mesuTime;
+  sortDOE -> Mfprintf;
 
+  Mfprintf [URL="Mfprintf.html"];
   buildDOE [URL="buildDOE.html"];
   buildDocMultiDOE [URL="buildDocMultiDOE.html"];
   checkLhsuR [URL="checkLhsuR.html"];
