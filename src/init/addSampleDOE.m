@@ -36,6 +36,6 @@ switch doe.type
     case 'IHS_R'
         [newSampling]=ihsR(Xmin,Xmax,nsAdd,oldSampling);
     otherwise
-        fprintf('>>>> Only LHS_R et IHS_R sampling \n allow enrichment\n')
+        Mfprintf('>>>> Only LHS_R et IHS_R sampling \n allow enrichment\n')
         newSampling=[];
 end

@@ -113,9 +113,9 @@ if infoSort.on
     end
     
     if ~sortOk
-        fprintf('###############################################################\n');
-        fprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
-        fprintf('###############################################################\n');
+        Mfprintf('###############################################################\n');
+        Mfprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
+        Mfprintf('###############################################################\n');
     end
 else
     samplingSorted=sampling;

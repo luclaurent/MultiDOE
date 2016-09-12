@@ -41,8 +41,8 @@
 function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)
 
 
-fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
-fprintf('    >>> BUILDING SAMPLING <<<\n');
+Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+Mfprintf('    >>> BUILDING SAMPLING <<<\n');
 TimeCount=mesuTime;
 
 % For obtaining an "actual" pseudo-random sampling
@@ -66,10 +66,10 @@ XminDef=0.*Xmin;XmaxDef=0.*Xmax+1;
 np=numel(Xmin);
 
 %% Show information
-fprintf(' >> Kind of DOE: %s\n',type);
-fprintf(' >> Number of sample points: ')
-fprintf('%i ',ns);fprintf('\n');
-fprintf(' >> Number of variables: %i\n',np);
+Mfprintf(' >> Kind of DOE: %s\n',type);
+Mfprintf(' >> Number of sample points: ')
+Mfprintf('%i ',ns);Mfprintf('\n');
+Mfprintf(' >> Number of variables: %i\n',np);
 
 samplingOK=true;
 customSampling=false;
@@ -351,7 +351,7 @@ else
 end
 
 TimeCount.stop;
-fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
 end
 
 
@@ -370,7 +370,7 @@ if exist(fich,'file')==2
     st=load(fich);
     sampling=st.sampling;
 else
-    fprintf('Sampling does not exist \n');
+    Mfprintf('Sampling does not exist \n');
     sampling=[];
 end
 end

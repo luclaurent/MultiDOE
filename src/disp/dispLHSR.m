@@ -26,7 +26,7 @@ nsMin=30;
 doeType='LHS';
 
 fich=[doeType '_R/' num2str(np) 'd_' num2str(nsMin) '.mat'];
-fprintf('%s\n',fich)
+Mfprintf('%s\n',fich)
 load(fich)
 
 dispOn=true;
@@ -79,7 +79,7 @@ if dispOn
             it=0;
         end
         for ll=(nsMin+1):nbs_max
-            fprintf('%g ',ll);
+            Mfprintf('%g ',ll);
             for ii=1:np
                 for jj=1:np
                     it=it+1;

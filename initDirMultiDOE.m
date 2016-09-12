@@ -76,5 +76,5 @@ if nargin==2
 end
 
 %display
-fprintf(' ## Toolbox: MultiDOE loaded\n');
+Mfprintf(' ## Toolbox: MultiDOE loaded\n');
 end

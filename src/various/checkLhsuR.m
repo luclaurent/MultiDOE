@@ -38,7 +38,7 @@ for ii=[1 2 3 4 5 6 7 8 9 10]
         %execute enrichment
         [tt,ntt]=ihsR(Xmin,Xmax,nsMin,t,nsMax);
         fich=['IHS_R/' num2str(dim) 'd_' num2str(nsMin) '.mat'];
-        fprintf('%s\n',fich)
+        Mfprintf('%s\n',fich)
         save(fich)
     end
 end
@@ -92,7 +92,7 @@ if dispOn
             it=0;
         end
         for ll=(nsMin+1):nsMax
-            fprintf('%g ',ll);
+            Mfprintf('%g ',ll);
             for ii=1:dim
                 for jj=1:dim
                     it=it+1;

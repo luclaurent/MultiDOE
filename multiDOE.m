@@ -177,14 +177,14 @@ classdef multiDOE < handle
             %check the kind of input data
             obj.ns=nsIn(:);
             initRunDOE(obj,true);
-            fprintf('++ Number of sample points: %d\n',obj.ns);
+            Mfprintf('++ Number of sample points: %d\n',obj.ns);
         end
         %number of design variables
         function set.dimPB(obj,dimIn)
             %check the kind of input data
             obj.dimPB=dimIn(:);
             initRunDOE(obj,true);
-            fprintf('++ Number of design variables: %d\n',obj.dimPB);
+            Mfprintf('++ Number of design variables: %d\n',obj.dimPB);
         end
         %load lower bound
         function set.Xmin(obj,XminIn)
@@ -193,10 +193,10 @@ classdef multiDOE < handle
                 obj.Xmin=XminIn(:);
                 initRunDOE(obj,true);
             else
-                fprintf('>> Wrong input data: lower bound must be a vector\n');
+                Mfprintf('>> Wrong input data: lower bound must be a vector\n');
             end
-            fprintf('++ Current Lower bound: ')
-            fprintf('%+4.2f|',obj.Xmin);fprintf('\n');
+            Mfprintf('++ Current Lower bound: ')
+            Mfprintf('%+4.2f|',obj.Xmin);Mfprintf('\n');
         end
         %load upper bound
         function set.Xmax(obj,XmaxIn)
@@ -205,10 +205,10 @@ classdef multiDOE < handle
                 obj.Xmax=XmaxIn(:);
                 initRunDOE(obj,true);
             else
-                fprintf('>> Wrong input data: upper bound must be a vector\n');
+                Mfprintf('>> Wrong input data: upper bound must be a vector\n');
             end
-            fprintf('++ Current Upper bound: ')
-            fprintf('%+4.2f|',obj.Xmax);fprintf('\n');
+            Mfprintf('++ Current Upper bound: ')
+            Mfprintf('%+4.2f|',obj.Xmax);Mfprintf('\n');
         end
         %load type
         function set.type(obj,typeIn)
@@ -217,11 +217,11 @@ classdef multiDOE < handle
                 obj.type=typeIn;
                 initRunDOE(obj,true);
             else
-                fprintf('>> Wrong input data: the type of sample must be\n chosen along the following list\n');
+                Mfprintf('>> Wrong input data: the type of sample must be\n chosen along the following list\n');
                 obj.availableType();
             end
-            fprintf('++ Type of DOE: ')
-            fprintf('%s',obj.type);fprintf('\n');
+            Mfprintf('++ Type of DOE: ')
+            Mfprintf('%s',obj.type);Mfprintf('\n');
         end
         %load sortInfo
         function set.sortInfo(obj,structIn)
@@ -287,23 +287,23 @@ classdef multiDOE < handle
             isOk=true;
             if isempty(obj.dimPB);
                 isOk=false;
-                fprintf('>> Undefined dimension of the DOE\n');
+                Mfprintf('>> Undefined dimension of the DOE\n');
             end
             if isempty(obj.ns);
                 isOk=false;
-                fprintf('>> Undefined number of sample points\n');
+                Mfprintf('>> Undefined number of sample points\n');
             end
             if isempty(obj.Xmin);
                 isOk=false;
-                fprintf('>> Undefined lower bound of the design space\n');
+                Mfprintf('>> Undefined lower bound of the design space\n');
             end
             if isempty(obj.Xmax);
                 isOk=false;
-                fprintf('>> Undefined lower bound of the design space\n');
+                Mfprintf('>> Undefined lower bound of the design space\n');
             end
             if isempty(obj.type);
                 isOk=false;
-                fprintf('>> Undefined type of DOE\n');
+                Mfprintf('>> Undefined type of DOE\n');
             end
             obj.okData=isOk;
         end
@@ -326,7 +326,7 @@ classdef multiDOE < handle
         %add points
         function obj=addSample(obj,NumberAdd)
             if nargin<2;NumberAdd=1;end
-            fprintf('++ Add %g new sample points\n',NumberAdd);
+            Mfprintf('++ Add %g new sample points\n',NumberAdd);
             %build new sample points
             newSamplePts=addSampleDOE(obj.unsorted,NumberAdd,obj);
             %if  new sample points
@@ -338,7 +338,7 @@ classdef multiDOE < handle
                 %compute scores
                 obj.scoreVal=score(obj);
             else
-                fprintf('No sample points added\n');
+                Mfprintf('No sample points added\n');
                 obj=[];
             end
         end
@@ -347,8 +347,8 @@ classdef multiDOE < handle
             if ~isempty(ptsIn)
                 szP=size(ptsIn);
                 if szP(2)==obj.dimPB
-                    fprintf('++ Add %i sample point(s) manually: ',szP(1));
-                    fprintf(repmat([repmat(' %g',1,sP(2)) '\n'],sP(1),1),ptsIn);
+                    Mfprintf('++ Add %i sample point(s) manually: ',szP(1));
+                    Mfprintf(repmat([repmat(' %g',1,sP(2)) '\n'],sP(1),1),ptsIn);
                     %add new points
                     obj.unsorted=[obj.unsorted;ptsIn];
                     obj.sorted=sort(obj);
@@ -357,11 +357,11 @@ classdef multiDOE < handle
                     %compute scores
                     obj.scoreVal=score(obj);
                 else
-                    fprintf('Wrong dimension of the points\n');
-                    fprintf('No sample points added\n');
+                    Mfprintf('Wrong dimension of the points\n');
+                    Mfprintf('No sample points added\n');
                 end
             else
-                fprintf('No sample points added\n');
+                Mfprintf('No sample points added\n');
             end
         end
         %compute scores
@@ -379,17 +379,17 @@ classdef multiDOE < handle
         end
         %list available techniques
         function availableType(obj)
-            fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
-            fprintf('Available techniques for sampling\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+            Mfprintf('Available techniques for sampling\n')
             dispTableTwoColumns(obj.sampleAvail,obj.sampleAvailTxt);
-            fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
         end
         %list available sorting techniques
         function availableSort(obj)
-            fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
-            fprintf('Available techniques for sorting the sample points\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+            Mfprintf('Available techniques for sorting the sample points\n')
             dispTableTwoColumns(obj.sortAvail,obj.sortTxt);
-            fprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
         end
         %define sort configuration
         function sortConf(obj,varargin)
@@ -442,9 +442,9 @@ classdef multiDOE < handle
             end
             %display error message if wrong syntax
             if ~execOk
-                fprintf('Wrong syntax for the method\n')
-                fprintf('sortConf(bool,type,ptref,para,lnorm)\n')
-                fprintf('or sortConf(''key1'',val1,''key2'',val2...)\n')
+                Mfprintf('Wrong syntax for the method\n')
+                Mfprintf('sortConf(bool,type,ptref,para,lnorm)\n')
+                Mfprintf('or sortConf(''key1'',val1,''key2'',val2...)\n')
                 availableSort(obj);
             end            
         end
@@ -474,6 +474,6 @@ spaceA=maxA-sizeA+3;
 spaceTxt=' ';
 %display table
 for itT=1:numel(tableA)
-    fprintf('%s%s%s\n',tableA{itT},spaceTxt(ones(1,spaceA(itT))),tableB{itT});
+    Mfprintf('%s%s%s\n',tableA{itT},spaceTxt(ones(1,spaceA(itT))),tableB{itT});
 end
 end

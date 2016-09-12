@@ -43,7 +43,7 @@ end
 runRCMD='R --vanilla';
 [e,~]=unix([runRCMD ' <<< ' loadLHS]);
 if e~=0
-    fprintf('The library lhs is not installed in R\n');
+    Mfprintf('The library lhs is not installed in R\n');
 else
     TBXOk=true;
 end
@@ -52,7 +52,7 @@ end
 runRCMD='R --vanilla';
 [e,~]=unix([runRCMD ' <<< ' loadRmat]);
 if e~=0
-    fprintf('The library R.matlab is not installed in R\n');
+    Mfprintf('The library R.matlab is not installed in R\n');
 else
     TBXOk=TBXOk&true;
 end

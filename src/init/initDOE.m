@@ -60,8 +60,8 @@
 function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)
 
 
-fprintf('=========================================\n')
-fprintf('      >>> DOE INITIALIZATION <<<\n');
+Mfprintf('=========================================\n')
+Mfprintf('      >>> DOE INITIALIZATION <<<\n');
 
 
 %depending on the number of parameters
@@ -154,33 +154,33 @@ end
 %show information
 if stateAutonomous
     if ~isempty(funT)
-        fprintf('++ Test function: %s (%iD)\n',funT,dim);
+        Mfprintf('++ Test function: %s (%iD)\n',funT,dim);
     else
         if ~isempty(dim)
-            fprintf('++ Number of variables: %i\n',dim)
+            Mfprintf('++ Number of variables: %i\n',dim)
         end
     end
-    fprintf('++ Type of DOE: ');
-    if isempty(doe.type);fprintf('UNDEFINED\n');else fprintf('%s\n',doe.type);end
-    fprintf('++ Design space: \n');
+    Mfprintf('++ Type of DOE: ');
+    if isempty(doe.type);Mfprintf('UNDEFINED\n');else Mfprintf('%s\n',doe.type);end
+    Mfprintf('++ Design space: \n');
     if isempty(doe.Xmin)
-        fprintf('UNDEFINED\n')
+        Mfprintf('UNDEFINED\n')
     else
-        fprintf('   Min  |');
-        fprintf('%+4.2f|',doe.Xmin);fprintf('\n');
-        fprintf('   Max  |');
-        fprintf('%+4.2f|',doe.Xmax);fprintf('\n');
+        Mfprintf('   Min  |');
+        Mfprintf('%+4.2f|',doe.Xmin);Mfprintf('\n');
+        Mfprintf('   Max  |');
+        Mfprintf('%+4.2f|',doe.Xmax);Mfprintf('\n');
     end
 end
-fprintf('++ Sorting of the sampling: ');
+Mfprintf('++ Sorting of the sampling: ');
 if ~doe.sort.on
-    fprintf('NO\n');
+    Mfprintf('NO\n');
 else
-    fprintf('YES\n');
-    fprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
+    Mfprintf('YES\n');
+    Mfprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
 end
-fprintf('++ Display sampling: ');
-if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
+Mfprintf('++ Display sampling: ');
+if doe.disp; Mfprintf('Yes\n');else Mfprintf('NO\n');end
 
 if stateAutonomous;TimeCount.stop;end
-fprintf('=========================================\n')
+Mfprintf('=========================================\n')

@@ -63,7 +63,7 @@ classdef mesuTime < handle
         end
         %display the elapsed time
         function show(obj)
-            fprintf('  #### Time/CPU time (s): %4.2f s / %4.2f s\n',obj.tElapsed,obj.tCPUElapsed);
+            Mfprintf('  #### Time/CPU time (s): %4.2f s / %4.2f s\n',obj.tElapsed,obj.tCPUElapsed);
         end
     end
 end
