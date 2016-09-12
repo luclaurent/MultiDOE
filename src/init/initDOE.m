@@ -161,26 +161,26 @@ if stateAutonomous
         end
     end
     Mfprintf('++ Type of DOE: ');
-    if isempty(doe.type);Mfprintf('UNDEFINED\n');else Mfprintf('%s\n',doe.type);end
+    if isempty(doe.type);fprintf('UNDEFINED\n');else fprintf('%s\n',doe.type);end
     Mfprintf('++ Design space: \n');
     if isempty(doe.Xmin)
         Mfprintf('UNDEFINED\n');
     else
         Mfprintf('   Min  |');
-        Mfprintf('%+4.2f|',doe.Xmin);Mfprintf('\n');
+        fprintf('%+4.2f|',doe.Xmin);fprintf('\n');
         Mfprintf('   Max  |');
-        Mfprintf('%+4.2f|',doe.Xmax);Mfprintf('\n');
+        fprintf('%+4.2f|',doe.Xmax);fprintf('\n');
     end
 end
 Mfprintf('++ Sorting of the sampling: ');
 if ~doe.sort.on
-    Mfprintf('NO\n');
+    fprintf('NO\n');
 else
-    Mfprintf('YES\n');
+    fprintf('YES\n');
     Mfprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
 end
 Mfprintf('++ Display sampling: ');
-if doe.disp; Mfprintf('Yes\n');else Mfprintf('NO\n');end
+if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
 
 if stateAutonomous;TimeCount.stop;end
 Mfprintf('=========================================\n');

@@ -209,7 +209,7 @@ This function is called by:
 0144             <span class="keyword">if</span> nargin&gt;2;<span class="keyword">if</span> ~isempty(nsIn);obj.ns=nsIn;<span class="keyword">end</span>,<span class="keyword">end</span>
 0145              obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
 0146             <span class="keyword">if</span> nargin&gt;4;
-0147                 <span class="keyword">if</span> ~isempty(XminIn)&amp;&amp;~iempty(XmaxIn)
+0147                 <span class="keyword">if</span> ~isempty(XminIn)&amp;&amp;~isempty(XmaxIn)
 0148                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
 0149                 <span class="keyword">end</span>
 0150             <span class="keyword">end</span>
@@ -260,8 +260,8 @@ This function is called by:
 0195             <span class="keyword">else</span>
 0196                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: lower bound must be a vector\n'</span>);
 0197             <span class="keyword">end</span>
-0198             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Lower bound: '</span>)
-0199             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%+4.2f|'</span>,obj.Xmin);<a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
+0198             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Lower bound: '</span>);
+0199             fprintf(<span class="string">'%+4.2f|'</span>,obj.Xmin);fprintf(<span class="string">'\n'</span>);
 0200         <span class="keyword">end</span>
 0201         <span class="comment">%load upper bound</span>
 0202         <a name="_sub5" href="#_subfunctions" class="code">function set.Xmax(obj,XmaxIn)</a>
@@ -272,8 +272,8 @@ This function is called by:
 0207             <span class="keyword">else</span>
 0208                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: upper bound must be a vector\n'</span>);
 0209             <span class="keyword">end</span>
-0210             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Upper bound: '</span>)
-0211             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%+4.2f|'</span>,obj.Xmax);<a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
+0210             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Upper bound: '</span>);
+0211             fprintf(<span class="string">'%+4.2f|'</span>,obj.Xmax);fprintf(<span class="string">'\n'</span>);
 0212         <span class="keyword">end</span>
 0213         <span class="comment">%load type</span>
 0214         <a name="_sub6" href="#_subfunctions" class="code">function set.type(obj,typeIn)</a>
@@ -285,8 +285,8 @@ This function is called by:
 0220                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: the type of sample must be\n chosen along the following list\n'</span>);
 0221                 obj.availableType();
 0222             <span class="keyword">end</span>
-0223             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Type of DOE: '</span>)
-0224             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%s'</span>,obj.type);<a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
+0223             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Type of DOE: '</span>);
+0224             fprintf(<span class="string">'%s'</span>,obj.type);fprintf(<span class="string">'\n'</span>);
 0225         <span class="keyword">end</span>
 0226         <span class="comment">%load sortInfo</span>
 0227         <a name="_sub7" href="#_subfunctions" class="code">function set.sortInfo(obj,structIn)</a>
@@ -412,7 +412,7 @@ This function is called by:
 0347             <span class="keyword">if</span> ~isempty(ptsIn)
 0348                 szP=size(ptsIn);
 0349                 <span class="keyword">if</span> szP(2)==obj.dimPB
-0350                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Add %i sample point(s) manually: '</span>,szP(1));
+0350                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Add %i sample point(s) manually: \n'</span>,szP(1));
 0351                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(repmat([repmat(<span class="string">' %g'</span>,1,sP(2)) <span class="string">'\n'</span>],sP(1),1),ptsIn);
 0352                     <span class="comment">%add new points</span>
 0353                     obj.unsorted=[obj.unsorted;ptsIn];
@@ -444,17 +444,17 @@ This function is called by:
 0379         <span class="keyword">end</span>
 0380         <span class="comment">%list available techniques</span>
 0381         <a name="_sub20" href="#_subfunctions" class="code">function availableType(obj)</a>
-0382             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
-0383             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sampling\n'</span>)
+0382             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
+0383             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sampling\n'</span>);
 0384             <a href="#_sub26" class="code" title="subfunction dispTableTwoColumns(tableA,tableB)">dispTableTwoColumns</a>(obj.sampleAvail,obj.sampleAvailTxt);
-0385             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0385             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
 0386         <span class="keyword">end</span>
 0387         <span class="comment">%list available sorting techniques</span>
 0388         <a name="_sub21" href="#_subfunctions" class="code">function availableSort(obj)</a>
-0389             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
-0390             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sorting the sample points\n'</span>)
+0389             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
+0390             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sorting the sample points\n'</span>);
 0391             <a href="#_sub26" class="code" title="subfunction dispTableTwoColumns(tableA,tableB)">dispTableTwoColumns</a>(obj.sortAvail,obj.sortTxt);
-0392             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0392             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
 0393         <span class="keyword">end</span>
 0394         <span class="comment">%define sort configuration</span>
 0395         <a name="_sub22" href="#_subfunctions" class="code">function sortConf(obj,varargin)</a>
@@ -507,9 +507,9 @@ This function is called by:
 0442             <span class="keyword">end</span>
 0443             <span class="comment">%display error message if wrong syntax</span>
 0444             <span class="keyword">if</span> ~execOk
-0445                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Wrong syntax for the method\n'</span>)
-0446                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'sortConf(bool,type,ptref,para,lnorm)\n'</span>)
-0447                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'or sortConf(''key1'',val1,''key2'',val2...)\n'</span>)
+0445                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Wrong syntax for the method\n'</span>);
+0446                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'sortConf(bool,type,ptref,para,lnorm)\n'</span>);
+0447                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'or sortConf(''key1'',val1,''key2'',val2...)\n'</span>);
 0448                 <a href="#_sub22" class="code" title="subfunction availableSort(obj)">availableSort</a>(obj);
 0449             <span class="keyword">end</span>            
 0450         <span class="keyword">end</span>
@@ -542,6 +542,6 @@ This function is called by:
 0477     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%s%s%s\n'</span>,tableA{itT},spaceTxt(ones(1,spaceA(itT))),tableB{itT});
 0478 <span class="keyword">end</span>
 0479 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

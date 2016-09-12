@@ -84,16 +84,19 @@ This function is called by:
 0040     <span class="comment">% display text and adding new keyword</span>
 0041     nbT=0;
 0042     <span class="keyword">for</span> itS=1:numel(strSplit)
-0043         txtD=[ txtAdd <span class="string">' | '</span> strSplit{itS}];
-0044         nbytes=fprintf(txtD);
-0045         nbT=nbT+nbytes;
-0046         <span class="keyword">if</span> itS&lt;numel(strSplit)
-0047             nbytes=fprintf(<span class="string">'\n'</span>);
-0048             nbT=nbT+nbytes;
-0049         <span class="keyword">end</span>
-0050     <span class="keyword">end</span>
-0051 <span class="keyword">end</span>
-0052 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0043         <span class="keyword">if</span> itS==numel(strSplit)&amp;&amp;isempty(strSplit{itS})
+0044         <span class="keyword">else</span>
+0045             txtD=[ txtAdd <span class="string">' | '</span> strSplit{itS}];
+0046             nbytes=fprintf(txtD);
+0047             nbT=nbT+nbytes;
+0048         <span class="keyword">end</span>
+0049         <span class="keyword">if</span> itS&lt;numel(strSplit)
+0050             nbytes=fprintf(<span class="string">'\n'</span>);
+0051             nbT=nbT+nbytes;
+0052         <span class="keyword">end</span>
+0053     <span class="keyword">end</span>
+0054 <span class="keyword">end</span>
+0055 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

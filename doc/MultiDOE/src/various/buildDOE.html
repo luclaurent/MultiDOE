@@ -108,7 +108,7 @@ This function is called by:
 0041 <a name="_sub0" href="#_subfunctions" class="code">function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)</a>
 0042 
 0043 
-0044 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0044 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
 0045 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'    &gt;&gt;&gt; BUILDING SAMPLING &lt;&lt;&lt;\n'</span>);
 0046 TimeCount=<a href="mesuTime.html" class="code" title="">mesuTime</a>;
 0047 
@@ -134,8 +134,8 @@ This function is called by:
 0067 
 0068 <span class="comment">%% Show information</span>
 0069 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Kind of DOE: %s\n'</span>,type);
-0070 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Number of sample points: '</span>)
-0071 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%i '</span>,ns);<a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'\n'</span>);
+0070 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Number of sample points: '</span>);
+0071 fprintf(<span class="string">'%i '</span>,ns);fprintf(<span class="string">'\n'</span>);
 0072 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' &gt;&gt; Number of variables: %i\n'</span>,np);
 0073 
 0074 samplingOK=true;
@@ -418,7 +418,7 @@ This function is called by:
 0351 <span class="keyword">end</span>
 0352 
 0353 TimeCount.stop;
-0354 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>)
+0354 <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
 0355 <span class="keyword">end</span>
 0356 
 0357 
@@ -442,6 +442,6 @@ This function is called by:
 0375 <span class="keyword">end</span>
 0376 <span class="keyword">end</span>
 0377</pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 17:38:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

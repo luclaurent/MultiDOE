@@ -196,7 +196,7 @@ classdef multiDOE < handle
                 Mfprintf('>> Wrong input data: lower bound must be a vector\n');
             end
             Mfprintf('++ Current Lower bound: ');
-            Mfprintf('%+4.2f|',obj.Xmin);Mfprintf('\n');
+            fprintf('%+4.2f|',obj.Xmin);fprintf('\n');
         end
         %load upper bound
         function set.Xmax(obj,XmaxIn)
@@ -208,7 +208,7 @@ classdef multiDOE < handle
                 Mfprintf('>> Wrong input data: upper bound must be a vector\n');
             end
             Mfprintf('++ Current Upper bound: ');
-            Mfprintf('%+4.2f|',obj.Xmax);Mfprintf('\n');
+            fprintf('%+4.2f|',obj.Xmax);fprintf('\n');
         end
         %load type
         function set.type(obj,typeIn)
@@ -221,7 +221,7 @@ classdef multiDOE < handle
                 obj.availableType();
             end
             Mfprintf('++ Type of DOE: ');
-            Mfprintf('%s',obj.type);Mfprintf('\n');
+            fprintf('%s',obj.type);fprintf('\n');
         end
         %load sortInfo
         function set.sortInfo(obj,structIn)
@@ -347,7 +347,7 @@ classdef multiDOE < handle
             if ~isempty(ptsIn)
                 szP=size(ptsIn);
                 if szP(2)==obj.dimPB
-                    Mfprintf('++ Add %i sample point(s) manually: ',szP(1));
+                    Mfprintf('++ Add %i sample point(s) manually: \n',szP(1));
                     Mfprintf(repmat([repmat(' %g',1,sP(2)) '\n'],sP(1),1),ptsIn);
                     %add new points
                     obj.unsorted=[obj.unsorted;ptsIn];

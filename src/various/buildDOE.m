@@ -68,7 +68,7 @@ np=numel(Xmin);
 %% Show information
 Mfprintf(' >> Kind of DOE: %s\n',type);
 Mfprintf(' >> Number of sample points: ');
-Mfprintf('%i ',ns);Mfprintf('\n');
+fprintf('%i ',ns);fprintf('\n');
 Mfprintf(' >> Number of variables: %i\n',np);
 
 samplingOK=true;
