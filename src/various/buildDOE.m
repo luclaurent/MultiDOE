@@ -41,7 +41,7 @@
 function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)
 
 
-Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
 Mfprintf('    >>> BUILDING SAMPLING <<<\n');
 TimeCount=mesuTime;
 
@@ -67,7 +67,7 @@ np=numel(Xmin);
 
 %% Show information
 Mfprintf(' >> Kind of DOE: %s\n',type);
-Mfprintf(' >> Number of sample points: ')
+Mfprintf(' >> Number of sample points: ');
 Mfprintf('%i ',ns);Mfprintf('\n');
 Mfprintf(' >> Number of variables: %i\n',np);
 
@@ -351,7 +351,7 @@ else
 end
 
 TimeCount.stop;
-Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
 end
 
 

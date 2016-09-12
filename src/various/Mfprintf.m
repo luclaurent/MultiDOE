@@ -40,9 +40,12 @@ else
     % display text and adding new keyword
     nbT=0;
     for itS=1:numel(strSplit)
-        txtD=[ txtAdd ' | ' strSplit{itS}];
-        nbytes=fprintf(txtD);
-        nbT=nbT+nbytes;
+        if itS==numel(strSplit)&&isempty(strSplit{itS})
+        else
+            txtD=[ txtAdd ' | ' strSplit{itS}];
+            nbytes=fprintf(txtD);
+            nbT=nbT+nbytes;
+        end
         if itS<numel(strSplit)
             nbytes=fprintf('\n');
             nbT=nbT+nbytes;

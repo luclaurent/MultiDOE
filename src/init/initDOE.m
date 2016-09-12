@@ -60,7 +60,7 @@
 function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)
 
 
-Mfprintf('=========================================\n')
+Mfprintf('=========================================\n');
 Mfprintf('      >>> DOE INITIALIZATION <<<\n');
 
 
@@ -157,14 +157,14 @@ if stateAutonomous
         Mfprintf('++ Test function: %s (%iD)\n',funT,dim);
     else
         if ~isempty(dim)
-            Mfprintf('++ Number of variables: %i\n',dim)
+            Mfprintf('++ Number of variables: %i\n',dim);
         end
     end
     Mfprintf('++ Type of DOE: ');
     if isempty(doe.type);Mfprintf('UNDEFINED\n');else Mfprintf('%s\n',doe.type);end
     Mfprintf('++ Design space: \n');
     if isempty(doe.Xmin)
-        Mfprintf('UNDEFINED\n')
+        Mfprintf('UNDEFINED\n');
     else
         Mfprintf('   Min  |');
         Mfprintf('%+4.2f|',doe.Xmin);Mfprintf('\n');
@@ -183,4 +183,4 @@ Mfprintf('++ Display sampling: ');
 if doe.disp; Mfprintf('Yes\n');else Mfprintf('NO\n');end
 
 if stateAutonomous;TimeCount.stop;end
-Mfprintf('=========================================\n')
+Mfprintf('=========================================\n');

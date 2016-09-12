@@ -26,7 +26,7 @@ nsMin=30;
 doeType='LHS';
 
 fich=[doeType '_R/' num2str(np) 'd_' num2str(nsMin) '.mat'];
-Mfprintf('%s\n',fich)
+Mfprintf('%s\n',fich);
 load(fich)
 
 dispOn=true;

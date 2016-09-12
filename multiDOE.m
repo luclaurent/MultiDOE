@@ -144,7 +144,7 @@ classdef multiDOE < handle
             if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end
              obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
             if nargin>4;
-                if ~isempty(XminIn)&&~iempty(XmaxIn)
+                if ~isempty(XminIn)&&~isempty(XmaxIn)
                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
                 end
             end
@@ -195,7 +195,7 @@ classdef multiDOE < handle
             else
                 Mfprintf('>> Wrong input data: lower bound must be a vector\n');
             end
-            Mfprintf('++ Current Lower bound: ')
+            Mfprintf('++ Current Lower bound: ');
             Mfprintf('%+4.2f|',obj.Xmin);Mfprintf('\n');
         end
         %load upper bound
@@ -207,7 +207,7 @@ classdef multiDOE < handle
             else
                 Mfprintf('>> Wrong input data: upper bound must be a vector\n');
             end
-            Mfprintf('++ Current Upper bound: ')
+            Mfprintf('++ Current Upper bound: ');
             Mfprintf('%+4.2f|',obj.Xmax);Mfprintf('\n');
         end
         %load type
@@ -220,7 +220,7 @@ classdef multiDOE < handle
                 Mfprintf('>> Wrong input data: the type of sample must be\n chosen along the following list\n');
                 obj.availableType();
             end
-            Mfprintf('++ Type of DOE: ')
+            Mfprintf('++ Type of DOE: ');
             Mfprintf('%s',obj.type);Mfprintf('\n');
         end
         %load sortInfo
@@ -379,17 +379,17 @@ classdef multiDOE < handle
         end
         %list available techniques
         function availableType(obj)
-            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
-            Mfprintf('Available techniques for sampling\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
+            Mfprintf('Available techniques for sampling\n');
             dispTableTwoColumns(obj.sampleAvail,obj.sampleAvailTxt);
-            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
         end
         %list available sorting techniques
         function availableSort(obj)
-            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
-            Mfprintf('Available techniques for sorting the sample points\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
+            Mfprintf('Available techniques for sorting the sample points\n');
             dispTableTwoColumns(obj.sortAvail,obj.sortTxt);
-            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n')
+            Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
         end
         %define sort configuration
         function sortConf(obj,varargin)
@@ -442,9 +442,9 @@ classdef multiDOE < handle
             end
             %display error message if wrong syntax
             if ~execOk
-                Mfprintf('Wrong syntax for the method\n')
-                Mfprintf('sortConf(bool,type,ptref,para,lnorm)\n')
-                Mfprintf('or sortConf(''key1'',val1,''key2'',val2...)\n')
+                Mfprintf('Wrong syntax for the method\n');
+                Mfprintf('sortConf(bool,type,ptref,para,lnorm)\n');
+                Mfprintf('or sortConf(''key1'',val1,''key2'',val2...)\n');
                 availableSort(obj);
             end            
         end
