@@ -141,12 +141,13 @@ classdef multiDOE < handle
             %specific configuration
             obj.dimPB=retInit.dimPB;
             if nargin>1;if ~isempty(typeIn);obj.type=typeIn;end,end
-            if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end
-             obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
+            if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end             
             if nargin>4;
                 if ~isempty(XminIn)&&~isempty(XmaxIn)
                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
                 end
+            else
+                obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
             end
             %specified the test function
             if ~isempty(retInit.funT);obj.funTest=retInit.funT;end
@@ -177,14 +178,14 @@ classdef multiDOE < handle
             %check the kind of input data
             obj.ns=nsIn(:);
             initRunDOE(obj,true);
-            Mfprintf('++ Number of sample points: %d\n',obj.ns);
+            Mfprintf('++ Number of sample points: %i\n',obj.ns);
         end
         %number of design variables
         function set.dimPB(obj,dimIn)
             %check the kind of input data
             obj.dimPB=dimIn(:);
             initRunDOE(obj,true);
-            Mfprintf('++ Number of design variables: %d\n',obj.dimPB);
+            Mfprintf('++ Number of design variables: %i\n',obj.dimPB);
         end
         %load lower bound
         function set.Xmin(obj,XminIn)
@@ -348,7 +349,7 @@ classdef multiDOE < handle
                 szP=size(ptsIn);
                 if szP(2)==obj.dimPB
                     Mfprintf('++ Add %i sample point(s) manually: \n',szP(1));
-                    Mfprintf(repmat([repmat(' %g',1,sP(2)) '\n'],sP(1),1),ptsIn);
+                    Mfprintf(repmat([repmat(' %g',1,szP(2)) '\n'],szP(1),1),ptsIn);
                     %add new points
                     obj.unsorted=[obj.unsorted;ptsIn];
                     obj.sorted=sort(obj);
