@@ -69,7 +69,7 @@ if nargin==2
     %absolute paths
     pathAbsolute=cellfun(@(c)[pathcustom '/../' c],other,'uni',false);
     %add to the PATH
-    cellfun(@addpath,pathAbsolute);
+    cellfun(@(x)addpathExisted(x),pathAbsolute);
     %add other toolbox to the PATH
     namFun=cellfun(@(c)['initDir' c],other,'uni',false);
     cellfun(@feval,namFun,pathAbsolute)
@@ -78,3 +78,12 @@ end
 %display
 Mfprintf(' ## Toolbox: MultiDOE loaded\n');
 end
+
+
+%check if a directory exists or not and add it to the path if not
+function addpathExisted(folder)
+if exist(folder,'dir')
+    addpath(folder)
+end
+end
+
