@@ -61,7 +61,7 @@ end
 pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
 
 %add to the PATH
-cellfun(@addpath,pathAbsolute);
+cellfun(@(x)addpathExisted(x),pathAbsolute);
 
 if nargin==2
     %Load other toolbox
