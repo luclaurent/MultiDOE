@@ -23,6 +23,8 @@ classdef mesuTime < handle
         counterTicToc=[];
         tInit=[];
         tFinal=[];
+    end
+    properties
         tElapsed=[];
         tCPUElapsed=[];
     end
