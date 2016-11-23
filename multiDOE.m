@@ -159,7 +159,9 @@ classdef multiDOE < handle
             %if all is ok, continue
             if obj.okData
                 %compute scores
-                obj.scoreVal=score(obj);
+                if exist('fullfact','file')
+                 obj.scoreVal=score(obj);
+                end
             end
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
