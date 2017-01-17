@@ -160,9 +160,7 @@ classdef multiDOE < handle
             %if all is ok, continue
             if obj.okData
                 %compute scores
-                if exist('fullfact','file')
                  obj.scoreVal=score(obj);
-                end
             end
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -288,23 +286,23 @@ classdef multiDOE < handle
         %check data
         function isOk=check(obj)
             isOk=true;
-            if isempty(obj.dimPB);
+            if isempty(obj.dimPB)
                 isOk=false;
                 Mfprintf('>> Undefined dimension of the DOE\n');
             end
-            if isempty(obj.ns);
+            if isempty(obj.ns)
                 isOk=false;
                 Mfprintf('>> Undefined number of sample points\n');
             end
-            if isempty(obj.Xmin);
+            if isempty(obj.Xmin)
                 isOk=false;
                 Mfprintf('>> Undefined lower bound of the design space\n');
             end
-            if isempty(obj.Xmax);
+            if isempty(obj.Xmax)
                 isOk=false;
                 Mfprintf('>> Undefined lower bound of the design space\n');
             end
-            if isempty(obj.type);
+            if isempty(obj.type)
                 isOk=false;
                 Mfprintf('>> Undefined type of DOE\n');
             end
@@ -404,7 +402,7 @@ classdef multiDOE < handle
             %argument or string if the use of keywords
             if isa(varargin{1},'logical')              
                 if nargin>1;obj.sortInfo=struct('on',varargin{1});end
-                if nargin>2;
+                if nargin>2
                     if ismember(varargin{2},obj.sortAvail)
                         obj.sortInfo=struct('type',varargin{2});
                     else

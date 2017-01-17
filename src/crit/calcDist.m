@@ -27,9 +27,10 @@ end
 %number of variables
 ns=size(sampling,1);
 
-%geenrate combinations
-comb=fullfact([ns ns]);
-comb1=comb(:,1);comb2=comb(:,2);
+%generate combinations
+%comb=fullfact([ns ns]);
+comb=allcomb(1:ns,1:ns); % replace fullfact if not available
+comb1=comb(:,2);comb2=comb(:,1); % switch 1 and 2 in the case of fullfact
 diffC=comb1-comb2;
 iX=diffC~=0;
 iXX=diffC<0;
