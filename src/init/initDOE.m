@@ -61,17 +61,36 @@ function [doe]=initDOE(dim,espM,funT)
 fprintf('=========================================\n')
 fprintf('      >>> DOE INITIALIZATION <<<\n');
 [tMesu,tInit]=mesuTime;
-
 %depending on the number of parameters
 if nargin==0
+    type='LHS';
     funT=[];
     dim=[];
-    espM=[];
+    espM=[zeros(dim,1) ones(dim,1)];
+    stateAutonomous=true;
 elseif nargin==1
-    espM=[];
+    type='LHS';
     funT=[];
+    espM=[zeros(dim,1
+) ones(dim,1)];
+    stateAutonomous=true;
 elseif nargin==2
+    if isempty(type);type='LHS';end
+    espM=[zeros(dim,1) ones(dim,1)];
     funT=[];
+    stateAutonomous=true;
+elseif nargin==3
+    if isempty(type);type='LHS';end
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
+    funT=[];
+    stateAutonomous=true;
+elseif nargin==4
+    if isempty(type);type='LHS';end
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
+     stateAutonomous=true;
+elseif nargin==5
+    if isempty(type);type='LHS';end
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
 end
 
 %automatic definition
@@ -92,7 +111,7 @@ if ~isempty(funT)
     
     %if the test function exists (in a .m file)
     if exist(doe.funT,'file')==2
-        %recover informations about the function (local abnd global minima)
+        %recover informations about the function (local and global minima)
         [~,~,doe.infos]=feval(doe.funT,[],dim);
     end
 end
@@ -122,9 +141,6 @@ if ~isfield(doe,'Xmin')
     doe.Xmin=[];
     doe.Xmax=[];
 end
-
-%kind of sampling
-doe.type='LHS';
 
 %show information
 if ~isempty(funT)
