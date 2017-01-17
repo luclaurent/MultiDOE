@@ -1,6 +1,8 @@
 /* Created by mdot for Matlab */
 digraph m2html {
 
+  allcomb [URL="allcomb.html"];
+  allcomb [URL="allcomb.html"];
   multitransp [URL="multitransp.html"];
   multitransp [URL="multitransp.html"];
 }

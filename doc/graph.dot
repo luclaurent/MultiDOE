@@ -25,6 +25,8 @@ digraph m2html {
   mmlhsR -> checkR;
   olhsR -> checkR;
   calcDist -> multiDOE;
+  calcDist -> allcomb;
+  calcDist -> allcomb;
   calcScore -> calcDist;
   dispLHSR -> Mfprintf;
   addSampleDOE -> ihsR;
@@ -133,6 +135,8 @@ digraph m2html {
   ransamp [URL="MultiDOE/src/libs/LHS/ransamp.html"];
   test_sampling [URL="MultiDOE/src/libs/LHS/test_sampling.html"];
   test_sampling2 [URL="MultiDOE/src/libs/LHS/test_sampling2.html"];
+  allcomb [URL="MultiDOE/src/libs/allcomb.html"];
+  allcomb [URL="MultiDOE/src/libs/allcomb.html"];
   multitransp [URL="MultiDOE/src/libs/multitransp.html"];
   multitransp [URL="MultiDOE/src/libs/multitransp.html"];
   Mfprintf [URL="MultiDOE/src/various/Mfprintf.html"];

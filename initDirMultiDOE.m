@@ -17,7 +17,7 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function foldersLoad=initDirMultiDOE(pathcustom,other,flagNested)
+function foldersLoad=initDirMultiDOE(pathcustom,other)
 
 % variable 'other' (optional) of type cell must constain the list of other
 % toolboxes to load (they must be in '../.')
@@ -25,10 +25,6 @@ function foldersLoad=initDirMultiDOE(pathcustom,other,flagNested)
 % variable 'pathcustom' (optional) contains the specific folder from where
 % the directories must be loaded
 
-% variable 'flasgNested' (optional) is type boolean must be used in the
-% case of the use of this toolbox on a nested position (called by another
-% toolbox). The default value is false.
-if nargin<3;flagNested=false;end
 
 %folders of the MultiDOE toolbox
 foldersLoad={'src',...
@@ -61,8 +57,8 @@ end
 pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
 
 %add to the PATH
-cellfun(@(x)addpathExisted(x),pathAbsolute);
-
+flA=cellfun(@(x)addpathExisted(x),pathAbsolute);
+flB=[];
 if nargin==2
     %Load other toolbox
     if ~iscell(other);other={other};end
@@ -72,17 +68,21 @@ if nargin==2
     cellfun(@(x)addpathExisted(x),pathAbsolute);
     %add other toolbox to the PATH
     namFun=cellfun(@(c)['initDir' c],other,'uni',false);
-    cellfun(@feval,namFun,pathAbsolute)
+    flB=cellfun(@feval,namFun,pathAbsolute);
 end
 
-%display
-Mfprintf(' ## Toolbox: MultiDOE loaded\n');
+if any([flA flB]==2)
+    %display
+    Mfprintf(' ## Toolbox: MultiDOE loaded\n');
+end
 end
 
 
 %check if a directory exists or not and add it to the path if not
-function addpathExisted(folder)
-if exist(folder,'dir')
+function flag=addpathExisted(folder)
+flag=1;
+if ~exist(folder,'dir')
+    flag=2;
     addpath(folder)
 end
 end

@@ -33,7 +33,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
+<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li><li><a href="../../../MultiDOE/src/libs/allcomb.html" class="code" title="function A = allcomb(varargin)">allcomb</a>	ALLCOMB - All combinations</li><li><a href="../../../MultiDOE/src/libs/allcomb.html" class="code" title="function A = allcomb(varargin)">allcomb</a>	ALLCOMB - All combinations</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
 <li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li></ul>
@@ -71,44 +71,45 @@ This function is called by:
 0027 <span class="comment">%number of variables</span>
 0028 ns=size(sampling,1);
 0029 
-0030 <span class="comment">%geenrate combinations</span>
-0031 comb=fullfact([ns ns]);
-0032 comb1=comb(:,1);comb2=comb(:,2);
-0033 diffC=comb1-comb2;
-0034 iX=diffC~=0;
-0035 iXX=diffC&lt;0;
-0036 
-0037 iX=iX&amp;iXX;
-0038 
-0039 comb1=comb1(iX);
-0040 comb2=comb2(iX);
-0041 <span class="comment">%[comb1 comb2]</span>
-0042 <span class="comment">%compute inter-sample points distances</span>
-0043 pti=sampling(comb1,:);
-0044 ptj=sampling(comb2,:);
-0045 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
-0046 <span class="comment">%store in a matrix</span>
-0047 distMat=zeros(ns);
-0048 IX=sub2ind([ns ns],comb1,comb2);
-0049 distMat(IX)=distVect;
-0050 distMat=distMat+distMat';
-0051 
-0052 <span class="keyword">if</span> nargout&gt;1
-0053     <span class="comment">%concatenate distance</span>
-0054     dist_cat=distVect(:);    
-0055     <span class="keyword">if</span> nargout&gt;2
-0056         <span class="comment">%remove duplicates</span>
-0057         uniqDist=unique(dist_cat);
-0058         <span class="keyword">if</span> nargout&gt;3
-0059             <span class="comment">%build table of the multiplicity of the distances</span>
-0060             <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>=zeros(size(uniqDist));
-0061             <span class="keyword">for</span> ii=1:length(uniqDist)
-0062                 <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>(ii)=sum(ismember(dist_cat,uniqDist(ii)));
-0063             <span class="keyword">end</span>
-0064         <span class="keyword">end</span>
-0065     <span class="keyword">end</span>
-0066 <span class="keyword">end</span>
-0067</pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0030 <span class="comment">%generate combinations</span>
+0031 <span class="comment">%comb=fullfact([ns ns]);</span>
+0032 comb=<a href="../../../MultiDOE/src/libs/allcomb.html" class="code" title="function A = allcomb(varargin)">allcomb</a>(1:ns,1:ns); <span class="comment">% replace fullfact if not available</span>
+0033 comb1=comb(:,2);comb2=comb(:,1); <span class="comment">% switch 1 and 2 in the case of fullfact</span>
+0034 diffC=comb1-comb2;
+0035 iX=diffC~=0;
+0036 iXX=diffC&lt;0;
+0037 
+0038 iX=iX&amp;iXX;
+0039 
+0040 comb1=comb1(iX);
+0041 comb2=comb2(iX);
+0042 <span class="comment">%[comb1 comb2]</span>
+0043 <span class="comment">%compute inter-sample points distances</span>
+0044 pti=sampling(comb1,:);
+0045 ptj=sampling(comb2,:);
+0046 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
+0047 <span class="comment">%store in a matrix</span>
+0048 distMat=zeros(ns);
+0049 IX=sub2ind([ns ns],comb1,comb2);
+0050 distMat(IX)=distVect;
+0051 distMat=distMat+distMat';
+0052 
+0053 <span class="keyword">if</span> nargout&gt;1
+0054     <span class="comment">%concatenate distance</span>
+0055     dist_cat=distVect(:);    
+0056     <span class="keyword">if</span> nargout&gt;2
+0057         <span class="comment">%remove duplicates</span>
+0058         uniqDist=unique(dist_cat);
+0059         <span class="keyword">if</span> nargout&gt;3
+0060             <span class="comment">%build table of the multiplicity of the distances</span>
+0061             <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>=zeros(size(uniqDist));
+0062             <span class="keyword">for</span> ii=1:length(uniqDist)
+0063                 <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>(ii)=sum(ismember(dist_cat,uniqDist(ii)));
+0064             <span class="keyword">end</span>
+0065         <span class="keyword">end</span>
+0066     <span class="keyword">end</span>
+0067 <span class="keyword">end</span>
+0068</pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 20:31:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
