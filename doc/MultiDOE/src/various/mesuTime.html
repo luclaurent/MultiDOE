@@ -28,17 +28,17 @@
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
      Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
-
+ 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
-
+ 
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
-
+ 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
@@ -46,10 +46,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -74,7 +74,7 @@ This function is called by:
 0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
 0017 
-0018 <span class="comment">%% Script dedicated to the initialisation, the measure and the display of the spent time</span>
+0018 <span class="comment">%% Script dedicated to the initiailisation, the measure and the display of the spent time</span>
 0019 <span class="comment">%% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net</span>
 0020 
 0021 classdef <a href="mesuTime.html" class="code" title="">mesuTime</a> &lt; handle
@@ -124,11 +124,10 @@ This function is called by:
 0065         <span class="keyword">end</span>
 0066         <span class="comment">%display the elapsed time</span>
 0067         <a name="_sub5" href="#_subfunctions" class="code">function show(obj)</a>
-0068             <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
+0068             fprintf(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
 0069         <span class="keyword">end</span>
 0070     <span class="keyword">end</span>
-0071 <span class="keyword">end</span>
-0072</pre></div>
-<hr><address>Generated on Tue 17-Jan-2017 20:31:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0071 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

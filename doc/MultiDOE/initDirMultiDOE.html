@@ -4,7 +4,7 @@
 <head>
   <title>Description of initDirMultiDOE</title>
   <meta name="keywords" content="initDirMultiDOE">
-  <meta name="description" content="% Initialization of the directories (MATLAB's path)">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,14 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="box"><strong>% Initialization of the directories (MATLAB's path)</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 <div class="box"><strong>function foldersLoad=initDirMultiDOE(pathcustom,other) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Initialization of the directories (MATLAB's path)
- L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+ 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+ 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+ 
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
@@ -36,7 +49,7 @@ This function calls:
 <li><a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li><li><a href="../MultiDOE/src/various/buildDocMultiDOE.html" class="code" title="">buildDocMultiDOE</a>	% Build documentation (using m2html library)</li></ul>
+<li><a href="ExampleInfill.html" class="code" title="">ExampleInfill</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="ExampleUse.html" class="code" title="">ExampleUse</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li><li><a href="../MultiDOE/src/various/buildDocMultiDOE.html" class="code" title="">buildDocMultiDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
@@ -44,33 +57,33 @@ This function is called by:
 <li><a href="#_sub1" class="code">function flag=addpathExisted(folder)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Initialization of the directories (MATLAB's path)</span>
-0002 <span class="comment">% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
-0005 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0008 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0009 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0010 <span class="comment">%     (at your option) any later version.</span>
-0011 <span class="comment">%</span>
-0012 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0013 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0014 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0015 <span class="comment">%     GNU General Public License for more details.</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
-0017 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0018 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0019 
-0020 <a name="_sub0" href="#_subfunctions" class="code">function foldersLoad=initDirMultiDOE(pathcustom,other)</a>
-0021 
-0022 <span class="comment">% variable 'other' (optional) of type cell must constain the list of other</span>
-0023 <span class="comment">% toolboxes to load (they must be in '../.')</span>
-0024 
-0025 <span class="comment">% variable 'pathcustom' (optional) contains the specific folder from where</span>
-0026 <span class="comment">% the directories must be loaded</span>
-0027 
+0017 
+0018 <span class="comment">%% Initialization of the directories (MATLAB's path)</span>
+0019 <span class="comment">%% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net</span>
+0020 
+0021 <a name="_sub0" href="#_subfunctions" class="code">function foldersLoad=initDirMultiDOE(pathcustom,other)</a>
+0022 
+0023 <span class="comment">% variable 'other' (optional) of type cell must constain the list of other</span>
+0024 <span class="comment">% toolboxes to load (they must be in '../.')</span>
+0025 
+0026 <span class="comment">% variable 'pathcustom' (optional) contains the specific folder from where</span>
+0027 <span class="comment">% the directories must be loaded</span>
 0028 
 0029 <span class="comment">%folders of the MultiDOE toolbox</span>
 0030 foldersLoad={<span class="string">'src'</span>,<span class="keyword">...</span>
@@ -96,7 +109,7 @@ This function is called by:
 0050 <span class="keyword">end</span>
 0051 <span class="comment">%if no specified directory</span>
 0052 <span class="keyword">if</span> ~specifDir
-0053     pathcustom=strrep(mfilename(<span class="string">'fullpath'</span>),mfilename,<span class="string">''</span>);
+0053     pathcustom=pwd;
 0054 <span class="keyword">end</span>
 0055 
 0056 <span class="comment">%absolute paths</span>
@@ -133,6 +146,6 @@ This function is called by:
 0087 <span class="keyword">end</span>
 0088 <span class="keyword">end</span>
 0089</pre></div>
-<hr><address>Generated on Tue 17-Jan-2017 20:31:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

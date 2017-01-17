@@ -52,72 +52,61 @@ This function is called by:
 0009 * Improved Hypercube Sampling
 0010 * Random Sampling
 0011 
-0012 The toolbox is based on an Oriented-Object syntax <span class="keyword">for</span> helping to manipulate and generate sample points.
+0012 Many techniques proposed in this toolbox are based on 
 0013 
-0014 Many techniques proposed in this toolbox are based on 
-0015 
-0016 * the [R software](https://cran.r-project.org/). More precisely, the library [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) is used. 
-0017 * the [IHS](https://people.sc.fsu.edu/~jburkardt/m_src/<a href="../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>/ihs.html) matlab's software proposed by [John Burkardt](http://people.sc.fsu.edu/~jburkardt/).
-0018 * the [<a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a>](http://www.mathworks.com/matlabcentral/fileexchange/4352-latin-hypercube-sampling/content/lhsu.m) proposed by Budiman Minasny.
+0014 * the [R software](https://cran.r-project.org/). More precisely, the library [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) is used. 
+0015 * the [IHS](https://people.sc.fsu.edu/~jburkardt/m_src/<a href="../MultiDOE/src/libs/IHS/ihs.html" class="code" title="function x = ihs ( dim_num, point_num, duplication )">ihs</a>/ihs.html) matlab's softwares proposed by [John Burkardt](http://people.sc.fsu.edu/~jburkardt/).
+0016 * the [<a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a>](http://www.mathworks.com/matlabcentral/fileexchange/4352-latin-hypercube-sampling/content/lhsu.m) proposed by Budiman Minasny.
+0017 
+0018 *NOTICE*: sampling techniques based on the R software are only usable on a Unix OS.
 0019 
-0020 **NOTICE: sampling techniques based on the R software are only usable on a Unix OS.**
-0021 
-0022 First start
-0023 ------
-0024 
-0025 Some examples are proposed by functions:
-0026 
-0027 * `ExampleUse.m` simple example of the use of the toolbox
-0028 * `ExampleInfill.m` example of the use of the toolbox with infill of the initial sampling
-0029 
+0020 Features
+0021 ------
+0022 The MultiDOE toolbox are able to 
+0023 
+0024 * generate sampling
+0025 * sort the sample points using many techniques
+0026 * add points to an existing sampling (based on the <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> and IHS procedures of the R software)
+0027 * normalize/renormalize the sample points to be well defined in the specified design space
+0028 * call automatically the R software (on Unix/Linux/OSX systems only)
+0029 * compute scores (minimal distances, discrepancy<span class="keyword">...</span><span class="comment">), see for instance the [Franco's PhD thesis (2008)](https://tel.archives-ouvertes.fr/tel-00803107/)</span>
 0030 
-0031 Features
-0032 ------
-0033 The MultiDOE toolbox are able to 
-0034 
-0035 * generate sampling
-0036 * sort the sample points using many techniques
-0037 * add points to an existing sampling (based on the <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> and IHS procedures of the R software)
-0038 * normalize/renormalize the sample points to be well defined in the specified design space
-0039 * call automatically the R software (on Unix/Linux/OSX systems only)
-0040 * compute scores (minimal distances, discrepancy<span class="keyword">...</span><span class="comment">), see for instance the [Franco's PhD thesis (2008)](https://tel.archives-ouvertes.fr/tel-00803107/)</span>
+0031 
+0032 
+0033 Requirements
+0034 ------
+0035 The toolbox requires:
+0036 
+0037 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software (<span class="keyword">for</span> the `lhsdesign` command called using `LHSD` keyword, optional)
+0038 * the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (<span class="keyword">for</span> obtaining <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> or IHS by using `IHS_R` or `LHS_R` commands, optional) 
+0039 * the [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see <span class="keyword">for</span> instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
+0040 * the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) <span class="keyword">for</span> building the documentation (optional).
 0041 
-0042 
-0043 
-0044 Requirements
-0045 ------
-0046 The toolbox requires:
+0042 [Documentation](https://goo.gl/t0hmjG)
+0043 ------
+0044 The automatic building of the documentation is based on the [m2html](http://www.artefact.tk/software/matlab/m2html/) software.
+0045 
+0046 The obtained documentation is available [here](https://goo.gl/t0hmjG).
 0047 
-0048 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software (<span class="keyword">for</span> the `lhsdesign` command called using `LHSD` keyword, optional)
-0049 * the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (<span class="keyword">for</span> obtaining <a href="../MultiDOE/src/libs/LHS/LHS.html" class="code" title="">LHS</a> or IHS by using `IHS_R` or `LHS_R` commands, optional) 
-0050 * the [<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>](https://cran.r-project.org/web/packages/<a href="../MultiDOE/src/DOE/lhs.html" class="code" title="">lhs</a>/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see <span class="keyword">for</span> instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
-0051 * the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) <span class="keyword">for</span> building the documentation (optional).
-0052 
-0053 [Documentation](https://goo.gl/t0hmjG)
-0054 ------
-0055 The automatic building of the documentation is based on the [m2html](http://www.artefact.tk/software/matlab/m2html/) software.
-0056 
-0057 The obtained documentation is available [here](https://goo.gl/t0hmjG).
-0058 
+0048 
+0049 License ![GNU GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)
+0050 ----
+0051 
+0052     MultiDOE - Toolbox <span class="keyword">for</span> sampling a bounded space
+0053     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+0054 
+0055     This program is free software: you can redistribute it and/or modify
+0056     it under the terms of the GNU General Public License as published by
+0057     the Free Software Foundation, either version 3 of the License, or
+0058     (at your option) any later version.
 0059 
-0060 License ![GNU GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)
-0061 ----
-0062 
-0063     MultiDOE - Toolbox <span class="keyword">for</span> sampling a bounded space
-0064     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
-0065 
-0066     This program is free software: you can redistribute it and/or modify
-0067     it under the terms of the GNU General Public License as published by
-0068     the Free Software Foundation, either version 3 of the License, or
-0069     (at your option) any later version.
-0070 
-0071     This program is distributed in the hope that it will be useful,
-0072     but WITHOUT ANY WARRANTY; without even the implied warranty of
-0073     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-0074     GNU General Public License <span class="keyword">for</span> more details.
-0075 
-0076     You should have received a copy of the GNU General Public License
-0077     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
-<hr><address>Generated on Tue 17-Jan-2017 20:31:40 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0060     This program is distributed in the hope that it will be useful,
+0061     but WITHOUT ANY WARRANTY; without even the implied warranty of
+0062     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+0063     GNU General Public License <span class="keyword">for</span> more details.
+0064 
+0065     You should have received a copy of the GNU General Public License
+0066     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

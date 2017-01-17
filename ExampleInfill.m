@@ -1,6 +1,3 @@
-%% Example of use of the enrichment of IHS 
-% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,23 +13,31 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
 
+%% Example of use of the enrichment of IHS 
+% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
+
+%initialize folders of the toolbox
+initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load configuration
 doe=initDOE(3);
 %
-Xmin=[-1 -2 -3];
-Xmax=[3 2 1];
-type='LHS_R'; %or LHS_R
-ns=5;
+doe.Xmin=[-1 -2 -3];
+doe.Xmax=[3 2 1];
+doe.type='LHS_R'; %or LHS_R
+doe.ns=5;
+doe.sort.on=false; %w/o sorting
+doe.disp=true;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
-sampling=multiDOE(3,type,ns,Xmin,Xmax);
-sampling.show
+sampling=buildDOE(doe);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %enrichment
-sampling.addSample(2);
-sampling.show
+doe.ns=2;
+newSample=addSampleDOE(sampling,doe);
+displayDOE(newSample,doe)

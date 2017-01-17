@@ -1,16 +1,30 @@
+%     MultiDOE - Toolbox for sampling a bounded space
+%     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
+% 
+%     This program is free software: you can redistribute it and/or modify
+%     it under the terms of the GNU General Public License as published by
+%     the Free Software Foundation, either version 3 of the License, or
+%     (at your option) any later version.
+% 
+%     This program is distributed in the hope that it will be useful,
+%     but WITHOUT ANY WARRANTY; without even the implied warranty of
+%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%     GNU General Public License for more details.
+% 
+%     You should have received a copy of the GNU General Public License
+%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
+
 %% Initialization on the DOE structure (definition of the options)
-% L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net
-%
+%% L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net
+
 %% usable syntaxes
 %init_doe
 %init_doe(dim)
-%initDOE(dim,type)
-%initDOE(dim,type,espM)
-%initDOE(dim,type,espM,funT)
-%initDOE(dim,type,espM,funT,stateAutonomous)
-%
+%init_doe(dim,esp)
+%init_doe(dim,esp,funT)
+
 %% INPUT variables
-% -type : type of DOE
 % -dim : number of design variables
 % -espM : matrix for defining the bounds of the design space
 %       -nb of row=dim
@@ -18,13 +32,13 @@
 % -funT : name of a test function (see below)
 % if the test function is available in the matlab's path the function will
 % create the right 'doe' structure that conatins the right options
-%
+
 %% OUTPUT variables
 % doe.dimPB: nb of design variables
-% doe.fctT: name of a test function (Peaks, Rosenbrock..., see below)
+% doe.fctT: name of a test function (Peaks, Rosenbrock..., see below) 
 % doe.infos: available information about the test function
 % doe.sort.on: active sorting
-% doe.sort.type:
+% doe.sort.type: 
 %       - 'v' or 'variable': sort wrt the specified variable (variable
 %       doe.sort.para)
 %       - 'nptp' or 'normal_pt_to_pt'
@@ -41,28 +55,10 @@
 % doe.Xmax: upper bounds (vector)
 % doe.type: type of DOE
 
-%     MultiDOE - Toolbox for sampling a bounded space
-%     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
-%
-%     This program is free software: you can redistribute it and/or modify
-%     it under the terms of the GNU General Public License as published by
-%     the Free Software Foundation, either version 3 of the License, or
-%     (at your option) any later version.
-%
-%     This program is distributed in the hope that it will be useful,
-%     but WITHOUT ANY WARRANTY; without even the implied warranty of
-%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-%     GNU General Public License for more details.
-%
-%     You should have received a copy of the GNU General Public License
-%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)
-
 
 Mfprintf('=========================================\n');
 Mfprintf('      >>> DOE INITIALIZATION <<<\n');
-
 
 %depending on the number of parameters
 if nargin==0
@@ -89,12 +85,10 @@ elseif nargin==3
 elseif nargin==4
     if isempty(type);type='LHS';end
     if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
-    if isempty(funT);type=[];end
      stateAutonomous=true;
 elseif nargin==5
     if isempty(type);type='LHS';end
     if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
-    if isempty(funT);funT=[];end   
 end
 
 %automatic definition
@@ -109,7 +103,7 @@ doe.type=type;
 %number of design variables
 doe.dimPB=dim;
 %number of sample points
-doe.nS=[];
+doe.ns=[];
 
 doe.funT=[];
 doe.infos=[];
@@ -119,7 +113,7 @@ if ~isempty(funT)
     
     %if the test function exists (in a .m file)
     if exist(doe.funT,'file')==2
-        %recover informations about the function (local abnd global minima)
+        %recover informations about the function (local and global minima)
         [~,~,doe.infos]=feval(doe.funT,[],dim);
     end
 end
@@ -131,10 +125,9 @@ doe.sort.on=true;
 doe.sort.type='sac';
 doe.sort.para=1;
 doe.sort.ptref=[];
-doe.sort.lnorm=2;
 
 %display sampling
-doe.disp=false;
+doe.disp=true;
 
 %manual definition
 if ~isempty(espM)
@@ -177,10 +170,12 @@ if ~doe.sort.on
     fprintf('NO\n');
 else
     fprintf('YES\n');
-    Mfprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
+    Mfprintf('Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
 end
 Mfprintf('++ Display sampling: ');
 if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
 
 if stateAutonomous;TimeCount.stop;end
 Mfprintf('=========================================\n');
+
+end

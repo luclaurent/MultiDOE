@@ -3,9 +3,6 @@ digraph m2html {
   buildDOE -> Mfprintf;
   buildDOE -> mesuTime;
   buildDocMultiDOE -> listFilesToolboxMultiDOE;
-  checkLhsuR -> Mfprintf;
-  checkR -> Mfprintf;
-  mesuTime -> Mfprintf;
   mesuTime -> mesuTime;
   sortDOE -> Mfprintf;
 

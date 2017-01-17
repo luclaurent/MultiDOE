@@ -1,6 +1,3 @@
-%% Initialization of the directories (MATLAB's path)
-% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,6 +13,10 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
+
+%% Initialization of the directories (MATLAB's path)
+%% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
 function foldersLoad=initDirMultiDOE(pathcustom,other)
 
@@ -24,7 +25,6 @@ function foldersLoad=initDirMultiDOE(pathcustom,other)
 
 % variable 'pathcustom' (optional) contains the specific folder from where
 % the directories must be loaded
-
 
 %folders of the MultiDOE toolbox
 foldersLoad={'src',...
@@ -50,7 +50,7 @@ elseif nargin>1
 end
 %if no specified directory
 if ~specifDir
-    pathcustom=strrep(mfilename('fullpath'),mfilename,'');
+    pathcustom=pwd;
 end
 
 %absolute paths

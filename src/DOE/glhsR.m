@@ -1,9 +1,30 @@
+%     MultiDOE - Toolbox for sampling a bounded space
+%     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
+%
+%     This program is free software: you can redistribute it and/or modify
+%     it under the terms of the GNU General Public License as published by
+%     the Free Software Foundation, either version 3 of the License, or
+%     (at your option) any later version.
+%
+%     This program is distributed in the hope that it will be useful,
+%     but WITHOUT ANY WARRANTY; without even the implied warranty of
+%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%     GNU General Public License for more details.
+%
+%     You should have received a copy of the GNU General Public License
+%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+
 %% Build DOE using R (optimized LHS with initial sampling and enrichment)
 %% LHS S-optimal (using Genetic algorithm)
 %Refs:  - Stocki, R. (2005) A method to improve design reliability using optimal Latin hypercube sampling Computer Assisted Mechanics and Engineering Sciences 12, 87?105.
 %       -Stein, M. (1987) Large Sample Properties of Simulations Using Latin Hypercube Sampling. Technometrics. 29, 143?151.
 % L. LAURENT -- 02/01/2013 -- luc.laurent@lecnam.net
-%
+
+
+
+function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)
+
 %% INPUT:
 %    - Xmin,Xmax: min and max bounds of the design space
 %    - ns: number of required sampled points
@@ -13,27 +34,6 @@
 %   - sampling: sample points
 %   - newSampling: new sample points provided byy enrichment
 %%
-
-%     MultiDOE - Toolbox for sampling a bounded space
-%     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
-% 
-%     This program is free software: you can redistribute it and/or modify
-%     it under the terms of the GNU General Public License as published by
-%     the Free Software Foundation, either version 3 of the License, or
-%     (at your option) any later version.
-% 
-%     This program is distributed in the hope that it will be useful,
-%     but WITHOUT ANY WARRANTY; without even the implied warranty of
-%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-%     GNU General Public License for more details.
-% 
-%     You should have received a copy of the GNU General Public License
-%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-function [sampling,newSampling]=glhsR(Xmin,Xmax,ns,oldSampling,nbInfill)
-
-
 
 %path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');

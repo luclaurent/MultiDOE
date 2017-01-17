@@ -1,6 +1,3 @@
-%% Building a full factorial doe with nD variables
-% L. LAURENT -- 07/10/2011 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,6 +13,10 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
+
+%% Building a full factorial doe with nD variables
+% L. LAURENT -- 07/10/2011 -- luc.laurent@lecnam.net
 
 function sampling=fullFactDOE(ns,Xmin,Xmax)
 
