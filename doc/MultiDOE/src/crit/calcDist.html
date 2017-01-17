@@ -4,7 +4,7 @@
 <head>
   <title>Description of calcDist</title>
   <meta name="keywords" content="calcDist">
-  <meta name="description" content="% function for computing inter-sample distances">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,95 +20,109 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% function for computing inter-sample distances</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% function for computing inter-sample distances
- L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+ 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+ 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+ 
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	% Computation of the score associated to a sampling</li></ul>
+<li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% function for computing inter-sample distances</span>
-0002 <span class="comment">% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
-0005 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0008 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0009 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0010 <span class="comment">%     (at your option) any later version.</span>
-0011 <span class="comment">%</span>
-0012 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0013 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0014 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0015 <span class="comment">%     GNU General Public License for more details.</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
-0017 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0018 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0019 
-0020 <a name="_sub0" href="#_subfunctions" class="code">function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)</a>
-0021 
-0022 <span class="comment">%if q is not specified, the euclidian distance will be used</span>
-0023 <span class="keyword">if</span> nargin==1
-0024     q=2;
-0025 <span class="keyword">end</span>
-0026 
-0027 <span class="comment">%number of variables</span>
-0028 ns=size(sampling,1);
-0029 
-0030 <span class="comment">%geenrate combinations</span>
-0031 comb=fullfact([ns ns]);
-0032 comb1=comb(:,1);comb2=comb(:,2);
-0033 diffC=comb1-comb2;
-0034 iX=diffC~=0;
-0035 iXX=diffC&lt;0;
-0036 
-0037 iX=iX&amp;iXX;
-0038 
-0039 comb1=comb1(iX);
-0040 comb2=comb2(iX);
-0041 <span class="comment">%[comb1 comb2]</span>
-0042 <span class="comment">%compute inter-sample points distances</span>
-0043 pti=sampling(comb1,:);
-0044 ptj=sampling(comb2,:);
-0045 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
-0046 <span class="comment">%store in a matrix</span>
-0047 distMat=zeros(ns);
-0048 IX=sub2ind([ns ns],comb1,comb2);
-0049 distMat(IX)=distVect;
-0050 distMat=distMat+distMat';
-0051 
-0052 <span class="keyword">if</span> nargout&gt;1
-0053     <span class="comment">%concatenate distance</span>
-0054     dist_cat=distVect(:);    
-0055     <span class="keyword">if</span> nargout&gt;2
-0056         <span class="comment">%remove duplicates</span>
-0057         uniqDist=unique(dist_cat);
-0058         <span class="keyword">if</span> nargout&gt;3
-0059             <span class="comment">%build table of the multiplicity of the distances</span>
-0060             <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>=zeros(size(uniqDist));
-0061             <span class="keyword">for</span> ii=1:length(uniqDist)
-0062                 <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>(ii)=sum(ismember(dist_cat,uniqDist(ii)));
-0063             <span class="keyword">end</span>
-0064         <span class="keyword">end</span>
-0065     <span class="keyword">end</span>
-0066 <span class="keyword">end</span>
-0067</pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0017 
+0018 <span class="comment">%% function for computing inter-sample distances</span>
+0019 <span class="comment">%% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</span>
+0020 
+0021 <a name="_sub0" href="#_subfunctions" class="code">function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)</a>
+0022 
+0023 <span class="comment">%if q is not specified, the euclidian distance will be used</span>
+0024 <span class="keyword">if</span> nargin==1
+0025     q=2;
+0026 <span class="keyword">end</span>
+0027 
+0028 <span class="comment">%number of variables</span>
+0029 ns=size(sampling,1);
+0030 
+0031 <span class="comment">%geenrate combinations</span>
+0032 comb=fullfact([ns ns]);
+0033 comb1=comb(:,1);comb2=comb(:,2);
+0034 diffC=comb1-comb2;
+0035 iX=diffC~=0;
+0036 iXX=diffC&lt;0;
+0037 
+0038 iX=iX&amp;iXX;
+0039 
+0040 comb1=comb1(iX);
+0041 comb2=comb2(iX);
+0042 <span class="comment">%[comb1 comb2]</span>
+0043 <span class="comment">%compute inter-sample points distances</span>
+0044 pti=sampling(comb1,:);
+0045 ptj=sampling(comb2,:);
+0046 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
+0047 <span class="comment">%store in a matrix</span>
+0048 distMat=zeros(ns);
+0049 IX=sub2ind([ns ns],comb1,comb2);
+0050 distMat(IX)=distVect;
+0051 distMat=distMat+distMat';
+0052 
+0053 <span class="keyword">if</span> nargout&gt;1
+0054     <span class="comment">%concatenate distance</span>
+0055     dist_cat=distVect(:);    
+0056     <span class="keyword">if</span> nargout&gt;2
+0057         <span class="comment">%remove duplicates</span>
+0058         uniqDist=unique(dist_cat);
+0059         <span class="keyword">if</span> nargout&gt;3
+0060             <span class="comment">%build table of the multiplicity of the distances</span>
+0061             multiDOE=zeros(size(uniqDist));
+0062             <span class="keyword">for</span> ii=1:length(uniqDist)
+0063                 multiDOE(ii)=sum(ismember(dist_cat,uniqDist(ii)));
+0064             <span class="keyword">end</span>
+0065         <span class="keyword">end</span>
+0066     <span class="keyword">end</span>
+0067 <span class="keyword">end</span>
+0068</pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -23,22 +23,22 @@
 <div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>This is a script file. </strong></div>
+<div class="box"><strong>function [tictoc_compt,tInit]=mesuTime(compteur,tps_init) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
      Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
-
+ 
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
-
+ 
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
-
+ 
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
@@ -46,15 +46,13 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+</ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>	% Initialization on the DOE structure (definition of the options)</li><li><a href="buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li><li><a href="mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
-<h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="#_sub1" class="code">function obj=mesuTime()</a></li><li><a href="#_sub2" class="code">function start(obj)</a></li><li><a href="#_sub3" class="code">function stop(obj,flagDisp)</a></li><li><a href="#_sub4" class="code">function timeElapsed=cpuElapsed(obj)</a></li><li><a href="#_sub5" class="code">function timeElapsed=Elapsed(obj)</a></li><li><a href="#_sub6" class="code">function show(obj)</a></li></ul>
+
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
@@ -74,59 +72,23 @@ This function is called by:
 0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
 0017 
-0018 <span class="comment">%% Script dedicated to the initialisation, the measure and the display of the spent time</span>
+0018 <span class="comment">%% Script dedicated to the initiailisation, the measure and the display of the spent time</span>
 0019 <span class="comment">%% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net</span>
 0020 
-0021 classdef <a href="mesuTime.html" class="code" title="">mesuTime</a> &lt; handle
-0022     properties (Access = private)
-0023         counterTicToc=[];
-0024         tInit=[];
-0025         tFinal=[];
-0026         tElapsed=[];
-0027         tCPUElapsed=[];
-0028     <span class="keyword">end</span>
-0029     methods
-0030         <span class="comment">%constructor</span>
-0031         <a name="_sub0" href="#_subfunctions" class="code">function obj=mesuTime()</a>
-0032             <span class="comment">%initialization tic-toc count</span>
-0033             obj.counterTicToc=tic;
-0034             <span class="comment">%Measure initial CPU time</span>
-0035             obj.tInit=cputime;
-0036         <span class="keyword">end</span>
-0037         <span class="comment">%start the measure</span>
-0038         <a name="_sub1" href="#_subfunctions" class="code">function start(obj)</a>
-0039             <span class="comment">%Measure initial CPU time</span>
-0040             obj.tInit=cputime;
-0041         <span class="keyword">end</span>
-0042         <span class="comment">%stop the measure</span>
-0043         <a name="_sub2" href="#_subfunctions" class="code">function stop(obj,flagDisp)</a>
-0044             <span class="keyword">if</span> nargin==1;flagDisp=true;<span class="keyword">end</span>
-0045             <span class="comment">%Measure initial CPU time</span>
-0046             obj.tElapsed=toc(obj.counterTicToc);
-0047             <span class="comment">%Elapsed time</span>
-0048             obj.tCPUElapsed=cputime-obj.tInit;
-0049             <span class="comment">%show the result</span>
-0050             <span class="keyword">if</span> flagDisp
-0051                 <a href="#_sub6" class="code" title="subfunction show(obj)">show</a>(obj);
-0052             <span class="keyword">end</span>
-0053         <span class="keyword">end</span>
-0054         <span class="comment">%get CPU time elasped</span>
-0055         <a name="_sub3" href="#_subfunctions" class="code">function timeElapsed=cpuElapsed(obj)</a>
-0056             <span class="keyword">if</span> isempty(obj.tCPUElapsed);obj.stop(false);<span class="keyword">end</span>
-0057             timeElapsed=obj.tCPUElapsed;
-0058         <span class="keyword">end</span>
-0059         <span class="comment">%get time elasped</span>
-0060         <a name="_sub4" href="#_subfunctions" class="code">function timeElapsed=Elapsed(obj)</a>
-0061             <span class="keyword">if</span> isempty(obj.tCPUElapsed);obj.stop(false);<span class="keyword">end</span>
-0062             timeElapsed=obj.tElapsed;
-0063         <span class="keyword">end</span>
-0064         <span class="comment">%display the elapsed time</span>
-0065         <a name="_sub5" href="#_subfunctions" class="code">function show(obj)</a>
-0066             <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,obj.tElapsed,obj.tCPUElapsed);
-0067         <span class="keyword">end</span>
-0068     <span class="keyword">end</span>
-0069 <span class="keyword">end</span>
-0070</pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0021 <a name="_sub0" href="#_subfunctions" class="code">function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)</a>
+0022 
+0023 <span class="keyword">if</span> nargin==0
+0024     <span class="comment">%initialization tic-toc count</span>
+0025     tictoc_compt=tic;
+0026     <span class="comment">%Measure initial CPU time</span>
+0027     tInit=cputime;
+0028     
+0029 <span class="keyword">elseif</span> nargin==2
+0030     tElapsed=toc(compteur);
+0031     tCPUElapsed=cputime-tps_init;
+0032     fprintf(<span class="string">' - - - - - - - - - - - - - - - - - - - - \n'</span>)
+0033     fprintf(<span class="string">'  #### Time/CPU time (s): %4.2f s / %4.2f s\n'</span>,tElapsed,tCPUElapsed);
+0034 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

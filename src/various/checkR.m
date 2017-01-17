@@ -17,6 +17,7 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%   
 
 
 function [rOk,TBXOk]=checkR()
@@ -43,7 +44,7 @@ end
 runRCMD='R --vanilla';
 [e,~]=unix([runRCMD ' <<< ' loadLHS]);
 if e~=0
-    Mfprintf('The library lhs is not installed in R\n');
+    fprintf('The library lhs is not installed in R\n');
 else
     TBXOk=true;
 end
@@ -52,7 +53,7 @@ end
 runRCMD='R --vanilla';
 [e,~]=unix([runRCMD ' <<< ' loadRmat]);
 if e~=0
-    Mfprintf('The library R.matlab is not installed in R\n');
+    fprintf('The library R.matlab is not installed in R\n');
 else
     TBXOk=TBXOk&true;
 end

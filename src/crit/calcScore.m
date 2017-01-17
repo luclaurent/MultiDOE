@@ -1,6 +1,3 @@
-%% Computation of the score associated to a sampling
-% L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,6 +13,10 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
+
+%% Computation of the score associated to a sampling
+% L. LAURENT -- 19/12/2012 -- luc.laurent@lecnam.net
 
 function [uniform,discrepancy]=calcScore(sampling,q)
 

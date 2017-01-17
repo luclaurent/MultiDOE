@@ -4,7 +4,7 @@
 <head>
   <title>Description of fullFactDOE</title>
   <meta name="keywords" content="fullFactDOE">
-  <meta name="description" content="% Building a full factorial doe with nD variables">
+  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,14 +20,27 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>% Building a full factorial doe with nD variables</strong></div>
+<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function sampling=fullFactDOE(ns,Xmin,Xmax) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">% Building a full factorial doe with nD variables
- L. LAURENT -- 07/10/2011 -- luc.laurent@lecnam.net</pre></div>
+<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
+     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+ 
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+ 
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+ 
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -36,72 +49,73 @@ This function calls:
 </ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li></ul>
+<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%% Building a full factorial doe with nD variables</span>
-0002 <span class="comment">% L. LAURENT -- 07/10/2011 -- luc.laurent@lecnam.net</span>
-0003 
-0004 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
-0005 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
-0006 <span class="comment">%</span>
-0007 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0008 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0009 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0010 <span class="comment">%     (at your option) any later version.</span>
-0011 <span class="comment">%</span>
-0012 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0013 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0014 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0015 <span class="comment">%     GNU General Public License for more details.</span>
+<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0007 <span class="comment">%     (at your option) any later version.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0012 <span class="comment">%     GNU General Public License for more details.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
-0017 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0018 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0019 
-0020 <a name="_sub0" href="#_subfunctions" class="code">function sampling=fullFactDOE(ns,Xmin,Xmax)</a>
-0021 
-0022 <span class="comment">%number of variables</span>
-0023 np=numel(Xmin);
-0024 <span class="comment">%reodering</span>
-0025 <span class="keyword">if</span> length(ns)==1
-0026     ns=ns*ones(1,np);
-0027 <span class="keyword">elseif</span> length(ns)~=1&amp;&amp;length(ns)~=np
-0028     error([<span class="string">'wrong definition of the number of required sample points ('</span>,mfilename,<span class="string">')'</span>]);
-0029 <span class="keyword">end</span>
-0030 
-0031 <span class="comment">%initialize matrix for storing sample points</span>
-0032 nsTot=prod(ns);
-0033 sampling=zeros(nsTot,np);
-0034 
-0035 <span class="comment">%values for each variables</span>
-0036 valVar=cell(np,1);
-0037 <span class="keyword">for</span> ii=1:np
-0038     valVar{ii}=linspace(Xmin(ii),Xmax(ii),ns(ii));
-0039 <span class="keyword">end</span>
-0040 
-0041 <span class="comment">%% compute values of the sampling matrix</span>
-0042 <span class="comment">% along the varibales</span>
-0043 temp1=[];
-0044 <span class="keyword">for</span> ii=1:np
-0045     <span class="keyword">if</span> ii&gt;1
-0046         nbTerPre=prod(ns(1:ii-1));
-0047     <span class="keyword">else</span>
-0048         nbTerPre=1;
-0049     <span class="keyword">end</span>
-0050     <span class="comment">%along values per variables</span>
-0051     <span class="keyword">for</span> jj=1:length(valVar{ii})
-0052         temp=repmat(valVar{ii}(jj),nbTerPre,1);
-0053         temp1=[temp1;temp];
-0054     <span class="keyword">end</span>
-0055     temp2=repmat(temp1,prod(ns(ii+1:end)),1);
-0056     temp1=[];
-0057     sampling(:,ii)=temp2;
-0058 <span class="keyword">end</span>
+0017 
+0018 <span class="comment">%% Building a full factorial doe with nD variables</span>
+0019 <span class="comment">% L. LAURENT -- 07/10/2011 -- luc.laurent@lecnam.net</span>
+0020 
+0021 <a name="_sub0" href="#_subfunctions" class="code">function sampling=fullFactDOE(ns,Xmin,Xmax)</a>
+0022 
+0023 <span class="comment">%number of variables</span>
+0024 np=numel(Xmin);
+0025 <span class="comment">%reodering</span>
+0026 <span class="keyword">if</span> length(ns)==1
+0027     ns=ns*ones(1,np);
+0028 <span class="keyword">elseif</span> length(ns)~=1&amp;&amp;length(ns)~=np
+0029     error([<span class="string">'wrong definition of the number of required sample points ('</span>,mfilename,<span class="string">')'</span>]);
+0030 <span class="keyword">end</span>
+0031 
+0032 <span class="comment">%initialize matrix for storing sample points</span>
+0033 nsTot=prod(ns);
+0034 sampling=zeros(nsTot,np);
+0035 
+0036 <span class="comment">%values for each variables</span>
+0037 valVar=cell(np,1);
+0038 <span class="keyword">for</span> ii=1:np
+0039     valVar{ii}=linspace(Xmin(ii),Xmax(ii),ns(ii));
+0040 <span class="keyword">end</span>
+0041 
+0042 <span class="comment">%% compute values of the sampling matrix</span>
+0043 <span class="comment">% along the varibales</span>
+0044 temp1=[];
+0045 <span class="keyword">for</span> ii=1:np
+0046     <span class="keyword">if</span> ii&gt;1
+0047         nbTerPre=prod(ns(1:ii-1));
+0048     <span class="keyword">else</span>
+0049         nbTerPre=1;
+0050     <span class="keyword">end</span>
+0051     <span class="comment">%along values per variables</span>
+0052     <span class="keyword">for</span> jj=1:length(valVar{ii})
+0053         temp=repmat(valVar{ii}(jj),nbTerPre,1);
+0054         temp1=[temp1;temp];
+0055     <span class="keyword">end</span>
+0056     temp2=repmat(temp1,prod(ns(ii+1:end)),1);
+0057     temp1=[];
+0058     sampling(:,ii)=temp2;
 0059 <span class="keyword">end</span>
-0060</pre></div>
-<hr><address>Generated on Mon 12-Sep-2016 18:05:54 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0060 <span class="keyword">end</span>
+0061</pre></div>
+<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

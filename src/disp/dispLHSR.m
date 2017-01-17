@@ -1,6 +1,3 @@
-%% Showing LHS/IHS obtained with R with enrichment
-% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,7 +13,10 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
 
+%% Showing LHS/IHS obtained with R with enrichment
+% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
 close all
 %dimension [1 2 3 4 5 6 7 8 9 10] number of variables
 np=2;
@@ -26,7 +26,7 @@ nsMin=30;
 doeType='LHS';
 
 fich=[doeType '_R/' num2str(np) 'd_' num2str(nsMin) '.mat'];
-Mfprintf('%s\n',fich);
+fprintf('%s\n',fich)
 load(fich)
 
 dispOn=true;
@@ -79,7 +79,7 @@ if dispOn
             it=0;
         end
         for ll=(nsMin+1):nbs_max
-            Mfprintf('%g ',ll);
+            fprintf('%g ',ll);
             for ii=1:np
                 for jj=1:np
                     it=it+1;

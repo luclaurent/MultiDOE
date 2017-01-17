@@ -1,8 +1,3 @@
-%% Function for adding new points in an existing sampling
-% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net
-%
-% the enrichment requires the library 'R.matlab' in R software
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -18,11 +13,19 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
 
-function newSampling=addSampleDOE(oldSampling,nsAdd,doe)
+%% Function for adding new points in an existing sampling
+%% L. LAURENT -- 04/12/2011 -- luc.laurent@lecnam.net
+
+% the enrichment requires the library 'R.matlab' in R software
+
+function newSampling=addSampleDOE(oldSampling,doe)
 
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
+
+ns=doe.ns;
 
 %extract the right information
 if isstruct(oldSampling);
@@ -32,10 +35,10 @@ end
 % depending on the initial sampling
 switch doe.type
     case 'LHS_R'
-        [newSampling]=lhsuR(Xmin,Xmax,nsAdd,oldSampling);
+        [newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling);
     case 'IHS_R'
-        [newSampling]=ihsR(Xmin,Xmax,nsAdd,oldSampling);
+        [newSampling]=ihsR(Xmin,Xmax,ns,oldSampling);
     otherwise
-        Mfprintf('>>>> Only LHS_R et IHS_R sampling \n allow enrichment\n');
+        fprintf('>>>> Only LHS_R et IHS_R sampling \n allow enrichment\n')
         newSampling=[];
 end

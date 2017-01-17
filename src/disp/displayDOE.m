@@ -1,6 +1,3 @@
-%% Function for displaying sampling with nD variables
-% L. LAURENT -- 10/02/2012 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,18 +13,24 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
+
+%% Function for displaying sampling with nD variables
+%% L. LUARENT -- 10/02/2012 -- luc.laurent@lecnam.net
+
 
 function displayDOE(sampling,doe,missData)
 
 %show order of the sampling
 dispTXT=true;
+
 %load bounds of the design space
 if isfield(doe,'Xmin')&&isfield(doe,'Xmax')
     Xmin=doe.Xmin;
     Xmax=doe.Xmax;
 elseif isfield(doe,'bounds')
-    Xmin=doe.bounds(:,1);
-    Xmax=doe.bounds(:,2);
+    Xmin=doe.bornes(:,1);
+    Xmax=doe.bornes(:,2);
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -73,7 +76,8 @@ listBothMissTxt=f2(listBothMiss);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %number of variables
 np=numel(Xmin);
-if ~isempty(sampling)
+
+if doe.disp
     para=0.1;
     if np==1
         figure

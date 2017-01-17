@@ -1,6 +1,3 @@
-%% Initialization of the directories (MATLAB's path)
-% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,19 +13,19 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
 
-function foldersLoad=initDirMultiDOE(pathcustom,other,flagNested)
+
+%% Initialization of the directories (MATLAB's path)
+%% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
+
+function foldersLoad=initDirMultiDOE(pathcustom,other)
 
 % variable 'other' (optional) of type cell must constain the list of other
 % toolboxes to load (they must be in '../.')
 
 % variable 'pathcustom' (optional) contains the specific folder from where
 % the directories must be loaded
-
-% variable 'flasgNested' (optional) is type boolean must be used in the
-% case of the use of this toolbox on a nested position (called by another
-% toolbox). The default value is false.
-if nargin<3;flagNested=false;end
 
 %folders of the MultiDOE toolbox
 foldersLoad={'src',...
@@ -54,7 +51,7 @@ elseif nargin>1
 end
 %if no specified directory
 if ~specifDir
-    pathcustom=strrep(mfilename('fullpath'),mfilename,'');
+    pathcustom=pwd;
 end
 
 %absolute paths
@@ -76,5 +73,5 @@ if nargin==2
 end
 
 %display
-Mfprintf(' ## Toolbox: MultiDOE loaded\n');
+fprintf(' ## Toolbox: MultiDOE loaded\n');
 end

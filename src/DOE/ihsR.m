@@ -2,15 +2,6 @@
 % IHS: Improved Hypercube Sampling
 % Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
 % L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net
-%
-%% INPUT:
-%    - Xmin,Xmax: min and max bounds of the design space
-%    - ns: number of required sampled points
-%    - oldSampling: old sampling (for enrichment)
-%% OUTPUT
-%   - sampling: sample points
-%   - newSampling: new sample points provided byy enrichment
-%%
 
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
@@ -27,8 +18,19 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%   
+
 
 function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)
+
+%% INPUT:
+%    - Xmin,Xmax: min and max bounds of the design space
+%    - ns: number of required sampled points
+%    - oldSampling: old sampling (for enrichment)
+%% OUTPUT
+%   - sampling: sample points
+%   - newSampling: new sample points provided byy enrichment
+%%
 
 %path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');

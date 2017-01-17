@@ -1,6 +1,3 @@
-%% Sorting of sample points
-% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net
-
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
 % 
@@ -16,13 +13,17 @@
 % 
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%     
+
+%% Sorting of sample points
+%% L. LAURENT -- 03/09/2013 -- luc.laurent@lecnam.net
 
 function samplingSorted = sortDOE(sampling,doe)
 %for normalization
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
 
-infoSort=doe.sortInfo;
+infoSort=doe.sort;
 %used norm
 lnorm=infoSort.lnorm;
 %number of sample points and design variables
@@ -113,9 +114,9 @@ if infoSort.on
     end
     
     if ~sortOk
-        Mfprintf('###############################################################\n');
-        Mfprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
-        Mfprintf('###############################################################\n');
+        fprintf('###############################################################\n');
+        fprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
+        fprintf('###############################################################\n');
     end
 else
     samplingSorted=sampling;
