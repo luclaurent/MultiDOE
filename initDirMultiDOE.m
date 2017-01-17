@@ -61,15 +61,17 @@ pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
 cellfun(@(x)addpathExisted(x),pathAbsolute);
 
 if nargin==2
-    %Load other toolbox
-    if ~iscell(other);other={other};end
-    %absolute paths
-    pathAbsolute=cellfun(@(c)[pathcustom '/../' c],other,'uni',false);
-    %add to the PATH
-    cellfun(@(x)addpathExisted(x),pathAbsolute);
-    %add other toolbox to the PATH
-    namFun=cellfun(@(c)['initDir' c],other,'uni',false);
-    cellfun(@feval,namFun,pathAbsolute)
+    if ~isempty(other)
+        %Load other toolbox
+        if ~iscell(other);other={other};end
+        %absolute paths
+        pathAbsolute=cellfun(@(c)[pathcustom '/../' c],other,'uni',false);
+        %add to the PATH
+        cellfun(@(x)addpathExisted(x),pathAbsolute);
+        %add other toolbox to the PATH
+        namFun=cellfun(@(c)['initDir' c],other,'uni',false);
+        cellfun(@feval,namFun,pathAbsolute)
+    end
 end
 
 %display
