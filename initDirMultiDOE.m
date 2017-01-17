@@ -15,7 +15,6 @@
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 %     
 
-
 %% Initialization of the directories (MATLAB's path)
 %% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
@@ -58,8 +57,8 @@ end
 pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
 
 %add to the PATH
-cellfun(@(x)addpathExisted(x),pathAbsolute);
-
+flA=cellfun(@(x)addpathExisted(x),pathAbsolute);
+flB=[];
 if nargin==2
     if ~isempty(other)
         %Load other toolbox
@@ -74,14 +73,18 @@ if nargin==2
     end
 end
 
-%display
-fprintf(' ## Toolbox: MultiDOE loaded\n');
+if any([flA flB]==2)
+    %display
+    Mfprintf(' ## Toolbox: MultiDOE loaded\n');
+end
 end
 
 
 %check if a directory exists or not and add it to the path if not
-function addpathExisted(folder)
-if exist(folder,'dir')
+function flag=addpathExisted(folder)
+flag=1;
+if ~exist(folder,'dir')
+    flag=2;
     addpath(folder)
 end
 end

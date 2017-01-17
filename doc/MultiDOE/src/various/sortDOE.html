@@ -46,10 +46,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -82,7 +82,7 @@ This function is called by:
 0023 Xmin=doe.Xmin;
 0024 Xmax=doe.Xmax;
 0025 
-0026 infoSort=doe.sort;
+0026 infoSort=doe.sortInfo;
 0027 <span class="comment">%used norm</span>
 0028 lnorm=infoSort.lnorm;
 0029 <span class="comment">%number of sample points and design variables</span>
@@ -173,9 +173,9 @@ This function is called by:
 0114     <span class="keyword">end</span>
 0115     
 0116     <span class="keyword">if</span> ~sortOk
-0117         fprintf(<span class="string">'###############################################################\n'</span>);
-0118         fprintf(<span class="string">'## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n'</span>);
-0119         fprintf(<span class="string">'###############################################################\n'</span>);
+0117         <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'###############################################################\n'</span>);
+0118         <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n'</span>);
+0119         <a href="Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'###############################################################\n'</span>);
 0120     <span class="keyword">end</span>
 0121 <span class="keyword">else</span>
 0122     samplingSorted=sampling;
@@ -299,6 +299,6 @@ This function is called by:
 0240     ptRef=ptInit+dBary*(baryPt-ptInit);
 0241 <span class="keyword">end</span>
 0242 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

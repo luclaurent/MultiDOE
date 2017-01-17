@@ -23,7 +23,7 @@ function samplingSorted = sortDOE(sampling,doe)
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
 
-infoSort=doe.sort;
+infoSort=doe.sortInfo;
 %used norm
 lnorm=infoSort.lnorm;
 %number of sample points and design variables
@@ -114,9 +114,9 @@ if infoSort.on
     end
     
     if ~sortOk
-        fprintf('###############################################################\n');
-        fprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
-        fprintf('###############################################################\n');
+        Mfprintf('###############################################################\n');
+        Mfprintf('## ## Wrong parameter for sorting (sorting deactivated)  ## ##\n');
+        Mfprintf('###############################################################\n');
     end
 else
     samplingSorted=sampling;

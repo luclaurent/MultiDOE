@@ -18,9 +18,6 @@
 %% Script dedicated to the initiailisation, the measure and the display of the spent time
 %% L.LAURENT -- 15/05/2012 -- luc.laurent@lecnam.net
 
-<<<<<<< HEAD
-function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)
-=======
 classdef mesuTime < handle
     properties (Access = private)
         counterTicToc=[];
@@ -68,21 +65,7 @@ classdef mesuTime < handle
         end
         %display the elapsed time
         function show(obj)
-            Mfprintf('  #### Time/CPU time (s): %4.2f s / %4.2f s\n',obj.tElapsed,obj.tCPUElapsed);
+            fprintf('  #### Time/CPU time (s): %4.2f s / %4.2f s\n',obj.tElapsed,obj.tCPUElapsed);
         end
     end
-end
->>>>>>> d3de544c843b83575b495f3c4e91bc7eac2378ac
-
-if nargin==0
-    %initialization tic-toc count
-    tictoc_compt=tic;
-    %Measure initial CPU time
-    tInit=cputime;
-    
-elseif nargin==2
-    tElapsed=toc(compteur);
-    tCPUElapsed=cputime-tps_init;
-    fprintf(' - - - - - - - - - - - - - - - - - - - - \n')
-    fprintf('  #### Time/CPU time (s): %4.2f s / %4.2f s\n',tElapsed,tCPUElapsed);
 end

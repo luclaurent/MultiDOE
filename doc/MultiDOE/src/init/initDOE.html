@@ -23,7 +23,7 @@
 <div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [doe]=initDOE(dim,espM,funT) </strong></div>
+<div class="box"><strong>function [doe]=initDOE(dim,type,espM,funT,stateAutonomous) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
@@ -46,10 +46,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>	% Sorting of sample points</li><li><a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="">mesuTime</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/ExampleInfill.html" class="code" title="">ExampleInfill</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/ExampleUse.html" class="code" title="">ExampleUse</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li></ul>
 <!-- crossreference -->
 
 
@@ -112,106 +112,130 @@ This function is called by:
 0055 <span class="comment">% doe.Xmax: upper bounds (vector)</span>
 0056 <span class="comment">% doe.type: type of DOE</span>
 0057 
-0058 <a name="_sub0" href="#_subfunctions" class="code">function [doe]=initDOE(dim,espM,funT)</a>
+0058 <a name="_sub0" href="#_subfunctions" class="code">function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)</a>
 0059 
-0060 
-0061 fprintf(<span class="string">'=========================================\n'</span>)
-0062 fprintf(<span class="string">'      &gt;&gt;&gt; DOE INITIALIZATION &lt;&lt;&lt;\n'</span>);
-0063 [tMesu,tInit]=<a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>;
-0064 
-0065 <span class="comment">%depending on the number of parameters</span>
-0066 <span class="keyword">if</span> nargin==0
-0067     funT=[];
-0068     dim=[];
-0069     espM=[];
+0060 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=========================================\n'</span>);
+0061 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'      &gt;&gt;&gt; DOE INITIALIZATION &lt;&lt;&lt;\n'</span>);
+0062 
+0063 <span class="comment">%depending on the number of parameters</span>
+0064 <span class="keyword">if</span> nargin==0
+0065     type=<span class="string">'LHS'</span>;
+0066     funT=[];
+0067     dim=[];
+0068     espM=[zeros(dim,1) ones(dim,1)];
+0069     stateAutonomous=true;
 0070 <span class="keyword">elseif</span> nargin==1
-0071     espM=[];
+0071     type=<span class="string">'LHS'</span>;
 0072     funT=[];
-0073 <span class="keyword">elseif</span> nargin==2
-0074     funT=[];
-0075 <span class="keyword">end</span>
-0076 
-0077 <span class="comment">%automatic definition</span>
-0078 <span class="keyword">if</span> ~isempty(funT)
-0079     [espM,dim]=<a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>(dim,funT);
-0080 <span class="keyword">end</span>
-0081 
-0082 <span class="comment">%number of design variables</span>
-0083 doe.dimPB=dim;
-0084 <span class="comment">%number of sample points</span>
-0085 doe.ns=[];
-0086 
-0087 doe.funT=[];
-0088 doe.infos=[];
-0089 <span class="keyword">if</span> ~isempty(funT)
-0090     <span class="comment">%save the name of the test function</span>
-0091     doe.funT=[<span class="string">'fun'</span> funT];
-0092     
-0093     <span class="comment">%if the test function exists (in a .m file)</span>
-0094     <span class="keyword">if</span> exist(doe.funT,<span class="string">'file'</span>)==2
-0095         <span class="comment">%recover informations about the function (local abnd global minima)</span>
-0096         [~,~,doe.infos]=feval(doe.funT,[],dim);
-0097     <span class="keyword">end</span>
-0098 <span class="keyword">end</span>
-0099 
-0100 <span class="comment">%%sorting of the sampling</span>
-0101 <span class="comment">%criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)</span>
-0102 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
-0103 doe.sort.on=true;
-0104 doe.sort.type=<span class="string">'sac'</span>;
-0105 doe.sort.para=1;
-0106 doe.sort.ptref=[];
+0073     espM=[zeros(dim,1) ones(dim,1)];
+0074     stateAutonomous=true;
+0075 <span class="keyword">elseif</span> nargin==2
+0076     <span class="keyword">if</span> isempty(type);type=<span class="string">'LHS'</span>;<span class="keyword">end</span>
+0077     espM=[zeros(dim,1) ones(dim,1)];
+0078     funT=[];
+0079     stateAutonomous=true;
+0080 <span class="keyword">elseif</span> nargin==3
+0081     <span class="keyword">if</span> isempty(type);type=<span class="string">'LHS'</span>;<span class="keyword">end</span>
+0082     <span class="keyword">if</span> isempty(espM);espM=[zeros(dim,1) ones(dim,1)];<span class="keyword">end</span>
+0083     funT=[];
+0084     stateAutonomous=true;
+0085 <span class="keyword">elseif</span> nargin==4
+0086     <span class="keyword">if</span> isempty(type);type=<span class="string">'LHS'</span>;<span class="keyword">end</span>
+0087     <span class="keyword">if</span> isempty(espM);espM=[zeros(dim,1) ones(dim,1)];<span class="keyword">end</span>
+0088      stateAutonomous=true;
+0089 <span class="keyword">elseif</span> nargin==5
+0090     <span class="keyword">if</span> isempty(type);type=<span class="string">'LHS'</span>;<span class="keyword">end</span>
+0091     <span class="keyword">if</span> isempty(espM);espM=[zeros(dim,1) ones(dim,1)];<span class="keyword">end</span>
+0092 <span class="keyword">end</span>
+0093 
+0094 <span class="comment">%automatic definition</span>
+0095 <span class="keyword">if</span> ~isempty(funT)
+0096     [espM,dim]=<a href="initDOEfun.html" class="code" title="function [espM,dim]=initDOEfun(dim,fct)">initDOEfun</a>(dim,funT);
+0097 <span class="keyword">end</span>
+0098 
+0099 TimeCount=<a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="">mesuTime</a>;
+0100 
+0101 <span class="comment">%type of doe</span>
+0102 doe.type=type;
+0103 <span class="comment">%number of design variables</span>
+0104 doe.dimPB=dim;
+0105 <span class="comment">%number of sample points</span>
+0106 doe.ns=[];
 0107 
-0108 <span class="comment">%display sampling</span>
-0109 doe.disp=true;
-0110 
-0111 <span class="comment">%manual definition</span>
-0112 <span class="keyword">if</span> ~isempty(espM)
-0113     doe.Xmin=espM(:,1);
-0114     doe.Xmax=espM(:,2);
-0115 <span class="keyword">end</span>
-0116 <span class="keyword">if</span> ~isempty(espM)
-0117     doe.Xmin=espM(:,1);
-0118     doe.Xmax=espM(:,2);
+0108 doe.funT=[];
+0109 doe.infos=[];
+0110 <span class="keyword">if</span> ~isempty(funT)
+0111     <span class="comment">%save the name of the test function</span>
+0112     doe.funT=[<span class="string">'fun'</span> funT];
+0113     
+0114     <span class="comment">%if the test function exists (in a .m file)</span>
+0115     <span class="keyword">if</span> exist(doe.funT,<span class="string">'file'</span>)==2
+0116         <span class="comment">%recover informations about the function (local and global minima)</span>
+0117         [~,~,doe.infos]=feval(doe.funT,[],dim);
+0118     <span class="keyword">end</span>
 0119 <span class="keyword">end</span>
-0120 <span class="comment">%otherwise empty</span>
-0121 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
-0122     doe.Xmin=[];
-0123     doe.Xmax=[];
-0124 <span class="keyword">end</span>
-0125 
-0126 <span class="comment">%kind of sampling</span>
-0127 doe.type=<span class="string">'LHS'</span>;
+0120 
+0121 <span class="comment">%%sorting of the sampling</span>
+0122 <span class="comment">%criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)</span>
+0123 <span class="comment">%(variable/normal_pt_to_pt/point/center/sampling_center/start_center/sampling_start_center)</span>
+0124 doe.sort.on=true;
+0125 doe.sort.type=<span class="string">'sac'</span>;
+0126 doe.sort.para=1;
+0127 doe.sort.ptref=[];
 0128 
-0129 <span class="comment">%show information</span>
-0130 <span class="keyword">if</span> ~isempty(funT)
-0131     fprintf(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
-0132 <span class="keyword">else</span>
-0133     <span class="keyword">if</span> ~isempty(dim)
-0134         fprintf(<span class="string">'++ Number of variables: %i\n'</span>,dim)
-0135     <span class="keyword">end</span>
+0129 <span class="comment">%display sampling</span>
+0130 doe.disp=true;
+0131 
+0132 <span class="comment">%manual definition</span>
+0133 <span class="keyword">if</span> ~isempty(espM)
+0134     doe.Xmin=espM(:,1);
+0135     doe.Xmax=espM(:,2);
 0136 <span class="keyword">end</span>
-0137 fprintf(<span class="string">'++ Design space: '</span>);
-0138 <span class="keyword">if</span> isempty(doe.Xmin)
-0139     fprintf(<span class="string">'UNDEFINED\n'</span>)
-0140 <span class="keyword">else</span>
-0141     fprintf(<span class="string">'   Min  |'</span>);
-0142     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
-0143     fprintf(<span class="string">'   Max  |'</span>);
-0144     fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
+0137 <span class="keyword">if</span> ~isempty(espM)
+0138     doe.Xmin=espM(:,1);
+0139     doe.Xmax=espM(:,2);
+0140 <span class="keyword">end</span>
+0141 <span class="comment">%otherwise empty</span>
+0142 <span class="keyword">if</span> ~isfield(doe,<span class="string">'Xmin'</span>)
+0143     doe.Xmin=[];
+0144     doe.Xmax=[];
 0145 <span class="keyword">end</span>
-0146 fprintf(<span class="string">'++ Sorting of the sampling du tirages: '</span>);
-0147 <span class="keyword">if</span> ~doe.sort.on
-0148     fprintf(<span class="string">'NO\n'</span>);
-0149 <span class="keyword">else</span>
-0150     fprintf(<span class="string">'YES\n'</span>);
-0151     fprintf(<span class="string">'Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
-0152 <span class="keyword">end</span>
-0153 fprintf(<span class="string">'++ Display sampling: '</span>);
-0154 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
-0155 
-0156 <a href="../../../MultiDOE/src/various/mesuTime.html" class="code" title="function [tictoc_compt,tInit]=mesuTime(compteur,tps_init)">mesuTime</a>(tMesu,tInit);
-0157 fprintf(<span class="string">'=========================================\n'</span>)</pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0146 
+0147 <span class="comment">%show information</span>
+0148 <span class="keyword">if</span> stateAutonomous
+0149     <span class="keyword">if</span> ~isempty(funT)
+0150         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Test function: %s (%iD)\n'</span>,funT,dim);
+0151     <span class="keyword">else</span>
+0152         <span class="keyword">if</span> ~isempty(dim)
+0153             <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Number of variables: %i\n'</span>,dim);
+0154         <span class="keyword">end</span>
+0155     <span class="keyword">end</span>
+0156     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Type of DOE: '</span>);
+0157     <span class="keyword">if</span> isempty(doe.type);fprintf(<span class="string">'UNDEFINED\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'%s\n'</span>,doe.type);<span class="keyword">end</span>
+0158     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Design space: \n'</span>);
+0159     <span class="keyword">if</span> isempty(doe.Xmin)
+0160         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'UNDEFINED\n'</span>);
+0161     <span class="keyword">else</span>
+0162         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'   Min  |'</span>);
+0163         fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmin);fprintf(<span class="string">'\n'</span>);
+0164         <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'   Max  |'</span>);
+0165         fprintf(<span class="string">'%+4.2f|'</span>,doe.Xmax);fprintf(<span class="string">'\n'</span>);
+0166     <span class="keyword">end</span>
+0167 <span class="keyword">end</span>
+0168 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Sorting of the sampling: '</span>);
+0169 <span class="keyword">if</span> ~doe.sort.on
+0170     fprintf(<span class="string">'NO\n'</span>);
+0171 <span class="keyword">else</span>
+0172     fprintf(<span class="string">'YES\n'</span>);
+0173     <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Used methods for sorting: %s (%g)\n'</span>,doe.sort.type,doe.sort.para);
+0174 <span class="keyword">end</span>
+0175 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Display sampling: '</span>);
+0176 <span class="keyword">if</span> doe.disp; fprintf(<span class="string">'Yes\n'</span>);<span class="keyword">else</span> fprintf(<span class="string">'NO\n'</span>);<span class="keyword">end</span>
+0177 
+0178 <span class="keyword">if</span> stateAutonomous;TimeCount.stop;<span class="keyword">end</span>
+0179 <a href="../../../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=========================================\n'</span>);
+0180 
+0181 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

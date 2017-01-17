@@ -63,7 +63,6 @@ function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)
 Mfprintf('=========================================\n');
 Mfprintf('      >>> DOE INITIALIZATION <<<\n');
 
-
 %depending on the number of parameters
 if nargin==0
     type='LHS';
@@ -174,11 +173,20 @@ if ~doe.sort.on
     fprintf('NO\n');
 else
     fprintf('YES\n');
+<<<<<<< HEAD
     Mfprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
+=======
+    Mfprintf('Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
+>>>>>>> 60ee943512c49da3157c51e4179ed17959fcfd74
 end
 Mfprintf('++ Display sampling: ');
 if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
 
 if stateAutonomous;TimeCount.stop;end
 Mfprintf('=========================================\n');
+<<<<<<< HEAD
 end
+=======
+
+end
+>>>>>>> 60ee943512c49da3157c51e4179ed17959fcfd74

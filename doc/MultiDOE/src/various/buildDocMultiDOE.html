@@ -2,8 +2,8 @@
                 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
 <head>
-  <title>Description of calcDist</title>
-  <meta name="keywords" content="calcDist">
+  <title>Description of buildDocMultiDOE</title>
+  <meta name="keywords" content="buildDocMultiDOE">
   <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
@@ -15,15 +15,15 @@
 </head>
 <body>
 <a name="_top"></a>
-<!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html crit -->
-<h1>calcDist
+<!-- ../../menu.html MultiDOE --><!-- # src --><!-- menu.html various -->
+<h1>buildDocMultiDOE
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q) </strong></div>
+<div class="box"><strong>This is a script file. </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
@@ -46,10 +46,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>	% multiDOE class for manipulating sampling</li><li><a href="../../../MultiDOE/src/libs/allcomb.html" class="code" title="function A = allcomb(varargin)">allcomb</a>	ALLCOMB - All combinations</li><li><a href="../../../MultiDOE/src/libs/allcomb.html" class="code" title="function A = allcomb(varargin)">allcomb</a>	ALLCOMB - All combinations</li></ul>
+<li><a href="../../../MultiDOE/initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="listFilesToolboxMultiDOE.html" class="code" title="function listF=listFilesToolbox(dirT)">listFilesToolboxMultiDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+</ul>
 <!-- crossreference -->
 
 
@@ -72,58 +72,43 @@ This function is called by:
 0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
 0016 <span class="comment">%</span>
 0017 
-0018 <span class="comment">%% function for computing inter-sample distances</span>
-0019 <span class="comment">%% L. LAURENT -- 03/04/2013 -- luc.laurent@lecnam.net</span>
+0018 <span class="comment">%% Build documentation (using m2html library)</span>
+0019 <span class="comment">% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</span>
 0020 
-0021 <a name="_sub0" href="#_subfunctions" class="code">function [distMat,distVect,uniqDist,multiDOE] = calcDist(sampling,q)</a>
-0022 
-0023 <span class="comment">%if q is not specified, the euclidian distance will be used</span>
-0024 <span class="keyword">if</span> nargin==1
-0025     q=2;
-0026 <span class="keyword">end</span>
-0027 
-0028 <span class="comment">%number of variables</span>
-0029 ns=size(sampling,1);
-0030 
-0031 <span class="comment">%generate combinations</span>
-0032 <span class="comment">%comb=fullfact([ns ns]);</span>
-0033 comb=<a href="../../../MultiDOE/src/libs/allcomb.html" class="code" title="function A = allcomb(varargin)">allcomb</a>(1:ns,1:ns); <span class="comment">% replace fullfact if not available</span>
-0034 comb1=comb(:,2);comb2=comb(:,1); <span class="comment">% switch 1 and 2 in the case of fullfact</span>
-0035 diffC=comb1-comb2;
-0036 iX=diffC~=0;
-0037 iXX=diffC&lt;0;
+0021 <span class="comment">%load paths</span>
+0022 dirPath=<a href="../../../MultiDOE/initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
+0023 
+0024 <span class="comment">%% Build documentation</span>
+0025 
+0026 <span class="comment">%add configurtation to bash (for finding 'dot' script of graphviz)</span>
+0027 setenv(<span class="string">'BASH_ENV'</span>,<span class="string">'~/.bash_profile'</span>);
+0028 
+0029 <span class="comment">%directory to be analysed</span>
+0030 analyseDir=<span class="string">'MultiDOE'</span>;
+0031 <span class="comment">%ignoring directory</span>
+0032 <span class="comment">%ignDir={'};</span>
+0033 
+0034 <span class="comment">%list of files</span>
+0035 listFiles=<a href="listFilesToolboxMultiDOE.html" class="code" title="function listF=listFilesToolbox(dirT)">listFilesToolboxMultiDOE</a>(dirPath);
+0036 <span class="comment">%add path to all files</span>
+0037 listFiles=cellfun(@(x) sprintf(<span class="string">'%s/%s'</span>,analyseDir,x),listFiles,<span class="string">'UniformOutput'</span>,false);
 0038 
-0039 iX=iX&amp;iXX;
-0040 
-0041 comb1=comb1(iX);
-0042 comb2=comb2(iX);
-0043 <span class="comment">%[comb1 comb2]</span>
-0044 <span class="comment">%compute inter-sample points distances</span>
-0045 pti=sampling(comb1,:);
-0046 ptj=sampling(comb2,:);
-0047 distVect=sum(abs(ptj-pti).^q,2).^(1/q);
-0048 <span class="comment">%store in a matrix</span>
-0049 distMat=zeros(ns);
-0050 IX=sub2ind([ns ns],comb1,comb2);
-0051 distMat(IX)=distVect;
-0052 distMat=distMat+distMat';
-0053 
-0054 <span class="keyword">if</span> nargout&gt;1
-0055     <span class="comment">%concatenate distance</span>
-0056     dist_cat=distVect(:);    
-0057     <span class="keyword">if</span> nargout&gt;2
-0058         <span class="comment">%remove duplicates</span>
-0059         uniqDist=unique(dist_cat);
-0060         <span class="keyword">if</span> nargout&gt;3
-0061             <span class="comment">%build table of the multiplicity of the distances</span>
-0062             <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>=zeros(size(uniqDist));
-0063             <span class="keyword">for</span> ii=1:length(uniqDist)
-0064                 <a href="../../../MultiDOE/multiDOE.html" class="code" title="">multiDOE</a>(ii)=sum(ismember(dist_cat,uniqDist(ii)));
-0065             <span class="keyword">end</span>
-0066         <span class="keyword">end</span>
-0067     <span class="keyword">end</span>
-0068 <span class="keyword">end</span>
-0069</pre></div>
+0039 cd ..
+0040 warning(<span class="string">'off'</span>)
+0041 <span class="comment">%execute generation of the doc (Graphviz is optional)</span>
+0042 m2html(<span class="string">'mfiles'</span>,listFiles,<span class="keyword">...</span>
+0043     <span class="string">'htmldir'</span>,[analyseDir <span class="string">'/doc'</span>],<span class="keyword">...</span>
+0044     <span class="string">'recursive'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+0045     <span class="string">'global'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+0046     <span class="string">'globalHypertextLinks'</span>,<span class="string">'on'</span>,<span class="keyword">...</span>
+0047     <span class="string">'index'</span>,<span class="string">'menu'</span>,<span class="keyword">...</span>
+0048     <span class="string">'template'</span>,<span class="string">'frame'</span>,<span class="keyword">...</span>
+0049     <span class="string">'index'</span>,<span class="string">'menu'</span>,<span class="keyword">...</span>
+0050     <span class="string">'download'</span>,<span class="string">'off'</span>,<span class="keyword">...</span>
+0051     <span class="string">'graph'</span>,<span class="string">'on'</span>)
+0052 warning(<span class="string">'on'</span>)
+0053 cd(analyseDir)
+0054 <span class="comment">%%%%%%</span></pre></div>
 <hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

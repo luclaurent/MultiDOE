@@ -4,7 +4,7 @@
 <head>
   <title>Description of ihsR</title>
   <meta name="keywords" content="ihsR">
-  <meta name="description" content="MultiDOE - Toolbox for sampling a bounded space">
+  <meta name="description" content="% Build DOE using R (IHS with)">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta name="generator" content="m2html &copy; 2005 Guillaume Flandin">
   <meta name="robots" content="index, follow">
@@ -20,36 +20,25 @@
 </h1>
 
 <h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="box"><strong>MultiDOE - Toolbox for sampling a bounded space</strong></div>
+<div class="box"><strong>% Build DOE using R (IHS with)</strong></div>
 
 <h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="box"><strong>function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling) </strong></div>
 
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
-     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
- 
-     This program is free software: you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation, either version 3 of the License, or
-     (at your option) any later version.
- 
-     This program is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     GNU General Public License for more details.
- 
-     You should have received a copy of the GNU General Public License
-     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
+<div class="fragment"><pre class="comment">% Build DOE using R (IHS with)
+ IHS: Improved Hypercube Sampling
+ Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.
+ L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</pre></div>
 
 <!-- crossreference -->
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="../../../MultiDOE/src/various/checkR.html" class="code" title="function [rOk,TBXOk]=checkR()">checkR</a>	% Check R software</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/checkLhsuR.html" class="code" title="">checkLhsuR</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li><li><a href="../../../MultiDOE/src/various/checkLhsuR.html" class="code" title="">checkLhsuR</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -57,27 +46,27 @@ This function is called by:
 <li><a href="#_sub1" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a></li><li><a href="#_sub2" class="code">function samplingRN=renormSampling(sampling,Xmin,Xmax)</a></li></ul>
 
 <h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
-<div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
-0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
-0003 <span class="comment">%</span>
-0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0007 <span class="comment">%     (at your option) any later version.</span>
+<div class="fragment"><pre>0001 <span class="comment">%% Build DOE using R (IHS with)</span>
+0002 <span class="comment">% IHS: Improved Hypercube Sampling</span>
+0003 <span class="comment">% Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.</span>
+0004 <span class="comment">% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</span>
+0005 
+0006 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
+0007 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0008 <span class="comment">%</span>
-0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0012 <span class="comment">%     GNU General Public License for more details.</span>
+0009 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0010 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0011 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0012 <span class="comment">%     (at your option) any later version.</span>
 0013 <span class="comment">%</span>
-0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0016 <span class="comment">%</span>
-0017 
-0018 <span class="comment">%% Build DOE using R (IHS with)</span>
-0019 <span class="comment">% IHS: Improved Hypercube Sampling</span>
-0020 <span class="comment">% Ref: Beachkofski, B., Grandhi, R. (2002) Improved Distributed Hypercube Sampling American Institute of Aeronautics and Astronautics Paper 1274.</span>
-0021 <span class="comment">% L. LAURENT -- 14/01/2012 -- luc.laurent@lecnam.net</span>
+0014 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0015 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0016 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0017 <span class="comment">%     GNU General Public License for more details.</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0020 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0021 <span class="comment">%</span>
 0022 
 0023 
 0024 <a name="_sub0" href="#_subfunctions" class="code">function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)</a>
@@ -111,7 +100,7 @@ This function is called by:
 0052 <span class="keyword">if</span> nargin==4
 0053     nsOld=size(oldSampling,1);
 0054 <span class="keyword">else</span>
-0055     nsOld=1;
+0055     nsOld=0;
 0056 <span class="keyword">end</span>
 0057 
 0058 <span class="comment">% load dimensions (number of variables and sample points)</span>
@@ -121,7 +110,7 @@ This function is called by:
 0062 <span class="comment">%full name of the R data file</span>
 0063 nameDataR=[nameDataR num2str(np) <span class="string">'_'</span> num2str(ns+nsOld) extDataR];
 0064 <span class="comment">%full name of the R mat file</span>
-0065 nomDataM=[nomDataM num2str(np) <span class="string">'_'</span> num2str(ns+nsOld) extDataM];
+0065 nameDataM=[nomDataM num2str(np) <span class="string">'_'</span> num2str(ns+nsOld) extDataM];
 0066 <span class="comment">%load LHS library</span>
 0067 loadLHS=<span class="string">'library(lhs)\n'</span>;
 0068 <span class="comment">%load R.matlab library</span>
@@ -157,7 +146,7 @@ This function is called by:
 0098     <span class="comment">%write .mat file of the old sampling</span>
 0099     save([folderStore <span class="string">'/'</span> nameDataM],varname(OldSamplingN));
 0100     <span class="comment">%reload old sampling</span>
-0101     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,varname(OldSamplingN));
+0101     textReLoad=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,varname(OldSamplingN));
 0102     <span class="comment">%write enrichment procedure</span>
 0103     textInfill=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
 0104     <span class="comment">%create and open script file</span>
@@ -175,31 +164,29 @@ This function is called by:
 0116 
 0117 <span class="comment">%%execute R script (R must be installed)</span>
 0118 <span class="comment">%check if available</span>
-0119 [e,~]=unix(<span class="string">'which R'</span>);
-0120 <span class="keyword">if</span> e~=0
-0121     error(<span class="string">'R is not installed (not in the PATH)'</span>);
-0122 <span class="keyword">else</span>
-0123     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0124     pause(timePause)
-0125 <span class="keyword">end</span>
-0126 <span class="comment">%read data file</span>
-0127 A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0128 <span class="comment">%obtained sampling</span>
-0129 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=renormSampling(sampling,Xmin,Xmax)">renormSampling</a>(A,Xmin,Xmax);
-0130 <span class="comment">%new sampling</span>
-0131 newSampling=sampling(nsOld:<span class="keyword">end</span>,:);
-0132 <span class="keyword">end</span>
-0133 
-0134 <span class="comment">%function for normalization and renormalization of the sampling</span>
-0135 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
-0136 nbs=size(sampling,1);
-0137 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
-0138 <span class="keyword">end</span>
-0139 
-0140 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=renormSampling(sampling,Xmin,Xmax)</a>
-0141 nbs=size(sampling,1);
-0142 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
-0143 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0119 [rOk,TBXOk]=<a href="../../../MultiDOE/src/various/checkR.html" class="code" title="function [rOk,TBXOk]=checkR()">checkR</a>;
+0120 <span class="keyword">if</span> rOk&amp;&amp;TBXOk
+0121     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0122     pause(timePause)
+0123 <span class="keyword">end</span>
+0124 <span class="comment">%read data file</span>
+0125 A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0126 <span class="comment">%obtained sampling</span>
+0127 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=renormSampling(sampling,Xmin,Xmax)">renormSampling</a>(A,Xmin,Xmax);
+0128 <span class="comment">%new sampling</span>
+0129 newSampling=sampling(nsOld+1:<span class="keyword">end</span>,:);
+0130 <span class="keyword">end</span>
+0131 
+0132 <span class="comment">%function for normalization and renormalization of the sampling</span>
+0133 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
+0134 nbs=size(sampling,1);
+0135 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
+0136 <span class="keyword">end</span>
+0137 
+0138 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=renormSampling(sampling,Xmin,Xmax)</a>
+0139 nbs=size(sampling,1);
+0140 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+0141 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

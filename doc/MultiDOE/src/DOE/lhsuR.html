@@ -28,17 +28,17 @@
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
      Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
- 
+
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
- 
+
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
- 
+
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
@@ -46,10 +46,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="../../../MultiDOE/src/various/checkR.html" class="code" title="function [rOk,TBXOk]=checkR()">checkR</a>	% Check R software</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li></ul>
 <!-- crossreference -->
 
 <h2><a name="_subfunctions"></a>SUBFUNCTIONS <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
@@ -110,7 +110,7 @@ This function is called by:
 0051 <span class="keyword">if</span> nargin==4
 0052     nb_old=size(oldSampling,1);
 0053 <span class="keyword">else</span>
-0054     nb_old=1;
+0054     nb_old=0;
 0055 <span class="keyword">end</span>
 0056 
 0057 <span class="comment">% load dimensions (number of variables and sample points)</span>
@@ -155,54 +155,52 @@ This function is called by:
 0096     <span class="comment">%write .mat file of the old sampling</span>
 0097     save([folderStore <span class="string">'/'</span> nameDataM],<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
 0098     <span class="comment">%reload old sampling</span>
-0099     text_charg=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
+0099     textReload=sprintf(<span class="string">'a&lt;-readMat(''%s'')\n a&lt;-a$%s\n'</span>,nameDataM,<a href="#_sub3" class="code" title="subfunction out = varname(var)">varname</a>(OldSamplingN));
 0100     <span class="comment">%write enrichment procedure</span>
-0101     text_enrich=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
+0101     textInfill=sprintf(<span class="string">'a&lt;-augmentLHS(a,%i)\n'</span>,ns);
 0102     <span class="comment">%create and open script file</span>
 0103     fid=fopen([folderStore <span class="string">'/'</span> nameScript],<span class="string">'w'</span>,<span class="string">'n'</span>,<span class="string">'UTF-8'</span>);
 0104     <span class="comment">%write loading of libraries</span>
 0105     fprintf(fid,loadLHS);
 0106     fprintf(fid,loadRmat);
 0107     <span class="comment">%write procedure for loading old sampling</span>
-0108     fprintf(fid,text_charg);
+0108     fprintf(fid,textReload);
 0109     <span class="comment">%write enrichment</span>
-0110     fprintf(fid,text_enrich);
+0110     fprintf(fid,textInfill);
 0111     <span class="comment">%write storage procedure</span>
 0112     fprintf(fid,storeSampling);
 0113 <span class="keyword">end</span>
 0114 
 0115 <span class="comment">%%execute R script (R must be installed)</span>
 0116 <span class="comment">%check if available</span>
-0117 [e,~]=unix(<span class="string">'which R'</span>);
-0118 <span class="keyword">if</span> e~=0
-0119     error(<span class="string">'R non installe (absent du PATH)'</span>);
-0120 <span class="keyword">else</span>
-0121     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0122     pause(timePause)
-0123 <span class="keyword">end</span>
-0124 <span class="comment">%read data file</span>
-0125 A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0126 <span class="comment">%tirage obtenu</span>
-0127 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=denorm_tir(sampling,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
-0128 <span class="comment">%new sampling</span>
-0129 newSampling=sampling(nb_old:<span class="keyword">end</span>,:);
-0130 <span class="keyword">end</span>
-0131 
-0132 <span class="comment">%function for normalization and renormalization of the sampling</span>
-0133 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
-0134 nbs=size(sampling,1);
-0135 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
-0136 <span class="keyword">end</span>
-0137 
-0138 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a>
-0139 nbs=size(sampling,1);
-0140 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
-0141 <span class="keyword">end</span>
-0142 
-0143 <span class="comment">%name of the variable to a string</span>
-0144 <a name="_sub3" href="#_subfunctions" class="code">function out = varname(var)</a>
-0145 out = inputname(1);
-0146 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0117 [rOk,TBXOk]=<a href="../../../MultiDOE/src/various/checkR.html" class="code" title="function [rOk,TBXOk]=checkR()">checkR</a>;
+0118 <span class="keyword">if</span> rOk&amp;&amp;TBXOk
+0119     [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0120     pause(timePause)
+0121 <span class="keyword">end</span>
+0122 <span class="comment">%read data file</span>
+0123 A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0124 <span class="comment">%tirage obtenu</span>
+0125 sampling=<a href="#_sub2" class="code" title="subfunction samplingRN=denorm_tir(sampling,Xmin,Xmax)">denorm_tir</a>(A,Xmin,Xmax);
+0126 <span class="comment">%new sampling</span>
+0127 newSampling=sampling(nb_old+1:<span class="keyword">end</span>,:);
+0128 <span class="keyword">end</span>
+0129 
+0130 <span class="comment">%function for normalization and renormalization of the sampling</span>
+0131 <a name="_sub1" href="#_subfunctions" class="code">function samplingN=normSampling(sampling,Xmin,Xmax)</a>
+0132 nbs=size(sampling,1);
+0133 samplingN=(sampling-repmat(Xmin(:)',nbs,1))./repmat(Xmax(:)'-Xmin(:)',nbs,1);
+0134 <span class="keyword">end</span>
+0135 
+0136 <a name="_sub2" href="#_subfunctions" class="code">function samplingRN=denorm_tir(sampling,Xmin,Xmax)</a>
+0137 nbs=size(sampling,1);
+0138 samplingRN=sampling.*repmat(Xmax(:)'-Xmin(:)',nbs,1)+repmat(Xmin(:)',nbs,1);
+0139 <span class="keyword">end</span>
+0140 
+0141 <span class="comment">%name of the variable to a string</span>
+0142 <a name="_sub3" href="#_subfunctions" class="code">function out = varname(var)</a>
+0143 out = inputname(1);
+0144 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

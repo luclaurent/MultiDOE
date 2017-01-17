@@ -28,17 +28,17 @@
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
      Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
- 
+
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
      the Free Software Foundation, either version 3 of the License, or
      (at your option) any later version.
- 
+
      This program is distributed in the hope that it will be useful,
      but WITHOUT ANY WARRANTY; without even the implied warranty of
      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
      GNU General Public License for more details.
- 
+
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</pre></div>
 
@@ -46,10 +46,10 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-</ul>
+<li><a href="../../../MultiDOE/src/various/checkR.html" class="code" title="function [rOk,TBXOk]=checkR()">checkR</a>	% Check R software</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../../../matlabicon.gif)">
-<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="../../../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li></ul>
 <!-- crossreference -->
 
 
@@ -153,32 +153,30 @@ This function is called by:
 0096     fclose(fid);
 0097     <span class="comment">%%execute R (R must be installed)</span>
 0098     <span class="comment">%check if available</span>
-0099     [e,~]=unix(<span class="string">'which R'</span>);
-0100     <span class="keyword">if</span> e~=0
-0101         error(<span class="string">'R non installe (absent du PATH)'</span>);
-0102     <span class="keyword">else</span>
-0103         [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
-0104         pause(timePause)
-0105     <span class="keyword">end</span>
-0106     <span class="comment">%read data file</span>
-0107     A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0108     <span class="comment">%obtained sampling</span>
-0109     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
-0110     newSampling=[];
-0111     
-0112     <span class="comment">%enrichment procedure</span>
-0113 <span class="keyword">elseif</span> nargin==5
-0114     <span class="comment">%number of sample points in the initial sampling</span>
-0115     nsOld=size(oldSampling,1);
-0116     <span class="comment">%read data file</span>
-0117     A=load([folderStore <span class="string">'/'</span> nameDataR]);
-0118     <span class="comment">%new sampling</span>
-0119     ind=nsOld+1:nsOld+nbInfill;
-0120     newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
-0121     <span class="comment">%all sample points</span>
-0122     sampling=[oldSampling;newSampling];
-0123 <span class="keyword">end</span>
-0124 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0099     [rOk,TBXOk]=<a href="../../../MultiDOE/src/various/checkR.html" class="code" title="function [rOk,TBXOk]=checkR()">checkR</a>;
+0100     <span class="keyword">if</span> rOk&amp;&amp;TBXOk
+0101         [~,~]=unix([<span class="string">'cd '</span> folderStore <span class="string">' &amp;&amp; R -f '</span> nameScript]);
+0102         pause(timePause)
+0103     <span class="keyword">end</span>
+0104     <span class="comment">%read data file</span>
+0105     A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0106     <span class="comment">%obtained sampling</span>
+0107     sampling=A(1:ns,:).*repmat(Xmax(:)'-Xmin(:)',ns,1)+repmat(Xmin(:)',ns,1);
+0108     newSampling=[];
+0109     
+0110     <span class="comment">%enrichment procedure</span>
+0111 <span class="keyword">elseif</span> nargin==5
+0112     <span class="comment">%number of sample points in the initial sampling</span>
+0113     nsOld=size(oldSampling,1);
+0114     <span class="comment">%read data file</span>
+0115     A=load([folderStore <span class="string">'/'</span> nameDataR]);
+0116     <span class="comment">%new sampling</span>
+0117     ind=nsOld+1:nsOld+nbInfill;
+0118     newSampling=A(ind,:).*repmat(Xmax(:)'-Xmin(:)',nbInfill,1)+repmat(Xmin(:)',nbInfill,1);
+0119     <span class="comment">%all sample points</span>
+0120     sampling=[oldSampling;newSampling];
+0121 <span class="keyword">end</span>
+0122 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

@@ -46,7 +46,7 @@
 <h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
 This function calls:
 <ul style="list-style-image:url(../matlabicon.gif)">
-<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li></ul>
+<li><a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>	MultiDOE - Toolbox for sampling a bounded space</li><li><a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>	% Building sampling</li></ul>
 This function is called by:
 <ul style="list-style-image:url(../matlabicon.gif)">
 </ul>
@@ -80,7 +80,7 @@ This function is called by:
 0023 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0024 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0025 <span class="comment">%load configuration</span>
-0026 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,espM,funT)">initDOE</a>(3);
+0026 doe=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(3);
 0027 <span class="comment">%</span>
 0028 doe.Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
 0029 doe.Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
@@ -106,14 +106,14 @@ This function is called by:
 0049 <span class="comment">% - rand</span>
 0050 <span class="comment">% - perso</span>
 0051 
-0052 doe.type=<span class="string">'IHS'</span>;
-0053 doe.ns=30;
+0052 doe.type=<span class="string">'IHS_R_manu'</span>;
+0053 doe.ns=32;
 0054 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0055 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0056 <span class="comment">%build DOE</span>
-0057 [sampling,infos]=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [out,infoSampling]=buildDOE(doe)">buildDOE</a>(doe);
+0057 [sampling,infos]=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>(doe);
 0058 sampling.sorted
 0059 sampling.unsorted</pre></div>
-<hr><address>Generated on Mon 30-May-2016 21:43:48 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
