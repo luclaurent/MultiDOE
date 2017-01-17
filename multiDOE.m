@@ -138,16 +138,15 @@ classdef multiDOE < handle
             else
                 retInit=initDOE(dimPBOk,[],spaceD,[],false);
             end
+            obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
             %specific configuration
             obj.dimPB=retInit.dimPB;
             if nargin>1;if ~isempty(typeIn);obj.type=typeIn;end,end
             if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end             
-            if nargin>4;
+            if nargin>4
                 if ~isempty(XminIn)&&~isempty(XmaxIn)
                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
                 end
-            else
-                obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
             end
             %specified the test function
             if ~isempty(retInit.funT);obj.funTest=retInit.funT;end

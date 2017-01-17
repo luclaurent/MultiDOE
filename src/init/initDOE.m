@@ -89,12 +89,10 @@ elseif nargin==3
 elseif nargin==4
     if isempty(type);type='LHS';end
     if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
-    if isempty(funT);type=[];end
      stateAutonomous=true;
 elseif nargin==5
     if isempty(type);type='LHS';end
-    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
-    if isempty(funT);funT=[];end   
+    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end  
 end
 
 %automatic definition
@@ -119,7 +117,7 @@ if ~isempty(funT)
     
     %if the test function exists (in a .m file)
     if exist(doe.funT,'file')==2
-        %recover informations about the function (local abnd global minima)
+        %recover informations about the function (local and global minima)
         [~,~,doe.infos]=feval(doe.funT,[],dim);
     end
 end
@@ -150,7 +148,6 @@ if ~isfield(doe,'Xmin')
     doe.Xmin=[];
     doe.Xmax=[];
 end
-
 %show information
 if stateAutonomous
     if ~isempty(funT)
