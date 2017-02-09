@@ -22,7 +22,7 @@
 % To be executed at the root position of the toolbox
 
 
-function listF=listFilesToolbox(dirT)
+function listF=listFilesToolboxMultiDOE(dirT)
 listF={};
 %process all directories in the directory 'dirT'
 for ii=1:numel(dirT)
