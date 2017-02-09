@@ -109,43 +109,52 @@ This function is called by:
 0050 <span class="keyword">end</span>
 0051 <span class="comment">%if no specified directory</span>
 0052 <span class="keyword">if</span> ~specifDir
-0053     pathcustom=pwd;
+0053     pathcustom=strrep(which(mfilename),[mfilename <span class="string">'.m'</span>],<span class="string">''</span>);
 0054 <span class="keyword">end</span>
 0055 
 0056 <span class="comment">%absolute paths</span>
-0057 pathAbsolute=cellfun(@(c)[pathcustom <span class="string">'/'</span> c],foldersLoad,<span class="string">'uni'</span>,false);
+0057 pathAbsolute=cellfun(@(c)fullfile(pathcustom,c),foldersLoad,<span class="string">'uni'</span>,false);
 0058 
 0059 <span class="comment">%add to the PATH</span>
 0060 flA=cellfun(@(x)<a href="#_sub1" class="code" title="subfunction flag=addpathExisted(folder)">addpathExisted</a>(x),pathAbsolute);
 0061 flB=[];
 0062 <span class="keyword">if</span> nargin==2
-0063     <span class="comment">%Load other toolbox</span>
-0064     <span class="keyword">if</span> ~iscell(other);other={other};<span class="keyword">end</span>
-0065     <span class="comment">%absolute paths</span>
-0066     pathAbsolute=cellfun(@(c)[pathcustom <span class="string">'/../'</span> c],other,<span class="string">'uni'</span>,false);
-0067     <span class="comment">%add to the PATH</span>
-0068     cellfun(@(x)<a href="#_sub1" class="code" title="subfunction flag=addpathExisted(folder)">addpathExisted</a>(x),pathAbsolute);
-0069     <span class="comment">%add other toolbox to the PATH</span>
-0070     namFun=cellfun(@(c)[<span class="string">'initDir'</span> c],other,<span class="string">'uni'</span>,false);
-0071     flB=cellfun(@feval,namFun,pathAbsolute);
-0072 <span class="keyword">end</span>
-0073 
-0074 <span class="keyword">if</span> any([flA flB]==2)
-0075     <span class="comment">%display</span>
-0076     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' ## Toolbox: MultiDOE loaded\n'</span>);
-0077 <span class="keyword">end</span>
-0078 <span class="keyword">end</span>
-0079 
-0080 
-0081 <span class="comment">%check if a directory exists or not and add it to the path if not</span>
-0082 <a name="_sub1" href="#_subfunctions" class="code">function flag=addpathExisted(folder)</a>
-0083 flag=1;
-0084 <span class="keyword">if</span> ~exist(folder,<span class="string">'dir'</span>)
-0085     flag=2;
-0086     addpath(folder)
-0087 <span class="keyword">end</span>
-0088 <span class="keyword">end</span>
-0089</pre></div>
-<hr><address>Generated on Tue 17-Jan-2017 22:42:52 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0063     <span class="keyword">if</span> ~isempty(other)
+0064         <span class="comment">%Load other toolbox</span>
+0065         <span class="keyword">if</span> ~iscell(other);other={other};<span class="keyword">end</span>
+0066         <span class="comment">%absolute paths</span>
+0067         pathAbsolute=cellfun(@(c)fullfile(pathcustom,<span class="string">'/../'</span>,c),other,<span class="string">'uni'</span>,false);
+0068         <span class="comment">%add to the PATH</span>
+0069         cellfun(@(x)<a href="#_sub1" class="code" title="subfunction flag=addpathExisted(folder)">addpathExisted</a>(x),pathAbsolute);
+0070         <span class="comment">%add other toolbox to the PATH</span>
+0071         namFun=cellfun(@(c)[<span class="string">'initDir'</span> c],other,<span class="string">'uni'</span>,false);
+0072         flB=cellfun(@feval,namFun,pathAbsolute);
+0073     <span class="keyword">end</span>
+0074 <span class="keyword">end</span>
+0075 
+0076 <span class="keyword">if</span> any([flA flB]==2)
+0077     <span class="comment">%display</span>
+0078     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">' ## Toolbox: MultiDOE loaded\n'</span>);
+0079 <span class="keyword">end</span>
+0080 <span class="keyword">end</span>
+0081 
+0082 
+0083 <span class="comment">%check if a directory exists in the path or not and add it to the path if not</span>
+0084 <a name="_sub1" href="#_subfunctions" class="code">function flag=addpathExisted(folder)</a>
+0085 flag=1;
+0086 folder=fullfile(folder);
+0087 <span class="keyword">if</span> ispc
+0088   <span class="comment">% Windows is not case-sensitive</span>
+0089   onPath = ~isempty(strfind(lower(path),lower(folder)));
+0090 <span class="keyword">else</span>
+0091   onPath = ~isempty(strfind(path,folder));
+0092 <span class="keyword">end</span>
+0093 <span class="keyword">if</span> exist(folder,<span class="string">'dir'</span>)&amp;&amp;~onPath
+0094     flag=2;
+0095     addpath(folder)
+0096 <span class="keyword">end</span>
+0097 <span class="keyword">end</span>
+0098</pre></div>
+<hr><address>Generated on Thu 09-Feb-2017 16:06:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
