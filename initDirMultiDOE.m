@@ -50,11 +50,11 @@ elseif nargin>1
 end
 %if no specified directory
 if ~specifDir
-    pathcustom=pwd;
+    pathcustom=strrep(which(mfilename),[mfilename '.m'],'');
 end
 
 %absolute paths
-pathAbsolute=cellfun(@(c)[pathcustom '/' c],foldersLoad,'uni',false);
+pathAbsolute=cellfun(@(c)fullfile(pathcustom,c),foldersLoad,'uni',false);
 
 %add to the PATH
 flA=cellfun(@(x)addpathExisted(x),pathAbsolute);
@@ -64,12 +64,12 @@ if nargin==2
         %Load other toolbox
         if ~iscell(other);other={other};end
         %absolute paths
-        pathAbsolute=cellfun(@(c)[pathcustom '/../' c],other,'uni',false);
+        pathAbsolute=cellfun(@(c)fullfile(pathcustom,'/../',c),other,'uni',false);
         %add to the PATH
         cellfun(@(x)addpathExisted(x),pathAbsolute);
         %add other toolbox to the PATH
         namFun=cellfun(@(c)['initDir' c],other,'uni',false);
-        cellfun(@feval,namFun,pathAbsolute)
+        flB=cellfun(@feval,namFun,pathAbsolute);
     end
 end
 
@@ -80,10 +80,17 @@ end
 end
 
 
-%check if a directory exists or not and add it to the path if not
+%check if a directory exists in the path or not and add it to the path if not
 function flag=addpathExisted(folder)
 flag=1;
-if ~exist(folder,'dir')
+folder=fullfile(folder);
+if ispc
+  % Windows is not case-sensitive
+  onPath = ~isempty(strfind(lower(path),lower(folder)));
+else
+  onPath = ~isempty(strfind(path,folder));
+end
+if exist(folder,'dir')&&~onPath
     flag=2;
     addpath(folder)
 end
