@@ -77,7 +77,7 @@ listBothMissTxt=f2(listBothMiss);
 %number of variables
 np=numel(Xmin);
 
-if doe.disp
+if doe.dispOn
     para=0.1;
     if np==1
         figure
