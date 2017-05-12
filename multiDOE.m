@@ -51,8 +51,6 @@ classdef multiDOE < handle
         unsorted=[];
         scoreVal=[];
         funTest=''; %test function used
-    end
-    properties (Access = private)
         runDOE=true; %flag for checking if sampling is obsolete
         okData=false; %flag for checking if sufficient data is available
     end
