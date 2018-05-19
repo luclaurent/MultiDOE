@@ -28,6 +28,18 @@ The MultiDOE toolbox are able to
 * call automatically the R software (on Unix/Linux/OSX systems only)
 * compute scores (minimal distances, discrepancy...), see for instance the [Franco's PhD thesis (2008)](https://tel.archives-ouvertes.fr/tel-00803107/)
 
+Download
+------
+
+The toolbox can be downloaded [here](https://bitbucket.org/luclaurent/multidoe/downloads) or [here](https://github.com/luclaurent/multidoe/releases).
+
+If you use `git`, you can clone the repository using the following command
+
+    git clone --recursive git@bitbucket.org:luclaurent/multidoe.git MultiDOE
+
+or 
+
+    git clone --recursive git@github.com:luclaurent/MultiDOE.git MultiDOE
 
 
 Requirements
