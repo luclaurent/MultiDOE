@@ -1,7 +1,7 @@
-Toolbox MultiDOE
+MultiDOE
 =======
 
-This Matlab toolbox regroups many existing tools for generating sample points using many specific DOE techniques:
+This MATLAB/OCTAVE toolbox regroups many existing tools for generating sample points using many specific DOE techniques:
 
 * Full factorial sampling
 * Latin Hypercube Sampling 
@@ -35,9 +35,9 @@ Requirements
 The toolbox requires:
 
 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software (for the `lhsdesign` command called using `LHSD` keyword, optional)
-* the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (for obtaining LHS or IHS by using `IHS_R` or `LHS_R` commands, optional) 
-* the [lhs](https://cran.r-project.org/web/packages/lhs/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see for instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
-* the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) for building the documentation (optional).
+* the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (for obtaining LHS or IHS by using `IHS_R` or `LHS_R` commands) [optional] 
+* the [lhs](https://cran.r-project.org/web/packages/lhs/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see for instance [How to Install a R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
+* the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) for building the documentation [optional].
 
 [Documentation](https://goo.gl/t0hmjG)
 ------

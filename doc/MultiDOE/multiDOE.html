@@ -116,432 +116,430 @@ This function is called by:
 0051         unsorted=[];
 0052         scoreVal=[];
 0053         funTest=<span class="string">''</span>; <span class="comment">%test function used</span>
-0054     <span class="keyword">end</span>
-0055     properties (Access = private)
-0056         runDOE=true; <span class="comment">%flag for checking if sampling is obsolete</span>
-0057         okData=false; <span class="comment">%flag for checking if sufficient data is available</span>
-0058     <span class="keyword">end</span>
-0059     properties (Constant)
-0060         qnorm=2; <span class="comment">% options for computing the scores of a sampling</span>
-0061         sampleAvail={<span class="string">'ffact'</span>,<span class="string">'LHS_R'</span>,<span class="string">'LHS_R_manu'</span>,<span class="string">'OLHS_R'</span>,<span class="string">'OLHS_R_manu'</span>,<span class="keyword">...</span>
-0062             <span class="string">'MMLHS_R'</span>,<span class="string">'MMLHS_R_manu'</span>,<span class="string">'GLHS_R'</span>,<span class="string">'GLHS_R_manu'</span>,<span class="string">'IHS_R'</span>,<span class="keyword">...</span>
-0063             <span class="string">'IHS_R_manu'</span>,<span class="string">'HALTON'</span>,<span class="string">'HALTON_manu'</span>,<span class="string">'SOBOL'</span>,<span class="string">'SOBOL_manu'</span>,<span class="keyword">...</span>
-0064             <span class="string">'LHSD'</span>,<span class="string">'LHSD_manu'</span>,<span class="string">'LHSD_CORRMIN'</span>,<span class="string">'LHSD_CORRMIN_manu'</span>,<span class="keyword">...</span>
-0065             <span class="string">'LHSD_MAXMIN'</span>,<span class="string">'LHSD_MAXMIN_manu'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_NS_manu'</span>,<span class="keyword">...</span>
-0066             <span class="string">'LHS'</span>,<span class="string">'LHS_manu'</span>,<span class="string">'IHS'</span>,<span class="string">'IHS_manu'</span>,<span class="string">'LHS_O1'</span>,<span class="string">'LHS_O1_manu'</span>,<span class="keyword">...</span>
-0067             <span class="string">'rand'</span>}
-0068         sampleAvailTxt={<span class="string">'Full Factorial Sampling'</span>,<span class="keyword">...</span>
-0069             <span class="string">'Latin Hypercube Sampling using R'</span>,<span class="keyword">...</span>
-0070             <span class="string">'LHS using R and storage on mat file'</span>,<span class="keyword">...</span>
-0071             <span class="string">'Optimal LHS using R'</span>,<span class="keyword">...</span>
-0072             <span class="string">'idem with storage on mat file'</span>,<span class="keyword">...</span>
-0073             <span class="string">'MaxiMin LHS using R'</span>,<span class="keyword">...</span>
-0074             <span class="string">'idem with  and storage on mat file'</span>,<span class="keyword">...</span>
-0075             <span class="string">'Optimal LHS using genetic algorithm (based on R)'</span>,<span class="keyword">...</span>
+0054         runDOE=true; <span class="comment">%flag for checking if sampling is obsolete</span>
+0055         okData=false; <span class="comment">%flag for checking if sufficient data is available</span>
+0056     <span class="keyword">end</span>
+0057     properties (Constant)
+0058         qnorm=2; <span class="comment">% options for computing the scores of a sampling</span>
+0059         sampleAvail={<span class="string">'ffact'</span>,<span class="string">'LHS_R'</span>,<span class="string">'LHS_R_manu'</span>,<span class="string">'OLHS_R'</span>,<span class="string">'OLHS_R_manu'</span>,<span class="keyword">...</span>
+0060             <span class="string">'MMLHS_R'</span>,<span class="string">'MMLHS_R_manu'</span>,<span class="string">'GLHS_R'</span>,<span class="string">'GLHS_R_manu'</span>,<span class="string">'IHS_R'</span>,<span class="keyword">...</span>
+0061             <span class="string">'IHS_R_manu'</span>,<span class="string">'HALTON'</span>,<span class="string">'HALTON_manu'</span>,<span class="string">'SOBOL'</span>,<span class="string">'SOBOL_manu'</span>,<span class="keyword">...</span>
+0062             <span class="string">'LHSD'</span>,<span class="string">'LHSD_manu'</span>,<span class="string">'LHSD_CORRMIN'</span>,<span class="string">'LHSD_CORRMIN_manu'</span>,<span class="keyword">...</span>
+0063             <span class="string">'LHSD_MAXMIN'</span>,<span class="string">'LHSD_MAXMIN_manu'</span>,<span class="string">'LHSD_NS'</span>,<span class="string">'LHSD_NS_manu'</span>,<span class="keyword">...</span>
+0064             <span class="string">'LHS'</span>,<span class="string">'LHS_manu'</span>,<span class="string">'IHS'</span>,<span class="string">'IHS_manu'</span>,<span class="string">'LHS_O1'</span>,<span class="string">'LHS_O1_manu'</span>,<span class="keyword">...</span>
+0065             <span class="string">'rand'</span>}
+0066         sampleAvailTxt={<span class="string">'Full Factorial Sampling'</span>,<span class="keyword">...</span>
+0067             <span class="string">'Latin Hypercube Sampling using R'</span>,<span class="keyword">...</span>
+0068             <span class="string">'LHS using R and storage on mat file'</span>,<span class="keyword">...</span>
+0069             <span class="string">'Optimal LHS using R'</span>,<span class="keyword">...</span>
+0070             <span class="string">'idem with storage on mat file'</span>,<span class="keyword">...</span>
+0071             <span class="string">'MaxiMin LHS using R'</span>,<span class="keyword">...</span>
+0072             <span class="string">'idem with  and storage on mat file'</span>,<span class="keyword">...</span>
+0073             <span class="string">'Optimal LHS using genetic algorithm (based on R)'</span>,<span class="keyword">...</span>
+0074             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
+0075             <span class="string">'Improved Hypercube Sampling based on R'</span>,<span class="keyword">...</span>
 0076             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0077             <span class="string">'Improved Hypercube Sampling based on R'</span>,<span class="keyword">...</span>
+0077             <span class="string">'Sampling using Halton''s sequence'</span>,<span class="keyword">...</span>
 0078             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0079             <span class="string">'Sampling using Halton''s sequence'</span>,<span class="keyword">...</span>
+0079             <span class="string">'Sampling using Sobol''s sequence'</span>,<span class="keyword">...</span>
 0080             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0081             <span class="string">'Sampling using Sobol''s sequence'</span>,<span class="keyword">...</span>
+0081             <span class="string">'LHS using Matlab''s function lhsdesign'</span>,<span class="keyword">...</span>
 0082             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0083             <span class="string">'LHS using Matlab''s function lhsdesign'</span>,<span class="keyword">...</span>
+0083             <span class="string">'LHS using Matlab''s function and minimization of the correlation'</span>,<span class="keyword">...</span>
 0084             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0085             <span class="string">'LHS using Matlab''s function and minimization of the correlation'</span>,<span class="keyword">...</span>
+0085             <span class="string">'LHS using Matlab''s function and minimization of the MaxiMin criterion'</span>,<span class="keyword">...</span>
 0086             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0087             <span class="string">'LHS using Matlab''s function and minimization of the MaxiMin criterion'</span>,<span class="keyword">...</span>
+0087             <span class="string">'LHS using Matlab''s function and Non-Smooth criterion'</span>,<span class="keyword">...</span>
 0088             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0089             <span class="string">'LHS using Matlab''s function and Non-Smooth criterion'</span>,<span class="keyword">...</span>
+0089             <span class="string">'LHS classical function (included in the toolbox)'</span>,<span class="keyword">...</span>
 0090             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0091             <span class="string">'LHS classical function (included in the toolbox)'</span>,<span class="keyword">...</span>
+0091             <span class="string">'Improved Hypercube Sampling'</span>,<span class="keyword">...</span>
 0092             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0093             <span class="string">'Improved Hypercube Sampling'</span>,<span class="keyword">...</span>
+0093             <span class="string">'LHS with minimization of the inter-sample distances'</span>,<span class="keyword">...</span>
 0094             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0095             <span class="string">'LHS with minimization of the inter-sample distances'</span>,<span class="keyword">...</span>
-0096             <span class="string">'idem with and storage on mat file'</span>,<span class="keyword">...</span>
-0097             <span class="string">'Random sampling'</span>};
-0098         sortAvail={<span class="string">'v'</span>,<span class="string">'variable'</span>,<span class="string">'nptp'</span>,<span class="string">'normal_pt_to_pt'</span>,<span class="keyword">...</span>
-0099             <span class="string">'p'</span>,<span class="string">'point'</span>,<span class="string">'c'</span>,<span class="string">'center'</span>,<span class="string">'sac'</span>,<span class="string">'sampling_center'</span>,<span class="keyword">...</span>
-0100             <span class="string">'sc'</span>,<span class="string">'start_center'</span>,<span class="string">'sasc'</span>,<span class="string">'sampling_start_center'</span>};
-0101         sortTxt={<span class="string">'(number) Sort along a specific design variable'</span>,<span class="keyword">...</span>
-0102             <span class="string">'idem'</span>,<span class="keyword">...</span>
-0103             <span class="string">'(number of the point (using para) or define point (ptref))'</span>,<span class="keyword">...</span>
-0104             <span class="string">'Start from a point and look for the closest unsorted one'</span>,<span class="keyword">...</span>
-0105             <span class="string">'(number of the point (using para) or define point (ptref))'</span><span class="keyword">...</span>
-0106             <span class="string">'Sorting by looking to the closest point to the barycenter of the previous points'</span>,<span class="keyword">...</span>
-0107             <span class="string">'Same as ''p'' but starting at the center of the design space'</span>,<span class="keyword">...</span>
+0095             <span class="string">'Random sampling'</span>};
+0096         sortAvail={<span class="string">'v'</span>,<span class="string">'variable'</span>,<span class="string">'nptp'</span>,<span class="string">'normal_pt_to_pt'</span>,<span class="keyword">...</span>
+0097             <span class="string">'p'</span>,<span class="string">'point'</span>,<span class="string">'c'</span>,<span class="string">'center'</span>,<span class="string">'sac'</span>,<span class="string">'sampling_center'</span>,<span class="keyword">...</span>
+0098             <span class="string">'sc'</span>,<span class="string">'start_center'</span>,<span class="string">'sasc'</span>,<span class="string">'sampling_start_center'</span>};
+0099         sortTxt={<span class="string">'(number) Sort along a specific design variable'</span>,<span class="keyword">...</span>
+0100             <span class="string">'idem'</span>,<span class="keyword">...</span>
+0101             <span class="string">'(number of the point (using para) or define point (ptref))'</span>,<span class="keyword">...</span>
+0102             <span class="string">'Start from a point and look for the closest unsorted one'</span>,<span class="keyword">...</span>
+0103             <span class="string">'(number of the point (using para) or define point (ptref))'</span><span class="keyword">...</span>
+0104             <span class="string">'Sorting by looking to the closest point to the barycenter of the previous points'</span>,<span class="keyword">...</span>
+0105             <span class="string">'Same as ''p'' but starting at the center of the design space'</span>,<span class="keyword">...</span>
+0106             <span class="string">'idem'</span>,<span class="keyword">...</span>
+0107             <span class="string">'Same as ''p'' but starting at the center of sampling points'</span>,<span class="keyword">...</span>
 0108             <span class="string">'idem'</span>,<span class="keyword">...</span>
-0109             <span class="string">'Same as ''p'' but starting at the center of sampling points'</span>,<span class="keyword">...</span>
+0109             <span class="string">'Same as ''nptp'' but starting at the center of the design space'</span>,<span class="keyword">...</span>
 0110             <span class="string">'idem'</span>,<span class="keyword">...</span>
-0111             <span class="string">'Same as ''nptp'' but starting at the center of the design space'</span>,<span class="keyword">...</span>
-0112             <span class="string">'idem'</span>,<span class="keyword">...</span>
-0113             <span class="string">'Same as ''nptp'' but starting at the center of sampling points'</span>,<span class="keyword">...</span>
-0114             <span class="string">'idem'</span>};
-0115     <span class="keyword">end</span>
-0116     
-0117     methods
+0111             <span class="string">'Same as ''nptp'' but starting at the center of sampling points'</span>,<span class="keyword">...</span>
+0112             <span class="string">'idem'</span>};
+0113     <span class="keyword">end</span>
+0114     
+0115     methods
+0116         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0117         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0118         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0119         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0120         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0121         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0122         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0123         <span class="comment">%constructor</span>
-0124         <a name="_sub0" href="#_subfunctions" class="code">function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn,funTest)</a>
-0125             <span class="comment">%load directories on the path</span>
-0126             <a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
-0127             <span class="comment">%if the design space if given directly</span>
-0128             spaceD=[];
-0129             <span class="keyword">if</span> size(dimPBIn,2)==2
-0130                 dimPBOk=size(dimPBIn,1);
-0131                 spaceD=dimPBIn;
-0132             <span class="keyword">else</span>
-0133                 dimPBOk=dimPBIn;
-0134             <span class="keyword">end</span>
-0135             <span class="comment">%load default configuration</span>
-0136             <span class="keyword">if</span> nargin&gt;5
-0137                 retInit=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(dimPBOk,[],spaceD,funTest,false);
-0138             <span class="keyword">else</span>
-0139                 retInit=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(dimPBOk,[],spaceD,[],false);
-0140             <span class="keyword">end</span>
-0141             obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
-0142             <span class="comment">%specific configuration</span>
-0143             obj.dimPB=retInit.dimPB;
-0144             <span class="keyword">if</span> nargin&gt;1;<span class="keyword">if</span> ~isempty(typeIn);obj.type=typeIn;<span class="keyword">end</span>,<span class="keyword">end</span>
-0145             <span class="keyword">if</span> nargin&gt;2;<span class="keyword">if</span> ~isempty(nsIn);obj.ns=nsIn;<span class="keyword">end</span>,<span class="keyword">end</span>             
-0146             <span class="keyword">if</span> nargin&gt;4
-0147                 <span class="keyword">if</span> ~isempty(XminIn)&amp;&amp;~isempty(XmaxIn)
-0148                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
-0149                 <span class="keyword">end</span>
-0150             <span class="keyword">end</span>
-0151             <span class="comment">%specified the test function</span>
-0152             <span class="keyword">if</span> ~isempty(retInit.funT);obj.funTest=retInit.funT;<span class="keyword">end</span>
-0153             <span class="comment">%load default configuration</span>
-0154             obj.sortInfo=retInit.sort;
-0155             <span class="comment">%active display</span>
-0156             obj.dispOn=retInit.disp;
-0157             <span class="comment">%build sampling</span>
-0158             obj=<a href="#_sub14" class="code" title="subfunction obj=build(obj)">build</a>(obj);
-0159             <span class="comment">%if all is ok, continue</span>
-0160             <span class="keyword">if</span> obj.okData
-0161                 <span class="comment">%compute scores</span>
-0162                  obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
-0163             <span class="keyword">end</span>
-0164         <span class="keyword">end</span>
+0121         <span class="comment">%constructor</span>
+0122         <a name="_sub0" href="#_subfunctions" class="code">function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn,funTest)</a>
+0123             <span class="comment">%load directories on the path</span>
+0124             <a href="initDirMultiDOE.html" class="code" title="function foldersLoad=initDirMultiDOE(pathcustom,other)">initDirMultiDOE</a>;
+0125             <span class="comment">%if the design space if given directly</span>
+0126             spaceD=[];
+0127             <span class="keyword">if</span> size(dimPBIn,2)==2
+0128                 dimPBOk=size(dimPBIn,1);
+0129                 spaceD=dimPBIn;
+0130             <span class="keyword">else</span>
+0131                 dimPBOk=dimPBIn;
+0132             <span class="keyword">end</span>
+0133             <span class="comment">%load default configuration</span>
+0134             <span class="keyword">if</span> nargin&gt;5
+0135                 retInit=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(dimPBOk,[],spaceD,funTest,false);
+0136             <span class="keyword">else</span>
+0137                 retInit=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(dimPBOk,[],spaceD,[],false);
+0138             <span class="keyword">end</span>
+0139             obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
+0140             <span class="comment">%specific configuration</span>
+0141             obj.dimPB=retInit.dimPB;
+0142             <span class="keyword">if</span> nargin&gt;1;<span class="keyword">if</span> ~isempty(typeIn);obj.type=typeIn;<span class="keyword">end</span>,<span class="keyword">end</span>
+0143             <span class="keyword">if</span> nargin&gt;2;<span class="keyword">if</span> ~isempty(nsIn);obj.ns=nsIn;<span class="keyword">end</span>,<span class="keyword">end</span>             
+0144             <span class="keyword">if</span> nargin&gt;4
+0145                 <span class="keyword">if</span> ~isempty(XminIn)&amp;&amp;~isempty(XmaxIn)
+0146                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
+0147                 <span class="keyword">end</span>
+0148             <span class="keyword">end</span>
+0149             <span class="comment">%specified the test function</span>
+0150             <span class="keyword">if</span> ~isempty(retInit.funT);obj.funTest=retInit.funT;<span class="keyword">end</span>
+0151             <span class="comment">%load default configuration</span>
+0152             obj.sortInfo=retInit.sort;
+0153             <span class="comment">%active display</span>
+0154             obj.dispOn=retInit.disp;
+0155             <span class="comment">%build sampling</span>
+0156             obj=<a href="#_sub14" class="code" title="subfunction obj=build(obj)">build</a>(obj);
+0157             <span class="comment">%if all is ok, continue</span>
+0158             <span class="keyword">if</span> obj.okData
+0159                 <span class="comment">%compute scores</span>
+0160                  obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
+0161             <span class="keyword">end</span>
+0162         <span class="keyword">end</span>
+0163         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0164         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0165         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0166         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0167         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0168         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0169         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0170         <span class="comment">%%%%%%setter</span>
-0171         <span class="comment">%flag for obsolete sampling</span>
-0172         <a name="_sub1" href="#_subfunctions" class="code">function set.runDOE(obj,runIn)</a>
-0173             obj.runDOE=runIn;
-0174         <span class="keyword">end</span>
-0175         <span class="comment">%number of sample points</span>
-0176         <a name="_sub2" href="#_subfunctions" class="code">function set.ns(obj,nsIn)</a>
-0177             <span class="comment">%check the kind of input data</span>
-0178             obj.ns=nsIn(:);
-0179             <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
-0180             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Number of sample points: %i\n'</span>,obj.ns);
-0181         <span class="keyword">end</span>
-0182         <span class="comment">%number of design variables</span>
-0183         <a name="_sub3" href="#_subfunctions" class="code">function set.dimPB(obj,dimIn)</a>
-0184             <span class="comment">%check the kind of input data</span>
-0185             obj.dimPB=dimIn(:);
-0186             <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
-0187             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Number of design variables: %i\n'</span>,obj.dimPB);
-0188         <span class="keyword">end</span>
-0189         <span class="comment">%load lower bound</span>
-0190         <a name="_sub4" href="#_subfunctions" class="code">function set.Xmin(obj,XminIn)</a>
-0191             <span class="comment">%check the kind of input data</span>
-0192             <span class="keyword">if</span> size(XminIn,1)==1||size(XminIn,2)==1
-0193                 obj.Xmin=XminIn(:);
-0194                 <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
-0195             <span class="keyword">else</span>
-0196                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: lower bound must be a vector\n'</span>);
-0197             <span class="keyword">end</span>
-0198             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Lower bound: '</span>);
-0199             fprintf(<span class="string">'%+4.2f|'</span>,obj.Xmin);fprintf(<span class="string">'\n'</span>);
-0200         <span class="keyword">end</span>
-0201         <span class="comment">%load upper bound</span>
-0202         <a name="_sub5" href="#_subfunctions" class="code">function set.Xmax(obj,XmaxIn)</a>
-0203             <span class="comment">%check the kind of input data</span>
-0204             <span class="keyword">if</span> size(XmaxIn,1)==1||size(XmaxIn,2)==1
-0205                 obj.Xmax=XmaxIn(:);
-0206                 <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
-0207             <span class="keyword">else</span>
-0208                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: upper bound must be a vector\n'</span>);
-0209             <span class="keyword">end</span>
-0210             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Upper bound: '</span>);
-0211             fprintf(<span class="string">'%+4.2f|'</span>,obj.Xmax);fprintf(<span class="string">'\n'</span>);
-0212         <span class="keyword">end</span>
-0213         <span class="comment">%load type</span>
-0214         <a name="_sub6" href="#_subfunctions" class="code">function set.type(obj,typeIn)</a>
-0215             <span class="comment">%check the type is available</span>
-0216             <span class="keyword">if</span> any(ismember(typeIn,obj.sampleAvail))
-0217                 obj.type=typeIn;
-0218                 <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
-0219             <span class="keyword">else</span>
-0220                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: the type of sample must be\n chosen along the following list\n'</span>);
-0221                 obj.availableType();
-0222             <span class="keyword">end</span>
-0223             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Type of DOE: '</span>);
-0224             fprintf(<span class="string">'%s'</span>,obj.type);fprintf(<span class="string">'\n'</span>);
-0225         <span class="keyword">end</span>
-0226         <span class="comment">%load sortInfo</span>
-0227         <a name="_sub7" href="#_subfunctions" class="code">function set.sortInfo(obj,structIn)</a>
-0228             <span class="comment">% look up the previous value</span>
-0229             oldVal = obj.sortInfo;
-0230             <span class="comment">% loop through fields to check what has changed</span>
-0231             fields = fieldnames(structIn);
-0232             <span class="keyword">for</span> fn = fields(:)' <span class="comment">%'#</span>
-0233                 <span class="comment">%turn cell into string for convenience</span>
-0234                 field2check = fn{1};
-0235                 <span class="keyword">if</span> <a href="#_sub25" class="code" title="subfunction isF=isfield(doe,field)">isfield</a>(oldVal,field2check)
-0236                     <span class="comment">% simply assign the fields you don't care about</span>
-0237                     obj.sortInfo.(field2check) = structIn.(field2check);
-0238                 <span class="keyword">end</span>
-0239             <span class="keyword">end</span>
-0240         <span class="keyword">end</span>        
+0168         <span class="comment">%%%%%%setter</span>
+0169         <span class="comment">%flag for obsolete sampling</span>
+0170         <a name="_sub1" href="#_subfunctions" class="code">function set.runDOE(obj,runIn)</a>
+0171             obj.runDOE=runIn;
+0172         <span class="keyword">end</span>
+0173         <span class="comment">%number of sample points</span>
+0174         <a name="_sub2" href="#_subfunctions" class="code">function set.ns(obj,nsIn)</a>
+0175             <span class="comment">%check the kind of input data</span>
+0176             obj.ns=nsIn(:);
+0177             <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
+0178             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Number of sample points: %i\n'</span>,obj.ns);
+0179         <span class="keyword">end</span>
+0180         <span class="comment">%number of design variables</span>
+0181         <a name="_sub3" href="#_subfunctions" class="code">function set.dimPB(obj,dimIn)</a>
+0182             <span class="comment">%check the kind of input data</span>
+0183             obj.dimPB=dimIn(:);
+0184             <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
+0185             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Number of design variables: %i\n'</span>,obj.dimPB);
+0186         <span class="keyword">end</span>
+0187         <span class="comment">%load lower bound</span>
+0188         <a name="_sub4" href="#_subfunctions" class="code">function set.Xmin(obj,XminIn)</a>
+0189             <span class="comment">%check the kind of input data</span>
+0190             <span class="keyword">if</span> size(XminIn,1)==1||size(XminIn,2)==1
+0191                 obj.Xmin=XminIn(:);
+0192                 <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
+0193             <span class="keyword">else</span>
+0194                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: lower bound must be a vector\n'</span>);
+0195             <span class="keyword">end</span>
+0196             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Lower bound: '</span>);
+0197             fprintf(<span class="string">'%+4.2f|'</span>,obj.Xmin);fprintf(<span class="string">'\n'</span>);
+0198         <span class="keyword">end</span>
+0199         <span class="comment">%load upper bound</span>
+0200         <a name="_sub5" href="#_subfunctions" class="code">function set.Xmax(obj,XmaxIn)</a>
+0201             <span class="comment">%check the kind of input data</span>
+0202             <span class="keyword">if</span> size(XmaxIn,1)==1||size(XmaxIn,2)==1
+0203                 obj.Xmax=XmaxIn(:);
+0204                 <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
+0205             <span class="keyword">else</span>
+0206                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: upper bound must be a vector\n'</span>);
+0207             <span class="keyword">end</span>
+0208             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Current Upper bound: '</span>);
+0209             fprintf(<span class="string">'%+4.2f|'</span>,obj.Xmax);fprintf(<span class="string">'\n'</span>);
+0210         <span class="keyword">end</span>
+0211         <span class="comment">%load type</span>
+0212         <a name="_sub6" href="#_subfunctions" class="code">function set.type(obj,typeIn)</a>
+0213             <span class="comment">%check the type is available</span>
+0214             <span class="keyword">if</span> any(ismember(typeIn,obj.sampleAvail))
+0215                 obj.type=typeIn;
+0216                 <a href="#_sub12" class="code" title="subfunction initRunDOE(obj,flag)">initRunDOE</a>(obj,true);
+0217             <span class="keyword">else</span>
+0218                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Wrong input data: the type of sample must be\n chosen along the following list\n'</span>);
+0219                 obj.availableType();
+0220             <span class="keyword">end</span>
+0221             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Type of DOE: '</span>);
+0222             fprintf(<span class="string">'%s'</span>,obj.type);fprintf(<span class="string">'\n'</span>);
+0223         <span class="keyword">end</span>
+0224         <span class="comment">%load sortInfo</span>
+0225         <a name="_sub7" href="#_subfunctions" class="code">function set.sortInfo(obj,structIn)</a>
+0226             <span class="comment">% look up the previous value</span>
+0227             oldVal = obj.sortInfo;
+0228             <span class="comment">% loop through fields to check what has changed</span>
+0229             fields = fieldnames(structIn);
+0230             <span class="keyword">for</span> fn = fields(:)' <span class="comment">%'#</span>
+0231                 <span class="comment">%turn cell into string for convenience</span>
+0232                 field2check = fn{1};
+0233                 <span class="keyword">if</span> <a href="#_sub25" class="code" title="subfunction isF=isfield(doe,field)">isfield</a>(oldVal,field2check)
+0234                     <span class="comment">% simply assign the fields you don't care about</span>
+0235                     obj.sortInfo.(field2check) = structIn.(field2check);
+0236                 <span class="keyword">end</span>
+0237             <span class="keyword">end</span>
+0238         <span class="keyword">end</span>        
+0239         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0240         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0241         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0242         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0243         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0244         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0245         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0246         <span class="comment">%%%%%%getter</span>
-0247         <span class="comment">%get sorted</span>
-0248         <a name="_sub8" href="#_subfunctions" class="code">function sorted=get.sorted(obj)</a>
-0249                 <span class="keyword">if</span> obj.runDOE&amp;&amp;obj.okData
-0250                     <span class="comment">%build sampling</span>
-0251                     obj=<a href="#_sub14" class="code" title="subfunction obj=build(obj)">build</a>(obj);
-0252                     <span class="comment">%compute scores</span>
-0253                     obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
-0254                 <span class="keyword">end</span>
-0255                 sorted=obj.sorted;
-0256         <span class="keyword">end</span>
-0257         <span class="comment">%get unsorted</span>
-0258         <a name="_sub9" href="#_subfunctions" class="code">function unsorted=get.unsorted(obj)</a>
-0259             <span class="keyword">if</span> obj.runDOE&amp;&amp;obj.okData
-0260                 <span class="comment">%build sampling</span>
-0261                 obj=<a href="#_sub14" class="code" title="subfunction obj=build(obj)">build</a>(obj);
-0262                 <span class="comment">%compute scores</span>
-0263                 obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
-0264             <span class="keyword">end</span>
-0265             unsorted=obj.unsorted;
-0266         <span class="keyword">end</span>
+0244         <span class="comment">%%%%%%getter</span>
+0245         <span class="comment">%get sorted</span>
+0246         <a name="_sub8" href="#_subfunctions" class="code">function sorted=get.sorted(obj)</a>
+0247                 <span class="keyword">if</span> obj.runDOE&amp;&amp;obj.okData
+0248                     <span class="comment">%build sampling</span>
+0249                     obj=<a href="#_sub14" class="code" title="subfunction obj=build(obj)">build</a>(obj);
+0250                     <span class="comment">%compute scores</span>
+0251                     obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
+0252                 <span class="keyword">end</span>
+0253                 sorted=obj.sorted;
+0254         <span class="keyword">end</span>
+0255         <span class="comment">%get unsorted</span>
+0256         <a name="_sub9" href="#_subfunctions" class="code">function unsorted=get.unsorted(obj)</a>
+0257             <span class="keyword">if</span> obj.runDOE&amp;&amp;obj.okData
+0258                 <span class="comment">%build sampling</span>
+0259                 obj=<a href="#_sub14" class="code" title="subfunction obj=build(obj)">build</a>(obj);
+0260                 <span class="comment">%compute scores</span>
+0261                 obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
+0262             <span class="keyword">end</span>
+0263             unsorted=obj.unsorted;
+0264         <span class="keyword">end</span>
+0265         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0266         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0267         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0268         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0269         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0270         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0271         <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0272         <span class="comment">%function for loading configuration associated with a test function</span>
-0273         <a name="_sub10" href="#_subfunctions" class="code">function loadConf(obj,funTest)</a>
-0274             <span class="comment">%load configuration</span>
-0275             retInit=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(obj.dimPB,[],[],funTest,false);
-0276             <span class="comment">%defining properties</span>
-0277             obj.funTest=retInit.funT;
-0278             obj.Xmin=retInit.Xmin;
-0279             obj.Xmax=retInit.Xmax;
-0280         <span class="keyword">end</span>
-0281         <span class="comment">%function for initializing runDOE</span>
-0282         <a name="_sub11" href="#_subfunctions" class="code">function initRunDOE(obj,flag)</a>
-0283             obj.runDOE=flag;
-0284         <span class="keyword">end</span>
-0285         <span class="comment">%check data</span>
-0286         <a name="_sub12" href="#_subfunctions" class="code">function isOk=check(obj)</a>
-0287             isOk=true;
-0288             <span class="keyword">if</span> isempty(obj.dimPB)
-0289                 isOk=false;
-0290                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined dimension of the DOE\n'</span>);
-0291             <span class="keyword">end</span>
-0292             <span class="keyword">if</span> isempty(obj.ns)
-0293                 isOk=false;
-0294                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined number of sample points\n'</span>);
-0295             <span class="keyword">end</span>
-0296             <span class="keyword">if</span> isempty(obj.Xmin)
-0297                 isOk=false;
-0298                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined lower bound of the design space\n'</span>);
-0299             <span class="keyword">end</span>
-0300             <span class="keyword">if</span> isempty(obj.Xmax)
-0301                 isOk=false;
-0302                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined lower bound of the design space\n'</span>);
-0303             <span class="keyword">end</span>
-0304             <span class="keyword">if</span> isempty(obj.type)
-0305                 isOk=false;
-0306                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined type of DOE\n'</span>);
-0307             <span class="keyword">end</span>
-0308             obj.okData=isOk;
-0309         <span class="keyword">end</span>
-0310         <span class="comment">%sampling</span>
-0311         <a name="_sub13" href="#_subfunctions" class="code">function obj=build(obj)</a>
-0312             <span class="keyword">if</span> <a href="#_sub13" class="code" title="subfunction isOk=check(obj)">check</a>(obj)&amp;&amp;obj.runDOE
-0313                 obj.runDOE=false;
-0314                 obj.unsorted=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>(obj.type,obj.ns,obj.Xmin,obj.Xmax);
-0315                 obj.sorted=<a href="#_sub20" class="code" title="subfunction sorted=sort(obj)">sort</a>(obj);
-0316             <span class="keyword">end</span>
-0317         <span class="keyword">end</span>
-0318         <span class="comment">%display unsorted</span>
-0319         <a name="_sub14" href="#_subfunctions" class="code">function show(obj)</a>
-0320             <a href="../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(obj.unsorted,obj);
-0321         <span class="keyword">end</span>
-0322         <span class="comment">%display sorted</span>
-0323         <a name="_sub15" href="#_subfunctions" class="code">function showSorted(obj)</a>
-0324             <a href="../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(obj.sorted,obj);
-0325         <span class="keyword">end</span>
-0326         <span class="comment">%add points</span>
-0327         <a name="_sub16" href="#_subfunctions" class="code">function obj=addSample(obj,NumberAdd)</a>
-0328             <span class="keyword">if</span> nargin&lt;2;NumberAdd=1;<span class="keyword">end</span>
-0329             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Add %g new sample points\n'</span>,NumberAdd);
-0330             <span class="comment">%build new sample points</span>
-0331             newSamplePts=<a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>(obj.unsorted,NumberAdd,obj);
-0332             <span class="comment">%if  new sample points</span>
-0333             <span class="keyword">if</span> ~isempty(newSamplePts)
-0334                 obj.unsorted=newSamplePts;
-0335                 obj.sorted=<a href="#_sub20" class="code" title="subfunction sorted=sort(obj)">sort</a>(obj);
-0336                 obj.ns=obj.ns+1;
-0337                 obj.runDOE=false;
-0338                 <span class="comment">%compute scores</span>
-0339                 obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
-0340             <span class="keyword">else</span>
-0341                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'No sample points added\n'</span>);
-0342                 obj=[];
-0343             <span class="keyword">end</span>
-0344         <span class="keyword">end</span>
-0345         <span class="comment">%manually add points</span>
-0346         <a name="_sub17" href="#_subfunctions" class="code">function addManuSample(obj,ptsIn)</a>
-0347             <span class="keyword">if</span> ~isempty(ptsIn)
-0348                 szP=size(ptsIn);
-0349                 <span class="keyword">if</span> szP(2)==obj.dimPB
-0350                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Add %i sample point(s) manually: \n'</span>,szP(1));
-0351                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(repmat([repmat(<span class="string">' %g'</span>,1,szP(2)) <span class="string">'\n'</span>],szP(1),1),ptsIn);
-0352                     <span class="comment">%add new points</span>
-0353                     obj.unsorted=[obj.unsorted;ptsIn];
-0354                     obj.sorted=<a href="#_sub20" class="code" title="subfunction sorted=sort(obj)">sort</a>(obj);
-0355                     obj.ns=obj.ns+1;
-0356                     obj.runDOE=false;
-0357                     <span class="comment">%compute scores</span>
-0358                     obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
-0359                 <span class="keyword">else</span>
-0360                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Wrong dimension of the points\n'</span>);
-0361                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'No sample points added\n'</span>);
-0362                 <span class="keyword">end</span>
-0363             <span class="keyword">else</span>
-0364                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'No sample points added\n'</span>);
-0365             <span class="keyword">end</span>
-0366         <span class="keyword">end</span>
-0367         <span class="comment">%compute scores</span>
-0368         <a name="_sub18" href="#_subfunctions" class="code">function scoreVal=score(obj)</a>
-0369             <span class="keyword">if</span> nargin==2
-0370                 q=obj.qnorm;
-0371             <span class="keyword">else</span>
-0372                 q=2;
-0373             <span class="keyword">end</span>
-0374             [scoreVal.uniform,scoreVal.discrepancy]=<a href="../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(obj.unsorted,q);
-0375         <span class="keyword">end</span>
-0376         <span class="comment">%sort sampling</span>
-0377         <a name="_sub19" href="#_subfunctions" class="code">function sorted=sort(obj)</a>
-0378             sorted=<a href="../MultiDOE/src/various/sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>(obj.unsorted,obj);
-0379         <span class="keyword">end</span>
-0380         <span class="comment">%list available techniques</span>
-0381         <a name="_sub20" href="#_subfunctions" class="code">function availableType(obj)</a>
-0382             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
-0383             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sampling\n'</span>);
-0384             <a href="#_sub26" class="code" title="subfunction dispTableTwoColumns(tableA,tableB)">dispTableTwoColumns</a>(obj.sampleAvail,obj.sampleAvailTxt);
-0385             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
-0386         <span class="keyword">end</span>
-0387         <span class="comment">%list available sorting techniques</span>
-0388         <a name="_sub21" href="#_subfunctions" class="code">function availableSort(obj)</a>
-0389             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
-0390             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sorting the sample points\n'</span>);
-0391             <a href="#_sub26" class="code" title="subfunction dispTableTwoColumns(tableA,tableB)">dispTableTwoColumns</a>(obj.sortAvail,obj.sortTxt);
-0392             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
-0393         <span class="keyword">end</span>
-0394         <span class="comment">%define sort configuration</span>
-0395         <a name="_sub22" href="#_subfunctions" class="code">function sortConf(obj,varargin)</a>
-0396             <span class="comment">%accepted keyword</span>
-0397             keyOk={<span class="string">'on'</span>,<span class="string">'type'</span>,<span class="string">'para'</span>,<span class="string">'ptref'</span>,<span class="string">'lnorm'</span>};
-0398             execOk=true;
-0399             <span class="comment">%two kind of input variables list (with keywords or not)</span>
-0400             <span class="comment">%depend on the first argument: boolean for classical list of</span>
-0401             <span class="comment">%argument or string if the use of keywords</span>
-0402             <span class="keyword">if</span> isa(varargin{1},<span class="string">'logical'</span>)              
-0403                 <span class="keyword">if</span> nargin&gt;1;obj.sortInfo=struct(<span class="string">'on'</span>,varargin{1});<span class="keyword">end</span>
-0404                 <span class="keyword">if</span> nargin&gt;2
-0405                     <span class="keyword">if</span> ismember(varargin{2},obj.sortAvail)
-0406                         obj.sortInfo=struct(<span class="string">'type'</span>,varargin{2});
-0407                     <span class="keyword">else</span>
-0408                         execOk=false;
-0409                     <span class="keyword">end</span>
-0410                 <span class="keyword">end</span>
-0411                 <span class="keyword">if</span> nargin&gt;3;obj.sortInfo=struct(<span class="string">'para'</span>,varargin{3});<span class="keyword">end</span>
-0412                 <span class="keyword">if</span> nargin&gt;4;obj.sortInfo=struct(<span class="string">'ptref'</span>,varargin{4});<span class="keyword">end</span>
-0413                 <span class="keyword">if</span> nargin&gt;5;obj.sortInfo=struct(<span class="string">'lnorm'</span>,varargin{5});<span class="keyword">end</span>
-0414             <span class="keyword">elseif</span> isa(varargin{1},<span class="string">'char'</span>)
-0415                 <span class="keyword">if</span> mod(nargin-1,2)==0
-0416                     <span class="keyword">for</span> itV=1:2:nargin-1
-0417                         <span class="comment">%load key and associated value</span>
-0418                         keyTxt=varargin{itV};
-0419                         keyVal=varargin{itV+1};
-0420                         <span class="comment">%check if the keyword is usable</span>
-0421                         <span class="keyword">if</span> ismember(keyTxt,keyOk)
-0422                             <span class="comment">%in the case of the type definition</span>
-0423                             <span class="keyword">if</span> strcmp(keyTxt,<span class="string">'type'</span>)
-0424                                 <span class="comment">%if the chosen type is avilable</span>
-0425                                 <span class="keyword">if</span> ismember(keyVal,obj.sortAvail)
-0426                                     obj.sortInfo=struct(keyTxt,keyVal);
-0427                                 <span class="keyword">else</span>
-0428                                     execOk=false;
-0429                                 <span class="keyword">end</span>
-0430                             <span class="keyword">else</span>
-0431                                 obj.sortInfo=struct(keyTxt,keyVal);
-0432                             <span class="keyword">end</span>
-0433                         <span class="keyword">else</span>
-0434                             execOk=false;
-0435                         <span class="keyword">end</span>
-0436                     <span class="keyword">end</span>
-0437                 <span class="keyword">else</span>
-0438                     execOk=false;
-0439                 <span class="keyword">end</span>
-0440             <span class="keyword">else</span>
-0441                 execOk=false;
-0442             <span class="keyword">end</span>
-0443             <span class="comment">%display error message if wrong syntax</span>
-0444             <span class="keyword">if</span> ~execOk
-0445                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Wrong syntax for the method\n'</span>);
-0446                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'sortConf(bool,type,ptref,para,lnorm)\n'</span>);
-0447                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'or sortConf(''key1'',val1,''key2'',val2...)\n'</span>);
-0448                 <a href="#_sub22" class="code" title="subfunction availableSort(obj)">availableSort</a>(obj);
-0449             <span class="keyword">end</span>            
-0450         <span class="keyword">end</span>
-0451         <span class="comment">%compare two sampling</span>
-0452         <a name="_sub23" href="#_subfunctions" class="code">function iseq=eq(doeA,doeB)</a>
-0453             iseq=false;
-0454             <span class="keyword">if</span> all(doeA.unsorted==doeB.unsorted)
-0455                 iseq=true;
-0456             <span class="keyword">end</span>
-0457         <span class="keyword">end</span>
-0458         <span class="comment">%overload isfield</span>
-0459         <a name="_sub24" href="#_subfunctions" class="code">function isF=isfield(doe,field)</a>
-0460             isF=isprop(doe,field);
-0461         <span class="keyword">end</span>
-0462     <span class="keyword">end</span>
-0463 <span class="keyword">end</span>
-0464 
-0465 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0466 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0467 <span class="comment">%function display table with two columns of text</span>
-0468 <a name="_sub25" href="#_subfunctions" class="code">function dispTableTwoColumns(tableA,tableB)</a>
-0469 <span class="comment">%size of every components in tableA</span>
-0470 sizeA=cellfun(@numel,tableA);
-0471 maxA=max(sizeA);
-0472 <span class="comment">%space after each component</span>
-0473 spaceA=maxA-sizeA+3;
-0474 spaceTxt=<span class="string">' '</span>;
-0475 <span class="comment">%display table</span>
-0476 <span class="keyword">for</span> itT=1:numel(tableA)
-0477     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%s%s%s\n'</span>,tableA{itT},spaceTxt(ones(1,spaceA(itT))),tableB{itT});
-0478 <span class="keyword">end</span>
-0479 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Thu 09-Feb-2017 16:06:34 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0270         <span class="comment">%function for loading configuration associated with a test function</span>
+0271         <a name="_sub10" href="#_subfunctions" class="code">function loadConf(obj,funTest)</a>
+0272             <span class="comment">%load configuration</span>
+0273             retInit=<a href="../MultiDOE/src/init/initDOE.html" class="code" title="function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)">initDOE</a>(obj.dimPB,[],[],funTest,false);
+0274             <span class="comment">%defining properties</span>
+0275             obj.funTest=retInit.funT;
+0276             obj.Xmin=retInit.Xmin;
+0277             obj.Xmax=retInit.Xmax;
+0278         <span class="keyword">end</span>
+0279         <span class="comment">%function for initializing runDOE</span>
+0280         <a name="_sub11" href="#_subfunctions" class="code">function initRunDOE(obj,flag)</a>
+0281             obj.runDOE=flag;
+0282         <span class="keyword">end</span>
+0283         <span class="comment">%check data</span>
+0284         <a name="_sub12" href="#_subfunctions" class="code">function isOk=check(obj)</a>
+0285             isOk=true;
+0286             <span class="keyword">if</span> isempty(obj.dimPB)
+0287                 isOk=false;
+0288                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined dimension of the DOE\n'</span>);
+0289             <span class="keyword">end</span>
+0290             <span class="keyword">if</span> isempty(obj.ns)
+0291                 isOk=false;
+0292                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined number of sample points\n'</span>);
+0293             <span class="keyword">end</span>
+0294             <span class="keyword">if</span> isempty(obj.Xmin)
+0295                 isOk=false;
+0296                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined lower bound of the design space\n'</span>);
+0297             <span class="keyword">end</span>
+0298             <span class="keyword">if</span> isempty(obj.Xmax)
+0299                 isOk=false;
+0300                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined lower bound of the design space\n'</span>);
+0301             <span class="keyword">end</span>
+0302             <span class="keyword">if</span> isempty(obj.type)
+0303                 isOk=false;
+0304                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'&gt;&gt; Undefined type of DOE\n'</span>);
+0305             <span class="keyword">end</span>
+0306             obj.okData=isOk;
+0307         <span class="keyword">end</span>
+0308         <span class="comment">%sampling</span>
+0309         <a name="_sub13" href="#_subfunctions" class="code">function obj=build(obj)</a>
+0310             <span class="keyword">if</span> <a href="#_sub13" class="code" title="subfunction isOk=check(obj)">check</a>(obj)&amp;&amp;obj.runDOE
+0311                 obj.runDOE=false;
+0312                 obj.unsorted=<a href="../MultiDOE/src/various/buildDOE.html" class="code" title="function [sampling]=buildDOE(type,ns,Xmin,Xmax,opts)">buildDOE</a>(obj.type,obj.ns,obj.Xmin,obj.Xmax);
+0313                 obj.sorted=<a href="#_sub20" class="code" title="subfunction sorted=sort(obj)">sort</a>(obj);
+0314             <span class="keyword">end</span>
+0315         <span class="keyword">end</span>
+0316         <span class="comment">%display unsorted</span>
+0317         <a name="_sub14" href="#_subfunctions" class="code">function show(obj)</a>
+0318             <a href="../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(obj.unsorted,obj);
+0319         <span class="keyword">end</span>
+0320         <span class="comment">%display sorted</span>
+0321         <a name="_sub15" href="#_subfunctions" class="code">function showSorted(obj)</a>
+0322             <a href="../MultiDOE/src/disp/displayDOE.html" class="code" title="function displayDOE(sampling,doe,missData)">displayDOE</a>(obj.sorted,obj);
+0323         <span class="keyword">end</span>
+0324         <span class="comment">%add points</span>
+0325         <a name="_sub16" href="#_subfunctions" class="code">function obj=addSample(obj,NumberAdd)</a>
+0326             <span class="keyword">if</span> nargin&lt;2;NumberAdd=1;<span class="keyword">end</span>
+0327             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Add %g new sample points\n'</span>,NumberAdd);
+0328             <span class="comment">%build new sample points</span>
+0329             newSamplePts=<a href="../MultiDOE/src/init/addSampleDOE.html" class="code" title="function newSampling=addSampleDOE(oldSampling,doe)">addSampleDOE</a>(obj.unsorted,NumberAdd,obj);
+0330             <span class="comment">%if  new sample points</span>
+0331             <span class="keyword">if</span> ~isempty(newSamplePts)
+0332                 obj.unsorted=newSamplePts;
+0333                 obj.sorted=<a href="#_sub20" class="code" title="subfunction sorted=sort(obj)">sort</a>(obj);
+0334                 obj.ns=obj.ns+1;
+0335                 obj.runDOE=false;
+0336                 <span class="comment">%compute scores</span>
+0337                 obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
+0338             <span class="keyword">else</span>
+0339                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'No sample points added\n'</span>);
+0340                 obj=[];
+0341             <span class="keyword">end</span>
+0342         <span class="keyword">end</span>
+0343         <span class="comment">%manually add points</span>
+0344         <a name="_sub17" href="#_subfunctions" class="code">function addManuSample(obj,ptsIn)</a>
+0345             <span class="keyword">if</span> ~isempty(ptsIn)
+0346                 szP=size(ptsIn);
+0347                 <span class="keyword">if</span> szP(2)==obj.dimPB
+0348                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'++ Add %i sample point(s) manually: \n'</span>,szP(1));
+0349                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(repmat([repmat(<span class="string">' %g'</span>,1,szP(2)) <span class="string">'\n'</span>],szP(1),1),ptsIn);
+0350                     <span class="comment">%add new points</span>
+0351                     obj.unsorted=[obj.unsorted;ptsIn];
+0352                     obj.sorted=<a href="#_sub20" class="code" title="subfunction sorted=sort(obj)">sort</a>(obj);
+0353                     obj.ns=obj.ns+1;
+0354                     obj.runDOE=false;
+0355                     <span class="comment">%compute scores</span>
+0356                     obj.scoreVal=<a href="#_sub19" class="code" title="subfunction scoreVal=score(obj)">score</a>(obj);
+0357                 <span class="keyword">else</span>
+0358                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Wrong dimension of the points\n'</span>);
+0359                     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'No sample points added\n'</span>);
+0360                 <span class="keyword">end</span>
+0361             <span class="keyword">else</span>
+0362                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'No sample points added\n'</span>);
+0363             <span class="keyword">end</span>
+0364         <span class="keyword">end</span>
+0365         <span class="comment">%compute scores</span>
+0366         <a name="_sub18" href="#_subfunctions" class="code">function scoreVal=score(obj)</a>
+0367             <span class="keyword">if</span> nargin==2
+0368                 q=obj.qnorm;
+0369             <span class="keyword">else</span>
+0370                 q=2;
+0371             <span class="keyword">end</span>
+0372             [scoreVal.uniform,scoreVal.discrepancy]=<a href="../MultiDOE/src/crit/calcScore.html" class="code" title="function [uniform,discrepancy]=calcScore(sampling,q)">calcScore</a>(obj.unsorted,q);
+0373         <span class="keyword">end</span>
+0374         <span class="comment">%sort sampling</span>
+0375         <a name="_sub19" href="#_subfunctions" class="code">function sorted=sort(obj)</a>
+0376             sorted=<a href="../MultiDOE/src/various/sortDOE.html" class="code" title="function samplingSorted = sortDOE(sampling,doe)">sortDOE</a>(obj.unsorted,obj);
+0377         <span class="keyword">end</span>
+0378         <span class="comment">%list available techniques</span>
+0379         <a name="_sub20" href="#_subfunctions" class="code">function availableType(obj)</a>
+0380             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
+0381             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sampling\n'</span>);
+0382             <a href="#_sub26" class="code" title="subfunction dispTableTwoColumns(tableA,tableB)">dispTableTwoColumns</a>(obj.sampleAvail,obj.sampleAvailTxt);
+0383             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
+0384         <span class="keyword">end</span>
+0385         <span class="comment">%list available sorting techniques</span>
+0386         <a name="_sub21" href="#_subfunctions" class="code">function availableSort(obj)</a>
+0387             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
+0388             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Available techniques for sorting the sample points\n'</span>);
+0389             <a href="#_sub26" class="code" title="subfunction dispTableTwoColumns(tableA,tableB)">dispTableTwoColumns</a>(obj.sortAvail,obj.sortTxt);
+0390             <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n'</span>);
+0391         <span class="keyword">end</span>
+0392         <span class="comment">%define sort configuration</span>
+0393         <a name="_sub22" href="#_subfunctions" class="code">function sortConf(obj,varargin)</a>
+0394             <span class="comment">%accepted keyword</span>
+0395             keyOk={<span class="string">'on'</span>,<span class="string">'type'</span>,<span class="string">'para'</span>,<span class="string">'ptref'</span>,<span class="string">'lnorm'</span>};
+0396             execOk=true;
+0397             <span class="comment">%two kind of input variables list (with keywords or not)</span>
+0398             <span class="comment">%depend on the first argument: boolean for classical list of</span>
+0399             <span class="comment">%argument or string if the use of keywords</span>
+0400             <span class="keyword">if</span> isa(varargin{1},<span class="string">'logical'</span>)              
+0401                 <span class="keyword">if</span> nargin&gt;1;obj.sortInfo=struct(<span class="string">'on'</span>,varargin{1});<span class="keyword">end</span>
+0402                 <span class="keyword">if</span> nargin&gt;2
+0403                     <span class="keyword">if</span> ismember(varargin{2},obj.sortAvail)
+0404                         obj.sortInfo=struct(<span class="string">'type'</span>,varargin{2});
+0405                     <span class="keyword">else</span>
+0406                         execOk=false;
+0407                     <span class="keyword">end</span>
+0408                 <span class="keyword">end</span>
+0409                 <span class="keyword">if</span> nargin&gt;3;obj.sortInfo=struct(<span class="string">'para'</span>,varargin{3});<span class="keyword">end</span>
+0410                 <span class="keyword">if</span> nargin&gt;4;obj.sortInfo=struct(<span class="string">'ptref'</span>,varargin{4});<span class="keyword">end</span>
+0411                 <span class="keyword">if</span> nargin&gt;5;obj.sortInfo=struct(<span class="string">'lnorm'</span>,varargin{5});<span class="keyword">end</span>
+0412             <span class="keyword">elseif</span> isa(varargin{1},<span class="string">'char'</span>)
+0413                 <span class="keyword">if</span> mod(nargin-1,2)==0
+0414                     <span class="keyword">for</span> itV=1:2:nargin-1
+0415                         <span class="comment">%load key and associated value</span>
+0416                         keyTxt=varargin{itV};
+0417                         keyVal=varargin{itV+1};
+0418                         <span class="comment">%check if the keyword is usable</span>
+0419                         <span class="keyword">if</span> ismember(keyTxt,keyOk)
+0420                             <span class="comment">%in the case of the type definition</span>
+0421                             <span class="keyword">if</span> strcmp(keyTxt,<span class="string">'type'</span>)
+0422                                 <span class="comment">%if the chosen type is avilable</span>
+0423                                 <span class="keyword">if</span> ismember(keyVal,obj.sortAvail)
+0424                                     obj.sortInfo=struct(keyTxt,keyVal);
+0425                                 <span class="keyword">else</span>
+0426                                     execOk=false;
+0427                                 <span class="keyword">end</span>
+0428                             <span class="keyword">else</span>
+0429                                 obj.sortInfo=struct(keyTxt,keyVal);
+0430                             <span class="keyword">end</span>
+0431                         <span class="keyword">else</span>
+0432                             execOk=false;
+0433                         <span class="keyword">end</span>
+0434                     <span class="keyword">end</span>
+0435                 <span class="keyword">else</span>
+0436                     execOk=false;
+0437                 <span class="keyword">end</span>
+0438             <span class="keyword">else</span>
+0439                 execOk=false;
+0440             <span class="keyword">end</span>
+0441             <span class="comment">%display error message if wrong syntax</span>
+0442             <span class="keyword">if</span> ~execOk
+0443                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'Wrong syntax for the method\n'</span>);
+0444                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'sortConf(bool,type,ptref,para,lnorm)\n'</span>);
+0445                 <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'or sortConf(''key1'',val1,''key2'',val2...)\n'</span>);
+0446                 <a href="#_sub22" class="code" title="subfunction availableSort(obj)">availableSort</a>(obj);
+0447             <span class="keyword">end</span>            
+0448         <span class="keyword">end</span>
+0449         <span class="comment">%compare two sampling</span>
+0450         <a name="_sub23" href="#_subfunctions" class="code">function iseq=eq(doeA,doeB)</a>
+0451             iseq=false;
+0452             <span class="keyword">if</span> all(doeA.unsorted==doeB.unsorted)
+0453                 iseq=true;
+0454             <span class="keyword">end</span>
+0455         <span class="keyword">end</span>
+0456         <span class="comment">%overload isfield</span>
+0457         <a name="_sub24" href="#_subfunctions" class="code">function isF=isfield(doe,field)</a>
+0458             isF=isprop(doe,field);
+0459         <span class="keyword">end</span>
+0460     <span class="keyword">end</span>
+0461 <span class="keyword">end</span>
+0462 
+0463 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0464 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0465 <span class="comment">%function display table with two columns of text</span>
+0466 <a name="_sub25" href="#_subfunctions" class="code">function dispTableTwoColumns(tableA,tableB)</a>
+0467 <span class="comment">%size of every components in tableA</span>
+0468 sizeA=cellfun(@numel,tableA);
+0469 maxA=max(sizeA);
+0470 <span class="comment">%space after each component</span>
+0471 spaceA=maxA-sizeA+3;
+0472 spaceTxt=<span class="string">' '</span>;
+0473 <span class="comment">%display table</span>
+0474 <span class="keyword">for</span> itT=1:numel(tableA)
+0475     <a href="../MultiDOE/src/various/Mfprintf.html" class="code" title="function nbT = Mfprintf(varargin)">Mfprintf</a>(<span class="string">'%s%s%s\n'</span>,tableA{itT},spaceTxt(ones(1,spaceA(itT))),tableB{itT});
+0476 <span class="keyword">end</span>
+0477 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Sat 19-May-2018 16:36:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>
