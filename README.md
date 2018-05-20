@@ -1,7 +1,7 @@
 MultiDOE
 =======
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1249969.svg)](https://doi.org/10.5281/zenodo.1249969)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1249968.svg)](https://doi.org/10.5281/zenodo.1249968)
 
 
 This MATLAB/OCTAVE toolbox regroups many existing tools for generating sample points using many specific DOE techniques:
