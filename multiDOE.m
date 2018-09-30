@@ -188,6 +188,10 @@ classdef multiDOE < handle
         function set.Xmin(obj,XminIn)
             %check the kind of input data
             if size(XminIn,1)==1||size(XminIn,2)==1
+                %check size of xMin
+                if numel(XminIn)==1
+                    XminIn=XminIn(ones(1,obj.getDim));
+                end
                 obj.Xmin=XminIn(:);
                 initRunDOE(obj,true);
             else
@@ -200,6 +204,10 @@ classdef multiDOE < handle
         function set.Xmax(obj,XmaxIn)
             %check the kind of input data
             if size(XmaxIn,1)==1||size(XmaxIn,2)==1
+                %check size of xMax
+                if numel(XmaxIn)==1
+                    XmaxIn=XmaxIn(ones(1,obj.getDim));
+                end
                 obj.Xmax=XmaxIn(:);
                 initRunDOE(obj,true);
             else
@@ -279,6 +287,10 @@ classdef multiDOE < handle
         %function for initializing runDOE
         function initRunDOE(obj,flag)
             obj.runDOE=flag;
+        end
+        %function for obtaining the dimension of the sampling
+        function dim=getDim(obj)
+            dim=obj.dimPB;
         end
         %check data
         function isOk=check(obj)
