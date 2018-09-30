@@ -1,5 +1,9 @@
 %     MultiDOE - Toolbox for sampling a bounded space
 %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
+%
+% sources available here:
+% https://bitbucket.org/luclaurent/multidoe/
+% https://github.com/luclaurent/multidoe/
 % 
 %     This program is free software: you can redistribute it and/or modify
 %     it under the terms of the GNU General Public License as published by

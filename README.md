@@ -1,7 +1,10 @@
-Toolbox MultiDOE
+MultiDOE
 =======
 
-This Matlab toolbox regroups many existing tools for generating sample points using many specific DOE techniques:
+[![GitHub license](https://img.shields.io/github/license/luclaurent/MultiDOE.svg)](https://github.com/luclaurent/MultiDOE/blob/master/LICENSE.md)
+ [![Github Releases](https://img.shields.io/github/release/luclaurent/MultiDOE.svg)](https://github.com/luclaurent/optiGTest/releases) [![DOI](https://zenodo.org/badge/134069345.svg)](https://zenodo.org/badge/latestdoi/134069345)
+
+This MATLAB/OCTAVE toolbox regroups many existing tools for generating sample points using many specific DOE techniques:
 
 * Full factorial sampling
 * Latin Hypercube Sampling 
@@ -28,6 +31,18 @@ The MultiDOE toolbox are able to
 * call automatically the R software (on Unix/Linux/OSX systems only)
 * compute scores (minimal distances, discrepancy...), see for instance the [Franco's PhD thesis (2008)](https://tel.archives-ouvertes.fr/tel-00803107/)
 
+Download
+------
+
+The toolbox can be downloaded [here](https://bitbucket.org/luclaurent/multidoe/downloads) or [here](https://github.com/luclaurent/multidoe/releases).
+
+If you use `git`, you can clone the repository using the following command
+
+    git clone --recursive git@bitbucket.org:luclaurent/multidoe.git MultiDOE
+
+or 
+
+    git clone --recursive git@github.com:luclaurent/MultiDOE.git MultiDOE
 
 
 Requirements
@@ -35,9 +50,9 @@ Requirements
 The toolbox requires:
 
 * the [Statistics and Machine Learning Toolbox](http://fr.mathworks.com/products/statistics/) of the Matlab's software (for the `lhsdesign` command called using `LHSD` keyword, optional)
-* the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (for obtaining LHS or IHS by using `IHS_R` or `LHS_R` commands, optional) 
-* the [lhs](https://cran.r-project.org/web/packages/lhs/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see for instance [How to Install an R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
-* the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) for building the documentation (optional).
+* the R software installed on an UNIX/Linux/OSX system and the `R` command available on the command line (for obtaining LHS or IHS by using `IHS_R` or `LHS_R` commands) [optional] 
+* the [lhs](https://cran.r-project.org/web/packages/lhs/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see for instance [How to Install a R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
+* the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) for building the documentation [optional].
 
 [Documentation](https://goo.gl/t0hmjG)
 ------

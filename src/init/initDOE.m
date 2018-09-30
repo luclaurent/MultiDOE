@@ -1,6 +1,10 @@
 %% Initialization on the DOE structure (definition of the options)
 % L. LAURENT -- 05/01/2011 -- luc.laurent@lecnam.net
 %
+% sources available here:
+% https://bitbucket.org/luclaurent/multidoe/
+% https://github.com/luclaurent/multidoe/
+% 
 %% usable syntaxes
 %init_doe
 %init_doe(dim)
