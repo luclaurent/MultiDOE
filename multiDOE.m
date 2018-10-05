@@ -49,7 +49,6 @@ classdef multiDOE < handle
         Xmin=[];
         Xmax=[];
         type=[];
-        dispOn=false;
         sortInfo=struct('on',true,'type','sac','para',1,'ptref',[],'lnorm',2);
         sorted=[];
         unsorted=[];
@@ -154,8 +153,6 @@ classdef multiDOE < handle
             if ~isempty(retInit.funT);obj.funTest=retInit.funT;end
             %load default configuration
             obj.sortInfo=retInit.sort;
-            %active display
-            obj.dispOn=retInit.disp;
             %build sampling
             obj=build(obj);
             %if all is ok, continue
@@ -272,7 +269,7 @@ classdef multiDOE < handle
                 %compute scores
                 obj.scoreVal=score(obj);
             end
-            unsorted=obj.unsorted;
+            unsorted=obj.unsorted;            
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -326,7 +323,7 @@ classdef multiDOE < handle
             if check(obj)&&obj.runDOE
                 obj.runDOE=false;
                 obj.unsorted=buildDOE(obj.type,obj.ns,obj.Xmin,obj.Xmax);
-                obj.sorted=sort(obj);
+                obj.sorted=sort(obj);                
             end
         end
         %display unsorted

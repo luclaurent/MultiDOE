@@ -343,17 +343,15 @@ switch type
         error(['Undefined DOE methods (',mfilename,')']);
         samplingOK=false;
 end
-
 if samplingOK
     if ~customSampling
         % correction of the sampling for obtaining sampling defined on the
-        % right design space
+        % right design space        
         sampling=sampling.*repmat(Xmax(:)'-Xmin(:)',prod(ns(:)),1)+repmat(Xmin(:)',prod(ns(:)),1);
     end   
 else
     sampling=[];
 end
-
 TimeCount.stop;
 Mfprintf('=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=\n');
 end
