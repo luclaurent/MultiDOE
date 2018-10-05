@@ -22,7 +22,7 @@ Many techniques proposed in this toolbox are based on
 
 Features
 ------
-The MultiDOE toolbox are able to 
+The MultiDOE toolbox is able to 
 
 * generate sampling
 * sort the sample points using many techniques
