@@ -1,8 +1,6 @@
 /* Created by mdot for Matlab */
 digraph m2html {
-  initDOE -> initDOEfun;
 
   addSampleDOE [URL="addSampleDOE.html"];
   initDOE [URL="initDOE.html"];
-  initDOEfun [URL="initDOEfun.html"];
 }

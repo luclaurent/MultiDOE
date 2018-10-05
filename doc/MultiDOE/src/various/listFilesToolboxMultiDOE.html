@@ -28,6 +28,10 @@
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
      Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+
+ sources available here:
+ https://bitbucket.org/luclaurent/multidoe/
+ https://github.com/luclaurent/multidoe/
  
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -60,78 +64,82 @@ This function is called by:
 <div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
 0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0007 <span class="comment">%     (at your option) any later version.</span>
-0008 <span class="comment">%</span>
-0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0012 <span class="comment">%     GNU General Public License for more details.</span>
-0013 <span class="comment">%</span>
-0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0016 <span class="comment">%</span>
-0017 
-0018 <span class="comment">%% List all files of the GRENAT Toolbox</span>
-0019 <span class="comment">% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</span>
-0020 
+0004 <span class="comment">% sources available here:</span>
+0005 <span class="comment">% https://bitbucket.org/luclaurent/multidoe/</span>
+0006 <span class="comment">% https://github.com/luclaurent/multidoe/</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0009 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0010 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0011 <span class="comment">%     (at your option) any later version.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0014 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0015 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0016 <span class="comment">%     GNU General Public License for more details.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0019 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0020 <span class="comment">%</span>
 0021 
-0022 <span class="comment">% To be executed at the root position of the toolbox</span>
-0023 
+0022 <span class="comment">%% List all files of the GRENAT Toolbox</span>
+0023 <span class="comment">% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net</span>
 0024 
-0025 <a name="_sub0" href="#_subfunctions" class="code">function listF=listFilesToolboxMultiDOE(dirT)</a>
-0026 listF={};
-0027 <span class="comment">%process all directories in the directory 'dirT'</span>
-0028 <span class="keyword">for</span> ii=1:numel(dirT)
-0029     <span class="comment">%find files in directories</span>
-0030     fileDir=<a href="#_sub1" class="code" title="subfunction [filDir]=listFileDir(dirM)">listFileDir</a>(dirT{ii});
-0031     <span class="comment">%add name of the directory</span>
-0032     fun=@(x) sprintf(<span class="string">'%s/%s'</span>,dirT{ii},x);
-0033     fileDirOk=cellfun(fun,fileDir,<span class="string">'UniformOutput'</span>,false);
-0034     <span class="comment">%add to the whole list</span>
-0035     listF={listF{:},fileDirOk{:}};
-0036 <span class="keyword">end</span>
-0037 <span class="comment">%add the root directory of the Toolbox</span>
-0038 fileDirOk=<a href="#_sub1" class="code" title="subfunction [filDir]=listFileDir(dirM)">listFileDir</a>(<span class="string">'.'</span>);
-0039 <span class="comment">%add to the whole list</span>
-0040 listF={listF{:},fileDirOk{:}};
-0041 
-0042 
-0043 <span class="comment">%Files to avoid</span>
-0044 blacklist={<span class="string">'.git'</span>,char(126),<span class="string">'m2html'</span>,<span class="string">'.DS_Store'</span>,<span class="keyword">...</span>
-0045     <span class="string">'lightspeed'</span>,<span class="string">'mmx'</span>,<span class="string">'mtimesx'</span>,<span class="string">'Multiprod'</span>,<span class="keyword">...</span>
-0046     <span class="string">'sqplab-0.4.5-distrib'</span>,<span class="string">'toolbox'</span>,<span class="string">'PSOt'</span>,<span class="keyword">...</span>
-0047     <span class="string">'base_monomes'</span>};
-0048 
-0049 <span class="keyword">for</span> jj=1:numel(blacklist)
-0050     <span class="comment">%pattern to check</span>
-0051     checkF=blacklist{jj};
-0052     <span class="comment">%seek the pattern</span>
-0053     kk=strfind(listF,checkF);
-0054     <span class="keyword">if</span> ~isempty(kk)
-0055         <span class="comment">%missing pattern</span>
-0056         hh=cellfun(@isempty,kk);
-0057         <span class="comment">%remove from the list</span>
-0058         IX=find(hh);
-0059         listF={listF{IX}};
-0060     <span class="keyword">end</span>
-0061 <span class="keyword">end</span>
-0062 <span class="comment">%manually addition</span>
-0063 <span class="comment">%listF{end+1}='src/libs/PSOt/pso_Trelea_mod.m';</span>
-0064 <span class="keyword">end</span>
-0065 
-0066 
-0067 <span class="comment">% list files in a directory</span>
-0068 <a name="_sub1" href="#_subfunctions" class="code">function [filDir]=listFileDir(dirM)</a>
-0069 <span class="comment">%rawlist</span>
-0070 rawList=dir(dirM);
-0071 <span class="comment">%flag file</span>
-0072 flag_file=~[rawList.isdir];
-0073 <span class="comment">%list of files in the directory</span>
-0074 filDir={rawList(flag_file).name};
-0075 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Sat 19-May-2018 16:36:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0025 
+0026 <span class="comment">% To be executed at the root position of the toolbox</span>
+0027 
+0028 
+0029 <a name="_sub0" href="#_subfunctions" class="code">function listF=listFilesToolboxMultiDOE(dirT)</a>
+0030 listF={};
+0031 <span class="comment">%process all directories in the directory 'dirT'</span>
+0032 <span class="keyword">for</span> ii=1:numel(dirT)
+0033     <span class="comment">%find files in directories</span>
+0034     fileDir=<a href="#_sub1" class="code" title="subfunction [filDir]=listFileDir(dirM)">listFileDir</a>(dirT{ii});
+0035     <span class="comment">%add name of the directory</span>
+0036     fun=@(x) sprintf(<span class="string">'%s/%s'</span>,dirT{ii},x);
+0037     fileDirOk=cellfun(fun,fileDir,<span class="string">'UniformOutput'</span>,false);
+0038     <span class="comment">%add to the whole list</span>
+0039     listF={listF{:},fileDirOk{:}};
+0040 <span class="keyword">end</span>
+0041 <span class="comment">%add the root directory of the Toolbox</span>
+0042 fileDirOk=<a href="#_sub1" class="code" title="subfunction [filDir]=listFileDir(dirM)">listFileDir</a>(<span class="string">'.'</span>);
+0043 <span class="comment">%add to the whole list</span>
+0044 listF={listF{:},fileDirOk{:}};
+0045 
+0046 
+0047 <span class="comment">%Files to avoid</span>
+0048 blacklist={<span class="string">'.git'</span>,char(126),<span class="string">'m2html'</span>,<span class="string">'.DS_Store'</span>,<span class="keyword">...</span>
+0049     <span class="string">'lightspeed'</span>,<span class="string">'mmx'</span>,<span class="string">'mtimesx'</span>,<span class="string">'Multiprod'</span>,<span class="keyword">...</span>
+0050     <span class="string">'sqplab-0.4.5-distrib'</span>,<span class="string">'toolbox'</span>,<span class="string">'PSOt'</span>,<span class="keyword">...</span>
+0051     <span class="string">'base_monomes'</span>};
+0052 
+0053 <span class="keyword">for</span> jj=1:numel(blacklist)
+0054     <span class="comment">%pattern to check</span>
+0055     checkF=blacklist{jj};
+0056     <span class="comment">%seek the pattern</span>
+0057     kk=strfind(listF,checkF);
+0058     <span class="keyword">if</span> ~isempty(kk)
+0059         <span class="comment">%missing pattern</span>
+0060         hh=cellfun(@isempty,kk);
+0061         <span class="comment">%remove from the list</span>
+0062         IX=find(hh);
+0063         listF={listF{IX}};
+0064     <span class="keyword">end</span>
+0065 <span class="keyword">end</span>
+0066 <span class="comment">%manually addition</span>
+0067 <span class="comment">%listF{end+1}='src/libs/PSOt/pso_Trelea_mod.m';</span>
+0068 <span class="keyword">end</span>
+0069 
+0070 
+0071 <span class="comment">% list files in a directory</span>
+0072 <a name="_sub1" href="#_subfunctions" class="code">function [filDir]=listFileDir(dirM)</a>
+0073 <span class="comment">%rawlist</span>
+0074 rawList=dir(dirM);
+0075 <span class="comment">%flag file</span>
+0076 flag_file=~[rawList.isdir];
+0077 <span class="comment">%list of files in the directory</span>
+0078 filDir={rawList(flag_file).name};
+0079 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Fri 05-Oct-2018 16:30:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

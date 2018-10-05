@@ -28,6 +28,10 @@
 <h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../../../up.png"></a></h2>
 <div class="fragment"><pre class="comment">     MultiDOE - Toolbox for sampling a bounded space
      Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;
+
+ sources available here:
+ https://bitbucket.org/luclaurent/multidoe/
+ https://github.com/luclaurent/multidoe/
  
      This program is free software: you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -58,657 +62,661 @@ This function is called by:
 <div class="fragment"><pre>0001 <span class="comment">%     MultiDOE - Toolbox for sampling a bounded space</span>
 0002 <span class="comment">%     Copyright (C) 2016  Luc LAURENT &lt;luc.laurent@lecnam.net&gt;</span>
 0003 <span class="comment">%</span>
-0004 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
-0005 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
-0006 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
-0007 <span class="comment">%     (at your option) any later version.</span>
-0008 <span class="comment">%</span>
-0009 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
-0010 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-0011 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
-0012 <span class="comment">%     GNU General Public License for more details.</span>
-0013 <span class="comment">%</span>
-0014 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
-0015 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
-0016 <span class="comment">%</span>
-0017 
-0018 <span class="comment">%test score</span>
-0019 clear all
-0020 close all
+0004 <span class="comment">% sources available here:</span>
+0005 <span class="comment">% https://bitbucket.org/luclaurent/multidoe/</span>
+0006 <span class="comment">% https://github.com/luclaurent/multidoe/</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%     This program is free software: you can redistribute it and/or modify</span>
+0009 <span class="comment">%     it under the terms of the GNU General Public License as published by</span>
+0010 <span class="comment">%     the Free Software Foundation, either version 3 of the License, or</span>
+0011 <span class="comment">%     (at your option) any later version.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%     This program is distributed in the hope that it will be useful,</span>
+0014 <span class="comment">%     but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+0015 <span class="comment">%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+0016 <span class="comment">%     GNU General Public License for more details.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%     You should have received a copy of the GNU General Public License</span>
+0019 <span class="comment">%     along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+0020 <span class="comment">%</span>
 0021 
-0022 Xmin=0;
-0023 Xmax=1;
-0024 
-0025 nbt=100;
-0026 
-0027 dim=2;
+0022 <span class="comment">%test score</span>
+0023 clear all
+0024 close all
+0025 
+0026 Xmin=0;
+0027 Xmax=1;
 0028 
-0029 <span class="keyword">if</span> dim==1
-0030     
-0031     
-0032     <span class="keyword">for</span> ii=0:nbt
-0033         tir=[Xmin Xmin+ii/nbt*(Xmax-Xmin)  Xmax]';
-0034         [uni,dispc]=score_doe(tir);
-0035         
-0036         dminmin(ii+1)=uni.dist_min;
-0037         sumd(ii+1)=uni.sum_dist;
-0038         recouv(ii+1)=uni.recouv;
-0039         rapd(ii+1)=uni.rap_dist;
-0040         avgd(ii+1)=uni.avg_min_dist;
-0041         l2(ii+1)=dispc.L2;
-0042         cl2(ii+1)=dispc.CL2;
-0043         ml2(ii+1)=dispc.ML2;
-0044         sl2(ii+1)=dispc.SL2;
-0045         morris(ii+1)=uni.morris;
-0046     <span class="keyword">end</span>
-0047     figure
-0048     subplot(341)
-0049     plot(0:nbt,l2,<span class="string">'k'</span>)
-0050     title(<span class="string">'L2'</span>)
-0051     subplot(342)
-0052     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0053     title(<span class="string">'CL2'</span>)
-0054     subplot(343)
-0055     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0056     title(<span class="string">'ML2'</span>)
-0057     subplot(344)
-0058     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0059     title(<span class="string">'SL2'</span>)
-0060     subplot(345)
-0061     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0062     title(<span class="string">'Dist min'</span>)
-0063     subplot(346)
-0064     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0065     title(<span class="string">'recouv'</span>)
-0066     subplot(347)
-0067     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0068     title(<span class="string">'rap dist'</span>)
-0069     subplot(348)
-0070     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0071     title(<span class="string">'avg min dist'</span>)
-0072     subplot(349)
-0073     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0074     title(<span class="string">'sum invers dist'</span>)
-0075         subplot(3410)
-0076     plot(0:nbt,morris,<span class="string">'k'</span>)
-0077     title(<span class="string">'morris'</span>)
-0078     
-0079     
-0080 <span class="keyword">elseif</span> dim==2
-0081     conf1=[1,0;0,1;-1,0;0,-1];
-0082     conf2=[1 1;-1 1;-1 -1;1 -1];
-0083     conf3=[conf2;0,0];
-0084     Xmax=4;
-0085     <span class="comment">%%%%% conf1</span>
-0086     <span class="comment">%cas1</span>
-0087     <span class="keyword">for</span> ii=0:nbt
-0088         conft=conf1;
-0089         conft(2,2)=conft(2,2)-1+ii/nbt*Xmax;
-0090          [uni,dispc]=score_doe(conft);
-0091         
-0092         dminmin(ii+1)=uni.dist_min;
-0093         sumd(ii+1)=uni.sum_dist;
-0094         recouv(ii+1)=uni.recouv;
-0095         rapd(ii+1)=uni.rap_dist;
-0096         avgd(ii+1)=uni.avg_min_dist;
-0097         l2(ii+1)=dispc.L2;
-0098         cl2(ii+1)=dispc.CL2;
-0099         ml2(ii+1)=dispc.ML2;
-0100         sl2(ii+1)=dispc.SL2;
-0101         morris(ii+1)=uni.morris;
-0102     <span class="keyword">end</span>
-0103     figure
-0104     subplot(3,4,1)
-0105     plot(0:nbt,l2,<span class="string">'k'</span>)
-0106     title(<span class="string">'L2'</span>)
-0107     subplot(3,4,2)
-0108     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0109     title(<span class="string">'CL2'</span>)
-0110     subplot(3,4,3)
-0111     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0112     title(<span class="string">'ML2'</span>)
-0113     subplot(3,4,4)
-0114     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0115     title(<span class="string">'SL2'</span>)
-0116     subplot(3,4,5)
-0117     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0118     title(<span class="string">'Dist min'</span>)
-0119     subplot(3,4,6)
-0120     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0121     title(<span class="string">'recouv'</span>)
-0122     subplot(3,4,7)
-0123     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0124     title(<span class="string">'rap dist'</span>)
-0125     subplot(3,4,8)
-0126     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0127     title(<span class="string">'avg min dist'</span>)
-0128     subplot(3,4,9)
-0129     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0130      title(<span class="string">'sum inverse dist'</span>)
-0131          subplot(3,4,10)
-0132     plot(0:nbt,morris,<span class="string">'k'</span>)
-0133      title(<span class="string">'morris'</span>)
-0134     subplot(3,4,11)
-0135     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0136     hold on
-0137     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
-0138     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0139     <span class="comment">%cas2</span>
-0140     
-0141     <span class="keyword">for</span> ii=0:nbt
-0142         conft=conf1;
-0143         conft(2,2)=conft(2,2)-1+ii/nbt*Xmax;
-0144         conft(4,2)=conft(4,2)+1-ii/nbt*Xmax;
-0145          [uni,dispc]=score_doe(conft);
-0146         
-0147         dminmin(ii+1)=uni.dist_min;
-0148         sumd(ii+1)=uni.sum_dist;
-0149         recouv(ii+1)=uni.recouv;
-0150         rapd(ii+1)=uni.rap_dist;
-0151         avgd(ii+1)=uni.avg_min_dist;
-0152         l2(ii+1)=dispc.L2;
-0153         cl2(ii+1)=dispc.CL2;
-0154         ml2(ii+1)=dispc.ML2;
-0155         sl2(ii+1)=dispc.SL2;
-0156         morris(ii+1)=uni.morris;
-0157     <span class="keyword">end</span>
-0158     figure
-0159     subplot(3,4,1)
-0160     plot(0:nbt,l2,<span class="string">'k'</span>)
-0161     title(<span class="string">'L2'</span>)
-0162     subplot(3,4,2)
-0163     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0164     title(<span class="string">'CL2'</span>)
-0165     subplot(3,4,3)
-0166     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0167     title(<span class="string">'ML2'</span>)
-0168     subplot(3,4,4)
-0169     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0170     title(<span class="string">'SL2'</span>)
-0171     subplot(3,4,5)
-0172     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0173     title(<span class="string">'Dist min'</span>)
-0174     subplot(3,4,6)
-0175     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0176     title(<span class="string">'recouv'</span>)
-0177     subplot(3,4,7)
-0178     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0179     title(<span class="string">'rap dist'</span>)
-0180     subplot(3,4,8)
-0181     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0182     title(<span class="string">'avg min dist'</span>)
-0183     subplot(3,4,9)
-0184     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0185      title(<span class="string">'sum inverse dist'</span>)
-0186          subplot(3,4,10)
-0187     plot(0:nbt,morris,<span class="string">'k'</span>)
-0188      title(<span class="string">'morris'</span>)
-0189     subplot(3,4,11)
-0190     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0191     hold on
-0192     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
-0193     plot([conf1(2,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'.r'</span>)
-0194     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0195     line([conf1(4,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0196     
-0197     <span class="comment">%cas3</span>
-0198     
-0199     <span class="keyword">for</span> ii=0:nbt
-0200         conft=conf1;
-0201         conft(2,1)=conft(2,1)-ii/nbt*Xmax;
-0202         conft(4,1)=conft(4,1)-ii/nbt*Xmax;
-0203          [uni,dispc]=score_doe(conft);
-0204         
-0205         dminmin(ii+1)=uni.dist_min;
-0206         sumd(ii+1)=uni.sum_dist;
-0207         recouv(ii+1)=uni.recouv;
-0208         rapd(ii+1)=uni.rap_dist;
-0209         avgd(ii+1)=uni.avg_min_dist;
-0210         l2(ii+1)=dispc.L2;
-0211         cl2(ii+1)=dispc.CL2;
-0212         ml2(ii+1)=dispc.ML2;
-0213         sl2(ii+1)=dispc.SL2;
-0214     <span class="keyword">end</span>
-0215     figure
-0216     subplot(3,4,1)
-0217     plot(0:nbt,l2,<span class="string">'k'</span>)
-0218     title(<span class="string">'L2'</span>)
-0219     subplot(3,4,2)
-0220     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0221     title(<span class="string">'CL2'</span>)
-0222     subplot(3,4,3)
-0223     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0224     title(<span class="string">'ML2'</span>)
-0225     subplot(3,4,4)
-0226     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0227     title(<span class="string">'SL2'</span>)
-0228     subplot(3,4,5)
-0229     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0230     title(<span class="string">'Dist min'</span>)
-0231     subplot(3,4,6)
-0232     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0233     title(<span class="string">'recouv'</span>)
-0234     subplot(3,4,7)
-0235     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0236     title(<span class="string">'rap dist'</span>)
-0237     subplot(3,4,8)
-0238     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0239     title(<span class="string">'avg min dist'</span>)
-0240     subplot(3,4,9)
-0241     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0242      title(<span class="string">'sum inverse dist'</span>)
-0243          subplot(3,4,10)
-0244     plot(0:nbt,morris,<span class="string">'k'</span>)
-0245      title(<span class="string">'morris'</span>)
-0246     subplot(3,4,11)
-0247     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0248     hold on
-0249     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
-0250     plot([conf1(2,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'.r'</span>)
-0251     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0252     line([conf1(4,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0253     <span class="comment">%cas4</span>
-0254     
-0255     <span class="keyword">for</span> ii=0:nbt
-0256         conft=conf1;
-0257         conft(2,1)=conft(2,1)-ii/nbt*Xmax;
-0258         conft(4,1)=conft(4,1)+ii/nbt*Xmax;
-0259          [uni,dispc]=score_doe(conft);
-0260         
-0261         dminmin(ii+1)=uni.dist_min;
-0262         sumd(ii+1)=uni.sum_dist;
-0263         recouv(ii+1)=uni.recouv;
-0264         rapd(ii+1)=uni.rap_dist;
-0265         avgd(ii+1)=uni.avg_min_dist;
-0266         l2(ii+1)=dispc.L2;
-0267         cl2(ii+1)=dispc.CL2;
-0268         ml2(ii+1)=dispc.ML2;
-0269         sl2(ii+1)=dispc.SL2;
-0270     <span class="keyword">end</span>
-0271     figure
-0272     subplot(3,4,1)
-0273     plot(0:nbt,l2,<span class="string">'k'</span>)
-0274     title(<span class="string">'L2'</span>)
-0275     subplot(3,4,2)
-0276     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0277     title(<span class="string">'CL2'</span>)
-0278     subplot(3,4,3)
-0279     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0280     title(<span class="string">'ML2'</span>)
-0281     subplot(3,4,4)
-0282     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0283     title(<span class="string">'SL2'</span>)
-0284     subplot(3,4,5)
-0285     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0286     title(<span class="string">'Dist min'</span>)
-0287     subplot(3,4,6)
-0288     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0289     title(<span class="string">'recouv'</span>)
-0290     subplot(3,4,7)
-0291     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0292     title(<span class="string">'rap dist'</span>)
-0293     subplot(3,4,8)
-0294     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0295     title(<span class="string">'avg min dist'</span>)
-0296     subplot(3,4,9)
-0297     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0298      title(<span class="string">'sum inverse dist'</span>)
-0299      subplot(3,4,10)
-0300     plot(0:nbt,morris,<span class="string">'k'</span>)
-0301      title(<span class="string">'morris'</span>)
-0302          subplot(3,4,11)
-0303     plot(0:nbt,morris,<span class="string">'k'</span>)
-0304      title(<span class="string">'morris'</span>)
-0305     subplot(3,4,11)
-0306     
-0307     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0308     hold on
-0309     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
-0310     plot([conf1(2,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'.r'</span>)
-0311     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0312     line([conf1(4,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0313     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0314     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0315     <span class="comment">%%%%% conf2</span>
-0316     <span class="comment">%cas1</span>
-0317     <span class="keyword">for</span> ii=0:nbt
-0318         conft=conf2;
-0319         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
-0320          [uni,dispc]=score_doe(conft);
-0321         
-0322         dminmin(ii+1)=uni.dist_min;
-0323         sumd(ii+1)=uni.sum_dist;
-0324         recouv(ii+1)=uni.recouv;
-0325         rapd(ii+1)=uni.rap_dist;
-0326         avgd(ii+1)=uni.avg_min_dist;
-0327         l2(ii+1)=dispc.L2;
-0328         cl2(ii+1)=dispc.CL2;
-0329         ml2(ii+1)=dispc.ML2;
-0330         sl2(ii+1)=dispc.SL2;
-0331     <span class="keyword">end</span>
-0332     figure
-0333     subplot(3,4,1)
-0334     plot(0:nbt,l2,<span class="string">'k'</span>)
-0335     title(<span class="string">'L2'</span>)
-0336     subplot(3,4,2)
-0337     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0338     title(<span class="string">'CL2'</span>)
-0339     subplot(3,4,3)
-0340     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0341     title(<span class="string">'ML2'</span>)
-0342     subplot(3,4,4)
-0343     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0344     title(<span class="string">'SL2'</span>)
-0345     subplot(3,4,5)
-0346     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0347     title(<span class="string">'Dist min'</span>)
-0348     subplot(3,4,6)
-0349     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0350     title(<span class="string">'recouv'</span>)
-0351     subplot(3,4,7)
-0352     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0353     title(<span class="string">'rap dist'</span>)
-0354     subplot(3,4,8)
-0355     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0356     title(<span class="string">'avg min dist'</span>)
-0357     subplot(3,4,9)
-0358     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0359      title(<span class="string">'sum inverse dist'</span>)
-0360      subplot(3,4,10)
-0361     plot(0:nbt,morris,<span class="string">'k'</span>)
-0362      title(<span class="string">'morris'</span>)
-0363     subplot(3,4,11)
-0364     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0365     hold on
-0366     plot([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'.r'</span>)
-0367     line([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0368     
-0369     
-0370     <span class="comment">%cas2</span>
-0371     
-0372     <span class="keyword">for</span> ii=0:nbt
-0373         conft=conf2;
-0374         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
-0375         conft(3,1)=conft(3,1)+1-ii/nbt*Xmax;
-0376          [uni,dispc]=score_doe(conft);
-0377         
-0378         dminmin(ii+1)=uni.dist_min;
-0379         sumd(ii+1)=uni.sum_dist;
-0380         recouv(ii+1)=uni.recouv;
-0381         rapd(ii+1)=uni.rap_dist;
-0382         avgd(ii+1)=uni.avg_min_dist;
-0383         l2(ii+1)=dispc.L2;
-0384         cl2(ii+1)=dispc.CL2;
-0385         ml2(ii+1)=dispc.ML2;
-0386         sl2(ii+1)=dispc.SL2;
-0387     <span class="keyword">end</span>
-0388     figure
-0389     subplot(3,4,1)
-0390     plot(0:nbt,l2,<span class="string">'k'</span>)
-0391     title(<span class="string">'L2'</span>)
-0392     subplot(3,4,2)
-0393     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0394     title(<span class="string">'CL2'</span>)
-0395     subplot(3,4,3)
-0396     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0397     title(<span class="string">'ML2'</span>)
-0398     subplot(3,4,4)
-0399     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0400     title(<span class="string">'SL2'</span>)
-0401     subplot(3,4,5)
-0402     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0403     title(<span class="string">'Dist min'</span>)
-0404     subplot(3,4,6)
-0405     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0406     title(<span class="string">'recouv'</span>)
-0407     subplot(3,4,7)
-0408     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0409     title(<span class="string">'rap dist'</span>)
-0410     subplot(3,4,8)
-0411     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0412     title(<span class="string">'avg min dist'</span>)
-0413     subplot(3,4,9)
-0414     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0415      title(<span class="string">'sum inverse dist'</span>)
-0416      subplot(3,4,10)
-0417     plot(0:nbt,morris,<span class="string">'k'</span>)
-0418      title(<span class="string">'morris'</span>)
-0419     subplot(3,4,11)
-0420     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0421     hold on
-0422     plot([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'.r'</span>)
-0423     plot([conf2(3,1)+1;conft(3,1)],[conf2(3,2);conft(3,2)],<span class="string">'.r'</span>)
-0424     line([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0425     line([conf2(3,1)+1;conft(3,1)],[conf2(3,2);conft(3,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0426     
-0427     <span class="comment">%cas3</span>
-0428     
-0429     <span class="keyword">for</span> ii=0:nbt
-0430         conft=conf2;
-0431         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
-0432         conft(1,2)=conft(1,2)-1+ii/nbt*Xmax;
-0433          [uni,dispc]=score_doe(conft);
-0434         
-0435         dminmin(ii+1)=uni.dist_min;
-0436         sumd(ii+1)=uni.sum_dist;
-0437         recouv(ii+1)=uni.recouv;
-0438         rapd(ii+1)=uni.rap_dist;
-0439         avgd(ii+1)=uni.avg_min_dist;
-0440         l2(ii+1)=dispc.L2;
-0441         cl2(ii+1)=dispc.CL2;
-0442         ml2(ii+1)=dispc.ML2;
-0443         sl2(ii+1)=dispc.SL2;
-0444     <span class="keyword">end</span>
-0445     figure
-0446     subplot(3,4,1)
-0447     plot(0:nbt,l2,<span class="string">'k'</span>)
-0448     title(<span class="string">'L2'</span>)
-0449     subplot(3,4,2)
-0450     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0451     title(<span class="string">'CL2'</span>)
-0452     subplot(3,4,3)
-0453     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0454     title(<span class="string">'ML2'</span>)
-0455     subplot(3,4,4)
-0456     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0457     title(<span class="string">'SL2'</span>)
-0458     subplot(3,4,5)
-0459     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0460     title(<span class="string">'Dist min'</span>)
-0461     subplot(3,4,6)
-0462     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0463     title(<span class="string">'recouv'</span>)
-0464     subplot(3,4,7)
-0465     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0466     title(<span class="string">'rap dist'</span>)
-0467     subplot(3,4,8)
-0468     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0469     title(<span class="string">'avg min dist'</span>)
-0470     subplot(3,4,9)
-0471     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0472      title(<span class="string">'sum inverse dist'</span>)
-0473      subplot(3,4,10)
-0474     plot(0:nbt,morris,<span class="string">'k'</span>)
-0475      title(<span class="string">'morris'</span>)
-0476     subplot(3,4,11)
-0477     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0478     hold on
-0479     plot([conf2(1,1)-1;conft(1,1)],[conf2(1,2)-1;conft(1,2)],<span class="string">'.r'</span>)
-0480     line([conf2(1,1)-1;conft(1,1)],[conf2(1,2)-1;conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0481     
-0482     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0483     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0484     <span class="comment">%%%%% conf3</span>
-0485     <span class="comment">%cas1</span>
-0486     <span class="keyword">for</span> ii=0:nbt
-0487         conft=conf3;
-0488         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
-0489          [uni,dispc]=score_doe(conft);
-0490         
-0491         dminmin(ii+1)=uni.dist_min;
-0492         sumd(ii+1)=uni.sum_dist;
-0493         recouv(ii+1)=uni.recouv;
-0494         rapd(ii+1)=uni.rap_dist;
-0495         avgd(ii+1)=uni.avg_min_dist;
-0496         l2(ii+1)=dispc.L2;
-0497         cl2(ii+1)=dispc.CL2;
-0498         ml2(ii+1)=dispc.ML2;
-0499         sl2(ii+1)=dispc.SL2;
-0500     <span class="keyword">end</span>
-0501     figure
-0502     subplot(3,4,1)
-0503     plot(0:nbt,l2,<span class="string">'k'</span>)
-0504     title(<span class="string">'L2'</span>)
-0505     subplot(3,4,2)
-0506     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0507     title(<span class="string">'CL2'</span>)
-0508     subplot(3,4,3)
-0509     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0510     title(<span class="string">'ML2'</span>)
-0511     subplot(3,4,4)
-0512     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0513     title(<span class="string">'SL2'</span>)
-0514     subplot(3,4,5)
-0515     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0516     title(<span class="string">'Dist min'</span>)
-0517     subplot(3,4,6)
-0518     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0519     title(<span class="string">'recouv'</span>)
-0520     subplot(3,4,7)
-0521     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0522     title(<span class="string">'rap dist'</span>)
-0523     subplot(3,4,8)
-0524     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0525     title(<span class="string">'avg min dist'</span>)
-0526     subplot(3,4,9)
-0527     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0528      title(<span class="string">'sum inverse dist'</span>)
-0529      subplot(3,4,10)
-0530     plot(0:nbt,morris,<span class="string">'k'</span>)
-0531      title(<span class="string">'morris'</span>)
-0532     subplot(3,4,11)
-0533     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0534     hold on
-0535     plot([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'.r'</span>)
-0536     line([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0537     
-0538     
-0539     <span class="comment">%cas2</span>
-0540     
-0541     <span class="keyword">for</span> ii=0:nbt
-0542         conft=conf3;
-0543         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
-0544         conft(3,1)=conft(3,1)+1-ii/nbt*Xmax;
-0545          [uni,dispc]=score_doe(conft);
-0546         
-0547         dminmin(ii+1)=uni.dist_min;
-0548         sumd(ii+1)=uni.sum_dist;
-0549         recouv(ii+1)=uni.recouv;
-0550         rapd(ii+1)=uni.rap_dist;
-0551         avgd(ii+1)=uni.avg_min_dist;
-0552         l2(ii+1)=dispc.L2;
-0553         cl2(ii+1)=dispc.CL2;
-0554         ml2(ii+1)=dispc.ML2;
-0555         sl2(ii+1)=dispc.SL2;
-0556     <span class="keyword">end</span>
-0557     figure
-0558     subplot(3,4,1)
-0559     plot(0:nbt,l2,<span class="string">'k'</span>)
-0560     title(<span class="string">'L2'</span>)
-0561     subplot(3,4,2)
-0562     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0563     title(<span class="string">'CL2'</span>)
-0564     subplot(3,4,3)
-0565     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0566     title(<span class="string">'ML2'</span>)
-0567     subplot(3,4,4)
-0568     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0569     title(<span class="string">'SL2'</span>)
-0570     subplot(3,4,5)
-0571     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0572     title(<span class="string">'Dist min'</span>)
-0573     subplot(3,4,6)
-0574     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0575     title(<span class="string">'recouv'</span>)
-0576     subplot(3,4,7)
-0577     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0578     title(<span class="string">'rap dist'</span>)
-0579     subplot(3,4,8)
-0580     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0581     title(<span class="string">'avg min dist'</span>)
-0582     subplot(3,4,9)
-0583     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0584      title(<span class="string">'sum inverse dist'</span>)
-0585      subplot(3,4,10)
-0586     plot(0:nbt,morris,<span class="string">'k'</span>)
-0587      title(<span class="string">'morris'</span>)
-0588     subplot(3,4,11)
-0589     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0590     hold on
-0591     plot([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'.r'</span>)
-0592     plot([conf3(3,1)+1;conft(3,1)],[conf3(3,2);conft(3,2)],<span class="string">'.r'</span>)
-0593     line([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0594     line([conf3(3,1)+1;conft(3,1)],[conf3(3,2);conft(3,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0595     
-0596     <span class="comment">%cas3</span>
-0597     
-0598     <span class="keyword">for</span> ii=0:nbt
-0599         conft=conf3;
-0600         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
-0601         conft(1,2)=conft(1,2)-1+ii/nbt*Xmax;
-0602          [uni,dispc]=score_doe(conft);
-0603         
-0604         dminmin(ii+1)=uni.dist_min;
-0605         sumd(ii+1)=uni.sum_dist;
-0606         recouv(ii+1)=uni.recouv;
-0607         rapd(ii+1)=uni.rap_dist;
-0608         avgd(ii+1)=uni.avg_min_dist;
-0609         l2(ii+1)=dispc.L2;
-0610         cl2(ii+1)=dispc.CL2;
-0611         ml2(ii+1)=dispc.ML2;
-0612         sl2(ii+1)=dispc.SL2;
-0613     <span class="keyword">end</span>
-0614     figure
-0615     subplot(3,4,1)
-0616     plot(0:nbt,l2,<span class="string">'k'</span>)
-0617     title(<span class="string">'L2'</span>)
-0618     subplot(3,4,2)
-0619     plot(0:nbt,cl2,<span class="string">'k'</span>)
-0620     title(<span class="string">'CL2'</span>)
-0621     subplot(3,4,3)
-0622     plot(0:nbt,ml2,<span class="string">'k'</span>)
-0623     title(<span class="string">'ML2'</span>)
-0624     subplot(3,4,4)
-0625     plot(0:nbt,sl2,<span class="string">'k'</span>)
-0626     title(<span class="string">'SL2'</span>)
-0627     subplot(3,4,5)
-0628     plot(0:nbt,dminmin,<span class="string">'k'</span>)
-0629     title(<span class="string">'Dist min'</span>)
-0630     subplot(3,4,6)
-0631     plot(0:nbt,recouv,<span class="string">'k'</span>)
-0632     title(<span class="string">'recouv'</span>)
-0633     subplot(3,4,7)
-0634     plot(0:nbt,rapd,<span class="string">'k'</span>)
-0635     title(<span class="string">'rap dist'</span>)
-0636     subplot(3,4,8)
-0637     plot(0:nbt,avgd,<span class="string">'k'</span>)
-0638     title(<span class="string">'avg min dist'</span>)
-0639     subplot(3,4,9)
-0640     plot(0:nbt,sumd,<span class="string">'k'</span>)
-0641      title(<span class="string">'sum inverse dist'</span>)
-0642      subplot(3,4,10)
-0643     plot(0:nbt,morris,<span class="string">'k'</span>)
-0644      title(<span class="string">'morris'</span>)
-0645     subplot(3,4,11)
-0646     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
-0647     hold on
-0648     plot([conf3(1,1)-1;conft(1,1)],[conf3(1,2)-1;conft(1,2)],<span class="string">'.r'</span>)
-0649     line([conf3(1,1)-1;conft(1,1)],[conf3(1,2)-1;conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
-0650     
-0651     
-0652 <span class="keyword">end</span>
-0653 
-0654</pre></div>
-<hr><address>Generated on Sat 19-May-2018 16:36:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0029 nbt=100;
+0030 
+0031 dim=2;
+0032 
+0033 <span class="keyword">if</span> dim==1
+0034     
+0035     
+0036     <span class="keyword">for</span> ii=0:nbt
+0037         tir=[Xmin Xmin+ii/nbt*(Xmax-Xmin)  Xmax]';
+0038         [uni,dispc]=score_doe(tir);
+0039         
+0040         dminmin(ii+1)=uni.dist_min;
+0041         sumd(ii+1)=uni.sum_dist;
+0042         recouv(ii+1)=uni.recouv;
+0043         rapd(ii+1)=uni.rap_dist;
+0044         avgd(ii+1)=uni.avg_min_dist;
+0045         l2(ii+1)=dispc.L2;
+0046         cl2(ii+1)=dispc.CL2;
+0047         ml2(ii+1)=dispc.ML2;
+0048         sl2(ii+1)=dispc.SL2;
+0049         morris(ii+1)=uni.morris;
+0050     <span class="keyword">end</span>
+0051     figure
+0052     subplot(341)
+0053     plot(0:nbt,l2,<span class="string">'k'</span>)
+0054     title(<span class="string">'L2'</span>)
+0055     subplot(342)
+0056     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0057     title(<span class="string">'CL2'</span>)
+0058     subplot(343)
+0059     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0060     title(<span class="string">'ML2'</span>)
+0061     subplot(344)
+0062     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0063     title(<span class="string">'SL2'</span>)
+0064     subplot(345)
+0065     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0066     title(<span class="string">'Dist min'</span>)
+0067     subplot(346)
+0068     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0069     title(<span class="string">'recouv'</span>)
+0070     subplot(347)
+0071     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0072     title(<span class="string">'rap dist'</span>)
+0073     subplot(348)
+0074     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0075     title(<span class="string">'avg min dist'</span>)
+0076     subplot(349)
+0077     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0078     title(<span class="string">'sum invers dist'</span>)
+0079         subplot(3410)
+0080     plot(0:nbt,morris,<span class="string">'k'</span>)
+0081     title(<span class="string">'morris'</span>)
+0082     
+0083     
+0084 <span class="keyword">elseif</span> dim==2
+0085     conf1=[1,0;0,1;-1,0;0,-1];
+0086     conf2=[1 1;-1 1;-1 -1;1 -1];
+0087     conf3=[conf2;0,0];
+0088     Xmax=4;
+0089     <span class="comment">%%%%% conf1</span>
+0090     <span class="comment">%cas1</span>
+0091     <span class="keyword">for</span> ii=0:nbt
+0092         conft=conf1;
+0093         conft(2,2)=conft(2,2)-1+ii/nbt*Xmax;
+0094          [uni,dispc]=score_doe(conft);
+0095         
+0096         dminmin(ii+1)=uni.dist_min;
+0097         sumd(ii+1)=uni.sum_dist;
+0098         recouv(ii+1)=uni.recouv;
+0099         rapd(ii+1)=uni.rap_dist;
+0100         avgd(ii+1)=uni.avg_min_dist;
+0101         l2(ii+1)=dispc.L2;
+0102         cl2(ii+1)=dispc.CL2;
+0103         ml2(ii+1)=dispc.ML2;
+0104         sl2(ii+1)=dispc.SL2;
+0105         morris(ii+1)=uni.morris;
+0106     <span class="keyword">end</span>
+0107     figure
+0108     subplot(3,4,1)
+0109     plot(0:nbt,l2,<span class="string">'k'</span>)
+0110     title(<span class="string">'L2'</span>)
+0111     subplot(3,4,2)
+0112     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0113     title(<span class="string">'CL2'</span>)
+0114     subplot(3,4,3)
+0115     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0116     title(<span class="string">'ML2'</span>)
+0117     subplot(3,4,4)
+0118     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0119     title(<span class="string">'SL2'</span>)
+0120     subplot(3,4,5)
+0121     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0122     title(<span class="string">'Dist min'</span>)
+0123     subplot(3,4,6)
+0124     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0125     title(<span class="string">'recouv'</span>)
+0126     subplot(3,4,7)
+0127     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0128     title(<span class="string">'rap dist'</span>)
+0129     subplot(3,4,8)
+0130     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0131     title(<span class="string">'avg min dist'</span>)
+0132     subplot(3,4,9)
+0133     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0134      title(<span class="string">'sum inverse dist'</span>)
+0135          subplot(3,4,10)
+0136     plot(0:nbt,morris,<span class="string">'k'</span>)
+0137      title(<span class="string">'morris'</span>)
+0138     subplot(3,4,11)
+0139     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0140     hold on
+0141     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
+0142     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0143     <span class="comment">%cas2</span>
+0144     
+0145     <span class="keyword">for</span> ii=0:nbt
+0146         conft=conf1;
+0147         conft(2,2)=conft(2,2)-1+ii/nbt*Xmax;
+0148         conft(4,2)=conft(4,2)+1-ii/nbt*Xmax;
+0149          [uni,dispc]=score_doe(conft);
+0150         
+0151         dminmin(ii+1)=uni.dist_min;
+0152         sumd(ii+1)=uni.sum_dist;
+0153         recouv(ii+1)=uni.recouv;
+0154         rapd(ii+1)=uni.rap_dist;
+0155         avgd(ii+1)=uni.avg_min_dist;
+0156         l2(ii+1)=dispc.L2;
+0157         cl2(ii+1)=dispc.CL2;
+0158         ml2(ii+1)=dispc.ML2;
+0159         sl2(ii+1)=dispc.SL2;
+0160         morris(ii+1)=uni.morris;
+0161     <span class="keyword">end</span>
+0162     figure
+0163     subplot(3,4,1)
+0164     plot(0:nbt,l2,<span class="string">'k'</span>)
+0165     title(<span class="string">'L2'</span>)
+0166     subplot(3,4,2)
+0167     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0168     title(<span class="string">'CL2'</span>)
+0169     subplot(3,4,3)
+0170     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0171     title(<span class="string">'ML2'</span>)
+0172     subplot(3,4,4)
+0173     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0174     title(<span class="string">'SL2'</span>)
+0175     subplot(3,4,5)
+0176     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0177     title(<span class="string">'Dist min'</span>)
+0178     subplot(3,4,6)
+0179     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0180     title(<span class="string">'recouv'</span>)
+0181     subplot(3,4,7)
+0182     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0183     title(<span class="string">'rap dist'</span>)
+0184     subplot(3,4,8)
+0185     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0186     title(<span class="string">'avg min dist'</span>)
+0187     subplot(3,4,9)
+0188     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0189      title(<span class="string">'sum inverse dist'</span>)
+0190          subplot(3,4,10)
+0191     plot(0:nbt,morris,<span class="string">'k'</span>)
+0192      title(<span class="string">'morris'</span>)
+0193     subplot(3,4,11)
+0194     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0195     hold on
+0196     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
+0197     plot([conf1(2,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'.r'</span>)
+0198     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0199     line([conf1(4,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0200     
+0201     <span class="comment">%cas3</span>
+0202     
+0203     <span class="keyword">for</span> ii=0:nbt
+0204         conft=conf1;
+0205         conft(2,1)=conft(2,1)-ii/nbt*Xmax;
+0206         conft(4,1)=conft(4,1)-ii/nbt*Xmax;
+0207          [uni,dispc]=score_doe(conft);
+0208         
+0209         dminmin(ii+1)=uni.dist_min;
+0210         sumd(ii+1)=uni.sum_dist;
+0211         recouv(ii+1)=uni.recouv;
+0212         rapd(ii+1)=uni.rap_dist;
+0213         avgd(ii+1)=uni.avg_min_dist;
+0214         l2(ii+1)=dispc.L2;
+0215         cl2(ii+1)=dispc.CL2;
+0216         ml2(ii+1)=dispc.ML2;
+0217         sl2(ii+1)=dispc.SL2;
+0218     <span class="keyword">end</span>
+0219     figure
+0220     subplot(3,4,1)
+0221     plot(0:nbt,l2,<span class="string">'k'</span>)
+0222     title(<span class="string">'L2'</span>)
+0223     subplot(3,4,2)
+0224     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0225     title(<span class="string">'CL2'</span>)
+0226     subplot(3,4,3)
+0227     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0228     title(<span class="string">'ML2'</span>)
+0229     subplot(3,4,4)
+0230     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0231     title(<span class="string">'SL2'</span>)
+0232     subplot(3,4,5)
+0233     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0234     title(<span class="string">'Dist min'</span>)
+0235     subplot(3,4,6)
+0236     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0237     title(<span class="string">'recouv'</span>)
+0238     subplot(3,4,7)
+0239     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0240     title(<span class="string">'rap dist'</span>)
+0241     subplot(3,4,8)
+0242     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0243     title(<span class="string">'avg min dist'</span>)
+0244     subplot(3,4,9)
+0245     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0246      title(<span class="string">'sum inverse dist'</span>)
+0247          subplot(3,4,10)
+0248     plot(0:nbt,morris,<span class="string">'k'</span>)
+0249      title(<span class="string">'morris'</span>)
+0250     subplot(3,4,11)
+0251     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0252     hold on
+0253     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
+0254     plot([conf1(2,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'.r'</span>)
+0255     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0256     line([conf1(4,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0257     <span class="comment">%cas4</span>
+0258     
+0259     <span class="keyword">for</span> ii=0:nbt
+0260         conft=conf1;
+0261         conft(2,1)=conft(2,1)-ii/nbt*Xmax;
+0262         conft(4,1)=conft(4,1)+ii/nbt*Xmax;
+0263          [uni,dispc]=score_doe(conft);
+0264         
+0265         dminmin(ii+1)=uni.dist_min;
+0266         sumd(ii+1)=uni.sum_dist;
+0267         recouv(ii+1)=uni.recouv;
+0268         rapd(ii+1)=uni.rap_dist;
+0269         avgd(ii+1)=uni.avg_min_dist;
+0270         l2(ii+1)=dispc.L2;
+0271         cl2(ii+1)=dispc.CL2;
+0272         ml2(ii+1)=dispc.ML2;
+0273         sl2(ii+1)=dispc.SL2;
+0274     <span class="keyword">end</span>
+0275     figure
+0276     subplot(3,4,1)
+0277     plot(0:nbt,l2,<span class="string">'k'</span>)
+0278     title(<span class="string">'L2'</span>)
+0279     subplot(3,4,2)
+0280     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0281     title(<span class="string">'CL2'</span>)
+0282     subplot(3,4,3)
+0283     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0284     title(<span class="string">'ML2'</span>)
+0285     subplot(3,4,4)
+0286     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0287     title(<span class="string">'SL2'</span>)
+0288     subplot(3,4,5)
+0289     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0290     title(<span class="string">'Dist min'</span>)
+0291     subplot(3,4,6)
+0292     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0293     title(<span class="string">'recouv'</span>)
+0294     subplot(3,4,7)
+0295     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0296     title(<span class="string">'rap dist'</span>)
+0297     subplot(3,4,8)
+0298     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0299     title(<span class="string">'avg min dist'</span>)
+0300     subplot(3,4,9)
+0301     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0302      title(<span class="string">'sum inverse dist'</span>)
+0303      subplot(3,4,10)
+0304     plot(0:nbt,morris,<span class="string">'k'</span>)
+0305      title(<span class="string">'morris'</span>)
+0306          subplot(3,4,11)
+0307     plot(0:nbt,morris,<span class="string">'k'</span>)
+0308      title(<span class="string">'morris'</span>)
+0309     subplot(3,4,11)
+0310     
+0311     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0312     hold on
+0313     plot([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'.r'</span>)
+0314     plot([conf1(2,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'.r'</span>)
+0315     line([conf1(2,1);conft(2,1)],[conf1(2,2);conft(2,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0316     line([conf1(4,1);conft(4,1)],[conf1(4,2);conft(4,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0317     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0318     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0319     <span class="comment">%%%%% conf2</span>
+0320     <span class="comment">%cas1</span>
+0321     <span class="keyword">for</span> ii=0:nbt
+0322         conft=conf2;
+0323         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
+0324          [uni,dispc]=score_doe(conft);
+0325         
+0326         dminmin(ii+1)=uni.dist_min;
+0327         sumd(ii+1)=uni.sum_dist;
+0328         recouv(ii+1)=uni.recouv;
+0329         rapd(ii+1)=uni.rap_dist;
+0330         avgd(ii+1)=uni.avg_min_dist;
+0331         l2(ii+1)=dispc.L2;
+0332         cl2(ii+1)=dispc.CL2;
+0333         ml2(ii+1)=dispc.ML2;
+0334         sl2(ii+1)=dispc.SL2;
+0335     <span class="keyword">end</span>
+0336     figure
+0337     subplot(3,4,1)
+0338     plot(0:nbt,l2,<span class="string">'k'</span>)
+0339     title(<span class="string">'L2'</span>)
+0340     subplot(3,4,2)
+0341     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0342     title(<span class="string">'CL2'</span>)
+0343     subplot(3,4,3)
+0344     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0345     title(<span class="string">'ML2'</span>)
+0346     subplot(3,4,4)
+0347     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0348     title(<span class="string">'SL2'</span>)
+0349     subplot(3,4,5)
+0350     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0351     title(<span class="string">'Dist min'</span>)
+0352     subplot(3,4,6)
+0353     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0354     title(<span class="string">'recouv'</span>)
+0355     subplot(3,4,7)
+0356     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0357     title(<span class="string">'rap dist'</span>)
+0358     subplot(3,4,8)
+0359     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0360     title(<span class="string">'avg min dist'</span>)
+0361     subplot(3,4,9)
+0362     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0363      title(<span class="string">'sum inverse dist'</span>)
+0364      subplot(3,4,10)
+0365     plot(0:nbt,morris,<span class="string">'k'</span>)
+0366      title(<span class="string">'morris'</span>)
+0367     subplot(3,4,11)
+0368     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0369     hold on
+0370     plot([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'.r'</span>)
+0371     line([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0372     
+0373     
+0374     <span class="comment">%cas2</span>
+0375     
+0376     <span class="keyword">for</span> ii=0:nbt
+0377         conft=conf2;
+0378         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
+0379         conft(3,1)=conft(3,1)+1-ii/nbt*Xmax;
+0380          [uni,dispc]=score_doe(conft);
+0381         
+0382         dminmin(ii+1)=uni.dist_min;
+0383         sumd(ii+1)=uni.sum_dist;
+0384         recouv(ii+1)=uni.recouv;
+0385         rapd(ii+1)=uni.rap_dist;
+0386         avgd(ii+1)=uni.avg_min_dist;
+0387         l2(ii+1)=dispc.L2;
+0388         cl2(ii+1)=dispc.CL2;
+0389         ml2(ii+1)=dispc.ML2;
+0390         sl2(ii+1)=dispc.SL2;
+0391     <span class="keyword">end</span>
+0392     figure
+0393     subplot(3,4,1)
+0394     plot(0:nbt,l2,<span class="string">'k'</span>)
+0395     title(<span class="string">'L2'</span>)
+0396     subplot(3,4,2)
+0397     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0398     title(<span class="string">'CL2'</span>)
+0399     subplot(3,4,3)
+0400     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0401     title(<span class="string">'ML2'</span>)
+0402     subplot(3,4,4)
+0403     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0404     title(<span class="string">'SL2'</span>)
+0405     subplot(3,4,5)
+0406     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0407     title(<span class="string">'Dist min'</span>)
+0408     subplot(3,4,6)
+0409     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0410     title(<span class="string">'recouv'</span>)
+0411     subplot(3,4,7)
+0412     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0413     title(<span class="string">'rap dist'</span>)
+0414     subplot(3,4,8)
+0415     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0416     title(<span class="string">'avg min dist'</span>)
+0417     subplot(3,4,9)
+0418     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0419      title(<span class="string">'sum inverse dist'</span>)
+0420      subplot(3,4,10)
+0421     plot(0:nbt,morris,<span class="string">'k'</span>)
+0422      title(<span class="string">'morris'</span>)
+0423     subplot(3,4,11)
+0424     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0425     hold on
+0426     plot([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'.r'</span>)
+0427     plot([conf2(3,1)+1;conft(3,1)],[conf2(3,2);conft(3,2)],<span class="string">'.r'</span>)
+0428     line([conf2(1,1)-1;conft(1,1)],[conf2(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0429     line([conf2(3,1)+1;conft(3,1)],[conf2(3,2);conft(3,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0430     
+0431     <span class="comment">%cas3</span>
+0432     
+0433     <span class="keyword">for</span> ii=0:nbt
+0434         conft=conf2;
+0435         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
+0436         conft(1,2)=conft(1,2)-1+ii/nbt*Xmax;
+0437          [uni,dispc]=score_doe(conft);
+0438         
+0439         dminmin(ii+1)=uni.dist_min;
+0440         sumd(ii+1)=uni.sum_dist;
+0441         recouv(ii+1)=uni.recouv;
+0442         rapd(ii+1)=uni.rap_dist;
+0443         avgd(ii+1)=uni.avg_min_dist;
+0444         l2(ii+1)=dispc.L2;
+0445         cl2(ii+1)=dispc.CL2;
+0446         ml2(ii+1)=dispc.ML2;
+0447         sl2(ii+1)=dispc.SL2;
+0448     <span class="keyword">end</span>
+0449     figure
+0450     subplot(3,4,1)
+0451     plot(0:nbt,l2,<span class="string">'k'</span>)
+0452     title(<span class="string">'L2'</span>)
+0453     subplot(3,4,2)
+0454     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0455     title(<span class="string">'CL2'</span>)
+0456     subplot(3,4,3)
+0457     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0458     title(<span class="string">'ML2'</span>)
+0459     subplot(3,4,4)
+0460     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0461     title(<span class="string">'SL2'</span>)
+0462     subplot(3,4,5)
+0463     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0464     title(<span class="string">'Dist min'</span>)
+0465     subplot(3,4,6)
+0466     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0467     title(<span class="string">'recouv'</span>)
+0468     subplot(3,4,7)
+0469     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0470     title(<span class="string">'rap dist'</span>)
+0471     subplot(3,4,8)
+0472     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0473     title(<span class="string">'avg min dist'</span>)
+0474     subplot(3,4,9)
+0475     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0476      title(<span class="string">'sum inverse dist'</span>)
+0477      subplot(3,4,10)
+0478     plot(0:nbt,morris,<span class="string">'k'</span>)
+0479      title(<span class="string">'morris'</span>)
+0480     subplot(3,4,11)
+0481     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0482     hold on
+0483     plot([conf2(1,1)-1;conft(1,1)],[conf2(1,2)-1;conft(1,2)],<span class="string">'.r'</span>)
+0484     line([conf2(1,1)-1;conft(1,1)],[conf2(1,2)-1;conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0485     
+0486     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0487     <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0488     <span class="comment">%%%%% conf3</span>
+0489     <span class="comment">%cas1</span>
+0490     <span class="keyword">for</span> ii=0:nbt
+0491         conft=conf3;
+0492         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
+0493          [uni,dispc]=score_doe(conft);
+0494         
+0495         dminmin(ii+1)=uni.dist_min;
+0496         sumd(ii+1)=uni.sum_dist;
+0497         recouv(ii+1)=uni.recouv;
+0498         rapd(ii+1)=uni.rap_dist;
+0499         avgd(ii+1)=uni.avg_min_dist;
+0500         l2(ii+1)=dispc.L2;
+0501         cl2(ii+1)=dispc.CL2;
+0502         ml2(ii+1)=dispc.ML2;
+0503         sl2(ii+1)=dispc.SL2;
+0504     <span class="keyword">end</span>
+0505     figure
+0506     subplot(3,4,1)
+0507     plot(0:nbt,l2,<span class="string">'k'</span>)
+0508     title(<span class="string">'L2'</span>)
+0509     subplot(3,4,2)
+0510     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0511     title(<span class="string">'CL2'</span>)
+0512     subplot(3,4,3)
+0513     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0514     title(<span class="string">'ML2'</span>)
+0515     subplot(3,4,4)
+0516     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0517     title(<span class="string">'SL2'</span>)
+0518     subplot(3,4,5)
+0519     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0520     title(<span class="string">'Dist min'</span>)
+0521     subplot(3,4,6)
+0522     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0523     title(<span class="string">'recouv'</span>)
+0524     subplot(3,4,7)
+0525     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0526     title(<span class="string">'rap dist'</span>)
+0527     subplot(3,4,8)
+0528     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0529     title(<span class="string">'avg min dist'</span>)
+0530     subplot(3,4,9)
+0531     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0532      title(<span class="string">'sum inverse dist'</span>)
+0533      subplot(3,4,10)
+0534     plot(0:nbt,morris,<span class="string">'k'</span>)
+0535      title(<span class="string">'morris'</span>)
+0536     subplot(3,4,11)
+0537     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0538     hold on
+0539     plot([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'.r'</span>)
+0540     line([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0541     
+0542     
+0543     <span class="comment">%cas2</span>
+0544     
+0545     <span class="keyword">for</span> ii=0:nbt
+0546         conft=conf3;
+0547         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
+0548         conft(3,1)=conft(3,1)+1-ii/nbt*Xmax;
+0549          [uni,dispc]=score_doe(conft);
+0550         
+0551         dminmin(ii+1)=uni.dist_min;
+0552         sumd(ii+1)=uni.sum_dist;
+0553         recouv(ii+1)=uni.recouv;
+0554         rapd(ii+1)=uni.rap_dist;
+0555         avgd(ii+1)=uni.avg_min_dist;
+0556         l2(ii+1)=dispc.L2;
+0557         cl2(ii+1)=dispc.CL2;
+0558         ml2(ii+1)=dispc.ML2;
+0559         sl2(ii+1)=dispc.SL2;
+0560     <span class="keyword">end</span>
+0561     figure
+0562     subplot(3,4,1)
+0563     plot(0:nbt,l2,<span class="string">'k'</span>)
+0564     title(<span class="string">'L2'</span>)
+0565     subplot(3,4,2)
+0566     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0567     title(<span class="string">'CL2'</span>)
+0568     subplot(3,4,3)
+0569     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0570     title(<span class="string">'ML2'</span>)
+0571     subplot(3,4,4)
+0572     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0573     title(<span class="string">'SL2'</span>)
+0574     subplot(3,4,5)
+0575     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0576     title(<span class="string">'Dist min'</span>)
+0577     subplot(3,4,6)
+0578     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0579     title(<span class="string">'recouv'</span>)
+0580     subplot(3,4,7)
+0581     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0582     title(<span class="string">'rap dist'</span>)
+0583     subplot(3,4,8)
+0584     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0585     title(<span class="string">'avg min dist'</span>)
+0586     subplot(3,4,9)
+0587     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0588      title(<span class="string">'sum inverse dist'</span>)
+0589      subplot(3,4,10)
+0590     plot(0:nbt,morris,<span class="string">'k'</span>)
+0591      title(<span class="string">'morris'</span>)
+0592     subplot(3,4,11)
+0593     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0594     hold on
+0595     plot([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'.r'</span>)
+0596     plot([conf3(3,1)+1;conft(3,1)],[conf3(3,2);conft(3,2)],<span class="string">'.r'</span>)
+0597     line([conf3(1,1)-1;conft(1,1)],[conf3(1,2);conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0598     line([conf3(3,1)+1;conft(3,1)],[conf3(3,2);conft(3,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0599     
+0600     <span class="comment">%cas3</span>
+0601     
+0602     <span class="keyword">for</span> ii=0:nbt
+0603         conft=conf3;
+0604         conft(1,1)=conft(1,1)-1+ii/nbt*Xmax;
+0605         conft(1,2)=conft(1,2)-1+ii/nbt*Xmax;
+0606          [uni,dispc]=score_doe(conft);
+0607         
+0608         dminmin(ii+1)=uni.dist_min;
+0609         sumd(ii+1)=uni.sum_dist;
+0610         recouv(ii+1)=uni.recouv;
+0611         rapd(ii+1)=uni.rap_dist;
+0612         avgd(ii+1)=uni.avg_min_dist;
+0613         l2(ii+1)=dispc.L2;
+0614         cl2(ii+1)=dispc.CL2;
+0615         ml2(ii+1)=dispc.ML2;
+0616         sl2(ii+1)=dispc.SL2;
+0617     <span class="keyword">end</span>
+0618     figure
+0619     subplot(3,4,1)
+0620     plot(0:nbt,l2,<span class="string">'k'</span>)
+0621     title(<span class="string">'L2'</span>)
+0622     subplot(3,4,2)
+0623     plot(0:nbt,cl2,<span class="string">'k'</span>)
+0624     title(<span class="string">'CL2'</span>)
+0625     subplot(3,4,3)
+0626     plot(0:nbt,ml2,<span class="string">'k'</span>)
+0627     title(<span class="string">'ML2'</span>)
+0628     subplot(3,4,4)
+0629     plot(0:nbt,sl2,<span class="string">'k'</span>)
+0630     title(<span class="string">'SL2'</span>)
+0631     subplot(3,4,5)
+0632     plot(0:nbt,dminmin,<span class="string">'k'</span>)
+0633     title(<span class="string">'Dist min'</span>)
+0634     subplot(3,4,6)
+0635     plot(0:nbt,recouv,<span class="string">'k'</span>)
+0636     title(<span class="string">'recouv'</span>)
+0637     subplot(3,4,7)
+0638     plot(0:nbt,rapd,<span class="string">'k'</span>)
+0639     title(<span class="string">'rap dist'</span>)
+0640     subplot(3,4,8)
+0641     plot(0:nbt,avgd,<span class="string">'k'</span>)
+0642     title(<span class="string">'avg min dist'</span>)
+0643     subplot(3,4,9)
+0644     plot(0:nbt,sumd,<span class="string">'k'</span>)
+0645      title(<span class="string">'sum inverse dist'</span>)
+0646      subplot(3,4,10)
+0647     plot(0:nbt,morris,<span class="string">'k'</span>)
+0648      title(<span class="string">'morris'</span>)
+0649     subplot(3,4,11)
+0650     plot(conft(:,1),conft(:,2),<span class="string">'.b'</span>)
+0651     hold on
+0652     plot([conf3(1,1)-1;conft(1,1)],[conf3(1,2)-1;conft(1,2)],<span class="string">'.r'</span>)
+0653     line([conf3(1,1)-1;conft(1,1)],[conf3(1,2)-1;conft(1,2)],<span class="string">'Color'</span>,<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+0654     
+0655     
+0656 <span class="keyword">end</span>
+0657 
+0658</pre></div>
+<hr><address>Generated on Fri 05-Oct-2018 16:30:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

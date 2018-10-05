@@ -1,13 +1,8 @@
 /* Created by mdot for Matlab */
 digraph m2html {
-  ExampleInfill -> initDirMultiDOE;
-  ExampleInfill -> displayDOE;
-  ExampleInfill -> addSampleDOE;
-  ExampleInfill -> initDOE;
-  ExampleInfill -> buildDOE;
-  ExampleUse -> initDirMultiDOE;
-  ExampleUse -> initDOE;
-  ExampleUse -> buildDOE;
+   -> lhs;
+  ExampleInfill -> multiDOE;
+  ExampleUse -> multiDOE;
   LICENSE -> LICENSE;
   LICENSE -> contents;
   README -> lhs;
@@ -35,7 +30,6 @@ digraph m2html {
   calcScore -> calcDist;
   addSampleDOE -> ihsR;
   addSampleDOE -> lhsuR;
-  initDOE -> initDOEfun;
   initDOE -> Mfprintf;
   initDOE -> mesuTime;
   ihs_test -> ihs_test01;
@@ -85,6 +79,7 @@ digraph m2html {
   mesuTime -> mesuTime;
   sortDOE -> Mfprintf;
 
+   [URL="MultiDOE/.html"];
   ExampleInfill [URL="MultiDOE/ExampleInfill.html"];
   ExampleUse [URL="MultiDOE/ExampleUse.html"];
   LICENSE [URL="MultiDOE/LICENSE.html"];
@@ -106,7 +101,6 @@ digraph m2html {
   displayDOE [URL="MultiDOE/src/disp/displayDOE.html"];
   addSampleDOE [URL="MultiDOE/src/init/addSampleDOE.html"];
   initDOE [URL="MultiDOE/src/init/initDOE.html"];
-  initDOEfun [URL="MultiDOE/src/init/initDOEfun.html"];
   covariance [URL="MultiDOE/src/libs/IHS/covariance.html"];
   ihs [URL="MultiDOE/src/libs/IHS/ihs.html"];
   ihs_test [URL="MultiDOE/src/libs/IHS/ihs_test.html"];
