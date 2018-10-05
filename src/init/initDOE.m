@@ -10,8 +10,7 @@
 %init_doe(dim)
 %initDOE(dim,type)
 %initDOE(dim,type,espM)
-%initDOE(dim,type,espM,funT)
-%initDOE(dim,type,espM,funT,stateAutonomous)
+%initDOE(dim,type,espM,stateAutonomous)
 %
 %% INPUT variables
 % -type : type of DOE
@@ -19,13 +18,9 @@
 % -espM : matrix for defining the bounds of the design space
 %       -nb of row=dim
 %       -nb of columns=2 (lower and upper bounds)
-% -funT : name of a test function (see below)
-% if the test function is available in the matlab's path the function will
-% create the right 'doe' structure that conatins the right options
 %
 %% OUTPUT variables
 % doe.dimPB: nb of design variables
-% doe.fctT: name of a test function (Peaks, Rosenbrock..., see below)
 % doe.infos: available information about the test function
 % doe.sort.on: active sorting
 % doe.sort.type:
