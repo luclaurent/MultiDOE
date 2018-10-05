@@ -37,6 +37,7 @@ function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)
 
 %path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
+setenv('PATH','/usr/local/bin/');
 
 %%initialize options
 % storing directory

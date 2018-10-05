@@ -1,45 +1,45 @@
-    %% multiDOE class for manipulating sampling
-    % L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net
-    %
-    % sources available here:
-    % https://bitbucket.org/luclaurent/multidoe/
-    % https://github.com/luclaurent/multidoe/
-    % 
-    % A multiDOE object can be created using the following syntax:
-    % multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
-    % where:
-    %  - dimPBIn: number of design variables
-    %  - typeIn: type of DOE (default: LHS)
-    %  - nsIn: number of sample points
-    %  - XminIn,XmaxIn: lower and upper bounds of the design space
-    %
-    % Each property can be set manually 
-    % for instance:
-    % <obj>.dimPB=3
-    % <obj>.type='LHS'
-    % <obj>.ns=30
-    %
-    % The smple points can be obtained using 
-    % <obj>.sorted or <obj>.unsorted
-    %
-    % The method 'show' allows to plot the sample points in any dimension
+%% multiDOE class for manipulating sampling
+% L. LAURENT -- 26/06/2016 -- luc.laurent@lecnam.net
+%
+% sources available here:
+% https://bitbucket.org/luclaurent/multidoe/
+% https://github.com/luclaurent/multidoe/
+%
+% A multiDOE object can be created using the following syntax:
+% multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
+% where:
+%  - dimPBIn: number of design variables
+%  - typeIn: type of DOE (default: LHS)
+%  - nsIn: number of sample points
+%  - XminIn,XmaxIn: lower and upper bounds of the design space
+%
+% Each property can be set manually
+% for instance:
+% <obj>.dimPB=3
+% <obj>.type='LHS'
+% <obj>.ns=30
+%
+% The smple points can be obtained using
+% <obj>.sorted or <obj>.unsorted
+%
+% The method 'show' allows to plot the sample points in any dimension
 
-    
-    %     MultiDOE - Toolbox for sampling a bounded space
-    %     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
-    %
-    %     This program is free software: you can redistribute it and/or modify
-    %     it under the terms of the GNU General Public License as published by
-    %     the Free Software Foundation, either version 3 of the License, or
-    %     (at your option) any later version.
-    %
-    %     This program is distributed in the hope that it will be useful,
-    %     but WITHOUT ANY WARRANTY; without even the implied warranty of
-    %     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    %     GNU General Public License for more details.
-    %
-    %     You should have received a copy of the GNU General Public License
-    %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+%     MultiDOE - Toolbox for sampling a bounded space
+%     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
+%
+%     This program is free software: you can redistribute it and/or modify
+%     it under the terms of the GNU General Public License as published by
+%     the Free Software Foundation, either version 3 of the License, or
+%     (at your option) any later version.
+%
+%     This program is distributed in the hope that it will be useful,
+%     but WITHOUT ANY WARRANTY; without even the implied warranty of
+%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%     GNU General Public License for more details.
+%
+%     You should have received a copy of the GNU General Public License
+%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 classdef multiDOE < handle
     
@@ -53,7 +53,6 @@ classdef multiDOE < handle
         sorted=[];
         unsorted=[];
         scoreVal=[];
-        funTest=''; %test function used
         runDOE=true; %flag for checking if sampling is obsolete
         okData=false; %flag for checking if sufficient data is available
     end
@@ -114,7 +113,6 @@ classdef multiDOE < handle
             'Same as ''nptp'' but starting at the center of sampling points',...
             'idem'};
     end
-    
     methods
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -122,7 +120,7 @@ classdef multiDOE < handle
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %constructor
-        function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn,funTest)
+        function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
             %load directories on the path
             initDirMultiDOE;
             %if the design space if given directly
@@ -134,23 +132,18 @@ classdef multiDOE < handle
                 dimPBOk=dimPBIn;
             end
             %load default configuration
-            if nargin>5
-                retInit=initDOE(dimPBOk,[],spaceD,funTest,false);
-            else
-                retInit=initDOE(dimPBOk,[],spaceD,[],false);
-            end
+            retInit=initDOE(dimPBOk,[],spaceD,false);
+            
             obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
             %specific configuration
             obj.dimPB=retInit.dimPB;
             if nargin>1;if ~isempty(typeIn);obj.type=typeIn;end,end
-            if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end             
+            if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end
             if nargin>4
                 if ~isempty(XminIn)&&~isempty(XmaxIn)
                     obj.Xmin=XminIn;obj.Xmax=XmaxIn;
                 end
             end
-            %specified the test function
-            if ~isempty(retInit.funT);obj.funTest=retInit.funT;end
             %load default configuration
             obj.sortInfo=retInit.sort;
             %build sampling
@@ -158,7 +151,7 @@ classdef multiDOE < handle
             %if all is ok, continue
             if obj.okData
                 %compute scores
-                 obj.scoreVal=score(obj);
+                obj.scoreVal=score(obj);
             end
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -244,7 +237,7 @@ classdef multiDOE < handle
                     obj.sortInfo.(field2check) = structIn.(field2check);
                 end
             end
-        end        
+        end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -253,13 +246,13 @@ classdef multiDOE < handle
         %%%%%%getter
         %get sorted
         function sorted=get.sorted(obj)
-                if obj.runDOE&&obj.okData
-                    %build sampling
-                    obj=build(obj);
-                    %compute scores
-                    obj.scoreVal=score(obj);
-                end
-                sorted=obj.sorted;
+            if obj.runDOE&&obj.okData
+                %build sampling
+                obj=build(obj);
+                %compute scores
+                obj.scoreVal=score(obj);
+            end
+            sorted=obj.sorted;
         end
         %get unsorted
         function unsorted=get.unsorted(obj)
@@ -269,22 +262,13 @@ classdef multiDOE < handle
                 %compute scores
                 obj.scoreVal=score(obj);
             end
-            unsorted=obj.unsorted;            
+            unsorted=obj.unsorted;
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %function for loading configuration associated with a test function
-        function loadConf(obj,funTest)
-            %load configuration
-            retInit=initDOE(obj.dimPB,[],[],funTest,false);
-            %defining properties
-            obj.funTest=retInit.funT;
-            obj.Xmin=retInit.Xmin;
-            obj.Xmax=retInit.Xmax;
-        end
         %function for initializing runDOE
         function initRunDOE(obj,flag)
             obj.runDOE=flag;
@@ -323,7 +307,7 @@ classdef multiDOE < handle
             if check(obj)&&obj.runDOE
                 obj.runDOE=false;
                 obj.unsorted=buildDOE(obj.type,obj.ns,obj.Xmin,obj.Xmax);
-                obj.sorted=sort(obj);                
+                obj.sorted=sort(obj);
             end
         end
         %display unsorted
@@ -410,7 +394,7 @@ classdef multiDOE < handle
             %two kind of input variables list (with keywords or not)
             %depend on the first argument: boolean for classical list of
             %argument or string if the use of keywords
-            if isa(varargin{1},'logical')              
+            if isa(varargin{1},'logical')
                 if nargin>1;obj.sortInfo=struct('on',varargin{1});end
                 if nargin>2
                     if ismember(varargin{2},obj.sortAvail)
@@ -457,7 +441,7 @@ classdef multiDOE < handle
                 Mfprintf('sortConf(bool,type,ptref,para,lnorm)\n');
                 Mfprintf('or sortConf(''key1'',val1,''key2'',val2...)\n');
                 availableSort(obj);
-            end            
+            end
         end
         %compare two sampling
         function iseq=eq(doeA,doeB)

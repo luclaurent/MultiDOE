@@ -4,7 +4,7 @@
 % sources available here:
 % https://bitbucket.org/luclaurent/multidoe/
 % https://github.com/luclaurent/multidoe/
-% 
+%
 %% usable syntaxes
 %init_doe
 %init_doe(dim)
@@ -61,7 +61,7 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-function [doe]=initDOE(dim,type,espM,funT,stateAutonomous)
+function [doe]=initDOE(dim,type,espM,stateAutonomous)
 
 
 Mfprintf('=========================================\n');
@@ -70,38 +70,26 @@ Mfprintf('      >>> DOE INITIALIZATION <<<\n');
 %depending on the number of parameters
 if nargin==0
     type='LHS';
-    funT=[];
     dim=[];
     espM=[zeros(dim,1) ones(dim,1)];
     stateAutonomous=true;
 elseif nargin==1
     type='LHS';
-    funT=[];
     espM=[zeros(dim,1) ones(dim,1)];
     stateAutonomous=true;
 elseif nargin==2
     if isempty(type);type='LHS';end
     espM=[zeros(dim,1) ones(dim,1)];
-    funT=[];
     stateAutonomous=true;
 elseif nargin==3
     if isempty(type);type='LHS';end
     if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
-    funT=[];
     stateAutonomous=true;
 elseif nargin==4
     if isempty(type);type='LHS';end
     if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end
-     stateAutonomous=true;
-elseif nargin==5
-    if isempty(type);type='LHS';end
-    if isempty(espM);espM=[zeros(dim,1) ones(dim,1)];end  
 end
 
-%automatic definition
-if ~isempty(funT)
-    [espM,dim]=initDOEfun(dim,funT);
-end
 
 TimeCount=mesuTime;
 
@@ -112,18 +100,7 @@ doe.dimPB=dim;
 %number of sample points
 doe.nS=[];
 
-doe.funT=[];
 doe.infos=[];
-if ~isempty(funT)
-    %save the name of the test function
-    doe.funT=['fun' funT];
-    
-    %if the test function exists (in a .m file)
-    if exist(doe.funT,'file')==2
-        %recover informations about the function (local and global minima)
-        [~,~,doe.infos]=feval(doe.funT,[],dim);
-    end
-end
 
 %%sorting of the sampling
 %criteria v/nptp/p/c/sac/sc/sasc (cf. buildDOE)
@@ -153,15 +130,11 @@ if ~isfield(doe,'Xmin')
 end
 %show information
 if stateAutonomous
-    if ~isempty(funT)
-        Mfprintf('++ Test function: %s (%iD)\n',funT,dim);
-    else
-        if ~isempty(dim)
-            Mfprintf('++ Number of variables: %i\n',dim);
-        end
+    if ~isempty(dim)
+        Mfprintf('++ Number of variables: %i\n',dim);
     end
     Mfprintf('++ Type of DOE: ');
-    if isempty(doe.type);fprintf('UNDEFINED\n');else fprintf('%s\n',doe.type);end
+    if isempty(doe.type);fprintf('UNDEFINED\n');else, fprintf('%s\n',doe.type);end
     Mfprintf('++ Design space: \n');
     if isempty(doe.Xmin)
         Mfprintf('UNDEFINED\n');
@@ -180,7 +153,7 @@ else
     Mfprintf('+++ Used methods for sorting: %s (%g)\n',doe.sort.type,doe.sort.para);
 end
 Mfprintf('++ Display sampling: ');
-if doe.disp; fprintf('Yes\n');else fprintf('NO\n');end
+if doe.disp; fprintf('Yes\n');else, fprintf('NO\n');end
 
 if stateAutonomous;TimeCount.stop;end
 Mfprintf('=========================================\n');

@@ -24,12 +24,10 @@
 
 % the enrichment requires the library 'R.matlab' in R software
 
-function newSampling=addSampleDOE(oldSampling,doe)
+function newSampling=addSampleDOE(oldSampling,ns,doe)
 
 Xmin=doe.Xmin;
 Xmax=doe.Xmax;
-
-ns=doe.ns;
 
 %extract the right information
 if isstruct(oldSampling);

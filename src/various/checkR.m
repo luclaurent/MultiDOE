@@ -30,6 +30,7 @@ rOk=false;
 TBXOk=false;
 %path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
+setenv('PATH','/usr/local/bin/');
 
 %load LHS library
 loadLHS='library(lhs)';

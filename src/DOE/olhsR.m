@@ -40,6 +40,7 @@ function [sampling,newSampling]=olhsR(Xmin,Xmax,ns,oldSampling,nbInfill)
 
 %path declaration for R software
 setenv('DYLD_LIBRARY_PATH','/usr/local/bin/');
+setenv('PATH','/usr/local/bin/');
 
 %%initialize options
 % storing directory

@@ -22,15 +22,12 @@
 %% Example of use of the MultiDOE toolbox
 % L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
-%initialize folders of the toolbox
-initDirMultiDOE;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%load configuration
-doe=initDOE(3);
-%
-doe.Xmin=[-1 -2 -3];% -1 -2 -3 -1 -2 -3 -3];
-doe.Xmax=[3 2 1];% 3 2 1 3 2 1 1];
+% load useful data
+dimPB=3;
+Xmin=[-1 -2 -3];% -1 -2 -3 -1 -2 -3 -3];
+Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 
 % available sampling techniques :
 % - ffact "full factorial"
@@ -53,11 +50,12 @@ doe.Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 % - rand
 % - perso
 
-doe.type='IHS_R_manu';
-doe.ns=32;
+type='LHS';
+ns=32;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
-[sampling,infos]=buildDOE(doe);
-sampling.sorted
-sampling.unsorted
+mDOE=multiDOE(dimPB,type,ns,Xmin,Xmax);
+mDOE.show;
+mDOE.sorted
+mDOE.unsorted
