@@ -120,34 +120,56 @@ classdef multiDOE < handle
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %constructor
-        function obj=multiDOE(dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
+        function obj=multiDOE(varargin)%,dimPBIn,typeIn,nsIn,XminIn,XmaxIn)
             %load directories on the path
             initDirMultiDOE;
-            %if the design space if given directly
+            %two cases of input arguments
             spaceD=[];
-            if size(dimPBIn,2)==2
-                dimPBOk=size(dimPBIn,1);
-                spaceD=dimPBIn;
-            else
-                dimPBOk=dimPBIn;
+            if nargin>0
+                if isa(varargin{1},'char')
+                    if nargin<4
+                        Mfprintf(' !! Bad number of input arguments');
+                    else
+                        typeIn=varargin{1};
+                        nsIn=varargin{2};
+                        XminIn=varargin{3};
+                        XmaxIn=varargin{4};
+                        dimPBOk=numel(XminIn);
+                    end
+                elseif isa(varargin{1},'double')
+                    %if the design space if given directly
+                    
+                    if size(varargin{1},2)==2
+                        dimPBOk=size(varargin{1},1);
+                        spaceD=varargin{1};
+                    else
+                        dimPBOk=varargin{1};
+                    end
+                    %
+                    if nargin>1;typeIn=varargin{2};end
+                    if nargin>2;nsIn=varargin{3};end
+                    if nargin>4;
+                        XminIn=varargin{4};
+                        XmaxIn=varargin{5};
+                    end
+                end
             end
+            
             %load default configuration
             retInit=initDOE(dimPBOk,[],spaceD,false);
             
             obj.Xmin=retInit.Xmin;obj.Xmax=retInit.Xmax;
             %specific configuration
             obj.dimPB=retInit.dimPB;
-            if nargin>1;if ~isempty(typeIn);obj.type=typeIn;end,end
-            if nargin>2;if ~isempty(nsIn);obj.ns=nsIn;end,end
-            if nargin>4
-                if ~isempty(XminIn)&&~isempty(XmaxIn)
-                    obj.Xmin=XminIn;obj.Xmax=XmaxIn;
-                end
+            if ~isempty(typeIn);obj.type=typeIn;end
+            if ~isempty(nsIn);obj.ns=nsIn;end
+            if ~isempty(XminIn)&&~isempty(XmaxIn)
+                obj.Xmin=XminIn;obj.Xmax=XmaxIn;
             end
             %load default configuration
             obj.sortInfo=retInit.sort;
             %build sampling
-            obj=build(obj);
+            build(obj);
             %if all is ok, continue
             if obj.okData
                 %compute scores
@@ -248,9 +270,9 @@ classdef multiDOE < handle
         function sorted=get.sorted(obj)
             if obj.runDOE&&obj.okData
                 %build sampling
-                obj=build(obj);
+                obj.build;
                 %compute scores
-                obj.scoreVal=score(obj);
+                obj.scoreVal=obj.score;
             end
             sorted=obj.sorted;
         end
@@ -258,9 +280,9 @@ classdef multiDOE < handle
         function unsorted=get.unsorted(obj)
             if obj.runDOE&&obj.okData
                 %build sampling
-                obj=build(obj);
+                obj.build;
                 %compute scores
-                obj.scoreVal=score(obj);
+                obj.scoreVal=obj.score;
             end
             unsorted=obj.unsorted;
         end
@@ -303,7 +325,7 @@ classdef multiDOE < handle
             obj.okData=isOk;
         end
         %sampling
-        function obj=build(obj)
+        function build(obj)
             if check(obj)&&obj.runDOE
                 obj.runDOE=false;
                 obj.unsorted=buildDOE(obj.type,obj.ns,obj.Xmin,obj.Xmax);
@@ -328,7 +350,7 @@ classdef multiDOE < handle
             if ~isempty(newSamplePts)
                 obj.unsorted=newSamplePts;
                 obj.sorted=sort(obj);
-                obj.ns=obj.ns+1;
+                obj.ns=obj.ns+NumberAdd;
                 obj.runDOE=false;
                 %compute scores
                 obj.scoreVal=score(obj);

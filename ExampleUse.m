@@ -25,7 +25,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % load useful data
-dimPB=3;
 Xmin=[-1 -2 -3];% -1 -2 -3 -1 -2 -3 -3];
 Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 
@@ -45,17 +44,15 @@ Xmax=[3 2 1];% 3 2 1 3 2 1 1];
 % - LHS 
 % - IHS
 % - LHS_O1
-% - IHS_R_manu_infill
-% - LHS_R_manu_infill
 % - rand
-% - perso
+% - custom
 
 type='LHS';
 ns=32;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
-mDOE=multiDOE(dimPB,type,ns,Xmin,Xmax);
+mDOE=multiDOE(type,ns,Xmin,Xmax);
 mDOE.show;
 mDOE.sorted
 mDOE.unsorted

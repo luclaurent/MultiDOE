@@ -91,20 +91,26 @@ This function is called by:
 0030 Xmax=doe.Xmax;
 0031 
 0032 <span class="comment">%extract the right information</span>
-0033 <span class="keyword">if</span> isstruct(oldSampling);
+0033 <span class="keyword">if</span> isstruct(oldSampling)
 0034     oldSampling=oldSampling.unsorted;
 0035 <span class="keyword">end</span>
 0036 
 0037 <span class="comment">% depending on the initial sampling</span>
-0038 <span class="keyword">switch</span> doe.type
-0039     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
-0040         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
-0041     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
-0042         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
-0043     <span class="keyword">otherwise</span>
-0044         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
-0045         newSampling=[];
-0046 <span class="keyword">end</span></pre></div>
-<hr><address>Generated on Fri 05-Oct-2018 16:30:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0038 type=doe.type;
+0039 strManu=type(end-3:end);
+0040 <span class="comment">%</span>
+0041 <span class="keyword">if</span> strcmp(strManu,<span class="string">'manu'</span>)
+0042     type=type(1:end-5);
+0043 <span class="keyword">end</span>
+0044 <span class="keyword">switch</span> type
+0045     <span class="keyword">case</span> <span class="string">'LHS_R'</span>
+0046         [newSampling]=<a href="../../../MultiDOE/src/DOE/lhsuR.html" class="code" title="function [sampling,newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling)">lhsuR</a>(Xmin,Xmax,ns,oldSampling);
+0047     <span class="keyword">case</span> <span class="string">'IHS_R'</span>
+0048         [newSampling]=<a href="../../../MultiDOE/src/DOE/ihsR.html" class="code" title="function [sampling,newSampling]=ihsR(Xmin,Xmax,ns,oldSampling)">ihsR</a>(Xmin,Xmax,ns,oldSampling);
+0049     <span class="keyword">otherwise</span>
+0050         fprintf(<span class="string">'&gt;&gt;&gt;&gt; Only LHS_R et IHS_R sampling \n allow enrichment\n'</span>)
+0051         newSampling=[];
+0052 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Wed 08-May-2019 14:48:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

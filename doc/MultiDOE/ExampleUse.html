@@ -86,40 +86,37 @@ This function is called by:
 0025 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0026 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0027 <span class="comment">% load useful data</span>
-0028 dimPB=3;
-0029 Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
-0030 Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
-0031 
-0032 <span class="comment">% available sampling techniques :</span>
-0033 <span class="comment">% - ffact &quot;full factorial&quot;</span>
-0034 <span class="comment">% - LHS_R</span>
-0035 <span class="comment">% - OLHS_R</span>
-0036 <span class="comment">% - MMLHS_R</span>
-0037 <span class="comment">% - GLHS_R</span>
-0038 <span class="comment">% - IHS_R</span>
-0039 <span class="comment">% - HALTON</span>
-0040 <span class="comment">% - SOBOL</span>
-0041 <span class="comment">% - LHSD --&gt; MATLAB (lhsdesign)</span>
-0042 <span class="comment">% - LHSD_CORRMIN</span>
-0043 <span class="comment">% - LHSD_MAXMIN</span>
-0044 <span class="comment">% - LHSD_NS</span>
-0045 <span class="comment">% - LHS</span>
-0046 <span class="comment">% - IHS</span>
-0047 <span class="comment">% - LHS_O1</span>
-0048 <span class="comment">% - IHS_R_manu_infill</span>
-0049 <span class="comment">% - LHS_R_manu_infill</span>
-0050 <span class="comment">% - rand</span>
-0051 <span class="comment">% - perso</span>
-0052 
-0053 type=<span class="string">'LHS'</span>;
-0054 ns=32;
-0055 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0056 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0057 <span class="comment">%build DOE</span>
-0058 mDOE=<a href="multiDOE.html" class="code" title="">multiDOE</a>(dimPB,type,ns,Xmin,Xmax);
-0059 mDOE.show;
-0060 mDOE.sorted
-0061 mDOE.unsorted</pre></div>
-<hr><address>Generated on Fri 05-Oct-2018 16:30:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0028 Xmin=[-1 -2 -3];<span class="comment">% -1 -2 -3 -1 -2 -3 -3];</span>
+0029 Xmax=[3 2 1];<span class="comment">% 3 2 1 3 2 1 1];</span>
+0030 
+0031 <span class="comment">% available sampling techniques :</span>
+0032 <span class="comment">% - ffact &quot;full factorial&quot;</span>
+0033 <span class="comment">% - LHS_R</span>
+0034 <span class="comment">% - OLHS_R</span>
+0035 <span class="comment">% - MMLHS_R</span>
+0036 <span class="comment">% - GLHS_R</span>
+0037 <span class="comment">% - IHS_R</span>
+0038 <span class="comment">% - HALTON</span>
+0039 <span class="comment">% - SOBOL</span>
+0040 <span class="comment">% - LHSD --&gt; MATLAB (lhsdesign)</span>
+0041 <span class="comment">% - LHSD_CORRMIN</span>
+0042 <span class="comment">% - LHSD_MAXMIN</span>
+0043 <span class="comment">% - LHSD_NS</span>
+0044 <span class="comment">% - LHS</span>
+0045 <span class="comment">% - IHS</span>
+0046 <span class="comment">% - LHS_O1</span>
+0047 <span class="comment">% - rand</span>
+0048 <span class="comment">% - custom</span>
+0049 
+0050 type=<span class="string">'LHS'</span>;
+0051 ns=32;
+0052 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0053 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
+0054 <span class="comment">%build DOE</span>
+0055 mDOE=<a href="multiDOE.html" class="code" title="">multiDOE</a>(type,ns,Xmin,Xmax);
+0056 mDOE.show;
+0057 mDOE.sorted
+0058 mDOE.unsorted</pre></div>
+<hr><address>Generated on Wed 08-May-2019 14:48:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

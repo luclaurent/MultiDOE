@@ -86,21 +86,20 @@ This function is called by:
 0025 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0026 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0027 <span class="comment">%load configuration</span>
-0028 dimPB=3;
-0029 Xmin=[-1 -2 -3];
-0030 Xmax=[3 2 1];
-0031 type=<span class="string">'LHS_R'</span>; <span class="comment">%or IHS_R</span>
-0032 ns=5;
+0028 Xmin=[-1 -2 -3];
+0029 Xmax=[3 2 1];
+0030 type=<span class="string">'LHS_R_manu'</span>; <span class="comment">%or IHS_R</span>
+0031 ns=5;
+0032 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0033 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0034 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0035 <span class="comment">%build DOE</span>
-0036 mDOE=<a href="multiDOE.html" class="code" title="">multiDOE</a>(dimPB,type,ns,Xmin,Xmax);
-0037 mDOE.show;
+0034 <span class="comment">%build DOE</span>
+0035 mDOE=<a href="multiDOE.html" class="code" title="">multiDOE</a>(type,ns,Xmin,Xmax);
+0036 mDOE.show;
+0037 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
 0038 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0039 <span class="comment">%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</span>
-0040 <span class="comment">%enrichment with 2 new sample points</span>
-0041 mDOE.addSample(2);
-0042 mDOE.show;</pre></div>
-<hr><address>Generated on Fri 05-Oct-2018 16:30:30 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
+0039 <span class="comment">%enrichment with 2 new sample points</span>
+0040 mDOE.addSample(2);
+0041 <span class="comment">%mDOE.show;</span></pre></div>
+<hr><address>Generated on Wed 08-May-2019 14:48:29 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" target="_parent">m2html</a></strong> &copy; 2005</address>
 </body>
 </html>

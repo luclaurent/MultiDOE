@@ -30,12 +30,18 @@ Xmin=doe.Xmin;
 Xmax=doe.Xmax;
 
 %extract the right information
-if isstruct(oldSampling);
+if isstruct(oldSampling)
     oldSampling=oldSampling.unsorted;
 end
 
 % depending on the initial sampling
-switch doe.type
+type=doe.type;
+strManu=type(end-3:end);
+%
+if strcmp(strManu,'manu')
+    type=type(1:end-5);
+end
+switch type
     case 'LHS_R'
         [newSampling]=lhsuR(Xmin,Xmax,ns,oldSampling);
     case 'IHS_R'

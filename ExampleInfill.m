@@ -25,18 +25,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %load configuration
-dimPB=3;
 Xmin=[-1 -2 -3];
 Xmax=[3 2 1];
-type='LHS_R'; %or IHS_R
+type='LHS_R_manu'; %or IHS_R
 ns=5;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %build DOE
-mDOE=multiDOE(dimPB,type,ns,Xmin,Xmax);
+mDOE=multiDOE(type,ns,Xmin,Xmax);
 mDOE.show;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %enrichment with 2 new sample points
 mDOE.addSample(2);
-mDOE.show;
+%mDOE.show;
