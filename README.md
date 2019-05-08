@@ -44,6 +44,11 @@ or
 
     git clone --recursive git@github.com:luclaurent/MultiDOE.git MultiDOE
 
+Citing this toolbox [![DOI](https://zenodo.org/badge/134069345.svg)](https://zenodo.org/badge/latestdoi/134069345)
+------
+
+If you use this toolbox please add a small reference to it. Check [here](https://doi.org/10.5281/zenodo.1249968) for the right citing form (depending on the version you used).
+
 
 Requirements
 ------
