@@ -1,6 +1,3 @@
-[submodule "src/libs/m2html"]
-	path = src/libs/m2html
-	url = git@github.com:l2/m2html.git
 [submodule "src/libs/--force"]
 	path = src/libs/--force
 	url = git@github.com:l2/m2html.git
