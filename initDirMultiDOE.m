@@ -99,9 +99,9 @@ flag=1;
 folder=fullfile(folder);
 if ispc
   % Windows is not case-sensitive
-  onPath = ~isempty(strfind(lower(path),lower(folder)));
+  onPath = contains(lower(path),lower(folder));
 else
-  onPath = ~isempty(strfind(path,folder));
+  onPath = contains(path,folder);
 end
 if exist(folder,'dir')&&~onPath
     flag=2;
