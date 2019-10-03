@@ -22,7 +22,7 @@
 %% Initialization of the directories (MATLAB's path)
 %% L. LAURENT -- 06/01/2014 -- luc.laurent@lecnam.net
 
-function foldersLoad=initDirMultiDOE(pathcustom,other)
+function [foldersLoad,pathAtAbsolute]=initDirMultiDOE(pathcustom,other)
 
 % variable 'other' (optional) of type cell must constain the list of other
 % toolboxes to load (they must be in '../.')
@@ -58,6 +58,16 @@ end
 
 %absolute paths
 pathAbsolute=cellfun(@(c)fullfile(pathcustom,c),foldersLoad,'uni',false);
+
+%scan all directory to find "@" folder (used for classes)
+folderAt=scanATfolder(pathcustom);
+for iP=1:numel(pathAbsolute)
+    folderAtTmp=scanATfolder(pathAbsolute{iP});
+    folderAt=[folderAt;folderAtTmp'];
+end
+
+%absolute paths
+pathAtAbsolute=cellfun(@(c)strrep(c,pathcustom,''),folderAt,'uni',false);
 
 %add to the PATH
 flA=cellfun(@(x)addpathExisted(x),pathAbsolute);
@@ -96,6 +106,25 @@ end
 if exist(folder,'dir')&&~onPath
     flag=2;
     addpath(folder)
+end
+end
+
+%scan folder for finding "@" (classes) folder
+function listDir=scanATfolder(folder)
+%scan the folder
+resScan=dir(folder);
+%
+listDir={};
+for ii=1:numel(resScan)
+    if resScan(ii).isdir
+        if resScan(ii).name(1)=='@'
+            if ~isempty(folder)
+                listDir{end+1}=fullfile(folder,resScan(ii).name);
+            else
+                listDir{end+1}=resScan(ii).name;
+            end
+        end
+    end
 end
 end
 

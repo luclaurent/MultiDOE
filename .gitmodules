@@ -4,3 +4,6 @@
 [submodule "src/libs/--force"]
 	path = src/libs/--force
 	url = git@github.com:l2/m2html.git
+[submodule "src/libs/builddoc"]
+	path = src/libs/builddoc
+	url = git@bitbucket.org:luclaurent/builddoc.git

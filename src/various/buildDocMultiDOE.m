@@ -1,61 +1,38 @@
-%     MultiDOE - Toolbox for sampling a bounded space
-%     Copyright (C) 2016  Luc LAURENT <luc.laurent@lecnam.net>
+%% Build documentation (using builddoc submodule)
+% L. LAURENT -- 03/10/2019 -- luc.laurent@lecnam.net
+
+%     GRENAT - GRadient ENhanced Approximation Toolbox
+%     A toolbox for generating and exploiting gradient-enhanced surrogate models
+%     Copyright (C) 2016-2017  Luc LAURENT <luc.laurent@lecnam.net>
 %
-% sources available here:
-% https://bitbucket.org/luclaurent/multidoe/
-% https://github.com/luclaurent/multidoe/
-% 
 %     This program is free software: you can redistribute it and/or modify
 %     it under the terms of the GNU General Public License as published by
 %     the Free Software Foundation, either version 3 of the License, or
 %     (at your option) any later version.
-% 
+%
 %     This program is distributed in the hope that it will be useful,
 %     but WITHOUT ANY WARRANTY; without even the implied warranty of
 %     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 %     GNU General Public License for more details.
-% 
+%
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-%     
 
-%% Build documentation (using m2html library)
-% L. LAURENT -- 07/02/2014 -- luc.laurent@lecnam.net
+%path of this script
+fp=mfilename('fullpath');
+fps=strsplit(fp,filesep);
+fps{1}='/';
+%
+folderSrc=fullfile(fps{1:end-2});
+folderLibs=fullfile(folderSrc,'libs');
+folderDocs=fullfile(folderLibs,'builddoc');
 
-%load paths
-dirPath=initDirMultiDOE;
+% update the submodule
+system(['cd ' folderLibs ';git submodule update builddoc']);
 
-%% Build documentation
+% add builddoc in path
+addpath(folderDocs);
 
-%add configurtation to bash (for finding 'dot' script of graphviz)
-setenv('BASH_ENV','~/.bash_profile');
+% run buildDoc
+buildDoc('MultiDOE')
 
-%directory to be analysed
-analyseDir='MultiDOE';
-%ignoring directory
-%ignDir={'};
-
-%list of files
-listFiles=listFilesToolboxMultiDOE(dirPath);
-%add path to all files
-listFiles=cellfun(@(x) sprintf('%s/%s',analyseDir,x),listFiles,'UniformOutput',false);
-
-cd ..
-warning('off')
-%addpath of m2html
-addpath(fullfile(analyseDir,'src','libs','m2html'));
-
-%execute generation of the doc (Graphviz is optional)
-m2html('mfiles',listFiles,...
-    'htmldir',[analyseDir '/doc'],...
-    'recursive','on',...
-    'global','on',...
-    'globalHypertextLinks','on',...
-    'index','menu',...
-    'template','frame',...
-    'index','menu',...
-    'download','off',...
-    'graph','on')
-warning('on')
-cd(analyseDir)
-%%%%%%
