@@ -2,7 +2,7 @@ MultiDOE
 =======
 
 [![GitHub license](https://img.shields.io/github/license/luclaurent/MultiDOE.svg)](https://github.com/luclaurent/MultiDOE/blob/master/LICENSE.md)
- [![Github Releases](https://img.shields.io/github/release/luclaurent/MultiDOE.svg)](https://github.com/luclaurent/optiGTest/releases) [![DOI](https://zenodo.org/badge/134069345.svg)](https://zenodo.org/badge/latestdoi/134069345)
+ [![Github Releases](https://img.shields.io/github/release/luclaurent/MultiDOE.svg)](https://github.com/luclaurent/MultiDOE/releases) [![DOI](https://zenodo.org/badge/134069345.svg)](https://zenodo.org/badge/latestdoi/134069345)
 
 This MATLAB/OCTAVE toolbox regroups many existing tools for generating sample points using many specific DOE techniques:
 
