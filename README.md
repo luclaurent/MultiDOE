@@ -59,11 +59,11 @@ The toolbox requires:
 * the [lhs](https://cran.r-project.org/web/packages/lhs/index.html) and [R.matlab](https://cran.r-project.org/web/packages/R.matlab/index.html) packages installed on R (see for instance [How to Install a R Package](http://math.usask.ca/~longhai/software/installrpkg.html))
 * the [graphviz software](www.graphviz.org) (the `dot` command must be available on the command line) for building the documentation [optional].
 
-[Documentation](https://goo.gl/t0hmjG)
+[Documentation](http://bit.ly/docmultidoe)
 ------
 The automatic building of the documentation is based on the [m2html](http://www.artefact.tk/software/matlab/m2html/) software.
 
-The obtained documentation is available [here](https://goo.gl/t0hmjG).
+The obtained documentation is available [here](http://bit.ly/docmultidoe).
 
 
 License ![GNU GPLv3](http://www.gnu.org/graphics/gplv3-88x31.png)
